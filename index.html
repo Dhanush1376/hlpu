@@ -518,20 +518,20 @@
             
             // 7. Redirect to landing page (5.8s)
             setTimeout(function() {
-                window.location.href = 'Landing-Page.html';
+                window.location.href = 'landing-page.html';
             }, 5800);
             
             // ===== FALLBACK FOR SLOW NETWORKS =====
             // Ensure redirect even if something goes wrong
             setTimeout(function() {
-                window.location.href = 'Landing-Page.html';
+                window.location.href = 'landing-page.html';
             }, 8000);
             
             // ===== PRELOAD LANDING PAGE (improves perceived performance) =====
             setTimeout(function() {
                 const preloadLink = document.createElement('link');
                 preloadLink.rel = 'preload';
-                preloadLink.href = 'Landing-Page.html';
+                preloadLink.href = 'landing-page.html';
                 preloadLink.as = 'document';
                 document.head.appendChild(preloadLink);
             }, 3000);

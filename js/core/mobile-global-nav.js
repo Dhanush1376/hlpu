@@ -103,7 +103,7 @@ const MobileGlobalNav = {
             <div id="mob-global-nav-injected" class="mobile-only">
                 <div class="mob-header">
                     <div class="mob-logo">
-                        <img src="../assets/assets/images/hlpu logo.png" alt="hLPU Logo" onerror="this.src=''; this.alt='hlpu';">
+                        <img src="../assets/assets/images/hlpu-logo.png" alt="hLPU Logo" onerror="this.src=''; this.alt='hlpu';">
                     </div>
                     <div class="mob-header-actions">
                         <a href="${config.profileLink}" style="text-decoration: none;">

@@ -390,7 +390,7 @@
     window._adminLogout = function () {
         localStorage.removeItem('token');
         localStorage.removeItem('userName');
-        window.location.href = '../Main/Login.html';
+        window.location.href = '../Main/login.html';
     };
 
     /* ============ ACTIVITY LOGS ============ */

@@ -167,7 +167,7 @@ const MobileDashboard = {
             : `
             <div class="mob-header">
                 <div class="mob-logo">
-                    <img src="../assets/assets/images/hlpu logo.png" alt="hLPU Logo" onerror="this.src=''; this.alt='hlpu';">
+                    <img src="../assets/assets/images/hlpu-logo.png" alt="hLPU Logo" onerror="this.src=''; this.alt='hlpu';">
                 </div>
                 <div class="mob-header-actions">
                     <a href="Student-Profile.html" style="text-decoration: none;">

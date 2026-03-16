@@ -114,7 +114,7 @@ window.MobileNav = {
                     <a href="Contact-Us.html" class="mob-sidenav-item"><i class="fas fa-life-ring"></i> Help & Support</a>
                     <div style="flex: 1; min-height: 40px;"></div>
                     <a href="Settings.html" class="mob-sidenav-item"><i class="fas fa-cog"></i> Settings</a>
-                    <a href="#" class="mob-sidenav-item logout-btn" style="color: #dc3545;" onclick="if(typeof window.handleLogout==='function'){window.handleLogout();}else{localStorage.clear();window.location.href='../Main/Login.html';}"><i class="fas fa-sign-out-alt" style="color: #dc3545;"></i> Logout</a>
+                    <a href="#" class="mob-sidenav-item logout-btn" style="color: #dc3545;" onclick="if(typeof window.handleLogout==='function'){window.handleLogout();}else{localStorage.clear();window.location.href='../Main/login.html';}"><i class="fas fa-sign-out-alt" style="color: #dc3545;"></i> Logout</a>
                 </div>
             </div>
         `;

@@ -131,7 +131,7 @@
     window._adminLogout = function () {
         if (typeof Swal !== 'undefined') {
             Swal.fire({ title: 'Logout?', text: 'You will return to the login page.', icon: 'question', showCancelButton: true, confirmButtonText: 'Logout', confirmButtonColor: '#b71c1c', background: '#FFF8F0' }).then(r => {
-                if (r.isConfirmed) { localStorage.clear(); window.location.href = '../Main/Login.html'; }
+                if (r.isConfirmed) { localStorage.clear(); window.location.href = '../Main/login.html'; }
             });
         }
     };

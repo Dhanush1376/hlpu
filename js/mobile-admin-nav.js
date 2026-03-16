@@ -105,7 +105,7 @@
                         <a href="System-prefs.html" class="mob-sidenav-item"><i class="fas fa-cog"></i> System Prefs</a>
                         <a href="Audit-trails.html" class="mob-sidenav-item"><i class="fas fa-clipboard-list"></i> Audit Trails</a>
                         <div style="flex: 1; min-height: 40px;"></div>
-                        <a href="#" class="mob-sidenav-item logout-btn" style="color: #dc3545;" onclick="if(typeof window.handleLogout==='function'){window.handleLogout();}else{localStorage.clear();window.location.href='../Main/Login.html';}"><i class="fas fa-sign-out-alt" style="color: #dc3545;"></i> Logout</a>
+                        <a href="#" class="mob-sidenav-item logout-btn" style="color: #dc3545;" onclick="if(typeof window.handleLogout==='function'){window.handleLogout();}else{localStorage.clear();window.location.href='../Main/login.html';}"><i class="fas fa-sign-out-alt" style="color: #dc3545;"></i> Logout</a>
                     </div>
                 </div>
             `;

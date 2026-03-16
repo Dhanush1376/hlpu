@@ -29,7 +29,7 @@ function initMobileLanding() {
     if (subEl) subEl.textContent = heroContent.subheadline;
     if (primaryCTA) {
         primaryCTA.innerHTML = `<i class="fas fa-compass mr-2"></i>${heroContent.heroCTA}`;
-        primaryCTA.href = "Login.html";
+        primaryCTA.href = "login.html";
     }
     if (secondaryCTA) secondaryCTA.innerHTML = `<i class="fas fa-handshake mr-2"></i>${heroContent.exploreCTA}`;
     if (illustrationEl) illustrationEl.src = heroContent.illustrationSrc;

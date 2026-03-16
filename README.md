@@ -29,7 +29,9 @@ hlpu/
 ├── For-Admin/          # Admin-only pages
 ├── For-Alumini/        # Alumni portal
 ├── For-Student/        # Student portal
-├── Main/               # Entry point and landing pages
+├── Index.html          # Entry point (Splash Screen)
+├── Landing-Page.html   # Main dashboard landing
+├── Login.html          # Authentication page
 ├── shared/             # Common HTML components (navbars)
 ├── docs/               # Project documentation
 ├── .gitignore          # Files to ignore in Git
@@ -56,7 +58,7 @@ hlpu/
    cd event_management_system
    ```
 3. Open the entry point file in your browser:
-   `Main/Index.html`
+   `Index.html`
 
 ## Future Improvements
 

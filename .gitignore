@@ -1,0 +1,22 @@
+# node_modules
+node_modules/
+package-lock.json
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+/tmp/
+*.log
+
+# Backend specific
+hlpu-backend/node_modules/
+hlpu-backend/.env

@@ -1,0 +1,608 @@
+/* ============================================================== 
+   mobile-jobs.css 
+   Mobile-specific styles for Job Opportunities
+   Pixel-perfect to reference screenshot
+============================================================== */
+
+@media (max-width: 768px) {
+
+    html,
+    body {
+        background: linear-gradient(180deg, #fdf6ec 0%, #fae9e3 40%, #ffffff 100%) !important;
+        background-attachment: fixed !important;
+        min-height: 100vh !important;
+    }
+
+    #mobile-root {
+        padding: 85px 15px 100px 15px;
+        min-height: 100vh;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* FIX MODAL VISIBILITY ON MOBILE */
+    .modal {
+        z-index: 9999 !important;
+    }
+
+    .modal-backdrop {
+        z-index: 9998 !important;
+    }
+
+    .modal-dialog {
+        margin: 1.75rem 15px;
+        display: flex;
+        align-items: center;
+        min-height: calc(100% - 3.5rem);
+    }
+
+    .modal-content {
+        border-radius: 24px;
+        border: none;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-header {
+        border-bottom: 1px solid rgba(10, 26, 47, 0.05);
+        padding: 20px;
+    }
+
+    .modal-title {
+        font-weight: 800;
+        color: #0A1A2F;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    .modal-footer {
+        border-top: 1px solid rgba(10, 26, 47, 0.05);
+        padding: 15px 20px;
+    }
+
+    /* 1. PAGE HEADER */
+    .mob-jobs-header {
+        margin-bottom: 15px;
+    }
+
+    .mob-jobs-header h1 {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #0A1A2F;
+        margin-bottom: 4px;
+        letter-spacing: -0.02em;
+    }
+
+    .mob-jobs-header p {
+        font-size: 0.8rem;
+        color: #5f6b7a;
+        line-height: 1.4;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .mob-jobs-header p i {
+        color: #C2491F;
+        margin-top: 3px;
+        font-size: 0.85rem;
+    }
+
+    /* 2. QUICK ACTION PILLS */
+    .mob-quick-pills {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .mob-pill-btn {
+        background: white;
+        border: 1px solid rgba(10, 26, 47, 0.1);
+        border-radius: 40px;
+        padding: 10px 8px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #0A1A2F;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        box-shadow: 0 4px 12px rgba(10, 26, 47, 0.04);
+        transition: all 0.2s;
+        text-decoration: none !important;
+    }
+
+    .mob-pill-btn:active {
+        transform: scale(0.96);
+        background: #fdf6ec;
+    }
+
+    .mob-pill-btn i {
+        font-size: 0.85rem;
+        color: #0A1A2F;
+    }
+
+    /* 3. UNIFIED SEARCH */
+    .mob-search-container {
+        margin-bottom: 20px;
+    }
+
+    .mob-unified-search {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(194, 73, 31, 0.1);
+        border-radius: 20px;
+        padding: 5px 15px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        box-shadow: 0 8px 24px rgba(10, 26, 47, 0.04);
+        transition: all 0.3s ease;
+    }
+
+    .mob-unified-search:focus-within {
+        background: white;
+        border-color: #C2491F;
+        box-shadow: 0 12px 30px rgba(194, 73, 31, 0.12);
+        transform: translateY(-2px);
+    }
+
+    .mob-unified-search .search-icon {
+        color: #C2491F;
+        font-size: 1.1rem;
+        opacity: 0.8;
+    }
+
+    .mob-unified-search input {
+        border: none;
+        background: transparent;
+        width: 100%;
+        padding: 12px 0;
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: #0A1A2F;
+        outline: none;
+    }
+
+    .mob-unified-search input::placeholder {
+        color: #8f9aaa;
+        font-weight: 400;
+    }
+
+    /* 4. JOB CARDS (PREMIUM GLASS) */
+    .mob-job-card {
+        background: rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        border-radius: 28px;
+        padding: 22px;
+        margin-bottom: 20px;
+        box-shadow: 0 15px 35px rgba(10, 26, 47, 0.06);
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+
+    .mob-job-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 6px;
+        background: linear-gradient(90deg, #C2491F, #f59e0b);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .mob-job-card:active {
+        transform: scale(0.98);
+        background: rgba(255, 255, 255, 0.8);
+    }
+
+    .mob-job-card-header {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 18px;
+    }
+
+    .mob-company-logo {
+        width: 52px;
+        height: 52px;
+        border-radius: 16px;
+        background: white;
+        border: 1px solid rgba(194, 73, 31, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        color: #C2491F;
+        font-size: 1.2rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        flex-shrink: 0;
+        overflow: hidden;
+    }
+
+    .mob-company-logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        padding: 6px;
+    }
+
+    .mob-job-info {
+        flex: 1;
+    }
+
+    .mob-job-info h3 {
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: #0A1A2F;
+        margin: 0 0 5px 0;
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+    }
+
+    .mob-company-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .mob-company-name {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #C2491F;
+    }
+
+    .mob-campus-badge {
+        background: #fff3e0;
+        color: #e65100;
+        border: 1px solid #ffe0b2;
+        padding: 2px 8px;
+        border-radius: 40px;
+        font-size: 0.6rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .mob-salary-badge {
+        background: #e9f7ef;
+        color: #27ae60;
+        padding: 4px 10px;
+        border-radius: 40px;
+        font-size: 0.65rem;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        align-self: flex-start;
+    }
+
+    .mob-job-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+
+    .mob-tag {
+        background: rgba(10, 26, 47, 0.04);
+        padding: 6px 14px;
+        border-radius: 50px;
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: #5f6b7a;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        border: 1px solid rgba(10, 26, 47, 0.02);
+    }
+
+    .mob-tag i {
+        font-size: 0.75rem;
+        color: #C2491F;
+        opacity: 0.8;
+    }
+
+    .mob-job-description {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 0.78rem;
+        color: #5f6b7a;
+        line-height: 1.4;
+        margin-bottom: 15px;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .mob-job-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr auto auto;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 15px;
+        /* Added space before footer */
+    }
+
+    .mob-btn-details,
+    .mob-btn-apply {
+        border-radius: 16px;
+        padding: 12px 10px;
+        font-size: 0.85rem;
+        font-weight: 800;
+        border: none;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mob-btn-details {
+        background: #f1f5f9;
+        color: #0A1A2F;
+    }
+
+    .mob-btn-apply {
+        background: #0A1A2F;
+        color: white;
+        box-shadow: 0 10px 20px -5px rgba(10, 26, 47, 0.3);
+    }
+
+    .mob-btn-apply.applied {
+        background: #059669;
+        opacity: 1;
+        box-shadow: none;
+    }
+
+    .mob-btn-save {
+        width: 46px;
+        height: 46px;
+        border-radius: 16px;
+        background: white;
+        border: 1px solid rgba(10, 26, 47, 0.08);
+        color: #8f9aaa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        transition: all 0.2s ease;
+    }
+
+    .mob-btn-save.active {
+        color: #C2491F;
+        background: #fff7ed;
+        border-color: #ffedd5;
+    }
+
+    .mob-btn-icon {
+        width: 34px;
+        height: 34px;
+        background: white;
+        border: 1px solid rgba(10, 26, 47, 0.1);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #5f6b7a;
+        font-size: 0.9rem;
+    }
+
+    .mob-btn-icon.saved {
+        color: #f59e0b;
+        background: #fffbeb;
+        border-color: #fef3c7;
+    }
+
+    .mob-btn-report-circle {
+        width: 46px;
+        height: 46px;
+        border-radius: 16px;
+        background: #fff5f5;
+        border: 1px solid #fed7d7;
+        color: #e53e3e;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        transition: all 0.2s ease;
+    }
+
+    .mob-btn-report-circle:active {
+        transform: scale(0.9);
+        background: #fee2e2;
+    }
+
+    .mob-btn-report {
+        background: #fef2f2;
+        color: #dc2626;
+        border: 1px solid #fee2e2;
+        border-radius: 8px;
+        padding: 8px 10px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .mob-job-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 10px;
+        border-top: 1px solid rgba(10, 26, 47, 0.05);
+        font-size: 0.65rem;
+        color: #8f9aaa;
+        font-weight: 600;
+    }
+
+    .mob-footer-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .mob-deadline {
+        color: #C2491F;
+        font-weight: 800;
+    }
+
+    .mob-match {
+        color: #ca8a04;
+        font-weight: 800;
+    }
+
+    .mob-deadline.expired {
+        color: #dc2626;
+        opacity: 0.8;
+    }
+
+    /* SPECIFIC TAG COLORS */
+    .mob-job-tag.internship i {
+        color: #f59e0b;
+    }
+
+    .mob-job-tag.remote i {
+        color: #3b82f6;
+    }
+
+    .mob-job-tag.experience i {
+        color: #8b5cf6;
+    }
+
+    .mob-job-tag.location i {
+        color: #ef4444;
+    }
+
+    /* 5. PAGINATION */
+    #mob-pagination {
+        margin: 10px 0 30px 0;
+    }
+
+    .mob-pagination-flex {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .mob-pag-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        border: 1px solid rgba(10, 26, 47, 0.1);
+        background: white;
+        color: #0A1A2F;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        transition: all 0.2s;
+    }
+
+    .mob-pag-btn:disabled {
+        opacity: 0.4;
+        background: #f8fafc;
+    }
+
+    .mob-pag-info {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #0A1A2F;
+    }
+
+    /* 6. MODAL REFINEMENTS (MOBILE ONLY) */
+    .modal-dialog {
+        margin: 1.75rem auto;
+        max-width: 90%;
+        display: flex;
+        align-items: center;
+        min-height: calc(100% - 3.5rem);
+    }
+
+    .modal-content {
+        border-radius: 24px;
+        border: none;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .modal-header {
+        padding: 20px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .modal-body {
+        padding: 20px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .modal-footer {
+        padding: 15px 20px;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    /* Fixed Line-Clamp Lint */
+    .mob-job-description {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    /* 7. STATUS BADGES (MOBILE) */
+    .mob-status-badge {
+        padding: 5px 12px;
+        border-radius: 40px;
+        font-size: 0.65rem;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        margin-left: auto;
+    }
+
+    .mob-status-pending {
+        background: rgba(246, 173, 85, 0.15);
+        color: #c05621;
+        border: 1px solid rgba(246, 173, 85, 0.2);
+    }
+
+    .mob-status-accepted {
+        background: rgba(52, 211, 153, 0.15);
+        color: #065f46;
+        border: 1px solid rgba(52, 211, 153, 0.2);
+    }
+
+    .mob-status-rejected {
+        background: rgba(248, 113, 113, 0.15);
+        color: #991b1b;
+        border: 1px solid rgba(248, 113, 113, 0.2);
+    }
+
+    .mob-status-withdrawn {
+        background: rgba(156, 163, 175, 0.15);
+        color: #374151;
+        border: 1px solid rgba(156, 163, 175, 0.2);
+    }
+}

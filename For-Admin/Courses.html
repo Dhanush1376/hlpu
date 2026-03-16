@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hLPU | Admin Courses</title>
+    <link rel="icon" type="image/png" href="../assets/images/hlpu logo.png">
+
+    <!-- Bootstrap 4.6 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+
+    <link rel="stylesheet" href="../css/core/theme.css" />
+    <link rel="stylesheet" href="../css/core/NavBar.css" />
+    <link rel="stylesheet" href="../css/mobile-nav.css" />
+    <link rel="stylesheet" href="../css/mobile-fixes.css" />
+    <link rel="stylesheet" href="../css/mobile-admin.css" />
+
+
+    <style>
+        .dashboard-container {
+            padding: 110px 35px 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .welcome-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .welcome-header h1 span {
+            background: linear-gradient(145deg, var(--ember), #bd6725);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-add {
+            background: var(--ember);
+            color: white;
+            border-radius: 40px;
+            padding: 14px 36px;
+            font-weight: 600;
+            border: none;
+            transition: var(--transition);
+            box-shadow: 0 10px 18px -8px var(--ember);
+        }
+
+        .btn-add:hover {
+            background: var(--gilt);
+            transform: scale(1.02);
+            color: white;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+            margin: 30px 0 35px;
+        }
+
+        .stat-card {
+            background: rgba(255, 249, 240, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 28px;
+            padding: 22px;
+            border: var(--border-light);
+            box-shadow: var(--shadow-elevation);
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .stat-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 18px;
+            background: rgba(194, 73, 31, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--ember);
+            font-size: 1.6rem;
+        }
+
+        .stat-content .number {
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        /* Courses Table */
+        .glass-panel {
+            background: rgba(255, 250, 245, 0.6);
+            backdrop-filter: blur(12px);
+            border-radius: 32px;
+            border: var(--border-light);
+            padding: 30px;
+            box-shadow: var(--shadow-elevation);
+            margin-bottom: 30px;
+        }
+
+        .table thead th {
+            border: none;
+            color: #5f6d7c;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            padding: 20px;
+        }
+
+        .table tbody td {
+            padding: 20px;
+            vertical-align: middle;
+            border-top: 1px solid rgba(194, 73, 31, 0.05);
+            font-weight: 500;
+        }
+
+        .badge-level {
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .level-beginner {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .level-intermediate {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        .level-advanced {
+            background: #fce4ec;
+            color: #c2185b;
+        }
+
+        .action-btns i {
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-left: 15px;
+            transition: var(--transition);
+            color: #8d6e63;
+        }
+
+        .action-btns i:hover {
+            color: var(--ember);
+            transform: scale(1.1);
+        }
+
+        /* Year Select */
+        .year-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .year-check {
+            position: relative;
+        }
+
+        .year-check input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .year-label {
+            display: block;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(10, 26, 47, 0.1);
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .year-check input:checked+.year-label {
+            background: var(--ember);
+            color: white;
+            border-color: var(--ember);
+            box-shadow: 0 4px 12px rgba(194, 73, 31, 0.2);
+        }
+
+        /* Upload Area */
+        .upload-area {
+            border: 2px dashed rgba(194, 73, 31, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            background: rgba(194, 73, 31, 0.02);
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-area:hover {
+            border-color: var(--ember);
+            background: rgba(194, 73, 31, 0.05);
+        }
+
+        .upload-area i {
+            font-size: 2rem;
+            color: var(--ember);
+            margin-bottom: 12px;
+        }
+
+        .upload-area p {
+            margin: 0;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .upload-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            background: var(--ember);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Toggle Switch */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        .switch input:checked+.slider {
+            background-color: var(--ember);
+        }
+
+        .switch input:checked+.slider:before {
+            transform: translateX(24px);
+        }
+
+        /* Chips */
+        .chips-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(10, 26, 47, 0.1);
+            border-radius: 12px;
+            min-height: 52px;
+        }
+
+        .chips-container input {
+            border: none;
+            background: transparent;
+            outline: none;
+            flex-grow: 1;
+            min-width: 120px;
+            font-size: 0.95rem;
+        }
+
+        .chip {
+            background: var(--ink);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .chip i {
+            cursor: pointer;
+            font-size: 0.7rem;
+            opacity: 0.8;
+        }
+
+        .chip i:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div id="navbar"></div>
+    <div class="mesh-bg">
+        <div class="mesh mesh-1"
+            style="position:fixed; top:-200px; left:-100px; width:600px; height:600px; background:#ffb68b; border-radius:50%; filter:blur(90px); opacity:0.2;">
+        </div>
+        <div class="mesh mesh-2"
+            style="position:fixed; bottom:-250px; right:-100px; width:650px; height:650px; background:#fdae6a; border-radius:50%; filter:blur(90px); opacity:0.2;">
+        </div>
+    </div>
+
+    <div class="dashboard-container">
+        <div class="welcome-header d-flex flex-wrap align-items-center justify-content-between">
+            <div>
+                <h1><span>course</span> management</h1>
+                <p><i class="fas fa-graduation-cap text-heritage"></i> Curate academic pathways and professional
+                    roadmaps</p>
+            </div>
+            <button class="btn-add" onclick="openAddModal()">
+                <i class="fas fa-plus-circle mr-2"></i> Add New Course
+            </button>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-book"></i></div>
+                <div class="stat-content">
+                    <div class="number" id="statsTotal">0</div>
+                    <span class="label text-muted">Total Courses</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-route"></i></div>
+                <div class="stat-content">
+                    <div class="number" id="statsRoadmaps">0</div>
+                    <span class="label text-muted">Active Roadmaps</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-users"></i></div>
+                <div class="stat-content">
+                    <div class="number" id="statsEnrollment">1.2k</div>
+                    <span class="label text-muted">Est. Reach</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                <div class="stat-content">
+                    <div class="number" id="statsPublished">100%</div>
+                    <span class="label text-muted">Sync Status</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-panel">
+            <table class="table" id="coursesTable">
+                <thead>
+                    <tr>
+                        <th>Course Title</th>
+                        <th>Category</th>
+                        <th>Level</th>
+                        <th>Duration</th>
+                        <th>Status</th>
+                        <th class="text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="coursesBody">
+                    <!-- Data injected here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- COURSE MODAL -->
+    <div class="modal fade" id="courseModal" tabindex="-1">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-weight-800" id="modalTitle">Create Intelligence Course</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body p-5">
+                    <form id="courseForm">
+                        <div class="row">
+                            <!-- Left Column: Core Info -->
+                            <div class="col-lg-7">
+                                <div class="form-group mb-4">
+                                    <label class="font-weight-700 small text-muted text-uppercase">Course
+                                        Title</label>
+                                    <input type="text" id="courseTitle" class="form-control" required
+                                        placeholder="e.g., Senior Frontend Engineer Mastery">
+                                </div>
+
+                                <div class="form-group mb-4">
+                                    <label class="font-weight-700 small text-muted text-uppercase">Summary Line (For
+                                        Card)</label>
+                                    <input type="text" id="courseSummary" class="form-control" required maxlength="150"
+                                        placeholder="Master modern React, TypeScript, and architecture...">
+                                </div>
+
+                                <div class="form-group mb-4">
+                                    <label class="font-weight-700 small text-muted text-uppercase">Detailed
+                                        Description</label>
+                                    <textarea id="courseDescription" class="form-control" rows="6" required
+                                        placeholder="Explain the deep value proposition of this course..."></textarea>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-4">
+                                            <label class="font-weight-700 small text-muted text-uppercase">Job Roles
+                                                (Order: Entry → Adv)</label>
+                                            <div class="chips-container" id="rolesChips">
+                                                <input type="text" id="roleInput" placeholder="Add role + Enter">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-4">
+                                            <label class="font-weight-700 small text-muted text-uppercase">Skills
+                                                Required</label>
+                                            <div class="chips-container" id="skillsChips">
+                                                <input type="text" id="skillInput" placeholder="Add skill + Enter">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="font-weight-700 small text-muted text-uppercase">Top Hiring
+                                        Companies</label>
+                                    <div class="chips-container" id="companiesChips">
+                                        <input type="text" id="companyInput" placeholder="Add company + Enter">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Column: Meta & Roadmap -->
+                            <div class="col-lg-5">
+                                <div class="glass-panel p-4 mb-4" style="background: rgba(194,73,31,0.03);">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-4">
+                                                <label
+                                                    class="font-weight-700 small text-muted text-uppercase">Category</label>
+                                                <select id="courseCategory" class="form-control">
+                                                    <option value="AI & Data">AI & Data</option>
+                                                    <option value="Web Dev">Web Dev</option>
+                                                    <option value="Core Engineering">Core Engineering</option>
+                                                    <option value="Product & Design">Product & Design</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-4">
+                                                <label
+                                                    class="font-weight-700 small text-muted text-uppercase">Level</label>
+                                                <select id="courseLevel" class="form-control">
+                                                    <option value="beginner">Beginner</option>
+                                                    <option value="intermediate">Intermediate</option>
+                                                    <option value="advanced">Advanced</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label class="font-weight-700 small text-muted text-uppercase">Duration
+                                            Estimate</label>
+                                        <input type="text" id="courseDuration" class="form-control" required
+                                            placeholder="e.g., 12 Weeks">
+                                    </div>
+
+                                    <div class="form-group mb-4">
+                                        <label class="font-weight-700 small text-muted text-uppercase">Eligible
+                                            Years</label>
+                                        <div class="year-grid">
+                                            <div class="year-check">
+                                                <input type="checkbox" name="years" value="1" id="y1">
+                                                <label for="y1" class="year-label">1st</label>
+                                            </div>
+                                            <div class="year-check">
+                                                <input type="checkbox" name="years" value="2" id="y2">
+                                                <label for="y2" class="year-label">2nd</label>
+                                            </div>
+                                            <div class="year-check">
+                                                <input type="checkbox" name="years" value="3" id="y3">
+                                                <label for="y3" class="year-label">3rd</label>
+                                            </div>
+                                            <div class="year-check">
+                                                <input type="checkbox" name="years" value="4" id="y4">
+                                                <label for="y4" class="year-label">4th</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                        <label class="font-weight-700 small text-muted text-uppercase mb-0">Trending
+                                            Course</label>
+                                        <label class="switch">
+                                            <input type="checkbox" id="isTrending">
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="font-weight-700 small text-muted text-uppercase">Roadmap Blueprint
+                                        (PDF Only)</label>
+                                    <div class="upload-area" id="dropZone"
+                                        onclick="document.getElementById('fileInput').click()">
+                                        <i class="fas fa-file-pdf"></i>
+                                        <p id="uploadStatus">Click to Upload Blueprint</p>
+                                        <input type="file" id="fileInput" hidden accept=".pdf">
+                                        <div class="upload-progress" id="uploadBar"></div>
+                                    </div>
+                                    <input type="hidden" id="coursePdfUrl">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-0 p-5 pt-0">
+                    <button type="button" class="btn btn-link text-muted font-weight-700 px-4"
+                        data-dismiss="modal">Discard</button>
+                    <button type="button" class="btn-add py-3 px-5 shadow-lg" id="saveBtn" onclick="saveCourse()">
+                        <i class="fas fa-sparkles mr-2"></i> Save Intelligence Course
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../js/core/api.js"></script>
+    <script src="../js/core/loadComponents.js" defer></script>
+    <script src="../js/core/authGuard.js"></script>
+
+    <script>
+        let currentEditId = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchCourses();
+            initChipsUI('skillInput', 'skillsChips');
+            initChipsUI('roleInput', 'rolesChips');
+            initChipsUI('companyInput', 'companiesChips');
+            initUploadUI();
+        });
+
+        async function fetchCourses() {
+            try {
+                const res = await apiFetch('/api/admin/courses');
+                if (res.success) {
+                    renderCourses(res.data);
+                    document.getElementById('statsTotal').textContent = res.total;
+                    document.getElementById('statsRoadmaps').textContent = res.data.filter(c => c.roadmapPdfUrl).length;
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        function renderCourses(courses) {
+            const body = document.getElementById('coursesBody');
+            body.innerHTML = courses.map(course => `
+                <tr class="course-row">
+                    <td>
+                        <div class="font-weight-800 text-ink" style="font-size: 1.1rem;">${course.title}</div>
+                        <div class="small opacity-75 text-truncate" style="max-width: 300px;">${course.summaryLine}</div>
+                    </td>
+                    <td><span class="badge badge-heritage px-2 py-1">${course.category}</span></td>
+                    <td><span class="badge-level level-${course.level}">${course.level}</span></td>
+                    <td><i class="fas fa-clock mr-1 opacity-50"></i> ${course.durationEstimate}</td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <span class="badge badge-pill ${course.isActive ? 'badge-success' : 'badge-danger'} px-3 py-1 mr-2">
+                                ${course.isActive ? 'Active' : 'Draft'}
+                            </span>
+                            ${course.isTrending ? '<i class="fas fa-fire text-ember" title="Trending"></i>' : ''}
+                        </div>
+                    </td>
+                    <td class="text-right action-btns">
+                        <i class="fas fa-pen-to-square" onclick="editCourse('${course._id}')" title="Edit"></i>
+                        <i class="fas fa-trash-can" onclick="deleteCourse('${course._id}')" title="Delete"></i>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function initChipsUI(inputId, containerId) {
+            const input = document.getElementById(inputId);
+            const container = document.getElementById(containerId);
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const val = input.value.trim();
+                    if (val) {
+                        addChip(container, input, val);
+                        input.value = '';
+                    }
+                }
+            });
+        }
+
+        function addChip(container, input, value) {
+            const chip = document.createElement('div');
+            chip.className = 'chip';
+            chip.innerHTML = `<span>${value}</span><i class="fas fa-times" onclick="this.parentElement.remove()"></i>`;
+            container.insertBefore(chip, input);
+        }
+
+        function initUploadUI() {
+            const fileInput = document.getElementById('fileInput');
+            const uploadStatus = document.getElementById('uploadStatus');
+            const uploadBar = document.getElementById('uploadBar');
+
+            fileInput.addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                if (file.type !== 'application/pdf') {
+                    Swal.fire('Error', 'Only PDF files are allowed', 'error');
+                    return;
+                }
+
+                const formData = new FormData();
+                formData.append('roadmap', file);
+
+                try {
+                    uploadStatus.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Uploading...';
+                    uploadBar.style.width = '30%';
+
+                    // Using XMLHttpRequest for progress or simple fetch
+                    const res = await fetch('/api/admin/courses/upload-roadmap', {
+                        method: 'POST',
+                        body: formData
+                        // Bearer token will be handled by api.js if it intercepts global fetch, 
+                        // but apiFetch has its own logic. Let's use fetch with manual header if needed.
+                        // Actually, api.js might have a helper for multipart.
+                    });
+
+                    const data = await res.json();
+                    if (data.success) {
+                        document.getElementById('coursePdfUrl').value = data.url;
+                        uploadStatus.innerHTML = `<i class="fas fa-check-circle mr-2"></i> ${file.name} Uploaded`;
+                        uploadBar.style.width = '100%';
+                        uploadBar.style.background = 'var(--success)';
+                    } else {
+                        throw new Error(data.message);
+                    }
+                } catch (err) {
+                    uploadStatus.innerHTML = 'Upload Failed. Try again.';
+                    uploadBar.style.width = '0%';
+                    Swal.fire('Error', err.message, 'error');
+                }
+            });
+        }
+
+        function openAddModal() {
+            currentEditId = null;
+            document.getElementById('modalTitle').textContent = 'Create Intelligence Course';
+            document.getElementById('courseForm').reset();
+            document.querySelectorAll('.chips-container .chip').forEach(c => c.remove());
+            document.getElementById('uploadStatus').textContent = 'Click to Upload Blueprint';
+            document.getElementById('uploadBar').style.width = '0%';
+            document.getElementById('coursePdfUrl').value = '';
+            $('#courseModal').modal('show');
+        }
+
+        async function editCourse(id) {
+            try {
+                const res = await apiFetch(`/api/admin/courses/${id}`);
+                if (res.success) {
+                    const course = res.data;
+                    currentEditId = id;
+                    document.getElementById('modalTitle').textContent = 'Update Intelligence Course';
+                    document.getElementById('courseTitle').value = course.title;
+                    document.getElementById('courseSummary').value = course.summaryLine || '';
+                    document.getElementById('courseDescription').value = course.description;
+                    document.getElementById('courseCategory').value = course.category;
+                    document.getElementById('courseLevel').value = course.level;
+                    document.getElementById('courseDuration').value = course.durationEstimate;
+                    document.getElementById('coursePdfUrl').value = course.roadmapPdfUrl || '';
+                    document.getElementById('isTrending').checked = course.isTrending;
+
+                    // Chips
+                    document.querySelectorAll('.chips-container .chip').forEach(c => c.remove());
+
+                    if (course.skillsRequired) course.skillsRequired.forEach(s => addChip(document.getElementById('skillsChips'), document.getElementById('skillInput'), s));
+                    if (course.jobRoles) course.jobRoles.forEach(r => addChip(document.getElementById('rolesChips'), document.getElementById('roleInput'), r));
+                    if (course.topCompanies) course.topCompanies.forEach(c => addChip(document.getElementById('companiesChips'), document.getElementById('companyInput'), c));
+
+                    // Years
+                    document.querySelectorAll('input[name="years"]').forEach(cb => {
+                        cb.checked = course.eligibleYears.includes(parseInt(cb.value));
+                    });
+
+                    if (course.roadmapPdfUrl) {
+                        document.getElementById('uploadStatus').innerHTML = `<i class="fas fa-check-circle mr-2"></i> Roadmap Connected`;
+                        document.getElementById('uploadBar').style.width = '100%';
+                    }
+
+                    $('#courseModal').modal('show');
+                }
+            } catch (err) {
+                Swal.fire('Error', 'Failed to fetch course details', 'error');
+            }
+        }
+
+        async function saveCourse() {
+            const form = document.getElementById('courseForm');
+            if (!form.checkValidity()) return form.reportValidity();
+
+            const btn = document.getElementById('saveBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Processing...';
+
+            const skills = Array.from(document.querySelectorAll('#skillsChips .chip span')).map(s => s.textContent);
+            const roles = Array.from(document.querySelectorAll('#rolesChips .chip span')).map(s => s.textContent);
+            const companies = Array.from(document.querySelectorAll('#companiesChips .chip span')).map(s => s.textContent);
+            const years = Array.from(document.querySelectorAll('input[name="years"]:checked')).map(cb => parseInt(cb.value));
+
+            if (years.length === 0) {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-sparkles mr-2"></i> Save Intelligence Course';
+                return Swal.fire('Wait', 'Please select at least one eligible year', 'warning');
+            }
+
+            const payload = {
+                title: document.getElementById('courseTitle').value,
+                summaryLine: document.getElementById('courseSummary').value,
+                description: document.getElementById('courseDescription').value,
+                category: document.getElementById('courseCategory').value,
+                level: document.getElementById('courseLevel').value,
+                durationEstimate: document.getElementById('courseDuration').value,
+                skillsRequired: skills,
+                jobRoles: roles,
+                topCompanies: companies,
+                eligibleYears: years,
+                roadmapPdfUrl: document.getElementById('coursePdfUrl').value,
+                isTrending: document.getElementById('isTrending').checked
+            };
+
+            try {
+                const url = currentEditId ? `/api/admin/courses/${currentEditId}` : '/api/admin/courses';
+                const method = currentEditId ? 'PATCH' : 'POST';
+
+                const res = await apiFetch(url, {
+                    method: method,
+                    body: JSON.stringify(payload)
+                });
+
+                if (res.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Synchronized',
+                        text: `Intelligence Course ${currentEditId ? 'updated' : 'published'} successfully`,
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                    $('#courseModal').modal('hide');
+                    fetchCourses();
+                }
+            } catch (err) {
+                Swal.fire('Error', err.message, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-sparkles mr-2"></i> Save Intelligence Course';
+            }
+        }
+
+        async function deleteCourse(id) {
+            const result = await Swal.fire({
+                title: 'Archive Course?',
+                text: "This removal will reflect across all student nodes.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: 'var(--ember)',
+                confirmButtonText: 'Yes, archive it'
+            });
+
+            if (result.isConfirmed) {
+                try {
+                    const res = await apiFetch(`/api/admin/courses/${id}`, { method: 'DELETE' });
+                    if (res.success) {
+                        Swal.fire('Archived', 'Node status updated to inactive.', 'success');
+                        fetchCourses();
+                    }
+                } catch (err) {
+                    Swal.fire('Error', 'Failed to update node', 'error');
+                }
+            }
+        }
+    </script>
+
+
+    <div id="mobile-root"></div>
+
+    <script src="../js/mobile-nav.js"></script>
+    <script src="../js/mobile-admin-nav.js"></script>
+    <script src="../js/mobile-admin-courses.js"></script>
+
+    <script src="../js/mobile-fixes.js"></script>
+</body>
+
+</html>

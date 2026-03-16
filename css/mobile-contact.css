@@ -1,0 +1,403 @@
+/* ==============================================================
+   mobile-contact.css
+   Mobile-specific styles for Contact Us page
+   Matches hLPU mobile design system
+   ============================================================== */
+
+@media (max-width: 768px) {
+
+    /* 1. ROOT */
+    html,
+    body {
+        background: linear-gradient(180deg, #fdf6ec 0%, #fae9e3 40%, #ffffff 100%) !important;
+        background-attachment: fixed !important;
+    }
+
+    #mobile-root {
+        padding: 85px 15px 100px 15px;
+        min-height: 100vh;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* 2. DESKTOP ISOLATION */
+    section.hero.desktop-only,
+    .hero.desktop-only {
+        display: none !important;
+    }
+
+    #navbar {
+        display: none !important;
+    }
+
+    .mesh-bg {
+        display: none !important;
+    }
+
+    .floating-widget {
+        display: none !important;
+    }
+
+    /* 3. PAGE HEADER */
+    .mob-contact-header {
+        margin-bottom: 18px;
+    }
+
+    .mob-contact-header h1 {
+        font-size: 1.4rem;
+        font-weight: 900;
+        color: #0A1A2F;
+        letter-spacing: -0.02em;
+        margin: 0 0 4px;
+    }
+
+    .mob-contact-header p {
+        font-size: 0.78rem;
+        color: #5f6b7a;
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    /* 4. CONTACT CARDS */
+    .mob-contact-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(14px);
+        border-radius: 22px;
+        padding: 18px 16px;
+        margin-bottom: 12px;
+        border: 1px solid rgba(194, 73, 31, 0.06);
+        box-shadow: 0 4px 15px rgba(10, 26, 47, 0.04);
+    }
+
+    .mob-contact-card-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1.5px solid rgba(194, 73, 31, 0.08);
+    }
+
+    .mob-contact-card-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        background: linear-gradient(145deg, rgba(194, 73, 31, 0.1), rgba(230, 138, 46, 0.1));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #C2491F;
+        font-size: 1.2rem;
+        flex-shrink: 0;
+    }
+
+    .mob-contact-card-title {
+        font-size: 1rem;
+        font-weight: 800;
+        color: #0A1A2F;
+        margin: 0;
+    }
+
+    /* Info items */
+    .mob-contact-info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+
+    .mob-contact-info-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #C2491F;
+        font-size: 0.85rem;
+        flex-shrink: 0;
+    }
+
+    .mob-contact-info-label {
+        font-size: 0.62rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #8f9aaa;
+        margin-bottom: 1px;
+    }
+
+    .mob-contact-info-value {
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #0A1A2F;
+        word-break: break-word;
+    }
+
+    .mob-contact-info-value a {
+        color: #C2491F;
+        text-decoration: none;
+    }
+
+    /* Card action button */
+    .mob-contact-action-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        padding: 12px;
+        border-radius: 16px;
+        border: 1.5px solid rgba(10, 26, 47, 0.08);
+        background: white;
+        color: #0A1A2F;
+        font-size: 0.82rem;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: all 0.2s ease;
+    }
+
+    .mob-contact-action-btn:active {
+        background: #0A1A2F;
+        color: white;
+    }
+
+    .mob-contact-action-btn i {
+        color: #C2491F;
+    }
+
+    .mob-contact-action-btn:active i {
+        color: white;
+    }
+
+    /* 5. INLINE CONTACT FORM */
+    .mob-contact-form-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(14px);
+        border-radius: 22px;
+        padding: 20px 16px;
+        margin-bottom: 12px;
+        border: 1px solid rgba(194, 73, 31, 0.06);
+        box-shadow: 0 4px 15px rgba(10, 26, 47, 0.04);
+    }
+
+    .mob-form-title {
+        font-size: 0.9rem;
+        font-weight: 800;
+        color: #0A1A2F;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .mob-form-title i {
+        color: #C2491F;
+    }
+
+    .mob-form-group {
+        margin-bottom: 14px;
+    }
+
+    .mob-form-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #0A1A2F;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .mob-form-label i {
+        color: #C2491F;
+        font-size: 0.68rem;
+    }
+
+    .mob-form-input,
+    .mob-form-textarea {
+        width: 100%;
+        padding: 14px 16px;
+        border-radius: 16px;
+        border: 1.5px solid rgba(10, 26, 47, 0.08);
+        background: white;
+        font-size: 0.88rem;
+        font-family: 'Inter', sans-serif;
+        color: #0A1A2F;
+        transition: all 0.2s ease;
+        box-sizing: border-box;
+    }
+
+    .mob-form-input:focus,
+    .mob-form-textarea:focus {
+        outline: none;
+        border-color: #C2491F;
+        box-shadow: 0 0 0 4px rgba(194, 73, 31, 0.08);
+    }
+
+    .mob-form-input.error,
+    .mob-form-textarea.error {
+        border-color: #B02A37;
+        box-shadow: 0 0 0 4px rgba(176, 42, 55, 0.08);
+    }
+
+    .mob-form-textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+
+    .mob-form-error {
+        font-size: 0.7rem;
+        color: #B02A37;
+        margin-top: 4px;
+        display: none;
+    }
+
+    .mob-form-error.show {
+        display: block;
+    }
+
+    .mob-submit-btn {
+        width: 100%;
+        padding: 16px;
+        border-radius: 18px;
+        border: none;
+        background: #0A1A2F;
+        color: white;
+        font-size: 0.9rem;
+        font-weight: 800;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: all 0.2s ease;
+        box-shadow: 0 6px 15px rgba(10, 26, 47, 0.2);
+        margin-top: 4px;
+    }
+
+    .mob-submit-btn:active {
+        transform: scale(0.98);
+    }
+
+    .mob-submit-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    /* 6. SOCIAL CARD */
+    .mob-social-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(14px);
+        border-radius: 22px;
+        padding: 18px 16px;
+        margin-bottom: 12px;
+        border: 1px solid rgba(194, 73, 31, 0.06);
+        box-shadow: 0 4px 15px rgba(10, 26, 47, 0.04);
+    }
+
+    .mob-social-title {
+        font-size: 0.9rem;
+        font-weight: 800;
+        color: #0A1A2F;
+        margin-bottom: 4px;
+    }
+
+    .mob-social-subtitle {
+        font-size: 0.75rem;
+        color: #5f6b7a;
+        margin-bottom: 14px;
+    }
+
+    .mob-social-icons {
+        display: flex;
+        gap: 10px;
+    }
+
+    .mob-social-link {
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+        background: white;
+        border: 1px solid rgba(194, 73, 31, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #0A1A2F;
+        font-size: 1.2rem;
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+    .mob-social-link:active {
+        background: #C2491F;
+        color: white;
+        border-color: #C2491F;
+    }
+
+    /* 7. MAP BUTTON */
+    .mob-map-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        padding: 14px;
+        border-radius: 16px;
+        border: none;
+        background: linear-gradient(135deg, #C2491F, #E68A2E);
+        color: white;
+        font-size: 0.85rem;
+        font-weight: 700;
+        cursor: pointer;
+        margin-bottom: 12px;
+        box-shadow: 0 6px 20px rgba(194, 73, 31, 0.2);
+        transition: all 0.2s ease;
+    }
+
+    .mob-map-btn:active {
+        transform: scale(0.98);
+    }
+
+    /* 8. SUCCESS INLINE CARD */
+    .mob-success-card {
+        background: rgba(15, 123, 58, 0.06);
+        border: 1px solid rgba(15, 123, 58, 0.15);
+        border-radius: 18px;
+        padding: 24px;
+        text-align: center;
+        display: none;
+    }
+
+    .mob-success-card.show {
+        display: block;
+    }
+
+    .mob-success-card i {
+        font-size: 2.5rem;
+        color: #0F7B3A;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .mob-success-card h4 {
+        font-size: 1rem;
+        font-weight: 800;
+        color: #0A1A2F;
+        margin-bottom: 4px;
+    }
+
+    .mob-success-card p {
+        font-size: 0.8rem;
+        color: #5f6b7a;
+        margin: 0;
+    }
+}
+
+@media (min-width: 769px) {
+    #mobile-root {
+        display: none !important;
+    }
+}

@@ -1,0 +1,2009 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hLPU</title>
+    <link rel="icon" type="image/png" href="../assets/images/hlpu logo.png">
+
+    <!-- Bootstrap 4.6 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Google Fonts - Inter (matching main theme) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <!-- Mobile Adaptations -->
+    <link rel="stylesheet" href="../css/mobile-login.css?v=1.1">
+    <link rel="stylesheet" href="../css/mobile-fixes.css">
+
+    <style>
+        /* ===== HLPU PREMIUM THEME — HERITAGE EDITION ===== */
+        :root {
+            --ink: #0A1A2F;
+            --ember: #C2491F;
+            --gilt: #E68A2E;
+            --soft-cream: #FFF8F0;
+            --glass: rgba(255, 250, 240, 0.65);
+            --glass-deep: rgba(255, 250, 240, 0.85);
+            --border-light: rgba(10, 26, 47, 0.08);
+            --shadow-elevation: 0 20px 35px -10px rgba(10, 26, 47, 0.08), 0 5px 12px rgba(0, 0, 0, 0.02);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF9;
+            color: var(--ink);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 20px 40px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        /* ===== MESH BACKGROUND ===== */
+        .mesh-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .mesh {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-blend-mode: overlay;
+            opacity: 0.35;
+        }
+
+        .mesh-1 {
+            background: radial-gradient(circle at 10% 20%, #FCE7C8, #E5D9F2 40%, transparent 70%);
+        }
+
+        .mesh-2 {
+            background: radial-gradient(circle at 95% 60%, #D6E6F5, #FFD9B0 30%, transparent 70%);
+        }
+
+        .mesh-3 {
+            background: radial-gradient(circle at 40% 85%, #FADADD, #FDCFB0 40%, transparent 70%);
+        }
+
+        .mesh-4 {
+            background: radial-gradient(circle at 65% 15%, #DFE7FF, #F9E6CF 35%, transparent 70%);
+        }
+
+        /* ===== NAVIGATION — PREMIUM GLASS ===== */
+        .navbar {
+            background: rgba(255, 250, 240, 0.75);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(10, 26, 47, 0.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.02);
+            padding: 12px 0;
+            transition: var(--transition);
+            z-index: 1030;
+        }
+
+        .navbar-brand img {
+            height: 44px;
+            filter: drop-shadow(0 2px 6px rgba(194, 73, 31, 0.12));
+            transition: var(--transition);
+        }
+
+        .navbar-brand img:hover {
+            filter: drop-shadow(0 4px 10px rgba(194, 73, 31, 0.25));
+        }
+
+        .nav-link {
+            font-weight: 550;
+            font-size: 0.98rem;
+            color: var(--ink) !important;
+            margin: 0 0.6rem;
+            transition: var(--transition);
+            letter-spacing: -0.01em;
+            position: relative;
+            padding: 0.5rem 0 !important;
+        }
+
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 2px;
+            left: 0;
+            background: linear-gradient(90deg, var(--ember), var(--gilt));
+            transition: width 0.2s ease;
+        }
+
+        .nav-link:hover:after {
+            width: 100%;
+        }
+
+        /* ===== ADMIN BUTTON — POSITIONED BELOW NAVBAR ===== */
+        .admin-corner-btn {
+            position: fixed;
+            top: 90px;
+            right: 30px;
+            z-index: 1020;
+            background: var(--glass-deep);
+            backdrop-filter: blur(12px);
+            border: 1.5px solid rgba(194, 73, 31, 0.2);
+            border-radius: 50px;
+            padding: 12px 28px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--ink);
+            box-shadow: var(--shadow-elevation);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            letter-spacing: 0.2px;
+        }
+
+        .admin-corner-btn i {
+            color: var(--ember);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .admin-corner-btn:hover {
+            background: white;
+            border-color: var(--ember);
+            transform: translateY(-3px);
+            box-shadow: 0 18px 30px -12px rgba(194, 73, 31, 0.3);
+        }
+
+        .admin-corner-btn:hover i {
+            transform: scale(1.05);
+            color: var(--ink);
+        }
+
+        /* ===== MAIN CONTAINER — SIGNATURE FROSTED GLASS ===== */
+        .auth-container {
+            width: 100%;
+            max-width: 560px;
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(194, 73, 31, 0.08);
+            border-radius: 32px;
+            padding: 40px 35px;
+            box-shadow: var(--shadow-elevation);
+            transition: var(--transition);
+            animation: slideUp 0.5s ease;
+            margin-top: 20px;
+            /* Added margin to account for admin button */
+        }
+
+        .auth-container:hover {
+            background: var(--glass-deep);
+            border-color: rgba(230, 138, 46, 0.2);
+            box-shadow: 0 30px 45px -15px rgba(194, 73, 31, 0.12);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* ===== LOGO SECTION ===== */
+        .logo-wrapper {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo-img {
+            height: 70px;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 6px 12px rgba(194, 73, 31, 0.15));
+        }
+
+        .logo-tagline {
+            font-size: 0.95rem;
+            color: #52606d;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+        }
+
+        /* ===== PREMIUM TABS ===== */
+        .auth-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 35px;
+            background: rgba(255, 250, 245, 0.5);
+            padding: 6px;
+            border-radius: 60px;
+            border: 1px solid rgba(10, 26, 47, 0.04);
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 12px 20px;
+            text-align: center;
+            font-weight: 600;
+            color: #52606d;
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: 40px;
+            font-size: 0.95rem;
+            letter-spacing: 0.2px;
+        }
+
+        .auth-tab:hover {
+            color: var(--ember);
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .auth-tab.active {
+            background: white;
+            color: var(--ink);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.04);
+            font-weight: 700;
+        }
+
+        /* ===== USER TYPE SELECTOR — CARD STYLE ===== */
+        .user-type-grid {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .user-card {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1.5px solid rgba(10, 26, 47, 0.06);
+            border-radius: 20px;
+            padding: 20px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(4px);
+        }
+
+        .user-card:hover {
+            background: white;
+            border-color: var(--gilt);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px -10px rgba(194, 73, 31, 0.15);
+        }
+
+        .user-card.selected {
+            background: white;
+            border-color: var(--ember);
+            border-width: 1.8px;
+            box-shadow: 0 8px 18px -8px rgba(194, 73, 31, 0.2);
+        }
+
+        /* Hide user selection block in login form based on user request */
+        #loginForm .user-type-grid {
+            display: none !important;
+        }
+
+        /* Hide the admin portal button from the login screen per user request */
+        .admin-corner-btn {
+            display: none !important;
+        }
+
+        .user-icon {
+            font-size: 1.8rem;
+            color: var(--ember);
+            margin-bottom: 12px;
+        }
+
+        .user-card h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .user-card p {
+            font-size: 0.75rem;
+            color: #5f6b7a;
+            margin-bottom: 0;
+            font-weight: 400;
+        }
+
+        /* ===== FORM ELEMENTS ===== */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--ink);
+            font-size: 0.85rem;
+            letter-spacing: 0.2px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            color: var(--ember);
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 20px 14px 48px;
+            border: 1.5px solid rgba(10, 26, 47, 0.06);
+            border-radius: 18px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.7);
+            transition: var(--transition);
+            color: var(--ink);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--ember);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(194, 73, 31, 0.08);
+        }
+
+        .form-control::placeholder {
+            color: #8f9aaa;
+            font-weight: 300;
+            font-size: 0.9rem;
+        }
+
+        select.form-control {
+            padding: 14px 20px;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23C2491F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 20px center;
+            background-size: 16px;
+        }
+
+        /* ===== FORM SECTIONS ===== */
+        .form-section {
+            background: rgba(255, 250, 245, 0.5);
+            border-radius: 24px;
+            padding: 24px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(194, 73, 31, 0.04);
+        }
+
+        .form-section-title {
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-section-title i {
+            color: var(--ember);
+            font-size: 1.1rem;
+        }
+
+        /* ===== FILE UPLOAD ===== */
+        .file-upload {
+            position: relative;
+            margin-top: 8px;
+        }
+
+        .file-upload input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .file-upload-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.6);
+            border: 1.5px dashed rgba(194, 73, 31, 0.3);
+            border-radius: 16px;
+            color: var(--ink);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .file-upload:hover .file-upload-label {
+            background: white;
+            border-color: var(--ember);
+            color: var(--ember);
+        }
+
+        /* === PRIMARY CTA SYNCED FROM LANDING PAGE === */
+        .btn-primary-custom {
+            background: var(--ink);
+            color: #FDF1E6;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+            box-shadow: 0 10px 18px -6px rgba(10, 26, 47, 0.2);
+            transition: all 0.25s;
+            text-decoration: none !important;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-primary-custom:hover {
+            background: #12243f;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 18px 25px -10px rgba(194, 73, 31, 0.35);
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            padding: 16px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: var(--ink);
+            color: #FDF1E6;
+            width: 100%;
+            margin-top: 15px;
+            box-shadow: 0 10px 18px -6px rgba(10, 26, 47, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: #12243f;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 18px 25px -10px rgba(194, 73, 31, 0.35);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.8px solid var(--ink);
+            color: var(--ink);
+            width: 100%;
+        }
+
+        .btn-outline:hover {
+            background: rgba(10, 26, 47, 0.02);
+            border-color: var(--ember);
+            color: var(--ember);
+        }
+
+        /* ===== AUTH OPTIONS ===== */
+        .auth-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            font-size: 0.85rem;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #52606d;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--ember);
+            border-radius: 4px;
+        }
+
+        .forgot-link {
+            color: var(--ember);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .forgot-link:hover {
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        /* ===== DIVIDER ===== */
+        .divider {
+            text-align: center;
+            margin: 25px 0 20px;
+            position: relative;
+            color: #8f9aaa;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .divider:before,
+        .divider:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: calc(50% - 30px);
+            height: 1px;
+            background: rgba(10, 26, 47, 0.08);
+        }
+
+        .divider:before {
+            left: 0;
+        }
+
+        .divider:after {
+            right: 0;
+        }
+
+        /* ===== SWITCH FORM LINK ===== */
+        .switch-form {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 0.95rem;
+            color: #52606d;
+        }
+
+        .switch-link {
+            color: var(--ember);
+            font-weight: 700;
+            text-decoration: none;
+            margin-left: 5px;
+            transition: var(--transition);
+        }
+
+        .switch-link:hover {
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        /* ===== TERMS CHECKBOX ===== */
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin: 20px 0 10px;
+            font-size: 0.85rem;
+            color: #52606d;
+        }
+
+        .terms input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            accent-color: var(--ember);
+        }
+
+        .terms a {
+            color: var(--ember);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .terms a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== SPINNER ===== */
+        .spinner {
+            display: inline-block;
+            width: 1.2rem;
+            height: 1.2rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ===== ALERT CUSTOM ===== */
+        .alert-custom {
+            padding: 14px 20px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+            display: none;
+            background: white;
+            border-left: 4px solid;
+            box-shadow: var(--shadow-elevation);
+        }
+
+        .alert-custom-success {
+            border-left-color: #28a745;
+            color: #0f5132;
+        }
+
+        .alert-custom-danger {
+            border-left-color: var(--ember);
+            color: var(--ink);
+        }
+
+        /* ===== ADMIN MODAL — EMBEDDED IN SAME PAGE ===== */
+        .admin-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 26, 47, 0.3);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .admin-modal-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .admin-modal-card {
+            width: 100%;
+            max-width: 520px;
+            background: var(--glass-deep);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(194, 73, 31, 0.2);
+            border-radius: 48px;
+            padding: 48px 42px;
+            box-shadow: var(--shadow-hover);
+            transform: scale(0.95) translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.2, 0, 0, 1), opacity 0.3s;
+            opacity: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admin-modal-overlay.show .admin-modal-card {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        .admin-modal-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--ember), var(--gilt));
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: white;
+            border: 1px solid rgba(194, 73, 31, 0.2);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            background: var(--ember);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .admin-badge {
+            background: rgba(194, 73, 31, 0.08);
+            color: var(--ember-deep);
+            padding: 8px 22px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin: 18px 0 8px;
+            border: 1px solid rgba(194, 73, 31, 0.2);
+        }
+
+        .admin-title {
+            font-size: 2.1rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--ink);
+            margin-bottom: 8px;
+        }
+
+        .admin-title span {
+            background: linear-gradient(145deg, var(--ember), #bd6725);
+            -webkit-text-fill-color: transparent;
+        }
+
+        .admin-subtitle {
+            color: #52606d;
+            font-size: 0.95rem;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .security-hint {
+            background: rgba(230, 138, 46, 0.06);
+            border-radius: 24px;
+            padding: 16px 20px;
+            margin: 28px 0 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border: 1px dashed rgba(194, 73, 31, 0.25);
+        }
+
+        .security-icon {
+            width: 48px;
+            height: 48px;
+            background: white;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--ember);
+            font-size: 1.3rem;
+            box-shadow: 0 6px 12px -6px rgba(194, 73, 31, 0.3);
+        }
+
+        .security-text {
+            font-size: 0.85rem;
+            color: #3f4e5e;
+            font-weight: 500;
+        }
+
+        .security-text strong {
+            color: var(--ember);
+        }
+
+        .btn-admin {
+            background: var(--ink);
+            color: #FDF1E6;
+            width: 100%;
+            padding: 18px 28px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            box-shadow: 0 12px 24px -12px rgba(10, 26, 47, 0.4);
+            margin-top: 10px;
+        }
+
+        .btn-admin:hover {
+            background: #12243f;
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px -12px rgba(194, 73, 31, 0.45);
+        }
+
+        .btn-admin i {
+            font-size: 1.2rem;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 576px) {
+            .admin-corner-btn {
+                top: 70px;
+                right: 15px;
+                padding: 8px 20px;
+                font-size: 0.85rem;
+            }
+
+            .auth-container {
+                padding: 30px 20px;
+                margin: 20px 10px;
+            }
+
+            .user-type-grid {
+                flex-direction: column;
+            }
+
+            .form-section {
+                padding: 20px;
+            }
+
+            .navbar-brand img {
+                height: 38px;
+            }
+
+            .admin-modal-card {
+                padding: 38px 24px;
+                margin: 0 16px;
+            }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .auth-form {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Hidden fields */
+        .hidden-field {
+            display: none;
+        }
+
+        .form-control,
+        .form-group {
+            height: 45%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- PREMIUM MESH BACKGROUND -->
+    <div class="mesh-bg">
+        <div class="mesh mesh-1"></div>
+        <div class="mesh mesh-2"></div>
+        <div class="mesh mesh-3"></div>
+        <div class="mesh mesh-4"></div>
+    </div>
+
+    <!-- ADMIN BUTTON — POSITIONED BELOW NAVBAR AT TOP RIGHT -->
+    <div class="admin-corner-btn" id="adminPortalBtn">
+        <i class="fas fa-shield-halded"></i>
+        <span>Admin Login</span>
+        <i class="fas fa-arrow-right-to-bracket" style="font-size: 1rem;"></i>
+    </div>
+
+    <!-- ADMIN MODAL (embedded in same page) -->
+    <div class="admin-modal-overlay" id="adminModal">
+        <div class="admin-modal-card">
+            <div class="modal-close" id="closeModalBtn">
+                <i class="fas fa-times"></i>
+            </div>
+
+            <div class="text-center">
+                <img src="../assets/images/hlpu logo.png" alt="hLPU" style="height: 70px; margin-bottom: 10px;">
+                <div class="admin-badge"><i class="fas fa-shield-alt mr-2"></i> restricted access · admin only</div>
+                <h2 class="admin-title">command portal</h2>
+                <div class="admin-subtitle">
+                    <i class="fas fa-key"></i>
+                    <span>secure authentication required</span>
+                    <i class="fas fa-lock"></i>
+                </div>
+            </div>
+
+            <!-- alert inside modal -->
+            <div id="adminAlert" class="alert-custom"></div>
+
+            <!-- admin login form -->
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <label class="input-label"><i class="far fa-envelope mr-2" style="color:var(--ember);"></i>admin
+                        email</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" class="form-control" id="adminEmail" autocomplete="email" autofocus
+                            required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="input-label"><i class="fas fa-lock mr-2" style="color:var(--ember);"></i>master
+                        password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" class="form-control" id="adminPassword" autocomplete="current-password"
+                            required>
+                    </div>
+                </div>
+
+                <div class="auth-options">
+                    <label class="remember-me">
+                        <input type="checkbox" id="trustDevice" checked>
+                        <span>Trust this device</span>
+                    </label>
+                    <a href="#" class="forgot-link" id="forgotAdmin">emergency reset</a>
+                </div>
+
+                <button type="submit" class="btn-admin" id="adminLoginBtn">
+                    <span id="btnText">Access dashboard</span>
+                    <span class="spinner" id="btnSpinner" style="display: none;"></span>
+                    <i class="fas fa-arrow-right" id="btnIcon"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- PREMIUM NAVIGATION (Synced with Landing Page) -->
+
+    <!-- 1. DESKTOP NAVBAR (Visible > 768px) -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top desktop-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="Landing-Page.html">
+                <img src="../assets/images/hlpu logo.png" alt="hLPU" style="height: 44px;">
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Landing-Page.html#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Landing-Page.html#how-it-works">How it works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Landing-Page.html#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Landing-Page.html#courses">Course maps</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Landing-Page.html#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Landing-Page.html#contact">Contact</a>
+                    </li>
+                    <li class="nav-item ml-lg-3">
+                        <a href="Login.html" class="btn btn-primary-custom" style="padding: 8px 25px;"><i
+                                class="fas fa-arrow-right-to-bracket mr-2"></i>Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. MOBILE NAVBAR (Visible ≤ 768px) -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top mobile-navbar mob-header">
+        <div class="container justify-content-start">
+            <a href="Landing-Page.html" class="mob-back-arrow">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <a class="navbar-brand ml-3" href="Landing-Page.html">
+                <img src="../assets/images/hlpu logo.png" alt="hLPU" style="height: 44px;">
+            </a>
+        </div>
+    </nav>
+
+    <!-- MAIN AUTH CARD (existing heritage login/register) -->
+    <div class="auth-container">
+        <!-- LOGO -->
+        <div class="logo-wrapper">
+            <img src="../assets/images/hlpu logo.png" alt="hLPU" class="logo-img" id="appLogo">
+            <div class="logo-tagline" id="logoSubtitle">Connect · Learn · Grow · Legacy</div>
+        </div>
+
+        <!-- TABS -->
+        <div class="auth-tabs">
+            <div class="auth-tab active" id="loginTab">Sign In</div>
+            <div class="auth-tab" id="registerTab">Create Account</div>
+        </div>
+
+        <!-- ALERT MESSAGE -->
+        <div id="alertMessage" class="alert-custom"></div>
+
+        <!-- LOGIN FORM -->
+        <form id="loginForm" class="auth-form active">
+            <input type="hidden" id="loginUserType" name="user_type" value="student">
+
+            <!-- USER TYPE SELECTOR - PREMIUM CARDS -->
+            <div class="user-type-grid">
+                <div class="user-card selected" data-type="student" data-form="login">
+                    <div class="user-icon"><i class="fas fa-user-graduate"></i></div>
+                    <h4>Student</h4>
+                    <p>Current LPU student</p>
+                </div>
+                <div class="user-card" data-type="alumni" data-form="login">
+                    <div class="user-icon"><i class="fas fa-briefcase"></i></div>
+                    <h4>Alumni</h4>
+                    <p>LPU graduate</p>
+                </div>
+            </div>
+
+            <!-- EMAIL FIELD -->
+            <div class="form-group">
+                <label class="form-label">Email address</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-envelope input-icon"></i>
+                    <input type="email" class="form-control" id="loginEmail" placeholder="your@email.com" required>
+                </div>
+            </div>
+
+            <!-- PASSWORD FIELD -->
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" class="form-control" id="loginPassword" placeholder="••••••••" required>
+                </div>
+            </div>
+
+            <!-- OPTIONS -->
+            <div class="auth-options">
+                <label class="remember-me">
+                    <input type="checkbox" id="rememberMe">
+                    <span>Keep me signed in</span>
+                </label>
+                <a href="#" class="forgot-link" id="forgotPassword">Forgot password?</a>
+            </div>
+
+            <!-- LOGIN BUTTON -->
+            <button type="submit" class="btn btn-primary" id="loginBtn">
+                <span id="loginBtnText">Sign in to hLPU</span>
+                <span class="spinner" id="loginSpinner" style="display: none;"></span>
+            </button>
+
+            <!-- DIVIDER -->
+            <div class="divider">
+                <span>New to hLPU?</span>
+            </div>
+
+            <!-- SWITCH LINK -->
+            <div class="switch-form">
+                Don't have an account?
+                <a href="#" class="switch-link" id="switchToRegister">Register now →</a>
+            </div>
+        </form>
+
+        <!-- REGISTER FORM -->
+        <form id="registerForm" class="auth-form">
+            <input type="hidden" id="registerUserType" name="user_type" value="student">
+
+            <!-- USER TYPE SELECTOR -->
+            <div class="user-type-grid">
+                <div class="user-card selected" data-type="student" data-form="register">
+                    <div class="user-icon"><i class="fas fa-user-graduate"></i></div>
+                    <h4>Student</h4>
+                    <p>Current LPU student</p>
+                </div>
+                <div class="user-card" data-type="alumni" data-form="register">
+                    <div class="user-icon"><i class="fas fa-briefcase"></i></div>
+                    <h4>Alumni</h4>
+                    <p>LPU graduate</p>
+                </div>
+            </div>
+
+            <!-- PERSONAL INFORMATION SECTION -->
+            <div class="form-section">
+                <div class="form-section-title">
+                    <i class="fas fa-user-circle"></i> Personal information
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                        <div class="input-wrapper">
+                            <i class="fas fa-user input-icon"></i>
+                            <input type="text" class="form-control" id="firstName" placeholder="First name" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="input-wrapper">
+                            <i class="fas fa-user input-icon"></i>
+                            <input type="text" class="form-control" id="lastName" placeholder="Last name" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input type="email" class="form-control" id="registerEmail" placeholder="Email address"
+                            required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <i class="fas fa-phone input-icon"></i>
+                        <input type="tel" class="form-control" id="phoneNumber" placeholder="Phone number" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ACADEMIC INFORMATION SECTION -->
+            <div class="form-section">
+                <div class="form-section-title">
+                    <i class="fas fa-graduation-cap"></i> Academic information
+                </div>
+
+                <!-- STUDENT FIELDS -->
+                <div id="studentFields">
+                    <div class="form-group">
+                        <select class="form-control" id="studentYear">
+                            <option value="" disabled selected>Select current year</option>
+                            <option value="1">1st Year</option>
+                            <option value="2">2nd Year</option>
+                            <option value="3">3rd Year</option>
+                            <option value="4">4th Year</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <div class="input-wrapper">
+                                <i class="fas fa-calendar-alt input-icon"></i>
+                                <input type="number" class="form-control" id="graduationYear"
+                                    placeholder="Graduation Year" min="2024" max="2030">
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="input-wrapper">
+                                <i class="fas fa-id-card input-icon"></i>
+                                <input type="text" class="form-control" id="studentRegNo" placeholder="Reg Number">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <i class="fas fa-star input-icon"></i>
+                            <input type="text" class="form-control" id="specialization"
+                                placeholder="Specialization (e.g. AI, Cyber Security)">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ALUMNI FIELDS (hidden by default) -->
+                <div id="alumniFields" style="display: none;">
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <div class="input-wrapper">
+                                <i class="fas fa-calendar input-icon"></i>
+                                <input type="number" class="form-control" id="passedOutYear" placeholder="Passed Out">
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="input-wrapper">
+                                <i class="fas fa-history input-icon"></i>
+                                <input type="number" class="form-control" id="yearsExp" placeholder="Years Exp">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <i class="fas fa-id-card input-icon"></i>
+                            <input type="text" class="form-control" id="alumniRegNo" placeholder="Registration number">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <i class="fas fa-briefcase input-icon"></i>
+                            <input type="text" class="form-control" id="currentRole"
+                                placeholder="Current Role (e.g. Senior Dev)">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <i class="fas fa-building input-icon"></i>
+                            <input type="text" class="form-control" id="currentCompany" placeholder="Current company">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <i class="fab fa-linkedin input-icon"></i>
+                            <input type="url" class="form-control" id="linkedin" placeholder="LinkedIn profile URL">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STREAM & PROGRAM -->
+                <div class="form-group">
+                    <select class="form-control" id="mainCourse" onchange="updateSubCourses()">
+                        <option value="" disabled selected>Select your stream</option>
+                        <option value="Computers & Allied Courses">Computers & Allied Courses</option>
+                        <option value="Management">Management</option>
+                        <option value="Electronics & Mechatronics">Electronics & Mechatronics</option>
+                        <option value="Mechanical Engineering">Mechanical Engineering</option>
+                        <option value="Civil Engineering">Civil Engineering</option>
+                        <option value="Electrical Engineering">Electrical Engineering</option>
+                        <option value="Biotechnology">Biotechnology</option>
+                        <option value="Pharmaceutical Sciences">Pharmaceutical Sciences</option>
+                        <option value="Law">Law</option>
+                        <option value="Design">Design</option>
+                        <option value="Hotel Management & Tourism">Hotel Management & Tourism</option>
+                        <option value="Journalism & Mass Communication">Journalism & Mass Communication</option>
+                        <option value="Fashion Design">Fashion Design</option>
+                        <option value="Animation & Multimedia">Animation & Multimedia</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-control" id="subCourse">
+                        <option value="" disabled selected>Select your program</option>
+                    </select>
+                </div>
+
+                <!-- PROFILE PHOTO -->
+                <div class="file-upload">
+                    <input type="file" id="profilePhoto" accept="image/*">
+                    <label class="file-upload-label" for="profilePhoto">
+                        <i class="fas fa-cloud-upload-alt"></i> Upload profile photo
+                    </label>
+                </div>
+            </div>
+
+            <!-- ACCOUNT SECURITY SECTION -->
+            <div class="form-section">
+                <div class="form-section-title">
+                    <i class="fas fa-shield-alt"></i> Account security
+                </div>
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" class="form-control" id="registerPassword"
+                            placeholder="Password (min. 6 characters)" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-wrapper">
+                        <i class="fas fa-check-circle input-icon"></i>
+                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password"
+                            required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TERMS & CONDITIONS -->
+            <div class="terms">
+                <input type="checkbox" id="agreeTerms" required>
+                <label for="agreeTerms">
+                    I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                </label>
+            </div>
+
+            <!-- REGISTER BUTTON -->
+            <button type="submit" class="btn btn-primary" id="registerBtn">
+                <span id="registerBtnText">Create account</span>
+                <span class="spinner" id="registerSpinner" style="display: none;"></span>
+            </button>
+
+            <!-- SWITCH LINK -->
+            <div class="switch-form">
+                Already have an account?
+                <a href="#" class="switch-link" id="switchToLogin">Sign in →</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        // ===== REDIRECT IF ALREADY LOGGED IN =====
+        (function () {
+            try {
+                var token = localStorage.getItem('token');
+                var role = localStorage.getItem('role');
+                if (typeof token !== 'string' || !token || typeof role !== 'string' || !role) return;
+                var dest = { student: '../For-Student/Dashboard.html', alumni: '../For-Alumini/Dashboard.html', admin: '../For-Admin/Dashboard.html' };
+                if (!dest.hasOwnProperty(role)) return;
+                var url = dest[role];
+                if (typeof url === 'string' && url.length > 0) window.location.replace(url);
+            } catch (e) { /* fail silently */ }
+        })();
+
+        // ===== PROGRAM DATA =====
+        const programData = {
+            "Computers & Allied Courses": ["B.Tech CSE", "B.Tech CSE (AI & ML)", "B.Tech CSE (Cyber Security)", "BCA", "MCA", "M.Tech CSE", "M.Tech Data Science"],
+            "Management": ["BBA", "B.Com", "MBA", "M.Com"],
+            "Electronics & Mechatronics": ["B.Tech ECE", "B.Tech Mechatronics", "M.Tech VLSI", "M.Tech Robotics"],
+            "Mechanical Engineering": ["B.Tech Mechanical Engineering", "M.Tech Mechanical Engineering"],
+            "Civil Engineering": ["B.Tech Civil Engineering", "M.Tech Structural Engineering"],
+            "Electrical Engineering": ["B.Tech Electrical Engineering", "M.Tech Power Systems"],
+            "Biotechnology": ["B.Tech Biotechnology", "B.Sc Biotechnology", "M.Tech Biotechnology", "M.Sc Biotechnology"],
+            "Pharmaceutical Sciences": ["B.Pharm", "M.Pharm", "Pharm.D"],
+            "Law": ["BA LL.B", "BBA LL.B", "LL.B", "LL.M"],
+            "Design": ["B.Des", "M.Des", "B.Sc Design", "M.Sc Design"],
+            "Hotel Management & Tourism": ["BHMCT", "MBA Tourism & Hospitality"],
+            "Journalism & Mass Communication": ["BA Journalism", "MA Journalism", "B.Sc Media"],
+            "Fashion Design": ["B.Des Fashion", "M.Des Fashion"],
+            "Animation & Multimedia": ["B.Sc Animation", "M.Sc Animation", "B.Sc VFX"]
+        };
+
+        // ===== MODAL FUNCTIONALITY =====
+        const modalOverlay = document.getElementById('adminModal');
+        const adminBtn = document.getElementById('adminPortalBtn');
+        const closeBtn = document.getElementById('closeModalBtn');
+
+        function openModal() {
+            modalOverlay.classList.add('show');
+            document.body.style.overflow = 'hidden'; // prevent scrolling
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        adminBtn.addEventListener('click', openModal);
+        closeBtn.addEventListener('click', closeModal);
+
+        // Close modal when clicking overlay
+        modalOverlay.addEventListener('click', function (e) {
+            if (e.target === modalOverlay) {
+                closeModal();
+            }
+        });
+
+        // ===== ADMIN LOGIN FORM HANDLING =====
+        const adminForm = document.getElementById('adminLoginForm');
+        const adminEmail = document.getElementById('adminEmail');
+        const adminPassword = document.getElementById('adminPassword');
+        const adminAlert = document.getElementById('adminAlert');
+        const adminBtnSubmit = document.getElementById('adminLoginBtn');
+        const btnText = document.getElementById('btnText');
+        const btnSpinner = document.getElementById('btnSpinner');
+        const btnIcon = document.getElementById('btnIcon');
+        const forgotAdmin = document.getElementById('forgotAdmin');
+
+        function showAdminAlert(message, type = 'danger') {
+            adminAlert.textContent = message;
+            adminAlert.className = `alert-custom alert-custom-${type}`;
+            adminAlert.style.display = 'block';
+            setTimeout(() => { adminAlert.style.display = 'none'; }, 4500);
+        }
+
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function setAdminLoading(state) {
+            adminBtnSubmit.disabled = state;
+            if (state) {
+                btnText.textContent = 'authenticating';
+                btnSpinner.style.display = 'inline-block';
+                btnIcon.style.display = 'none';
+            } else {
+                btnText.textContent = 'Access dashboard';
+                btnSpinner.style.display = 'none';
+                btnIcon.style.display = 'inline-block';
+            }
+        }
+
+        adminForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            adminAlert.style.display = 'none';
+
+            const email = adminEmail.value.trim();
+            const password = adminPassword.value;
+
+            if (!email || !password) {
+                showAdminAlert('please enter both email and password');
+                return;
+            }
+
+            if (!isValidEmail(email)) {
+                showAdminAlert('enter a valid admin email address');
+                return;
+            }
+
+            if (password.length < 3) {
+                showAdminAlert('Invalid credentials. Please check your password.');
+                return;
+            }
+
+            setAdminLoading(true);
+
+            (async () => {
+                try {
+                    const res = await fetch('http://localhost:5000/api/auth/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, password })
+                    });
+
+                    const data = await res.json();
+
+                    if (!res.ok) {
+                        showAdminAlert(data.message || 'Authentication failed');
+                        setAdminLoading(false);
+                        return;
+                    }
+
+                    // Store auth from backend response
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('role', data.role);
+                    localStorage.setItem('userName', data.userName);
+                    console.log('[login] Admin success — userName:', data.userName);
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'verified · access granted',
+                        html: `<span style="font-family: Inter; font-weight: 500;">welcome back, <strong>${data.userName}</strong> · redirecting to admin console</span>`,
+                        timer: 2000,
+                        showConfirmButton: false,
+                        background: '#FFF8F0',
+                        iconColor: '#C2491F',
+                        backdrop: 'rgba(10,26,47,0.25)'
+                    }).then(() => {
+                        window.location.href = '../For-Admin/Dashboard.html';
+                    });
+                } catch (err) {
+                    console.error('[login] Admin network error:', err);
+                    showAdminAlert('Unable to connect to server');
+                    setAdminLoading(false);
+                }
+            })();
+        });
+
+        forgotAdmin.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            Swal.fire({
+                title: 'reset admin credentials',
+                html: `
+                    <p style="color: #0A1A2F; margin-bottom: 20px;">contact super admin or use recovery token</p>
+                    <div style="background: #f5e8dc; border-radius: 30px; padding: 20px;">
+                        <i class="fas fa-shield-halded" style="color: #C2491F; font-size: 1.8rem; margin-bottom: 8px;"></i>
+                        <p style="font-weight: 500;">Please check your backup codes or admin email for recovery.</p>
+                    </div>
+                `,
+                confirmButtonText: 'request recovery',
+                confirmButtonColor: '#C2491F',
+                showCancelButton: true,
+                cancelButtonColor: '#0A1A2F',
+                background: '#FFF8F0',
+                backdrop: 'rgba(10,26,47,0.15)'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'recovery email sent',
+                        text: 'check your backup address',
+                        confirmButtonColor: '#C2491F',
+                        background: '#FFF8F0'
+                    });
+                }
+            });
+        });
+
+        // ===== EXISTING HERITAGE PAGE SCRIPTS =====
+        // DOM elements for tabs
+        const loginTab = document.getElementById('loginTab');
+        const registerTab = document.getElementById('registerTab');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const switchToLogin = document.getElementById('switchToLogin');
+        const switchToRegister = document.getElementById('switchToRegister');
+        const studentFields = document.getElementById('studentFields');
+        const alumniFields = document.getElementById('alumniFields');
+        const mainCourse = document.getElementById('mainCourse');
+        const subCourse = document.getElementById('subCourse');
+
+        // Tab switching
+        function switchTab(tab) {
+            if (tab === 'login') {
+                loginTab.classList.add('active');
+                registerTab.classList.remove('active');
+                loginForm.classList.add('active');
+                registerForm.classList.remove('active');
+            } else {
+                loginTab.classList.remove('active');
+                registerTab.classList.add('active');
+                loginForm.classList.remove('active');
+                registerForm.classList.add('active');
+            }
+        }
+
+        loginTab.addEventListener('click', () => switchTab('login'));
+        registerTab.addEventListener('click', () => switchTab('register'));
+
+        switchToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchTab('login');
+        });
+
+        switchToRegister.addEventListener('click', (e) => {
+            e.preventDefault();
+            switchTab('register');
+        });
+
+        // User type selection
+        document.querySelectorAll('.user-card').forEach(card => {
+            card.addEventListener('click', function () {
+                const type = this.dataset.type;
+                const form = this.dataset.form;
+
+                // Update selected state within same form
+                this.closest('form').querySelectorAll('.user-card').forEach(c => {
+                    c.classList.remove('selected');
+                });
+                this.classList.add('selected');
+
+                // Update hidden input
+                if (form === 'login') {
+                    document.getElementById('loginUserType').value = type;
+                } else {
+                    document.getElementById('registerUserType').value = type;
+
+                    // Toggle student/alumni fields
+                    if (type === 'student') {
+                        studentFields.style.display = 'block';
+                        alumniFields.style.display = 'none';
+                    } else {
+                        studentFields.style.display = 'none';
+                        alumniFields.style.display = 'block';
+                    }
+                }
+            });
+        });
+
+        // Update sub courses
+        window.updateSubCourses = function () {
+            const selectedCourse = mainCourse.value;
+            subCourse.innerHTML = '<option value="" disabled selected>Select your program</option>';
+
+            if (selectedCourse && programData[selectedCourse]) {
+                programData[selectedCourse].forEach(program => {
+                    const option = document.createElement('option');
+                    option.value = program;
+                    option.textContent = program;
+                    subCourse.appendChild(option);
+                });
+            }
+        };
+
+        // Show alert
+        function showAlert(message, type = 'danger') {
+            const alertDiv = document.getElementById('alertMessage');
+            alertDiv.textContent = message;
+            alertDiv.className = `alert-custom alert-custom-${type}`;
+            alertDiv.style.display = 'block';
+
+            setTimeout(() => {
+                alertDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // Validation helpers
+        function isValidEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function isValidPhone(phone) {
+            return /^[0-9]{10}$/.test(phone);
+        }
+
+        function validateLoginForm() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+
+            if (!email || !password) {
+                showAlert('Please enter both email and password');
+                return false;
+            }
+            if (!isValidEmail(email)) {
+                showAlert('Please enter a valid email address');
+                return false;
+            }
+            return true;
+        }
+
+        function validateRegisterForm() {
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('registerEmail').value.trim();
+            const phone = document.getElementById('phoneNumber').value.trim();
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const userType = document.getElementById('registerUserType').value;
+
+            if (!firstName || !lastName || !email || !phone || !password || !confirmPassword) {
+                showAlert('Please fill in all required fields');
+                return false;
+            }
+
+            if (!isValidEmail(email)) {
+                showAlert('Please enter a valid email address');
+                return false;
+            }
+
+            if (!isValidPhone(phone)) {
+                showAlert('Please enter a valid 10-digit phone number');
+                return false;
+            }
+
+            if (password.length < 6) {
+                showAlert('Password must be at least 6 characters');
+                return false;
+            }
+
+            if (password !== confirmPassword) {
+                showAlert('Passwords do not match');
+                return false;
+            }
+
+            if (userType === 'student') {
+                const year = document.getElementById('studentYear').value;
+                const regNo = document.getElementById('studentRegNo').value.trim();
+                const gradYear = document.getElementById('graduationYear').value;
+                if (!year || !regNo || !gradYear) {
+                    showAlert('Please complete your student information (Year, Reg No, and Graduation Year are required)');
+                    return false;
+                }
+            } else {
+                const passedOut = document.getElementById('passedOutYear').value.trim();
+                const regNo = document.getElementById('alumniRegNo').value.trim();
+                const yearsExp = document.getElementById('yearsExp').value;
+                const role = document.getElementById('currentRole').value.trim();
+                if (!passedOut || !regNo || !yearsExp || !role) {
+                    showAlert('Please complete your alumni information (Passed Out, Reg No, Years Exp, and Role are required)');
+                    return false;
+                }
+            }
+
+            const stream = mainCourse.value;
+            const program = subCourse.value;
+            if (!stream || !program) {
+                showAlert('Please select your stream and program');
+                return false;
+            }
+
+            if (!document.getElementById('agreeTerms').checked) {
+                showAlert('You must agree to the terms and conditions');
+                return false;
+            }
+
+            return true;
+        }
+
+        // Login form submission
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            if (!validateLoginForm()) return;
+
+            const loginBtn = document.getElementById('loginBtn');
+            const loginBtnText = document.getElementById('loginBtnText');
+            const loginSpinner = document.getElementById('loginSpinner');
+
+            loginBtn.disabled = true;
+            loginBtnText.textContent = 'Signing in...';
+            loginSpinner.style.display = 'inline-block';
+
+            var res;
+            try {
+                console.log('[login] Sending request to http://localhost:5000/api/auth/login');
+                res = await fetch('http://localhost:5000/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: document.getElementById('loginEmail').value.trim(),
+                        password: document.getElementById('loginPassword').value
+                    })
+                });
+                console.log('[login] Response status:', res.status);
+            } catch (networkErr) {
+                // fetch() itself threw — true network failure (server down, CORS blocked, no internet)
+                console.error('[login] Network error — server may be offline:', networkErr);
+                showAlert('Cannot reach the server. Make sure the backend is running on port 5000.');
+                loginBtn.disabled = false;
+                loginBtnText.textContent = 'Sign in to hLPU';
+                loginSpinner.style.display = 'none';
+                return;
+            }
+
+            // Server responded — try to parse JSON
+            var data;
+            try {
+                data = await res.json();
+                console.log('[login] Response body:', data);
+            } catch (parseErr) {
+                console.error('[login] Server returned non-JSON response:', parseErr);
+                showAlert('Server error — unexpected response (status ' + res.status + ').');
+                loginBtn.disabled = false;
+                loginBtnText.textContent = 'Sign in to hLPU';
+                loginSpinner.style.display = 'none';
+                return;
+            }
+
+            if (!res.ok) {
+                console.warn('[login] Server rejected login:', res.status, data.message);
+                showAlert(data.message || 'Login failed (status ' + res.status + ')');
+                loginBtn.disabled = false;
+                loginBtnText.textContent = 'Sign in to hLPU';
+                loginSpinner.style.display = 'none';
+                return;
+            }
+
+            // Handle OTP for admin
+            if (data.requiresOTP) {
+                loginBtn.disabled = false;
+                loginBtnText.textContent = 'Sign in to hLPU';
+                loginSpinner.style.display = 'none';
+
+                const { value: otp } = await Swal.fire({
+                    title: 'Enter OTP',
+                    text: 'A 6-digit code has been sent to ' + data.email,
+                    input: 'text',
+                    inputPlaceholder: '123456',
+                    confirmButtonText: 'Verify OTP',
+                    confirmButtonColor: '#C2491F',
+                    background: '#FFF8F0',
+                    allowOutsideClick: false,
+                    preConfirm: (value) => {
+                        if (!value || value.length !== 6) {
+                            Swal.showValidationMessage('Please enter a valid 6-digit OTP');
+                            return false;
+                        }
+                        return value;
+                    }
+                });
+
+                if (otp) {
+                    try {
+                        const verifyRes = await fetch('http://localhost:5000/api/auth/verify-otp', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ email: data.email, otp: otp })
+                        });
+                        const verifyData = await verifyRes.json();
+
+                        if (!verifyRes.ok) {
+                            showAlert(verifyData.message || 'OTP verification failed');
+                            return;
+                        }
+
+                        // Success - replace data with verified data
+                        data = verifyData;
+                    } catch (verifyErr) {
+                        console.error('[otp] Verification error:', verifyErr);
+                        showAlert('Connection error during OTP verification');
+                        return;
+                    }
+                } else {
+                    return; // User cancelled
+                }
+            }
+
+            // Store auth from backend response
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('role', data.role);
+            localStorage.setItem('userName', data.userName);
+            console.log('[login] Success — role:', data.role, 'userName:', data.userName);
+
+            // Determine redirect by role
+            var redirectMap = {
+                student: '../For-Student/Dashboard.html',
+                alumni: '../For-Alumini/Dashboard.html',
+                admin: '../For-Admin/Dashboard.html'
+            };
+            var redirectUrl = redirectMap[data.role] || '../For-Student/Dashboard.html';
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Welcome back!',
+                text: 'Redirecting to your dashboard...',
+                confirmButtonColor: '#C2491F',
+                timer: 1800,
+                showConfirmButton: false,
+                background: '#FFF8F0',
+                iconColor: '#C2491F'
+            }).then(function () {
+                window.location.href = redirectUrl;
+            });
+        });
+
+        // Register form submission
+        document.getElementById('registerForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            if (!validateRegisterForm()) return;
+
+            const registerBtn = document.getElementById('registerBtn');
+            const registerBtnText = document.getElementById('registerBtnText');
+            const registerSpinner = document.getElementById('registerSpinner');
+
+            registerBtn.disabled = true;
+            registerBtnText.textContent = 'Creating account...';
+            registerSpinner.style.display = 'inline-block';
+
+            // Collect form data
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const fullName = firstName + ' ' + lastName;
+
+            const payload = {
+                name: fullName,
+                email: document.getElementById('registerEmail').value.trim(),
+                password: document.getElementById('registerPassword').value,
+                role: document.getElementById('registerUserType').value,
+                phoneNumber: document.getElementById('phoneNumber').value.trim(),
+                regNo: document.getElementById('registerUserType').value === 'student'
+                    ? document.getElementById('studentRegNo').value.trim()
+                    : document.getElementById('alumniRegNo').value.trim(),
+                batch: document.getElementById('registerUserType').value === 'student'
+                    ? document.getElementById('studentYear').value
+                    : document.getElementById('passedOutYear').value.trim(),
+                stream: mainCourse.value,
+                department: subCourse.value,
+                graduationYear: document.getElementById('graduationYear').value || undefined,
+                specialization: document.getElementById('specialization').value.trim() || undefined,
+                yearsOfExperience: document.getElementById('yearsExp').value || undefined,
+                currentRole: document.getElementById('currentRole').value.trim() || undefined,
+                company: document.getElementById('registerUserType').value === 'alumni'
+                    ? document.getElementById('currentCompany').value.trim()
+                    : ''
+            };
+
+            console.log('[register] Sending payload:', payload); // Added logging
+
+            try {
+                const res = await fetch('http://localhost:5000/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await res.json();
+
+                if (!res.ok) {
+                    throw new Error(data.message || 'Registration failed');
+                }
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Welcome to hLPU!',
+                    text: 'Your account has been created successfully. You can now log in.',
+                    confirmButtonColor: '#C2491F',
+                    timer: 2500,
+                    showConfirmButton: false,
+                    background: '#FFF8F0',
+                    iconColor: '#C2491F'
+                }).then(() => {
+                    switchTab('login');
+                    this.reset();
+                    // Reset UI to default student view
+                    const studentCard = registerForm.querySelector('.user-card[data-type="student"]');
+                    studentCard.classList.add('selected');
+                    document.getElementById('registerUserType').value = 'student';
+                    studentFields.style.display = 'block';
+                    alumniFields.style.display = 'none';
+                    mainCourse.value = '';
+                    subCourse.innerHTML = '<option value="" disabled selected>Select your program</option>';
+                });
+
+            } catch (err) {
+                console.error('[register] Error:', err.message);
+                showAlert(err.message || 'Error creating account. Please try again.');
+            } finally {
+                registerBtn.disabled = false;
+                registerBtnText.textContent = 'Create account';
+                registerSpinner.style.display = 'none';
+            }
+        });
+
+        // Forgot password
+        document.getElementById('forgotPassword').addEventListener('click', function (e) {
+            e.preventDefault();
+
+            Swal.fire({
+                title: 'Reset password',
+                html: `
+                    <p style="color: #0A1A2F; margin-bottom: 20px;">Enter your email address to receive reset instructions</p>
+                    <input type="email" id="resetEmail" class="swal2-input" placeholder="Email address" style="border-radius: 16px;">
+                `,
+                confirmButtonText: 'Send reset link',
+                confirmButtonColor: '#C2491F',
+                showCancelButton: true,
+                cancelButtonText: 'Cancel',
+                background: '#FFF8F0',
+                preConfirm: () => {
+                    const email = Swal.getPopup().querySelector('#resetEmail').value;
+                    if (!email || !isValidEmail(email)) {
+                        Swal.showValidationMessage('Please enter a valid email address');
+                        return false;
+                    }
+                    return email;
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Email sent',
+                        text: 'Check your inbox for password reset instructions',
+                        confirmButtonColor: '#C2491F',
+                        background: '#FFF8F0',
+                        timer: 2500,
+                        showConfirmButton: false
+                    });
+                }
+            });
+        });
+
+        // Initial setup
+        document.addEventListener('DOMContentLoaded', function () {
+            // Set default user type fields
+            studentFields.style.display = 'block';
+            alumniFields.style.display = 'none';
+
+            // Add real-time validation styling
+            const emailInputs = document.querySelectorAll('input[type="email"]');
+            emailInputs.forEach(input => {
+                input.addEventListener('blur', function () {
+                    if (this.value && !isValidEmail(this.value)) {
+                        this.style.borderColor = '#C2491F';
+                    } else {
+                        this.style.borderColor = '';
+                    }
+                });
+            });
+
+            // Initialize program dropdown
+            subCourse.innerHTML = '<option value="" disabled selected>Select your program</option>';
+        });
+    </script>
+    <script src="../js/mobile-login.js?v=1.1"></script>
+</body>
+
+</html>

@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>hLPU</title>
+  <link rel="icon" type="image/png" href="../assets/images/hlpu logo.png">
+
+  <!-- Bootstrap 4.6 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <!-- Google Fonts - Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+  <link rel="stylesheet" href="../css/core/NavBar.css" />
+  <link rel="stylesheet" href="../css/core/Main.css" />
+  <link rel="stylesheet" href="../css/mobile-nav.css" />
+  <link rel="stylesheet" href="../css/mobile-fixes.css" />
+  <link rel="stylesheet" href="../css/mobile-mentors.css" />
+
+  <style>
+    /* ===== HERO SECTION ===== */
+    .hero {
+      padding: 25px 20px;
+      margin-top: 80px;
+      min-height: calc(100vh - 100px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ===== PREMIUM GLASS CONTAINER ===== */
+    .container-glass {
+      width: 100%;
+      max-width: 1200px;
+      background: var(--glass);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(194, 73, 31, 0.08);
+      border-radius: 32px;
+      padding: 30px 30px;
+      box-shadow: var(--shadow-elevation);
+      transition: var(--transition);
+      animation: slideUp 0.5s ease forwards;
+      margin-bottom: 30px;
+    }
+
+    .container-glass:hover {
+      background: rgba(255, 255, 250, 0.9);
+      border-color: var(--gilt);
+      box-shadow: 0 40px 80px -20px rgba(194, 73, 31, 0.15);
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 10px;
+      text-align: left;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero h1 i {
+      color: var(--ember);
+      font-size: 1.8rem;
+    }
+
+    .hero p {
+      font-size: 1rem;
+      color: #52606d;
+      text-align: left;
+      margin-bottom: 25px;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero p i {
+      color: var(--ember);
+    }
+
+    hr {
+      border: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--ember), var(--gilt));
+      margin: 25px 0;
+      opacity: 0.2;
+      border-radius: 2px;
+    }
+
+    /* ===== FILTER SECTION ===== */
+    .filter-group {
+
+      margin-bottom: 25px;
+    }
+
+    .filter-group label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .filter-group label i {
+      color: var(--ember);
+    }
+
+    .filter-group .form-control {
+      font-size: 0.9rem;
+      padding: 12px 16px;
+      border-radius: 18px;
+      border: 1.5px solid rgba(10, 26, 47, 0.06);
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      font-family: 'Inter', sans-serif;
+      color: var(--ink);
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23C2491F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      background-size: 16px;
+    }
+
+    .filter-group .form-control:focus {
+      outline: none;
+      border-color: var(--ember);
+      background: white;
+      box-shadow: 0 0 0 4px rgba(194, 73, 31, 0.08);
+    }
+
+    .filter-group .form-control {
+      height: 48px;
+    }
+
+    /* ===== SEARCH INPUT ===== */
+    .input-group {
+      width: 100%;
+    }
+
+    .input-group-text {
+      background: rgba(255, 255, 255, 0.7);
+      border: 1.5px solid rgba(10, 26, 47, 0.06);
+      border-left: none;
+      border-radius: 0 18px 18px 0;
+      padding: 8px 16px;
+      color: var(--ember);
+    }
+
+    /* ===== PREMIUM TOGGLE SWITCH ===== */
+    .switch-container {
+      display: flex;
+      align-items: center;
+      margin: 15px 0 25px;
+      padding: 12px 20px;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 40px;
+      backdrop-filter: blur(4px);
+      width: fit-content;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 52px;
+      height: 26px;
+      margin-right: 12px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(10, 26, 47, 0.2);
+      transition: 0.3s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 50%;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    input:checked+.slider {
+      background: linear-gradient(90deg, var(--ember), var(--gilt));
+    }
+
+    input:checked+.slider:before {
+      transform: translateX(26px);
+    }
+
+    .switch-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    /* ===== MENTOR CARDS (PREMIUM REDESIGN) ===== */
+    .job-card {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px -10px rgba(10, 26, 47, 0.08);
+      position: relative;
+      border: 1px solid rgba(194, 73, 31, 0.1);
+      animation: slideUp 0.5s ease forwards;
+      overflow: hidden;
+    }
+
+    .job-card:hover {
+      background: rgba(255, 255, 255, 0.9);
+      border-color: var(--ember);
+      transform: translateY(-6px);
+      box-shadow: 0 25px 50px -15px rgba(194, 73, 31, 0.2);
+    }
+
+    .job-card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .job-card-logo {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff, #f8f9fa);
+      border: 1px solid rgba(194, 73, 31, 0.1);
+      color: var(--ember);
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    }
+
+    .mentor-avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 14px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #fff, #f8f9fa);
+      border: 1px solid rgba(194, 73, 31, 0.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+      display: block;
+    }
+
+    /* Avatar Fallback Style */
+    .avatar-fallback {
+      width: 100%;
+      height: 100%;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: white;
+      background: linear-gradient(145deg, var(--ember), var(--gilt));
+      box-shadow: 0 10px 18px -6px rgba(194, 73, 31, 0.25);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .job-title-group h4 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0 0 4px 0;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .badge-admin-posted {
+      font-size: 0.65rem;
+      background: rgba(194, 73, 31, 0.1);
+      color: var(--ember);
+      border: 1px solid rgba(194, 73, 31, 0.2);
+      border-radius: 10px;
+      padding: 4px 10px;
+      font-weight: 600;
+    }
+
+    .company-info {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ember);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .meta-pill {
+      padding: 6px 12px;
+      border-radius: 40px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(10, 26, 47, 0.04);
+      color: #52606d;
+      border: 1px solid rgba(10, 26, 47, 0.05);
+      transition: var(--transition);
+    }
+
+    .job-card:hover .meta-pill {
+      background: rgba(255, 255, 255, 0.8);
+      border-color: rgba(194, 73, 31, 0.15);
+    }
+
+    .salary-badge {
+      margin-left: auto;
+      background: rgba(40, 167, 69, 0.08);
+      color: #0f7b3a;
+      border: 1px dashed rgba(40, 167, 69, 0.3);
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .skills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .skill-tag {
+      font-size: 0.7rem;
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: rgba(10, 26, 47, 0.03);
+      color: var(--ink);
+      border: 1px solid rgba(10, 26, 47, 0.06);
+      font-weight: 500;
+    }
+
+    .job-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid rgba(10, 26, 47, 0.05);
+    }
+
+    .action-btns {
+      display: flex;
+      gap: 12px;
+    }
+
+    .job-description-short {
+      font-size: 0.86rem;
+      color: #4a5568;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      padding: 12px 14px;
+      background: rgba(10, 26, 47, 0.03);
+      border: 1px solid rgba(10, 26, 47, 0.05);
+      border-radius: 12px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .job-card:hover .job-description-short {
+      background: rgba(255, 255, 255, 0.5);
+      border-color: rgba(194, 73, 31, 0.1);
+    }
+
+    /* Status Badges */
+    .status-pending {
+      color: #f59e0b;
+    }
+
+    .status-accepted {
+      color: #10b981;
+    }
+
+    .status-rejected {
+      color: #ef4444;
+    }
+
+    /* ===== PROFILE PICTURE ===== */
+    .profile-pic {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      vertical-align: middle;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 2px solid white;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin-right: 8px;
+    }
+
+    .profile-pic:hover {
+      transform: scale(1.15);
+      border-color: var(--ember);
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn-heritage {
+      margin: 8px 8px 0 0;
+    }
+
+    .btn-connect {
+      background: transparent;
+      color: var(--ember);
+      border: 1.5px solid var(--ember);
+      padding: 10px 22px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+
+    .btn-connect:hover {
+      background: var(--ember);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 20px -10px rgba(194, 73, 31, 0.4);
+    }
+
+    /* ===== CHAT BOX ===== */
+    #chatBox {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 380px;
+      height: 550px;
+      background: var(--glass-chat);
+      backdrop-filter: blur(20px);
+      border-radius: 28px;
+      box-shadow: var(--shadow-hover);
+      flex-direction: column;
+      z-index: 1000;
+      border: 1px solid rgba(194, 73, 31, 0.15);
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(20px) scale(0.95);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+    }
+
+    #chatBox.show {
+      display: flex;
+    }
+
+    #chatHeader {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 1px solid rgba(10, 26, 47, 0.08);
+      font-size: 1rem;
+      background: linear-gradient(90deg, var(--ink), #12243f);
+      color: white;
+      border-radius: 28px 28px 0 0;
+    }
+
+    #chatHeader .avatar {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(145deg, var(--ember), var(--gilt));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 12px;
+      color: white;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    #chatWith {
+      font-weight: 700;
+      flex: 1;
+    }
+
+    .status {
+      width: 10px;
+      height: 10px;
+      background: #28a745;
+      border-radius: 50%;
+      margin-right: 10px;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+    }
+
+    #chatHeader button {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: rgba(255, 255, 255, 0.8);
+      transition: var(--transition);
+    }
+
+    #chatHeader button:hover {
+      color: white;
+      transform: scale(1.1);
+    }
+
+    #chatMessages {
+      flex-grow: 1;
+      padding: 20px;
+      overflow-y: auto;
+      font-size: 0.9rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .chat-bubble {
+      margin: 8px 0;
+      padding: 12px 16px;
+      border-radius: 18px;
+      max-width: 80%;
+      word-wrap: break-word;
+      line-height: 1.5;
+      animation: bubbleIn 0.3s ease;
+    }
+
+    @keyframes bubbleIn {
+      from {
+        transform: translateY(10px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .chat-bubble.from-user {
+      background: linear-gradient(145deg, var(--ember), var(--gilt));
+      color: white;
+      margin-left: auto;
+      border-bottom-right-radius: 4px;
+    }
+
+    .chat-bubble.from-alumni {
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(10, 26, 47, 0.06);
+      border-bottom-left-radius: 4px;
+    }
+
+    .typing-indicator {
+      display: none;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 18px;
+      width: fit-content;
+      margin-top: 8px;
+    }
+
+    .typing-indicator span {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: var(--ember);
+      border-radius: 50%;
+      margin: 0 2px;
+      animation: typing 1.4s infinite;
+    }
+
+    .typing-indicator span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .typing-indicator span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes typing {
+
+      0%,
+      60%,
+      100% {
+        transform: translateY(0);
+        opacity: 0.6;
+      }
+
+      30% {
+        transform: translateY(-6px);
+        opacity: 1;
+      }
+    }
+
+    #chatInput {
+      display: flex;
+      padding: 20px;
+      border-top: 1px solid rgba(10, 26, 47, 0.08);
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 0 0 28px 28px;
+    }
+
+    #chatInput input {
+      flex-grow: 1;
+      border: 1.5px solid rgba(10, 26, 47, 0.06);
+      background: white;
+      padding: 12px 18px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      margin-right: 12px;
+      transition: var(--transition);
+      font-family: 'Inter', sans-serif;
+    }
+
+    #chatInput input:focus {
+      outline: none;
+      border-color: var(--ember);
+      box-shadow: 0 0 0 4px rgba(194, 73, 31, 0.08);
+    }
+
+    #chatInput button {
+      background: linear-gradient(145deg, var(--ember), var(--gilt));
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #chatInput button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px -8px rgba(194, 73, 31, 0.4);
+    }
+
+    /* ===== MODAL STYLES ===== */
+    .modal-content {
+      background: rgba(255, 250, 240, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 32px;
+      border: 1px solid rgba(194, 73, 31, 0.15);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .modal-header {
+      border-bottom: 1px solid rgba(10, 26, 47, 0.06);
+      padding: 24px 28px;
+    }
+
+    .modal-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .modal-title i {
+      color: var(--ember);
+    }
+
+    .modal-body {
+      padding: 28px;
+    }
+
+    .modal-body p {
+      font-size: 0.95rem;
+      color: #3f4d5e;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: baseline;
+    }
+
+    .modal-body p strong {
+      min-width: 140px;
+      color: var(--ink);
+    }
+
+    .modal-footer {
+      border-top: 1px solid rgba(10, 26, 47, 0.06);
+      padding: 20px 28px;
+    }
+
+    .close {
+      font-size: 1.5rem;
+      color: var(--ink);
+      opacity: 0.6;
+      transition: var(--transition);
+    }
+
+    .close:hover {
+      opacity: 1;
+      color: var(--ember);
+    }
+
+    /* ===== NO RESULTS ===== */
+    .no-results {
+      text-align: center;
+      padding: 60px 20px;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 32px;
+      border: 2px dashed rgba(194, 73, 31, 0.2);
+    }
+
+    .no-results i {
+      font-size: 3rem;
+      color: var(--gilt);
+      opacity: 0.4;
+      margin-bottom: 20px;
+    }
+
+    .no-results h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .no-results p {
+      color: #5f6b7a;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .container-glass {
+        padding: 25px 20px;
+        border-radius: 24px;
+      }
+
+      .hero h1 {
+        font-size: 1.6rem;
+      }
+
+      .filter-group {
+        flex-direction: column;
+      }
+
+      #chatBox {
+        width: 100%;
+        height: 100%;
+        bottom: 0;
+        right: 0;
+        border-radius: 28px 28px 0 0;
+      }
+
+      .switch-container {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero h1 {
+        font-size: 1.4rem;
+      }
+
+      .alumni-card h4 {
+        font-size: 1.1rem;
+      }
+
+      .request-badge {
+        position: static;
+        margin-bottom: 15px;
+        width: fit-content;
+      }
+
+      .btn-heritage,
+      .btn-connect {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    .btn-view-jobs {
+      background: white;
+      color: var(--ink);
+      border: 1px solid rgba(10, 26, 47, 0.1);
+      padding: 12px 28px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+    }
+
+    .btn-view-jobs:hover {
+      background: var(--ink);
+      color: white;
+      border-color: var(--ink);
+      transform: translateY(-3px);
+      box-shadow: 0 15px 25px -10px rgba(10, 26, 47, 0.3);
+    }
+  </style>
+  <!-- Global Mobile Nav Injection -->
+
+
+</head>
+
+<body>
+
+
+  <div id="navbar"></div>
+  <!-- PREMIUM MESH BACKGROUND -->
+  <div class="mesh-bg">
+    <div class="mesh mesh-1"></div>
+    <div class="mesh mesh-2"></div>
+    <div class="mesh mesh-3"></div>
+    <div class="mesh mesh-4"></div>
+  </div>
+  <div id="mobile-root"></div>
+  <!-- MAIN CONTENT -->
+  <section class="hero desktop-only">
+    <div class="container-glass">
+      <h1>
+        <i class="fas fa-users-between-lines"></i>
+        Mentor Network
+        <button type="button" class="btn-view-jobs ml-auto" id="toggleRequestsBtn">
+          <i class="fas fa-eye"></i>Mentorship Dashboard
+        </button>
+      </h1>
+      <p>
+        <i class="fas fa-handshake"></i>
+        Connect with LPU alumni across industries for guidance and mentorship
+      </p>
+
+      <hr />
+
+      <!-- ALUMNI CARDS CONTAINER (MARKETPLACE) -->
+      <div id="alumniContainerSection">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+          <h2 class="mb-0"><i class="fas fa-users text-ember"></i> Browse Available Mentors</h2>
+          <button class="btn-connect" onclick="showGeneralRequestForm()">
+            <i class="fas fa-paper-plane"></i> Request Mentor Help (General)
+          </button>
+        </div>
+
+        <!-- FILTERS -->
+        <div class="filter-group row mb-4">
+          <div class="col-12 col-md-6 mb-3">
+            <label for="program"><i class="fas fa-graduation-cap"></i> Program</label>
+            <select id="program" class="form-control">
+              <option value="all">All Programs</option>
+              <option value="CSE">CSE</option>
+              <option value="ECE">ECE</option>
+              <option value="Mechanical">Mechanical</option>
+              <option value="Civil">Civil</option>
+              <option value="EEE">EEE</option>
+              <option value="BBA">BBA</option>
+              <option value="MBA">MBA</option>
+              <option value="Commerce">Commerce</option>
+              <option value="BA LLB">BA LLB</option>
+              <option value="BBA LLB">BBA LLB</option>
+              <option value="English">English</option>
+              <option value="History">History</option>
+              <option value="Psychology">Psychology</option>
+              <option value="MBBS">MBBS</option>
+              <option value="BDS">BDS</option>
+              <option value="Nursing">Nursing</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-6 mb-3">
+            <label for="searchAll"><i class="fas fa-search"></i> Search</label>
+            <div class="input-group">
+              <input type="text" id="searchAll" class="form-control" placeholder="Search by name, skills, title...">
+            </div>
+          </div>
+        </div>
+
+        <div id="alumniContainer" class="mt-4"></div>
+
+        <!-- PAGINATION -->
+        <div class="d-flex justify-content-center align-items-center mt-5 mb-3" id="paginationControls"
+          style="gap: 15px; display: none !important;">
+          <button id="prevBtn" class="btn-heritage" style="padding: 8px 20px; font-size: 0.85rem;" disabled
+            onclick="loadAvailableMentors(currentPage - 1)">
+            <i class="fas fa-chevron-left"></i> Previous
+          </button>
+          <span id="pageIndicator" style="font-weight: 600; color: var(--ink); font-size: 0.9rem;">
+            Page 1 / 1
+          </span>
+          <button id="nextBtn" class="btn-heritage" style="padding: 8px 20px; font-size: 0.85rem;" disabled
+            onclick="loadAvailableMentors(currentPage + 1)">
+            Next <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+
+
+      </div>
+
+
+      <!-- DASHBOARD AREA -->
+      <div id="mentorshipDashboard" style="display: none;">
+        <div id="myRequestsSection" class="mt-4">
+          <h2 class="mb-4"><i class="fas fa-id-card text-ember"></i> My Mentorship Dashboard</h2>
+          <div id="requestsListContainer"></div>
+        </div>
+
+
+
+      </div>
+    </div>
+    </div>
+
+    <!-- CHAT BOX -->
+    <div id="chatBox" class="desktop-only">
+      <div id="chatHeader">
+        <div class="avatar">
+          <i class="fas fa-user"></i>
+        </div>
+        <span id="chatWith"></span>
+        <div class="status"></div>
+        <button onclick="closeChat()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div id="chatMessages">
+        <div class="typing-indicator">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+      <div id="chatInput">
+        <input type="text" id="chatText" placeholder="Type your message...">
+        <button onclick="sendMessage()">
+          <i class="fas fa-paper-plane"></i> Send
+        </button>
+      </div>
+    </div>
+
+    <!-- MENTOR REQUEST MODAL -->
+
+
+  </section>
+
+  <!-- ALUMNI PROFILE MODAL -->
+  <div class="modal fade" id="alumniModal" aria-labelledby="alumniModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="alumniModalLabel">
+            <i class="fas fa-user-circle"></i> Alumni Profile
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p><strong><i class="fas fa-user"></i> Name:</strong> <span id="modalAlumName"></span></p>
+          <p><strong><i class="fas fa-graduation-cap"></i> Program:</strong> <span id="modalProgram"></span></p>
+          <p><strong><i class="fas fa-building"></i> Company:</strong> <span id="modalCompany"></span></p>
+          <p><strong><i class="fas fa-briefcase"></i> Position:</strong> <span id="modalPosition"></span></p>
+          <p><strong><i class="fas fa-code"></i> Expertise:</strong> <span id="modalExpertise"></span></p>
+          <p><strong><i class="fas fa-calendar-alt"></i> Graduation:</strong> <span id="modalYear"></span></p>
+          <p><strong><i class="fas fa-users"></i> Mentorship Requests:</strong> <span id="modalRequests"></span></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-heritage" data-dismiss="modal">
+            <i class="fas fa-times"></i> Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="modal fade" id="mentorRequestModal" aria-labelledby="mentorRequestModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="mentorRequestModalLabel">
+            <i class="fas fa-paper-plane"></i> Send Mentorship Request
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="mentorRequestForm">
+            <div class="row">
+              <div class="col-md-6 form-group">
+                <label><i class="fas fa-brain"></i> Preferred Domain</label>
+                <input type="text" id="preferredDomain" class="form-control" placeholder="e.g. AI/ML, Marketing"
+                  required>
+              </div>
+              <div class="col-md-6 form-group">
+                <label><i class="fas fa-headset"></i> Preferred Mode</label>
+                <select id="preferredMode" class="form-control">
+                  <option value="Chat">Chat</option>
+                  <option value="Video Call">Video Call</option>
+                  <option value="In-person">In-person</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label><i class="fas fa-comment-alt"></i> Your Message</label>
+              <textarea id="requestMessage" rows="4" class="form-control"
+                placeholder="Describe your mentorship needs..." required></textarea>
+            </div>
+            <button type="submit" id="submitRequestBtn" class="btn-connect w-100 justify-content-center">
+              <i class="fas fa-paper-plane"></i> Submit Mentorship Request
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- UI Helpers -->
+  <script src="../js/core/ui-helpers.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    // HLPU MENTOR MARKETPLACE LOGIC
+    let currentPage = 1;
+    let totalPages = 1;
+    let abortController = null;
+
+    async function loadAvailableMentors(page = 1) {
+      if (abortController) abortController.abort();
+      abortController = new AbortController();
+
+      const container = document.getElementById('alumniContainer');
+      const paginationControls = document.getElementById('paginationControls');
+
+      try {
+        currentPage = page;
+        container.innerHTML = `<div class="text-center py-5 w-100"><i class="fas fa-spinner fa-spin fa-2x text-ember"></i><p class="mt-2 text-muted">Finding best matches...</p></div>`;
+
+        const prog = document.getElementById('program').value;
+        const search = document.getElementById('searchAll').value;
+
+        let url = `/api/mentorship/match?page=${page}&limit=10`;
+        if (prog && prog !== 'all') url += `&department=${encodeURIComponent(prog)}`;
+        if (search) url += `&search=${encodeURIComponent(search)}`;
+
+        const data = await apiFetch(url, { signal: abortController.signal });
+        availableMentors = data.mentors || [];
+        totalPages = data.pagination?.pages || 1;
+
+        renderAlumni(data);
+      } catch (err) {
+        if (err.name === 'AbortError') return;
+        container.innerHTML = `<div class="alert alert-danger">Failed to load mentors: ${err.message}</div>`;
+      }
+    }
+
+    // Helper for robust avatar rendering
+    function getAvatarHtml(user, className) {
+      if (user?.profilePicture && user.profilePicture !== '../assets/images/default-avatar.png') {
+        return `<img src="${user.profilePicture}" class="${className}" alt="${user.name}" onerror="this.outerHTML='<div class=\\\'avatar-fallback\\\'>${getInitials(user.name)}</div>'">`;
+      }
+      return `<div class="avatar-fallback">${getInitials(user.name)}</div>`;
+    }
+
+    function getInitials(name) {
+      if (!name) return '??';
+      return name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+    }
+
+    function renderAlumni(data) {
+      if (window.innerWidth <= 768 && typeof MobileMentors !== 'undefined') {
+        MobileMentors.render(data.mentors || [], data.pagination);
+        return;
+      }
+      const mentors = data.mentors || [];
+      const container = document.getElementById('alumniContainer');
+      container.innerHTML = '';
+
+      if (!mentors.length) {
+        container.innerHTML = window.UIHelper ?
+          window.UIHelper.getEmptyStateHTML('No Mentors Found', 'Try different keywords or filters.', 'fa-search') :
+          `<div class="no-results">
+                <i class="fas fa-search"></i>
+                <h3>No available mentors match your search</h3>
+                <p>Try different keywords or filters.</p>
+              </div>`;
+        document.getElementById('paginationControls').style.setProperty('display', 'none', 'important');
+        return;
+      }
+
+      document.getElementById('paginationControls').style.setProperty('display', 'flex', 'important');
+
+      // Group mentors by matchScore
+      const bestMentors = mentors.filter(m => m.matchScore >= 70 && !m.isCrossStream);
+      const goodMentors = mentors.filter(m => (m.matchScore < 70 && m.matchScore >= 35) && !m.isCrossStream);
+      const exploreMentors = mentors.filter(m => m.matchScore < 35 || m.isCrossStream);
+
+      const appendSection = (title, icon, mentorsArray) => {
+        if (!mentorsArray.length) return;
+
+        const sectionDiv = document.createElement('div');
+        sectionDiv.className = 'mentor-section mb-5 px-3';
+        sectionDiv.innerHTML = `
+            <h3 style="font-size: 1.4rem; font-weight: 700; color: var(--ink); margin-bottom: 20px; border-bottom: 2px solid #edf2f7; padding-bottom: 10px;">
+                <span style="color: var(--ember);">${icon}</span> ${title} 
+                <span class="text-muted ml-2" style="font-size:0.9rem; font-weight:500;">(${mentorsArray.length})</span>
+            </h3>
+            <div class="mentor-list-group" style="display:flex; flex-direction:column; gap:20px;"></div>
+        `;
+        const listGroup = sectionDiv.querySelector('.mentor-list-group');
+
+        mentorsArray.forEach((alumni, index) => {
+          const pPic = alumni.profilePic || alumni.profilePicture || '../assets/images/default-avatar.png';
+          const currentLoad = alumni.currentMentees || 0;
+          const maxLoad = alumni.maxMentees || 5;
+          const loadPerc = Math.min((currentLoad / maxLoad) * 100, 100);
+          const matchScore = alumni.matchScore || 0;
+          const initials = alumni.name.split(' ').map(n => n[0]).join('').toUpperCase();
+
+          const card = document.createElement('div');
+          card.className = 'job-card glass-hover-elevate';
+          card.style.animationDelay = `${index * 0.05}s`;
+          card.style.width = '100%';
+
+          card.innerHTML = `
+            <div class="job-card-header">
+                ${pPic && pPic !== '../assets/images/default-avatar.png' ?
+              `<img src="${pPic}" class="job-card-logo" style="object-fit:cover;" alt="${alumni.name}" onerror="this.onerror=null; this.outerHTML='<div class=\\'job-card-logo\\'>${initials}</div>';">` :
+              `<div class="job-card-logo">${initials}</div>`
+            }
+                <div class="job-card-content" style="flex: 1; margin-left: 12px;">
+                    <h4 style="margin:0; font-size:1.15rem;">${alumni.name} ${alumni.isVerified ? '<span class="verified-badge" title="Verified Alumni"><i class="fas fa-certificate"></i></span>' : ''}</h4>
+                    <div class="company-name" style="font-weight:600; color:var(--ember); font-size:0.85rem;">
+                        ${alumni.title || 'Professional Specialist'} · ${alumni.company || 'hLPU Alumni Network'}
+                    </div>
+                </div>
+                <div class="salary-badge" style="margin-left:auto; background: rgba(194,73,31,0.05); color: var(--ember); border-color: rgba(194,73,31,0.2);">
+                    <i class="fas fa-users"></i> ${currentLoad}/${maxLoad} Load
+                </div>
+            </div>
+
+            <div class="meta-row">
+              <div class="meta-pill"><i class="fas fa-graduation-cap"></i> ${alumni.department || alumni.stream || 'LPU Alumni'}</div>
+              <div class="meta-pill"><i class="fas fa-clock"></i> ${alumni.yearsOfExperience || alumni.experience || '3+'} Years Exp.</div>
+              <div class="meta-pill"><i class="fas fa-map-marker-alt"></i> India</div>
+            </div>
+
+            <div class="skills-row">
+              ${(alumni.skills || []).slice(0, 3).map(s => `<span class="skill-tag">${s}</span>`).join('')}
+              ${(alumni.skills || []).length > 3 ? `<span class="skill-tag" style="background:rgba(194,73,31,0.05); color:var(--ember);">+${alumni.skills.length - 3}</span>` : ''}
+            </div>
+
+            <div class="job-description-short" style="font-size: 0.85rem; color: #5f6b7a; margin-bottom: 20px; line-height: 1.5;">
+               ${alumni.bio ? (alumni.bio.length > 100 ? alumni.bio.substring(0, 100) + '...' : alumni.bio) : 'Passionate mentor dedicated to student success and industry excellence.'}
+            </div>
+
+            <div class="job-card-footer">
+              <div class="action-btns">
+                <button class="btn btn-sm btn-light" onclick="viewAlumniProfile('${alumni._id}')" style="border-radius:12px; font-weight:600; padding:6px 16px; border:1px solid #edf2f7; font-size:0.8rem;">
+                  <i class="fas fa-user-circle mr-1"></i> Profile
+                </button>
+                <button class="btn btn-sm btn-primary" onclick="showRequestFormForAlumni('${alumni._id}', '${alumni.name}')" ${loadPerc >= 100 ? 'disabled' : ''} style="border-radius:12px; font-weight:600; padding:6px 18px; background:var(--ink); border:none; font-size:0.8rem;">
+                  <i class="fas fa-paper-plane mr-1"></i> ${loadPerc >= 100 ? 'Load Full' : 'Connect'}
+                </button>
+              </div>
+              <div class="date-info">
+                 ${alumni.matchScore !== undefined ? `<span class="date-item" style="color:var(--ember); font-weight:600;"><i class="fas fa-bullseye"></i> Match: ${alumni.matchScore}%</span>` : ''}
+              </div>
+            </div>
+          `;
+          listGroup.appendChild(card);
+        });
+
+        container.appendChild(sectionDiv);
+      };
+
+      appendSection('Best Mentors for You', '🔥', bestMentors);
+      appendSection('Good Mentors', '🎯', goodMentors);
+      appendSection('Explore More Mentors', '🌐', exploreMentors);
+
+      // Update Pagination UI
+      document.getElementById('pageIndicator').textContent = `Page ${currentPage} / ${totalPages}`;
+      document.getElementById('prevBtn').disabled = (currentPage <= 1);
+      document.getElementById('nextBtn').disabled = (currentPage >= totalPages);
+    }
+
+    function showRequestFormForAlumni(id, name) {
+      selectedMentorId = id;
+      document.getElementById('mentorRequestModalLabel').innerHTML = `<i class="fas fa-paper-plane"></i> Mentorship Request for ${name}`;
+      document.getElementById('preferredDomain').placeholder = `Request to ${name}`;
+      document.getElementById('preferredDomain').value = ""; // Let the user type freely
+      $('#mentorRequestModal').modal('show');
+    }
+
+    function showGeneralRequestForm() {
+      selectedMentorId = null;
+      document.getElementById('mentorRequestModalLabel').innerHTML = `<i class="fas fa-paper-plane"></i> General Mentorship Request`;
+      document.getElementById('preferredDomain').placeholder = 'e.g. AI/ML, Marketing';
+      document.getElementById('preferredDomain').value = '';
+      $('#mentorRequestModal').modal('show');
+    }
+
+
+    async function submitMentorRequest(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submitRequestBtn');
+      const message = document.getElementById('requestMessage').value;
+      const preferredDomain = document.getElementById('preferredDomain').value;
+      const preferredMode = document.getElementById('preferredMode').value;
+
+      let resetBtn = () => { };
+      if (window.UIHelper) {
+        resetBtn = window.UIHelper.setButtonLoading(btn);
+      } else {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+      }
+
+      try {
+        await apiFetch('/api/mentorship/request', {
+          method: 'POST',
+          body: JSON.stringify({
+            message,
+            preferredDomain,
+            preferredMode,
+            alumniId: selectedMentorId
+          })
+        });
+
+        $('#mentorRequestModal').modal('hide');
+
+        if (window.UIHelper) {
+          window.UIHelper.showToast('Mentorship request sent successfully!', 'success');
+        } else {
+          Swal.fire({
+            icon: 'success',
+            title: 'Request Sent',
+            text: selectedMentorId ? 'Your direct request has been sent!' : 'Your request is now in the pool.',
+            confirmButtonColor: '#C2491F',
+            background: '#FFF8F0'
+          });
+        }
+
+        document.getElementById('mentorRequestForm').reset();
+        document.getElementById('preferredDomain').placeholder = 'e.g. AI/ML, Marketing';
+        selectedMentorId = null;
+        loadMyRequests();
+
+      } catch (err) {
+        if (window.UIHelper) {
+          window.UIHelper.showToast(err.message || 'Failed to send request', 'error');
+        } else {
+          Swal.fire({ icon: 'error', title: 'Failed', text: err.message, confirmButtonColor: '#C2491F' });
+        }
+      } finally {
+        resetBtn();
+        if (!window.UIHelper) {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Request';
+        }
+      }
+    }
+
+    async function loadMyRequests() {
+      const container = document.getElementById('requestsListContainer');
+      try {
+        const requests = await apiFetch('/api/mentorship/student');
+        renderMyRequests(requests);
+      } catch (err) {
+        container.innerHTML = `<p class="text-danger">Failed to load requests: ${err.message}</p>`;
+      }
+    }
+
+    function renderMyRequests(requests) {
+      if (window.innerWidth <= 768 && typeof MobileMentors !== 'undefined') {
+        MobileMentors.renderMyRequests(requests);
+        return;
+      }
+      const container = document.getElementById('requestsListContainer');
+      container.innerHTML = '';
+
+      if (requests.length === 0) {
+        container.innerHTML = `
+          <div class="no-results">
+            <i class="fas fa-clipboard-list"></i>
+            <h3>No requests found in your history</h3>
+            <p>Browse the mentor network and start connecting today!</p>
+          </div>
+        `;
+        return;
+      }
+
+      requests.forEach((req, index) => {
+        const date = new Date(req.createdAt).toLocaleDateString();
+        const mentorName = req.status === 'pending'
+          ? (req.alumni ? `Direct Request to ${req.alumni.name}` : 'Searching Pool...')
+          : (req.alumni ? req.alumni.name : 'Unknown');
+
+        const statusClass = `status-${req.status}`;
+        const pPic = (req.alumni && req.alumni.profilePicture) || '../assets/images/default-avatar.png';
+
+        const card = document.createElement('div');
+        card.className = 'job-card';
+        card.style.animationDelay = `${index * 0.1}s`;
+
+        card.innerHTML = `
+          <div class="job-card-header">
+            <div class="job-card-logo">
+              ${pPic && pPic !== '../assets/images/default-avatar.png' ?
+            `<img src="${pPic}" style="width:100%; height:100%; border-radius:12px; object-fit:cover;" onerror="this.onerror=null; this.outerHTML='<div class=\\'avatar-fallback\\'>${getInitials(mentorName)}</div>';">` :
+            `<div class="avatar-fallback" style="border-radius:12px;">${getInitials(mentorName)}</div>`
+          }
+            </div>
+            <div class="job-card-content" style="flex: 1; margin-left: 12px;">
+              <h4 style="margin:0; font-size:1.15rem;">${req.preferredDomain || 'General Mentorship'}</h4>
+              <div class="company-name" style="font-weight:600; color:var(--ember); font-size:0.85rem;">
+                <i class="fas fa-user-tie"></i> ${mentorName}
+              </div>
+            </div>
+            <div class="salary-badge ${statusClass}" style="margin-left:auto; background: var(--glass-deep); border-style: solid; font-size: 0.75rem;">
+              <i class="fas fa-circle" style="font-size:0.5rem"></i> ${req.status.toUpperCase()}
+            </div>
+          </div>
+
+          <div class="meta-row">
+            <div class="meta-pill"><i class="fas fa-calendar-day"></i> ${date}</div>
+            <div class="meta-pill"><i class="fas fa-headset"></i> ${req.preferredMode}</div>
+            <div class="meta-pill"><i class="fas fa-id-badge"></i> ID: #${req._id.slice(-6)}</div>
+          </div>
+
+          <div class="job-description-short" style="display:block; -webkit-line-clamp: initial; font-style: italic; font-size: 0.85rem;">
+            "${req.message}"
+          </div>
+
+          <div class="job-card-footer">
+            <div class="date-info">
+              <span class="date-item"><i class="fas fa-clock"></i> Sent: ${date}</span>
+            </div>
+            <div class="action-btns">
+              ${req.status === 'accepted' ? `
+                <a href="Messages.html" class="btn btn-sm btn-primary" style="border-radius:12px; font-weight:600; padding:6px 18px; background:var(--ink); border:none; font-size:0.8rem; text-decoration:none; color:white;">
+                  <i class="fas fa-comment"></i> Quick Message
+                </a>
+              ` : `
+                <button class="btn btn-sm btn-light" disabled style="border-radius:12px; font-weight:600; padding:6px 16px; border:1px solid #edf2f7; font-size:0.8rem;">
+                  <i class="fas fa-history"></i> ${req.status.charAt(0).toUpperCase() + req.status.slice(1)}
+                </button>
+              `}
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function viewAlumniProfile(id) {
+      const alumni = availableMentors.find(a => a._id === id);
+      if (!alumni) return;
+
+      document.getElementById('modalAlumName').innerText = alumni.name;
+      document.getElementById('modalProgram').innerText = alumni.department || 'N/A';
+      document.getElementById('modalCompany').innerText = alumni.company || 'hLPU Alumni';
+      document.getElementById('modalPosition').innerText = alumni.title || 'Professional';
+      document.getElementById('modalExpertise').innerText = (alumni.skills || []).join(', ');
+      document.getElementById('modalYear').innerText = alumni.graduationYear || 'N/A';
+      document.getElementById('modalRequests').innerText = `${alumni.currentMentees || 0}/${alumni.maxMentees || 5}`;
+
+      $('#alumniModal').modal('show');
+    }
+
+    function initSockets() {
+      if (typeof io === 'undefined') return;
+      const socket = io();
+
+      socket.on('mentorship:accepted', (data) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Mentorship Accepted! 🤝',
+          text: `${data.alumniName} accepted your request for ${data.domain}. Chat is now enabled!`,
+          confirmButtonColor: '#C2491F'
+        });
+        loadMyRequests();
+      });
+
+      socket.on('mentorship:rejected', (data) => {
+        Swal.fire({
+          icon: 'info',
+          title: 'Mentorship Update',
+          text: `Your request for ${data.domain} was not accepted. Keep looking!`,
+          confirmButtonColor: '#C2491F'
+        });
+        loadMyRequests();
+      });
+
+      socket.on('mentor:availability-changed', () => {
+        loadAvailableMentors();
+      });
+    }
+
+    window.onload = function () {
+      initSockets();
+      if (window.innerWidth <= 768 && typeof MobileMentors !== 'undefined') {
+        MobileMentors.run('browse');
+      }
+      loadAvailableMentors(1);
+      loadMyRequests();
+      const programEl = document.getElementById('program');
+      const searchAllEl = document.getElementById('searchAll');
+      const mentorFormEl = document.getElementById('mentorRequestForm');
+      if (programEl) programEl.onchange = () => loadAvailableMentors(1);
+      if (searchAllEl) searchAllEl.onkeyup = (e) => {
+        if (e.key === 'Enter' || searchAllEl.value.length > 2 || searchAllEl.value.length === 0) {
+          loadAvailableMentors(1);
+        }
+      };
+      if (mentorFormEl) mentorFormEl.onsubmit = submitMentorRequest;
+
+      // TOGGLE LOGIC
+      const toggleBtn = document.getElementById('toggleRequestsBtn');
+      const marketplace = document.getElementById('alumniContainerSection');
+      const dashboard = document.getElementById('mentorshipDashboard');
+
+      if (toggleBtn) {
+        toggleBtn.onclick = () => {
+          if (dashboard.style.display === 'none') {
+            dashboard.style.display = 'block';
+            marketplace.style.display = 'none';
+            toggleBtn.innerHTML = '<i class="fas fa-arrow-left"></i> Browse Mentors';
+          } else {
+            dashboard.style.display = 'none';
+            marketplace.style.display = 'block';
+            toggleBtn.innerHTML = '<i class="fas fa-eye"></i> Mentorship Dashboard';
+          }
+        };
+      }
+    };
+
+  </script>
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script src="../js/core/loadComponents.js" defer></script>
+  <script src="../js/core/authGuard.js"></script>
+  <script src="../js/core/api.js"></script>
+  <script src="../js/mobile-nav.js"></script>
+  <script src="../js/mobile-mentors.js"></script>
+
+  <script src="../js/mobile-fixes.js"></script>
+</body>
+
+</html>

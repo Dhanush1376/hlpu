@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>hLPU</title>
+  <link rel="icon" type="image/png" href="../assets/images/hlpu logo.png">
+
+  <!-- Bootstrap 4.5.2 -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <!-- Google Fonts - Inter (premium theme) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../css/core/NavBar.css" />
+  <link rel="stylesheet" href="../css/core/Main.css" />
+  <link rel="stylesheet" href="./Styles/Container.css" />
+  <link rel="stylesheet" href="../css/mobile-nav.css" />
+  <link rel="stylesheet" href="../css/mobile-fixes.css" />
+  <link rel="stylesheet" href="../css/mobile-contact.css" />
+
+
+  <style>
+    /* ===== HERO SECTION ===== */
+    .hero {
+      padding: 25px 30px;
+      margin-top: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: calc(100vh - 80px);
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ===== PREMIUM GLASS CONTAINER ===== */
+    .container-glass {
+      width: 100%;
+      max-width: 1200px;
+      background: var(--glass);
+      backdrop-filter: blur(16px);
+      padding: 50px;
+      border-radius: 48px;
+      box-shadow: var(--shadow-elevation);
+      border: 1px solid rgba(194, 73, 31, 0.08);
+      transition: var(--transition);
+      animation: slideUp 0.6s ease forwards;
+      position: relative;
+      z-index: 2;
+    }
+
+    .container-glass:hover {
+      background: var(--glass-deep);
+      border-color: rgba(230, 138, 46, 0.2);
+      box-shadow: var(--shadow-hover);
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .container-glass h3 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .container-glass h3 span {
+      background: linear-gradient(145deg, var(--ember), var(--gilt));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .container-glass p {
+      font-size: 1rem;
+      color: #5f6b7a;
+      margin-bottom: 20px;
+    }
+
+    .divider {
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--gilt), transparent);
+      margin: 25px 0 35px;
+      border: none;
+      opacity: 0.3;
+    }
+
+    /* ===== CONTACT CARDS ===== */
+    .contact-card {
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(194, 73, 31, 0.08);
+      border-radius: 28px;
+      padding: 30px;
+      height: 100%;
+      transition: var(--transition);
+      box-shadow: var(--shadow-elevation);
+    }
+
+    .contact-card:hover {
+      background: white;
+      border-color: var(--gilt);
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card-header-custom {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+      border-bottom: 1px solid rgba(194, 73, 31, 0.1);
+      padding-bottom: 15px;
+    }
+
+    .card-icon {
+      width: 54px;
+      height: 54px;
+      background: linear-gradient(145deg, rgba(194, 73, 31, 0.1), rgba(230, 138, 46, 0.1));
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ember);
+      font-size: 1.6rem;
+    }
+
+    .card-header-custom h5 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0;
+    }
+
+    .contact-info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .contact-info-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ember);
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .contact-info-content {
+      flex: 1;
+    }
+
+    .contact-info-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #8f9aaa;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .contact-info-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .contact-info-value a {
+      color: var(--ember);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .contact-info-value a:hover {
+      color: var(--gilt);
+      text-decoration: underline;
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn-heritage {
+      background: white;
+      color: var(--ink);
+      border: 1px solid rgba(10, 26, 47, 0.1);
+      padding: 12px 28px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: var(--transition);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .btn-heritage:hover {
+      background: var(--ink);
+      color: white;
+      border-color: var(--ink);
+      transform: translateY(-3px);
+      box-shadow: 0 15px 25px -10px rgba(10, 26, 47, 0.3);
+      text-decoration: none;
+    }
+
+    .btn-heritage i {
+      font-size: 0.9rem;
+    }
+
+    /* ===== SOCIAL CARDS ===== */
+    .social-card {
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(194, 73, 31, 0.08);
+      border-radius: 28px;
+      padding: 35px;
+      margin-top: 20px;
+      transition: var(--transition);
+    }
+
+    .social-card:hover {
+      background: white;
+      border-color: var(--gilt);
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: flex-start;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .social-icon-link {
+      width: 56px;
+      height: 56px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink);
+      font-size: 1.6rem;
+      transition: var(--transition);
+      border: 1px solid rgba(194, 73, 31, 0.1);
+    }
+
+    .social-icon-link:hover {
+      background: var(--ember);
+      color: white;
+      transform: translateY(-5px) scale(1.1);
+      box-shadow: 0 15px 25px -10px rgba(194, 73, 31, 0.4);
+    }
+
+    /* ===== FLOATING WIDGETS ===== */
+    .floating-widget {
+      position: fixed;
+      bottom: 80px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(145deg, var(--ember), var(--gilt));
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(194, 73, 31, 0.3);
+      transition: var(--transition);
+      z-index: 998;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .chat-widget {
+      bottom: 160px;
+    }
+
+    .floating-widget:hover {
+      transform: scale(1.15) translateY(-5px);
+      box-shadow: 0 20px 35px rgba(194, 73, 31, 0.5);
+    }
+
+    .floating-widget i {
+      font-size: 1.8rem;
+    }
+
+    /* ===== MODAL STYLES ===== */
+    .modal-content {
+      background: rgba(255, 250, 240, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 32px;
+      border: 1px solid rgba(194, 73, 31, 0.15);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .modal-header {
+      border-bottom: 1px solid rgba(194, 73, 31, 0.1);
+      padding: 25px 30px;
+    }
+
+    .modal-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .modal-title i {
+      color: var(--ember);
+      margin-right: 12px;
+    }
+
+    .modal-body {
+      padding: 30px;
+    }
+
+    .modal-footer {
+      border-top: 1px solid rgba(194, 73, 31, 0.1);
+      padding: 20px 30px;
+    }
+
+    .close {
+      font-size: 1.5rem;
+      color: var(--ink);
+      opacity: 0.6;
+      transition: var(--transition);
+    }
+
+    .close:hover {
+      opacity: 1;
+      color: var(--ember);
+      transform: rotate(90deg);
+    }
+
+    /* ===== FORM STYLES ===== */
+    .form-group {
+      margin-bottom: 22px;
+    }
+
+    .form-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .form-label i {
+      color: var(--ember);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 18px;
+      border: 1.5px solid rgba(10, 26, 47, 0.08);
+      background: white;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--ember);
+      box-shadow: 0 0 0 4px rgba(194, 73, 31, 0.08);
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    /* ===== STAR RATING ===== */
+    .star-rating {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    .star-rating i {
+      font-size: 2rem;
+      color: #d1d5db;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .star-rating i:hover,
+    .star-rating i.selected {
+      color: var(--gilt);
+      transform: scale(1.2);
+    }
+
+    .star-rating i.selected {
+      text-shadow: 0 0 15px rgba(230, 138, 46, 0.5);
+    }
+
+    /* ===== MAP CONTAINER ===== */
+    .map-container {
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(194, 73, 31, 0.15);
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 350px;
+      border: none;
+    }
+
+    /* ===== SUCCESS MODAL ===== */
+    .success-icon {
+      font-size: 4rem;
+      color: #0F7B3A;
+      margin-bottom: 20px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 992px) {
+      .hero {
+        padding: 20px;
+      }
+
+      .container-glass {
+        padding: 40px 30px;
+      }
+
+      .container-glass h3 {
+        font-size: 1.9rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container-glass {
+        padding: 30px 20px;
+        border-radius: 32px;
+      }
+
+      .container-glass h3 {
+        font-size: 1.7rem;
+      }
+
+      .contact-card {
+        padding: 25px;
+      }
+
+      .card-header-custom h5 {
+        font-size: 1.2rem;
+      }
+
+      .social-icons {
+        justify-content: center;
+      }
+
+      .floating-widget {
+        width: 50px;
+        height: 50px;
+        right: 20px;
+        bottom: 70px;
+      }
+
+      .chat-widget {
+        bottom: 135px;
+      }
+
+      .floating-widget i {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .container-glass h3 {
+        font-size: 1.5rem;
+      }
+
+      .contact-card {
+        padding: 20px;
+      }
+
+      .card-header-custom {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .contact-info-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .modal-body {
+        padding: 20px;
+      }
+
+      .star-rating i {
+        font-size: 1.6rem;
+      }
+    }
+
+    /* ===== ANIMATIONS ===== */
+    .slide-in {
+      animation: slideUp 0.6s ease forwards;
+    }
+  </style>
+  <!-- Global Mobile Nav Injection -->
+
+
+</head>
+
+<body>
+
+
+  <div id="navbar"></div>
+  <!-- PREMIUM MESH BACKGROUND -->
+  <div class="mesh-bg">
+    <div class="mesh mesh-1"></div>
+    <div class="mesh mesh-2"></div>
+    <div class="mesh mesh-3"></div>
+    <div class="mesh mesh-4"></div>
+  </div>
+  <div id="mobile-root"></div>
+  <!-- MAIN CONTENT -->
+  <section class="hero desktop-only">
+    <div class="container-glass">
+      <h3>Contact Us</h3>
+      <p>Get in touch with our team for support, inquiries, or feedback about the hLPU Heritage Network.</p>
+      <hr class="divider">
+
+      <div class="row">
+        <!-- Website Developer Contact -->
+        <div class="col-12 col-lg-6 mb-4">
+          <div class="contact-card">
+            <div class="card-header-custom">
+              <div class="card-icon">
+                <i class="fas fa-code"></i>
+              </div>
+              <h5>Website Developer</h5>
+            </div>
+
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <i class="fas fa-user"></i>
+              </div>
+              <div class="contact-info-content">
+                <div class="contact-info-label">NAME</div>
+                <div class="contact-info-value">Dhanush Atmakuri</div>
+              </div>
+            </div>
+
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="contact-info-content">
+                <div class="contact-info-label">EMAIL</div>
+                <div class="contact-info-value">
+                  <a href="mailto:dhanush1376@gmail.com">dhanush1376@gmail.com</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <i class="fas fa-phone"></i>
+              </div>
+              <div class="contact-info-content">
+                <div class="contact-info-label">PHONE</div>
+                <div class="contact-info-value">
+                  <a href="tel:+919154691315">+91-9154691315</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="contact-info-content">
+                <div class="contact-info-label">AVAILABILITY</div>
+                <div class="contact-info-value">Mon-Fri, 10:00 AM - 6:00 PM IST</div>
+              </div>
+            </div>
+
+            <button class="btn-heritage mt-3" data-toggle="modal" data-target="#feedbackModal">
+              <i class="fas fa-star"></i>
+              Give Feedback
+            </button>
+          </div>
+        </div>
+
+        <!-- Customer Care Contact -->
+        <div class="col-12 col-lg-6 mb-4">
+          <div class="contact-card">
+            <div class="card-header-custom">
+              <div class="card-icon">
+                <i class="fas fa-headset"></i>
+              </div>
+              <h5>Customer Care</h5>
+            </div>
+
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="contact-info-content">
+                <div class="contact-info-label">EMAIL</div>
+                <div class="contact-info-value">
+                  <a href="mailto:support@hlpu.com">support@hlpu.com</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <i class="fas fa-phone"></i>
+              </div>
+              <div class="contact-info-content">
+                <div class="contact-info-label">PHONE</div>
+                <div class="contact-info-value">
+                  <a href="tel:+918005551234">+91-800-555-1234</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="contact-info-content">
+                <div class="contact-info-label">SUPPORT HOURS</div>
+                <div class="contact-info-value">24/7 · Always available</div>
+              </div>
+            </div>
+
+            <div class="contact-info-item">
+              <div class="contact-info-icon">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div class="contact-info-content">
+                <div class="contact-info-label">ADDRESS</div>
+                <div class="contact-info-value">Lovely Professional University, Punjab, India</div>
+              </div>
+            </div>
+
+            <button class="btn-heritage mt-3" data-toggle="modal" data-target="#contactFormModal">
+              <i class="fas fa-paper-plane"></i>
+              Send a Message
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social Media -->
+      <div class="row mt-3">
+        <div class="col-12">
+          <div class="social-card">
+            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+              <div class="card-icon" style="width: 54px; height: 54px;">
+                <i class="fas fa-share-alt"></i>
+              </div>
+              <div>
+                <h5 style="font-size: 1.4rem; font-weight: 700; color: var(--ink); margin: 0;">Connect With Us</h5>
+                <p style="color: #5f6b7a; margin: 5px 0 0;">Follow us on social media for updates and community
+                  engagement!</p>
+              </div>
+            </div>
+
+            <div class="social-icons">
+              <a href="https://twitter.com/LPUUniversity" target="_blank" class="social-icon-link">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="https://linkedin.com/school/lovely-professional-university" target="_blank"
+                class="social-icon-link">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="https://instagram.com/lpuuniversity" target="_blank" class="social-icon-link">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="https://facebook.com/LPUUniversity" target="_blank" class="social-icon-link">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Widgets -->
+    <div class="floating-widget" data-toggle="modal" data-target="#mapModal">
+      <i class="fas fa-map-marker-alt"></i>
+    </div>
+
+    <div class="floating-widget chat-widget" data-toggle="modal" data-target="#contactFormModal">
+      <i class="fas fa-comment"></i>
+    </div>
+  </section>
+
+  <!-- CONTACT FORM MODAL -->
+  <div class="modal fade" id="contactFormModal" tabindex="-1" role="dialog" aria-labelledby="contactFormModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="contactFormModalLabel">
+            <i class="fas fa-paper-plane"></i>
+            Send a Message
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="contactForm">
+            <div class="form-group">
+              <label for="name" class="form-label">
+                <i class="fas fa-user"></i> Name
+              </label>
+              <input type="text" class="form-control" id="name" placeholder="Enter your full name" required>
+            </div>
+            <div class="form-group">
+              <label for="email" class="form-label">
+                <i class="fas fa-envelope"></i> Email
+              </label>
+              <input type="email" class="form-control" id="email" placeholder="your.email@hlpu.edu.in" required>
+            </div>
+            <div class="form-group">
+              <label for="message" class="form-label">
+                <i class="fas fa-comment"></i> Message
+              </label>
+              <textarea class="form-control" id="message" rows="4" placeholder="How can we help you?"
+                required></textarea>
+            </div>
+            <button type="submit" class="btn-heritage">
+              <i class="fas fa-paper-plane"></i> Submit Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEEDBACK MODAL -->
+  <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="feedbackModalLabel">
+            <i class="fas fa-star"></i>
+            Feedback for Developer
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <p style="font-size: 1rem; color: var(--ink); font-weight: 600; margin-bottom: 20px;">
+            Rate your experience with the hLPU platform
+          </p>
+
+          <div class="star-rating mb-4">
+            <i class="fas fa-star" data-value="1"></i>
+            <i class="fas fa-star" data-value="2"></i>
+            <i class="fas fa-star" data-value="3"></i>
+            <i class="fas fa-star" data-value="4"></i>
+            <i class="fas fa-star" data-value="5"></i>
+          </div>
+
+          <form id="feedbackForm">
+            <div class="form-group">
+              <label for="feedback" class="form-label">
+                <i class="fas fa-comment-dots"></i> Your Feedback
+              </label>
+              <textarea class="form-control" id="feedback" rows="4" placeholder="Share your thoughts and suggestions..."
+                required></textarea>
+            </div>
+            <input type="hidden" id="rating" value="0">
+            <button type="submit" class="btn-heritage">
+              <i class="fas fa-paper-plane"></i> Submit Feedback
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAP MODAL -->
+  <div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="mapModalLabel">
+            <i class="fas fa-map-marker-alt"></i>
+            Our Location
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body p-0">
+          <div class="map-container">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3437.896813837853!2d75.68990331513928!3d31.255671981462787!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391a5f5e9c489cf3%3A0x404b1b522d6d11ac!2sLovely%20Professional%20University!5e0!3m2!1sen!2sin!4v1698765432109!5m2!1sen!2sin"
+              width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS MODAL -->
+  <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="successModalLabel">
+            <i class="fas fa-check-circle" style="color: #0F7B3A;"></i>
+            Submission Successful!
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center py-4">
+          <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <p style="font-size: 1.1rem; color: var(--ink); font-weight: 600; margin-bottom: 10px;">Thank You!</p>
+          <p style="font-size: 0.95rem; color: #5f6b7a;">We appreciate your feedback and will get back to you soon.
+          </p>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button type="button" class="btn-heritage" data-dismiss="modal">
+            <i class="fas fa-check"></i> Done
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SWEETALERT2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- SCRIPTS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    // ===== CONTACT DATA STORAGE =====
+    let contactData = {
+      messages: [],
+      feedback: []
+    };
+
+    // Load existing contact data from localStorage
+    const savedContactData = localStorage.getItem('contactData');
+    if (savedContactData) {
+      Object.assign(contactData, JSON.parse(savedContactData));
+    }
+
+    // ===== CONTACT FORM SUBMISSION =====
+    document.getElementById('contactForm')?.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!name || !email || !message) {
+        Swal.fire({
+          title: 'Required Fields',
+          text: 'Please fill out all required fields.',
+          icon: 'warning',
+          confirmButtonColor: '#C2491F',
+          background: '#FFF8F0',
+          confirmButtonText: 'OK'
+        });
+        return;
+      }
+
+      if (!isValidEmail(email)) {
+        Swal.fire({
+          title: 'Invalid Email',
+          text: 'Please enter a valid email address.',
+          icon: 'error',
+          confirmButtonColor: '#C2491F',
+          background: '#FFF8F0'
+        });
+        return;
+      }
+
+      const submitBtn = this.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+      try {
+        const response = await fetch('http://localhost:5000/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            subject: 'Contact Us Inquiry',
+            message,
+            role: 'student',
+            submittedBy: localStorage.getItem('userId') // Optional: if logged in
+          })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          $('#contactFormModal').modal('hide');
+          setTimeout(() => {
+            $('#successModal').modal('show');
+          }, 300);
+          this.reset();
+        } else {
+          throw new Error(data.message || 'Submission failed');
+        }
+      } catch (err) {
+        Swal.fire({
+          title: 'Error',
+          text: err.message || 'Failed to send message. Please try again later.',
+          icon: 'error',
+          confirmButtonColor: '#C2491F',
+          background: '#FFF8F0'
+        });
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+      }
+    });
+
+    // ===== FEEDBACK FORM SUBMISSION =====
+    document.getElementById('feedbackForm')?.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const feedbackText = document.getElementById('feedback').value.trim();
+      const rating = document.getElementById('rating').value;
+
+      if (!feedbackText || rating === '0') {
+        Swal.fire({
+          title: 'Incomplete Feedback',
+          text: 'Please provide feedback and select a rating.',
+          icon: 'warning',
+          confirmButtonColor: '#C2491F',
+          background: '#FFF8F0'
+        });
+        return;
+      }
+
+      const submitBtn = this.querySelector('button[type="submit"]');
+      const originalText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+      try {
+        const response = await fetch('http://localhost:5000/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name: localStorage.getItem('userName') || 'In-App Student',
+            email: localStorage.getItem('userEmail') || 'student@hlpu.edu.in',
+            subject: `App Feedback - Rating: ${rating}/5`,
+            message: feedbackText,
+            role: 'student',
+            submittedBy: localStorage.getItem('userId')
+          })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          $('#feedbackModal').modal('hide');
+          setTimeout(() => {
+            $('#successModal').modal('show');
+          }, 300);
+          this.reset();
+          // Reset stars
+          document.querySelectorAll('.star-rating i').forEach(star => {
+            star.classList.remove('selected');
+          });
+          document.getElementById('rating').value = '0';
+        } else {
+          throw new Error(data.message || 'Submission failed');
+        }
+      } catch (err) {
+        Swal.fire({
+          title: 'Error',
+          text: err.message || 'Failed to submit feedback.',
+          icon: 'error',
+          confirmButtonColor: '#C2491F',
+          background: '#FFF8F0'
+        });
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+      }
+    });
+
+    // ===== EMAIL VALIDATION =====
+    function isValidEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email);
+    }
+
+    // ===== STAR RATING =====
+    document.querySelectorAll('.star-rating i').forEach(star => {
+      star.addEventListener('click', function () {
+        const rating = this.getAttribute('data-value');
+        document.getElementById('rating').value = rating;
+
+        document.querySelectorAll('.star-rating i').forEach(s => {
+          s.classList.remove('selected');
+          if (s.getAttribute('data-value') <= rating) {
+            s.classList.add('selected');
+          }
+        });
+      });
+
+      // Hover effect
+      star.addEventListener('mouseenter', function () {
+        const rating = this.getAttribute('data-value');
+        document.querySelectorAll('.star-rating i').forEach(s => {
+          if (s.getAttribute('data-value') <= rating) {
+            s.style.color = '#E68A2E';
+            s.style.transform = 'scale(1.1)';
+          }
+        });
+      });
+
+      star.addEventListener('mouseleave', function () {
+        const selectedRating = document.getElementById('rating').value;
+        document.querySelectorAll('.star-rating i').forEach(s => {
+          if (selectedRating && s.getAttribute('data-value') <= selectedRating) {
+            s.style.color = '#E68A2E';
+          } else {
+            s.style.color = '#d1d5db';
+          }
+          s.style.transform = 'scale(1)';
+        });
+      });
+    });
+
+    // ===== OBSERVER FOR ANIMATIONS =====
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('slide-in');
+        }
+      });
+    }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.contact-card, .social-card').forEach(el => {
+      observer.observe(el);
+    });
+
+    // ===== SIDEBAR TOGGLE (if exists) =====
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const mobileSidebar = document.getElementById('mobileSidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+    if (hamburgerBtn && closeBtn && mobileSidebar && sidebarOverlay) {
+      hamburgerBtn.addEventListener('click', () => {
+        mobileSidebar.classList.add('open');
+        sidebarOverlay.classList.add('active');
+      });
+
+      closeBtn.addEventListener('click', () => {
+        mobileSidebar.classList.remove('open');
+        sidebarOverlay.classList.remove('active');
+      });
+
+      sidebarOverlay.addEventListener('click', () => {
+        mobileSidebar.classList.remove('open');
+        sidebarOverlay.classList.remove('active');
+      });
+    }
+
+    // ===== NOTIFICATION HANDLER =====
+    const notificationBtn = document.getElementById('notificationBtn');
+    if (notificationBtn) {
+      notificationBtn.addEventListener('click', () => {
+        Swal.fire({
+          title: 'Notifications',
+          text: 'You have 3 unread notifications',
+          icon: 'info',
+          confirmButtonColor: '#C2491F',
+          background: '#FFF8F0'
+        });
+      });
+    }
+  </script>
+  <script src="../js/core/loadComponents.js" defer></script>
+  <script src="../js/core/authGuard.js"></script>
+  <script src="../js/mobile-nav.js"></script>
+  <script src="../js/mobile-contact.js"></script>
+
+
+  <script src="../js/mobile-fixes.js"></script>
+</body>
+
+</html>

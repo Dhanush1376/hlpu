@@ -1,0 +1,455 @@
+/* ==============================================================
+   mobile-mock-interview.css
+   Mobile-specific styles for Mock Interview Request
+   Pixel-perfect to match Direct Jobs / Mentors mobile aesthetic
+   ============================================================== */
+
+@media (max-width: 768px) {
+
+    /* 1. ROOT & BODY */
+    html,
+    body {
+        background: linear-gradient(180deg, #fdf6ec 0%, #fae9e3 40%, #ffffff 100%) !important;
+        background-attachment: fixed !important;
+        min-height: 100vh !important;
+    }
+
+    #mobile-root {
+        padding: 85px 15px 100px 15px;
+        min-height: 100vh;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* 2. PAGE HEADER */
+    .mob-mock-header {
+        margin-bottom: 20px;
+    }
+
+    .mob-mock-header h1 {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #0A1A2F;
+        margin-bottom: 4px;
+        letter-spacing: -0.02em;
+    }
+
+    .mob-mock-header p {
+        font-size: 0.85rem;
+        color: #5f6b7a;
+        line-height: 1.4;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .mob-mock-header p i {
+        color: #C2491F;
+        margin-top: 3px;
+    }
+
+    /* 3. QUICK ACTION PILLS */
+    .mob-quick-pills {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .mob-pill-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px;
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(194, 73, 31, 0.1);
+        border-radius: 16px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #0A1A2F;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .mob-pill-btn.active {
+        background: #0A1A2F;
+        color: white;
+        border-color: #0A1A2F;
+        box-shadow: 0 8px 15px rgba(10, 26, 47, 0.2);
+    }
+
+    .mob-pill-btn i {
+        font-size: 0.9rem;
+        color: #C2491F;
+    }
+
+    .mob-pill-btn.active i {
+        color: #E68A2E;
+    }
+
+    /* 4. FORM CARD */
+    .mob-form-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+        border-radius: 24px;
+        padding: 25px 20px;
+        border: 1px solid rgba(194, 73, 31, 0.08);
+        box-shadow: 0 10px 30px rgba(10, 26, 47, 0.04);
+    }
+
+    /* 5. FORM FIELDS */
+    .mob-form-group {
+        margin-bottom: 22px;
+    }
+
+    .mob-form-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: #0A1A2F;
+        margin-bottom: 10px;
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
+    }
+
+    .mob-form-label i {
+        color: #C2491F;
+        font-size: 0.85rem;
+    }
+
+    .mob-input,
+    .mob-select,
+    .mob-textarea {
+        width: 100%;
+        padding: 14px 18px;
+        border-radius: 16px;
+        border: 1.5px solid rgba(10, 26, 47, 0.08);
+        background: white;
+        font-size: 0.92rem;
+        font-family: 'Inter', sans-serif;
+        color: #0A1A2F;
+        transition: all 0.25s ease;
+        appearance: none;
+        -webkit-appearance: none;
+    }
+
+    .mob-select {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23C2491F' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 18px center;
+        background-size: 16px;
+        padding-right: 45px;
+    }
+
+    .mob-input:focus,
+    .mob-select:focus,
+    .mob-textarea:focus {
+        outline: none;
+        border-color: #C2491F;
+        box-shadow: 0 0 0 4px rgba(194, 73, 31, 0.08);
+        background: white;
+    }
+
+    .mob-input.error,
+    .mob-select.error,
+    .mob-textarea.error {
+        border-color: #e74c3c;
+        box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.08);
+    }
+
+    .mob-error-msg {
+        font-size: 0.75rem;
+        color: #e74c3c;
+        margin-top: 6px;
+        display: none;
+        font-weight: 600;
+    }
+
+    .mob-error-msg.visible {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .mob-textarea {
+        min-height: 100px;
+        resize: vertical;
+        background-image: none;
+    }
+
+    .mob-input[type="date"] {
+        min-height: 50px;
+        background-image: none;
+    }
+
+    /* 6. HIDDEN TEXTAREA */
+    .mob-hidden-field {
+        display: none;
+        margin-top: 10px;
+    }
+
+    .mob-hidden-field.show {
+        display: block;
+        animation: mobFadeIn 0.3s ease;
+    }
+
+    @keyframes mobFadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-8px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* 7. ROW GRID */
+    .mob-form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    /* 8. SUBMIT BUTTON */
+    .mob-submit-btn {
+        width: 100%;
+        padding: 16px;
+        border: none;
+        border-radius: 20px;
+        background: #0A1A2F;
+        color: white;
+        font-size: 0.95rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 18px -6px rgba(10, 26, 47, 0.2);
+        letter-spacing: 0.3px;
+    }
+
+    .mob-submit-btn:active {
+        transform: scale(0.98);
+    }
+
+    .mob-submit-btn:disabled {
+        background: #cbd5e0;
+        box-shadow: none;
+        cursor: not-allowed;
+    }
+
+    .mob-submit-btn.loading {
+        pointer-events: none;
+    }
+
+    /* 9. INFO PANEL */
+    .mob-info-panel {
+        background: rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(8px);
+        border-radius: 20px;
+        padding: 20px;
+        margin-top: 20px;
+        border: 1px solid rgba(194, 73, 31, 0.06);
+    }
+
+    .mob-info-title {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #0A1A2F;
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .mob-info-title i {
+        color: #E68A2E;
+    }
+
+    .mob-info-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .mob-info-list li {
+        font-size: 0.8rem;
+        color: #52606d;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .mob-info-list li i {
+        color: #E68A2E;
+        width: 18px;
+        text-align: center;
+    }
+
+    /* 10. REQUEST CARDS */
+    .mob-request-card {
+        background: white;
+        border-radius: 20px;
+        padding: 18px;
+        margin-bottom: 15px;
+        border-left: 4px solid #C2491F;
+        box-shadow: 0 4px 15px rgba(10, 26, 47, 0.04);
+    }
+
+    .mob-request-card.status-pending {
+        border-left-color: #f39c12;
+    }
+
+    .mob-request-card.status-accepted {
+        border-left-color: #27ae60;
+    }
+
+    .mob-request-card.status-rejected {
+        border-left-color: #e74c3c;
+    }
+
+    .mob-request-card.status-completed {
+        border-left-color: #3498db;
+    }
+
+    .mob-req-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 12px;
+    }
+
+    .mob-req-role {
+        font-size: 1rem;
+        font-weight: 800;
+        color: #0A1A2F;
+    }
+
+    .mob-req-status {
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        background: rgba(10, 26, 47, 0.05);
+        color: #52606d;
+    }
+
+    .mob-req-status.pending {
+        background: rgba(243, 156, 18, 0.12);
+        color: #f39c12;
+    }
+
+    .mob-req-status.accepted {
+        background: rgba(39, 174, 96, 0.12);
+        color: #27ae60;
+    }
+
+    .mob-req-status.rejected {
+        background: rgba(231, 76, 60, 0.12);
+        color: #e74c3c;
+    }
+
+    .mob-req-status.completed {
+        background: rgba(52, 152, 219, 0.12);
+        color: #3498db;
+    }
+
+    .mob-req-meta {
+        font-size: 0.82rem;
+        color: #5f6b7a;
+    }
+
+    .mob-req-meta div {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 6px;
+    }
+
+    .mob-req-meta i {
+        color: #C2491F;
+        width: 16px;
+        text-align: center;
+    }
+
+    .mob-scheduled-badge {
+        background: rgba(194, 73, 31, 0.08);
+        border: 1.5px dashed #C2491F;
+        border-radius: 12px;
+        padding: 10px;
+        text-align: center;
+        font-weight: 700;
+        color: #0A1A2F;
+        font-size: 0.82rem;
+        margin-top: 10px;
+    }
+
+    .mob-join-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 16px;
+        border-radius: 14px;
+        background: #0A1A2F;
+        color: white;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-decoration: none;
+        margin-top: 10px;
+    }
+
+    /* 11. MODALS */
+    .modal {
+        z-index: 99999 !important;
+    }
+
+    .modal-backdrop {
+        z-index: 99998 !important;
+        background: rgba(10, 26, 47, 0.5) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+    }
+
+    .modal-content {
+        border-radius: 28px !important;
+        max-height: 80vh;
+        overflow: hidden;
+    }
+
+    .modal-body {
+        max-height: 60vh !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* 12. ISOLATION */
+    section.hero.desktop-only,
+    .hero.desktop-only {
+        display: none !important;
+    }
+
+    #navbar {
+        display: none !important;
+    }
+
+    .mesh-bg {
+        display: none !important;
+    }
+}
+
+@media (min-width: 769px) {
+    #mobile-root {
+        display: none !important;
+    }
+}

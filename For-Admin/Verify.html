@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>hLPU</title>
+    <link rel="icon" type="image/png" href="../assets/images/hlpu logo.png">
+
+    <!-- Bootstrap 4.6 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <!-- Google Fonts - Inter -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+        rel="stylesheet" />
+
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+
+    <link rel="stylesheet" href="../css/core/theme.css" />
+    <link rel="stylesheet" href="../css/core/NavBar.css" />
+    <link rel="stylesheet" href="../css/mobile-nav.css" />
+    <link rel="stylesheet" href="../css/mobile-fixes.css" />
+    <link rel="stylesheet" href="../css/mobile-admin.css" />
+
+
+
+
+    <style>
+        /* mesh background */
+        .mesh-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .mesh {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.2;
+        }
+
+        .mesh-1 {
+            width: 600px;
+            height: 600px;
+            background: #ffb68b;
+            top: -200px;
+            left: -100px;
+        }
+
+        .mesh-2 {
+            width: 650px;
+            height: 650px;
+            background: #fdae6a;
+            bottom: -250px;
+            right: -100px;
+        }
+
+        .mesh-3 {
+            width: 500px;
+            height: 500px;
+            background: #f9d7b0;
+            top: 30%;
+            left: 20%;
+        }
+
+        .mesh-4 {
+            width: 700px;
+            height: 700px;
+            background: #eac1a3;
+            bottom: 5%;
+            right: 10%;
+            opacity: 0.15;
+        }
+
+        /* dashboard container */
+        .dashboard-container {
+            padding: 110px 35px 50px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Admin Navbar styles removed - now using AdminNavBar.css */
+
+        .dropdown-item {
+            padding: 12px 22px;
+            font-weight: 500;
+            color: var(--ink);
+        }
+
+        .dropdown-item i {
+            width: 26px;
+            color: var(--ember);
+        }
+
+        .dropdown-item:hover {
+            background: #fff1e6;
+        }
+
+        /* ---------- verification page specific styles ---------- */
+        .welcome-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .welcome-header h1 span {
+            background: linear-gradient(145deg, var(--ember), #bd6725);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* stats cards for verification */
+        .verify-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+            margin: 30px 0 25px;
+        }
+
+        .stat-card {
+            background: rgba(255, 249, 240, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 28px;
+            padding: 22px;
+            border: var(--border-light);
+            box-shadow: var(--shadow-elevation);
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .stat-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 18px;
+            background: rgba(194, 73, 31, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--ember);
+            font-size: 1.6rem;
+        }
+
+        .stat-content .label {
+            font-size: 0.8rem;
+            color: #5f6d7c;
+        }
+
+        .stat-content .number {
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .urgent-badge {
+            background: #fde3d8;
+            color: #b23c1a;
+            padding: 3px 10px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        /* filter tabs */
+        .filter-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 25px;
+            background: rgba(255, 250, 240, 0.5);
+            padding: 12px 20px;
+            border-radius: 60px;
+            backdrop-filter: blur(4px);
+            border: var(--border-light);
+        }
+
+        .filter-tab {
+            padding: 8px 24px;
+            border-radius: 40px;
+            background: white;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid rgba(194, 73, 31, 0.2);
+        }
+
+        .filter-tab.active {
+            background: var(--ember);
+            color: white;
+            border-color: var(--ember);
+        }
+
+        .filter-tab:hover {
+            background: #fae2d4;
+        }
+
+        /* verification cards grid */
+        .verification-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .verify-card {
+            background: rgba(255, 250, 240, 0.75);
+            backdrop-filter: blur(10px);
+            border-radius: 32px;
+            padding: 24px;
+            border: var(--border-light);
+            box-shadow: var(--shadow-elevation);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .verify-card.urgent {
+            border-left: 6px solid #d14d2b;
+        }
+
+        .verify-card:hover {
+            background: rgba(255, 244, 230, 0.9);
+            border-color: rgba(230, 138, 46, 0.3);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 20px;
+            background: linear-gradient(145deg, var(--ember), var(--gilt));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.4rem;
+            box-shadow: 0 8px 16px rgba(194, 73, 31, 0.2);
+        }
+
+        .user-info h4 {
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .user-info p {
+            margin: 0;
+            color: #5f6d7c;
+            font-size: 0.85rem;
+        }
+
+        .doc-preview {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            padding: 15px;
+            margin: 18px 0;
+            border: 1px dashed rgba(194, 73, 31, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .doc-preview i {
+            font-size: 2rem;
+            color: var(--ember);
+        }
+
+        .doc-info {
+            font-size: 0.8rem;
+        }
+
+        .doc-info strong {
+            display: block;
+        }
+
+        .meta-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 12px 0;
+            font-size: 0.85rem;
+            color: #3f4a57;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .btn-verify {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 30px;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+
+        .btn-approve {
+            background: #e1f3e1;
+            color: #1e6f3e;
+            border: 1px solid #9fd0a0;
+        }
+
+        .btn-approve:hover {
+            background: #2a7a3b;
+            color: white;
+        }
+
+        .btn-reject {
+            background: #fde3d8;
+            color: #b23c1a;
+            border: 1px solid #f5b8a3;
+        }
+
+        .btn-reject:hover {
+            background: #b23c1a;
+            color: white;
+        }
+
+        .btn-more {
+            background: white;
+            border: 1px solid var(--ember);
+            color: var(--ember);
+            border-radius: 30px;
+            padding: 8px 16px;
+            font-size: 0.8rem;
+        }
+
+        .user-avatar-sm {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: linear-gradient(145deg, var(--ember), #bd6725);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 4px 8px rgba(194, 73, 31, 0.15);
+        }
+
+        .table-warning-custom {
+            background-color: rgba(255, 193, 7, 0.05) !important;
+        }
+
+        .action-icons i {
+            margin: 0 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .action-icons i:hover {
+            transform: scale(1.2);
+            filter: brightness(1.1);
+        }
+
+        .table tbody tr {
+            transition: var(--transition);
+        }
+
+        .table tbody tr:hover {
+            background: rgba(255, 240, 230, 0.4);
+        }
+
+        /* Override old card styles no longer needed if any remain relevant to shared classes */
+        .verification-grid {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="mobile-root"></div>
+
+    <div id="navbar"></div>
+    <div class="mesh-bg">
+        <div class="mesh mesh-1"></div>
+        <div class="mesh mesh-2"></div>
+        <div class="mesh mesh-3"></div>
+        <div class="mesh mesh-4"></div>
+    </div>
+    <div class="dashboard-container">
+        <!-- header with summary -->
+        <div class="welcome-header d-flex flex-wrap align-items-center justify-content-between">
+            <div>
+                <h1><span>verification</span> queue</h1>
+                <p style="font-size:1rem;"><i class="fas fa-id-card" style="color:var(--ember);"></i> Review
+                    identity
+                    documents & approve genuine members</p>
+            </div>
+            <div><span class="badge-role" style="padding:12px 30px; background:white;"><i
+                        class="fas fa-sync-alt fa-spin mr-2" style="font-size: 0.8rem; color: var(--ember);"></i>
+                    <span id="headerLastSync">Syncing...</span></span></div>
+        </div>
+
+        <!-- stats row -->
+        <div class="verify-stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-hourglass-half"></i></div>
+                <div class="stat-content"><span class="label">pending</span>
+                    <div class="number" id="stats-pending">0</div><span class="urgent-badge" id="stats-urgent-badge"><i
+                            class="fas fa-exclamation-circle"></i> 0
+                        urgent</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-check-circle" style="color:#2a7a3b;"></i></div>
+                <div class="stat-content"><span class="label">approved (today)</span>
+                    <div class="number" id="stats-approved">0</div><small id="stats-approved-subtext">0
+                        approved</small>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-times-circle" style="color:#b23c1a;"></i></div>
+                <div class="stat-content"><span class="label">rejected (weekly)</span>
+                    <div class="number" id="stats-rejected">0</div><small id="stats-rejected-subtext">0
+                        rejected</small>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                <div class="stat-content"><span class="label">avg. response</span>
+                    <div class="number" id="stats-response-time">0h</div><small>Platform average</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- filter tabs -->
+        <div class="filter-tabs">
+            <span class="filter-tab active">all pending (...)</span>
+            <span class="filter-tab">alumni (...)</span>
+            <span class="filter-tab">students (...)</span>
+            <span class="filter-tab">urgent (...)</span>
+            <span style="margin-left:auto;"><i class="fas fa-sliders-h" style="color:var(--ember);"></i> sort by:
+                oldest
+                first</span>
+        </div>
+
+        <!-- Main Verification Table -->
+        <div class="glass-panel">
+            <div class="section-header">
+                <h3 class="section-title"><i class="fas fa-list-check"></i> pending verification requests</h3>
+                <div>
+                    <span class="badge-role" style="padding: 10px 20px; font-weight: 600; font-size: 0.85rem;">
+                        <i class="far fa-clock" style="margin-right: 8px;"></i> awaiting action
+                    </span>
+                </div>
+            </div>
+
+            <table class="table table-borderless align-middle">
+                <thead>
+                    <tr>
+                        <th>user details</th>
+                        <th>registry info</th>
+                        <th>proof / document</th>
+                        <th>submitted</th>
+                        <th>status</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody id="pending-verifications-tbody">
+                    <tr>
+                        <td colspan="6" class="text-center py-5">
+                            <i class="fas fa-spinner fa-spin fa-2x mb-3" style="color:var(--ember);"></i>
+                            <p class="text-muted">Loading pending requests...</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- recently processed log -->
+        <div class="glass-panel">
+            <div class="section-header">
+                <h3 class="section-title"><i class="fas fa-clock"></i> recently processed</h3>
+                <a href="#" class="section-link" style="font-weight:600;">view full log <i
+                        class="fas fa-arrow-right"></i></a>
+            </div>
+            <table class="table table-borderless">
+                <thead>
+                    <tr>
+                        <th>user</th>
+                        <th>decision</th>
+                        <th>by</th>
+                        <th>time</th>
+                    </tr>
+                </thead>
+                <tbody id="history-tbody">
+                    <tr>
+                        <td colspan="4" class="text-center">Loading recent activity...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- bulk actions -->
+        <div style="display: flex; gap: 18px; margin-top: 25px; justify-content: flex-end;">
+            <span class="badge-role" style="padding:12px 28px; cursor:pointer;" onclick="bulkVerify()"><i
+                    class="fas fa-check-double"></i> bulk approve (selected)</span>
+            <span class="badge-role" style="padding:12px 28px; cursor:pointer;" onclick="exportQueue()"><i
+                    class="fas fa-download"></i> export queue</span>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        async function fetchPendingVerifications() {
+            const tbody = document.getElementById('pending-verifications-tbody');
+            try {
+                const res = await fetch('http://localhost:5000/api/admin/pending-verifications', {
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                });
+                const data = await res.json();
+
+                if (!res.ok) throw new Error(data.message);
+
+                const { requests, stats, history } = data;
+
+                updateDashboardStats(stats);
+                updateFilterTabs(stats, requests.length);
+                renderHistory(history);
+
+                // Update Header Sync
+                document.getElementById('headerLastSync').innerText = `Last sync: ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+
+                if (requests.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" class="text-center py-5"><p class="text-muted">No pending verification requests.</p></td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = requests.map(req => {
+                    const user = req.user;
+                    if (!user) return '';
+                    const dayDiff = Math.floor((new Date() - new Date(req.createdAt)) / (1000 * 60 * 60 * 24));
+                    const isUrgent = dayDiff >= 3;
+
+                    return `
+                        <tr class="${isUrgent ? 'table-warning-custom' : ''}">
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="user-avatar-sm mr-3">${user.name.charAt(0)}</div>
+                                    <div>
+                                        <div style="font-weight:600;">${user.name}</div>
+                                        <div style="font-size:0.8rem; color:#666;">${user.email}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="font-size:0.9rem; font-weight:500;">Reg: ${req.regNo}</div>
+                                <div style="font-size:0.8rem; color:#666;">Batch: ${req.passoutYear} · ${user.department || user.stream || 'N/A'}</div>
+                            </td>
+                            <td>
+                                ${req.proofUrl ? `
+                                    <a href="${req.proofUrl}" target="_blank" class="badge-role" style="text-decoration:none;">
+                                        <i class="fas fa-external-link-alt mr-1"></i> view proof
+                                    </a>
+                                ` : '<span class="text-muted">No proof provided</span>'}
+                            </td>
+                            <td>
+                                <div style="font-size:0.85rem;">${dayDiff === 0 ? 'Today' : dayDiff + ' days ago'}</div>
+                                ${isUrgent ? '<span class="badge badge-danger p-1" style="font-size:0.65rem;">URGENT</span>' : ''}
+                            </td>
+                            <td><span class="badge-status">pending</span></td>
+                            <td class="action-icons">
+                                <i class="fas fa-circle-check text-success" title="Approve" onclick="processVerification('${req._id}', 'approved', '${user.name}')"></i>
+                                <i class="fas fa-circle-xmark text-danger" title="Reject" onclick="processVerification('${req._id}', 'rejected', '${user.name}')"></i>
+                                <i class="fas fa-circle-info text-info" title="View Details" onclick="showUserDetails('${user._id}')"></i>
+                            </td>
+                        </tr>
+                    `;
+                }).join('');
+
+            } catch (err) {
+                console.error('[verify] fetch error:', err);
+                tbody.innerHTML = `<tr><td colspan="6" class="text-center text-danger">Error: ${err.message}</td></tr>`;
+            }
+        }
+
+        function updateDashboardStats(stats) {
+            // Pending
+            animateCounter(document.getElementById('stats-pending'), stats.pending);
+            const urgentBadge = document.getElementById('stats-urgent-badge');
+            if (urgentBadge) urgentBadge.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${stats.urgent} urgent`;
+
+            // Approved
+            animateCounter(document.getElementById('stats-approved'), stats.approvedToday);
+            const appSub = document.getElementById('stats-approved-subtext');
+            if (appSub) appSub.innerText = `${stats.approvedToday} approved today`;
+
+            // Rejected
+            animateCounter(document.getElementById('stats-rejected'), stats.rejectedWeekly);
+            const rejSub = document.getElementById('stats-rejected-subtext');
+            if (rejSub) rejSub.innerText = `${stats.rejectedWeekly} rejected this week`;
+
+            // Response Time
+            const timeEl = document.getElementById('stats-response-time');
+            if (timeEl) timeEl.innerText = stats.avgResponseTime || '0h';
+        }
+
+        function updateFilterTabs(stats, totalPending) {
+            const tabs = document.querySelector('.filter-tabs');
+            const alumniCount = stats.countsByRole?.alumni || 0;
+            const studentCount = stats.countsByRole?.student || 0;
+
+            tabs.innerHTML = `
+                <span class="filter-tab active">all pending (${totalPending})</span>
+                <span class="filter-tab">alumni (${alumniCount})</span>
+                <span class="filter-tab">students (${studentCount})</span>
+                <span class="filter-tab">urgent (${stats.urgent})</span>
+                <span style="margin-left:auto;"><i class="fas fa-sliders-h" style="color:var(--ember);"></i> sort by: oldest first</span>
+            `;
+        }
+
+        function renderHistory(history) {
+            const tbody = document.getElementById('history-tbody');
+            if (!tbody) return;
+
+            if (history.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center">No recent activity</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = history.map(item => {
+                const timeAgo = Math.floor((new Date() - new Date(item.reviewedAt)) / (1000 * 60));
+                let timeStr = timeAgo < 60 ? `${timeAgo} min ago` : `${Math.floor(timeAgo / 60)}h ago`;
+                if (timeAgo >= 1440) timeStr = `${Math.floor(timeAgo / 1440)}d ago`;
+
+                const statusClass = item.status === 'approved' ? 'approved' : 'rejected';
+                return `
+                    <tr>
+                        <td><i class="fas fa-user-circle mr-2"></i> ${item.user ? item.user.name : 'Unknown User'}</td>
+                        <td><span class="badge-status ${statusClass}">${item.status} ${item.rejectionReason ? `(${item.rejectionReason})` : ''}</span></td>
+                        <td>${item.reviewedBy ? item.reviewedBy.name : 'Admin'}</td>
+                        <td>${timeStr}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        async function processVerification(requestId, status, userName) {
+            let reason = '';
+            if (status === 'rejected') {
+                const { value: text } = await Swal.fire({
+                    title: `Reject verification for ${userName}?`,
+                    input: 'textarea',
+                    inputPlaceholder: 'Reason for rejection...',
+                    showCancelButton: true,
+                    confirmButtonColor: '#b23c1a',
+                });
+                if (text === undefined) return; // Cancelled
+                reason = text;
+            } else {
+                const confirm = await Swal.fire({
+                    title: 'Approve Alumni?',
+                    text: `Verify ${userName} as an official alumni member`,
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#2a7a3b',
+                    confirmButtonText: 'Approve'
+                });
+                if (!confirm.isConfirmed) return;
+            }
+
+            try {
+                const res = await fetch(`http://localhost:5000/api/admin/verify/${requestId}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({ status, reason })
+                });
+                const data = await res.json();
+
+                if (!res.ok) throw new Error(data.message);
+
+                Swal.fire({
+                    icon: 'success',
+                    title: status === 'approved' ? 'Approved!' : 'Rejected',
+                    text: data.message,
+                    timer: 2000,
+                    showConfirmButton: false,
+                    background: '#FFF8F0'
+                });
+
+                fetchPendingVerifications(); // Refresh list
+            } catch (err) {
+                Swal.fire('Error', err.message, 'error');
+            }
+        }
+
+        function showUserDetails(userId) {
+            window.location.href = `Users.html?view=${userId}`;
+        }
+
+        window.addEventListener('DOMContentLoaded', fetchPendingVerifications);
+
+        function animateCounter(element, target, duration = 1400) {
+            if (!element) return;
+            const isHours = element.innerText.includes('h') || (typeof target === 'string' && target.includes('h'));
+            const startText = element.innerText.replace(/,/g, '').replace('h', '');
+            const start = parseFloat(startText) || 0;
+            const targetVal = typeof target === 'string' ? parseFloat(target.replace('h', '')) : target;
+
+            if (start === targetVal) {
+                element.innerText = isHours ? targetVal.toFixed(1) + "h" : Math.floor(targetVal).toLocaleString();
+                return;
+            }
+
+            let startTime = null;
+
+            function update(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const progress = Math.min((timestamp - startTime) / duration, 1);
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const value = start + (targetVal - start) * easeOut;
+
+                if (isHours) {
+                    element.innerText = value.toFixed(1) + "h";
+                } else {
+                    element.innerText = Math.floor(value).toLocaleString();
+                }
+
+                if (progress < 1) requestAnimationFrame(update);
+            }
+
+            requestAnimationFrame(update);
+        }
+        window.addEventListener('scroll', function () {
+            const nav = document.querySelector('.navbar');
+            if (window.scrollY > 20) {
+                nav.style.boxShadow = "0 18px 45px -12px rgba(0,0,0,0.25)";
+                nav.style.backdropFilter = "blur(20px)";
+            } else {
+                nav.style.boxShadow = "0 10px 30px -10px rgba(10, 20, 30, 0.15)";
+                nav.style.backdropFilter = "blur(16px)";
+            }
+        });
+
+
+    </script>
+    <script src="../js/core/loadComponents.js" defer></script>
+    <script src="../js/core/authGuard.js"></script>
+
+
+    <script src="../js/core/api.js"></script>
+    <script src="../js/mobile-nav.js"></script>
+    <script src="../js/mobile-admin-nav.js"></script>
+    <script src="../js/mobile-admin-verify.js"></script>
+    <script src="../js/mobile-fixes.js"></script>
+</body>
+
+</html>

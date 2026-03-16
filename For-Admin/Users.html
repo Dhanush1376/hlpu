@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>hLPU</title>
+    <link rel="icon" type="image/png" href="../assets/images/hlpu logo.png">
+
+    <!-- Bootstrap 4.6 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <!-- Google Fonts - Inter -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+        rel="stylesheet" />
+
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+
+    <link rel="stylesheet" href="../css/core/theme.css" />
+    <link rel="stylesheet" href="../css/core/NavBar.css" />
+    <link rel="stylesheet" href="../css/mobile-nav.css" />
+    <link rel="stylesheet" href="../css/mobile-fixes.css" />
+    <link rel="stylesheet" href="../css/mobile-admin.css" />
+
+
+
+
+    <style>
+        /* mesh background */
+        .mesh-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .mesh {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.2;
+        }
+
+        .mesh-1 {
+            width: 600px;
+            height: 600px;
+            background: #ffb68b;
+            top: -200px;
+            left: -100px;
+        }
+
+        .mesh-2 {
+            width: 650px;
+            height: 650px;
+            background: #fdae6a;
+            bottom: -250px;
+            right: -100px;
+        }
+
+        .mesh-3 {
+            width: 500px;
+            height: 500px;
+            background: #f9d7b0;
+            top: 30%;
+            left: 20%;
+        }
+
+        .mesh-4 {
+            width: 700px;
+            height: 700px;
+            background: #eac1a3;
+            bottom: 5%;
+            right: 10%;
+            opacity: 0.15;
+        }
+
+        /* dashboard container */
+        .dashboard-container {
+            padding: 110px 35px 50px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Admin Navbar styles removed - now using AdminNavBar.css */
+
+        .dropdown-item {
+            padding: 12px 22px;
+            font-weight: 500;
+            color: var(--ink);
+        }
+
+        .dropdown-item i {
+            width: 26px;
+            color: var(--ember);
+        }
+
+        .dropdown-item:hover {
+            background: #fff1e6;
+        }
+
+        /* ---------- users page specific styles ---------- */
+        .welcome-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .welcome-header h1 span {
+            background: linear-gradient(145deg, var(--ember), #bd6725);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* filter bar */
+        .filter-bar {
+            background: rgba(255, 250, 240, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 60px;
+            padding: 8px 20px;
+            border: var(--border-light);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0 25px;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            padding: 5px 15px;
+            border-radius: 40px;
+            border: 1px solid rgba(194, 73, 31, 0.2);
+        }
+
+        .filter-group i {
+            color: var(--ember);
+        }
+
+        .filter-group select,
+        .filter-group input {
+            border: none;
+            background: transparent;
+            font-weight: 500;
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 260px;
+            background: white;
+            border-radius: 40px;
+            padding: 8px 20px;
+            border: 1px solid rgba(194, 73, 31, 0.2);
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box i {
+            color: var(--ember);
+            margin-right: 10px;
+        }
+
+        .search-box input {
+            border: none;
+            width: 100%;
+            outline: none;
+            background: transparent;
+        }
+
+        /* user stats cards */
+        .user-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            /* Increased from 22px */
+            margin-bottom: 40px;
+            /* Increased from 30px */
+        }
+
+        .stat-card-sm {
+            background: rgba(255, 249, 240, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 28px;
+            padding: 26px 30px;
+            /* Increased padding */
+            border: var(--border-light);
+            box-shadow: var(--shadow-elevation);
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            /* Increased gap */
+        }
+
+        .stat-icon-sm {
+            width: 52px;
+            height: 52px;
+            border-radius: 18px;
+            background: rgba(194, 73, 31, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--ember);
+            font-size: 1.5rem;
+        }
+
+        .stat-content-sm .label {
+            font-size: 0.8rem;
+            color: #5f6d7c;
+        }
+
+        .stat-content-sm .number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        /* user table glass panel */
+        .glass-panel {
+            background: rgba(255, 249, 240, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 36px;
+            padding: 26px;
+            border: var(--border-light);
+            box-shadow: var(--shadow-elevation);
+            margin-bottom: 35px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(10, 26, 47, 0.08);
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* table styling */
+        .table thead th {
+            border-bottom: 2px solid rgba(194, 73, 31, 0.2);
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #3f4a57;
+            border-top: none;
+        }
+
+        .table tbody tr {
+            transition: var(--transition);
+            vertical-align: middle;
+        }
+
+        .table tbody tr:hover {
+            background: rgba(255, 240, 230, 0.6);
+            box-shadow: 0 5px 10px -8px var(--ember);
+        }
+
+        .badge-role {
+            background: rgba(194, 73, 31, 0.1);
+            color: var(--ink);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.7rem;
+            border: 1px solid rgba(194, 73, 31, 0.2);
+        }
+
+        .badge-status {
+            background: #ffecb3;
+            color: #7a5d00;
+            padding: 5px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .badge-status.verified {
+            background: #c8e6c9;
+            color: #1e5f20;
+        }
+
+        .badge-status.suspended {
+            background: #f5c6b6;
+            color: #a13e1f;
+        }
+
+        .action-icons {
+            display: flex;
+            gap: 14px;
+            color: #8d6e63;
+        }
+
+        .action-icons i {
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .action-icons i:hover {
+            color: var(--ember);
+            transform: scale(1.1);
+        }
+
+        /* pagination */
+        .pagination-custom {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .page-item {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            background: white;
+            border: 1px solid rgba(194, 73, 31, 0.2);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .page-item.active {
+            background: var(--ember);
+            color: white;
+            border-color: var(--ember);
+        }
+
+        .page-item:hover {
+            background: #fae2d4;
+        }
+
+        @media (max-width: 1200px) {
+            .user-stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+        }
+
+        .dashboard-container {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: pageFadeIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        @keyframes pageFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .table tbody tr {
+            opacity: 0;
+            transform: translateY(25px);
+            animation: rowReveal 0.6s ease forwards;
+        }
+
+        .table tbody tr:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .table tbody tr:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .table tbody tr:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .table tbody tr:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .table tbody tr:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .table tbody tr:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes rowReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mesh {
+            animation: floatMesh 20s ease-in-out infinite alternate;
+        }
+
+        .mesh-2 {
+            animation-delay: 4s;
+        }
+
+        .mesh-3 {
+            animation-delay: 8s;
+        }
+
+        .mesh-4 {
+            animation-delay: 12s;
+        }
+
+        @keyframes floatMesh {
+            0% {
+                transform: translateY(0px) scale(1);
+            }
+
+            100% {
+                transform: translateY(-35px) scale(1.05);
+            }
+        }
+
+        .page-item {
+            transition: all 0.25s ease;
+        }
+
+        .page-item:active {
+            transform: scale(0.92);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="mobile-root"></div>
+
+    <div id="navbar"></div>
+    <div class="mesh-bg">
+        <div class="mesh mesh-1"></div>
+        <div class="mesh mesh-2"></div>
+        <div class="mesh mesh-3"></div>
+        <div class="mesh mesh-4"></div>
+    </div>
+    <div class="dashboard-container">
+        <!-- header with add user button -->
+        <div class="welcome-header d-flex flex-wrap align-items-center justify-content-between">
+            <div>
+                <h1><span>user</span> directory & management</h1>
+                <p style="font-size:1rem;"><i class="fas fa-users" style="color:var(--ember);"></i> Manage alumni,
+                    students, and admins · <span id="headerTotalUsers">...</span> total users</p>
+            </div>
+            <button class="btn"
+                style="background:var(--ember); color:white; border-radius:40px; padding:12px 32px; font-weight:600; border:none;"
+                onclick="addUser()">
+                <i class="fas fa-plus-circle"></i> add new user
+            </button>
+        </div>
+
+        <!-- filter bar -->
+        <div class="filter-bar">
+            <div class="filter-group">
+                <i class="fas fa-filter"></i>
+                <select id="roleFilter">
+                    <option>all roles</option>
+                    <option>alumni</option>
+                    <option>student</option>
+                    <option>admin</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <i class="fas fa-check-circle"></i>
+                <select id="statusFilter">
+                    <option>all status</option>
+                    <option>verified</option>
+                    <option>pending</option>
+                    <option>suspended</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <i class="fas fa-calendar"></i>
+                <select id="batchFilter">
+                    <option>any batch</option>
+                </select>
+            </div>
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search by name, email, or company...">
+            </div>
+        </div>
+
+        <!-- small stats cards -->
+        <div class="user-stats-grid">
+            <div class="stat-card-sm">
+                <div class="stat-icon-sm"><i class="fas fa-user-graduate"></i></div>
+                <div class="stat-content-sm"><span class="label">alumni</span>
+                    <div class="number" id="statAlumniCount">...</div><small id="statAlumniSubText">Total
+                        registered</small>
+                </div>
+            </div>
+            <div class="stat-card-sm">
+                <div class="stat-icon-sm"><i class="fas fa-user"></i></div>
+                <div class="stat-content-sm"><span class="label">students</span>
+                    <div class="number" id="statStudentCount">...</div><small id="statStudentSubText">Total
+                        registered</small>
+                </div>
+            </div>
+            <div class="stat-card-sm">
+                <div class="stat-icon-sm"><i class="fas fa-user-shield"></i></div>
+                <div class="stat-content-sm"><span class="label">admins</span>
+                    <div class="number" id="statAdminCount">...</div><small id="statAdminSubText">System
+                        admins</small>
+                </div>
+            </div>
+            <div class="stat-card-sm">
+                <div class="stat-icon-sm"><i class="fas fa-user-clock"></i></div>
+                <div class="stat-content-sm"><span class="label">pending verif.</span>
+                    <div class="number" id="statPendingCount">...</div><small id="statPendingSubText">Awaiting
+                        review</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- main user table -->
+        <div class="glass-panel">
+            <div class="section-header">
+                <h3 class="section-title"><i class="fas fa-list"></i> registered users</h3>
+                <div><span class="badge-role" style="padding: 10px 20px; font-weight: 600; font-size: 0.85rem;"><i
+                            class="far fa-check-circle" style="margin-right: 8px;"></i> status: <span id="lastSyncTime"
+                            style="margin-left: 6px; color: #2e7d32;">Last sync: Just
+                            now</span></span></div>
+            </div>
+
+            <table class="table table-borderless align-middle">
+                <thead>
+                    <tr>
+                        <th>user</th>
+                        <th>role / batch</th>
+                        <th>status</th>
+                        <th>company / major</th>
+                        <th>joined</th>
+                        <th>actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="6" class="text-center py-4">
+                            <i class="fas fa-spinner fa-spin mr-2"></i> Loading users...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- pagination -->
+            <div class="pagination-custom">
+                <div class="page-item active">1</div>
+                <div class="page-item">2</div>
+                <div class="page-item">3</div>
+                <div class="page-item">4</div>
+                <div class="page-item">5</div>
+                <div class="page-item"><i class="fas fa-chevron-right"></i></div>
+            </div>
+        </div>
+
+        <!-- export & stats footer -->
+        <div
+            style="margin-top: 30px; display: flex; gap: 20px; flex-wrap: wrap; align-items: center; justify-content: space-between; padding: 0 10px;">
+            <div>
+                <span class="badge-role" style="padding:12px 28px; cursor:pointer;" onclick="bulkAction('export')">
+                    <i class="fas fa-download"></i> export list
+                </span>
+            </div>
+            <span id="footerShowingText" style="color:#5f6d7c; font-size: 0.95rem; font-weight: 500;">
+                <i class="fas fa-database" style="color: var(--ember); margin-right: 8px;"></i> Loading data...
+            </span>
+        </div>
+
+        <!-- recent activity -->
+        <div id="activitySection"
+            style="margin-top: 50px; background: rgba(255,240,230,0.5); border: 1px solid rgba(194,73,31,0.1); border-radius: 32px; padding: 25px 30px;">
+            <h6 style="font-weight:700; margin-bottom: 20px; font-size: 1.1rem;">
+                <i class="fas fa-history" style="color:var(--ember); margin-right: 10px;"></i> recent user activity
+            </h6>
+            <div id="activityItems" class="d-flex gap-4 flex-wrap">
+                <span><i class="fas fa-user-check" style="color:#2a7a3b;"></i> Loading activity...</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        let currentPage = 1;
+        let totalPages = 1;
+
+        async function fetchUsers() {
+            const role = document.getElementById('roleFilter').value;
+            const status = document.getElementById('statusFilter').value;
+            const search = document.querySelector('.search-box input').value;
+
+            const tbody = document.querySelector('table tbody');
+            tbody.innerHTML = '<tr><td colspan="6" class="text-center"><i class="fas fa-spinner fa-spin"></i> Loading users...</td></tr>';
+
+            try {
+                const queryParams = new URLSearchParams({
+                    page: currentPage,
+                    role: role,
+                    status: status,
+                    search: search
+                });
+
+                const res = await fetch(`http://localhost:5000/api/admin/users?${queryParams}`, {
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                });
+                const data = await res.json();
+
+                if (!res.ok) throw new Error(data.message || 'Failed to fetch users');
+
+                renderUsers(data.users);
+                renderPagination(data.pages, data.currentPage);
+                updateStats(data.total, data.stats, data.users.length);
+
+            } catch (err) {
+                console.error('[admin] fetchUsers error:', err);
+                tbody.innerHTML = `<tr><td colspan="6" class="text-center text-danger">Error: ${err.message}</td></tr>`;
+            }
+        }
+
+        function renderUsers(users) {
+            const tbody = document.querySelector('table tbody');
+            tbody.innerHTML = '';
+
+            if (users.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center">No users found</td></tr>';
+                return;
+            }
+
+            users.forEach(user => {
+                const tr = document.createElement('tr');
+                const joinedDate = new Date(user.createdAt).toLocaleDateString('en-GB', {
+                    day: '2-digit', month: 'short', year: 'numeric'
+                });
+
+                // Status Logic: explicitly check if suspended, default to active
+                const isSuspended = user.accountStatus?.isActive === false || user.accountStatus?.status === 'suspended';
+                const statusColor = isSuspended ? 'suspended' : 'verified';
+                const statusText = isSuspended ? 'suspended' : 'active';
+
+                // Role-specific display for Company/Major column
+                const secondaryInfo = user.role === 'student'
+                    ? (user.batch ? `${user.batch} Year` : 'N/A')
+                    : (user.company || 'N/A');
+
+                tr.innerHTML = `
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-circle" style="color:${user.role === 'admin' ? 'var(--ember)' : (user.role === 'alumni' ? '#b85c1a' : '#2e7d32')}; font-size:0.5rem; margin-right:12px;"></i>
+                            <div>
+                                <div style="font-weight:600; font-size:0.95rem;">${user.name}</div>
+                                <div style="font-size:0.8rem; color:#666;">${user.email}</div>
+                                <div style="font-size:0.75rem; color:#888;">${user.regNo ? `Reg: ${user.regNo}` : ''} ${user.phoneNumber ? `· ${user.phoneNumber}` : ''}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="badge-role">${user.role}</span>
+                        <div style="font-size:0.8rem; margin-top:4px;">${user.stream || 'N/A'}</div>
+                        <div style="font-size:0.75rem; color:#666;">${user.department || ''}</div>
+                    </td>
+                    <td><span class="badge-status ${statusColor}">${statusText}</span></td>
+                    <td>${secondaryInfo}</td>
+                    <td>${joinedDate}</td>
+                    <td class="action-icons">
+                        <i class="fas fa-eye" title="view profile" onclick="userAction('view', '${user._id}', '${user.name}')"></i>
+                        <i class="fas fa-comment-dots" title="message user" onclick="userAction('message', '${user._id}', '${user.name}')"></i>
+                        <i class="fas fa-ban" title="suspend" onclick="userAction('suspend', '${user._id}', '${user.name}')"></i>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderPagination(pages, current) {
+            const container = document.querySelector('.pagination-custom');
+            container.innerHTML = '';
+            totalPages = pages;
+
+            for (let i = 1; i <= pages; i++) {
+                const item = document.createElement('div');
+                item.className = `page-item ${i === current ? 'active' : ''}`;
+                item.textContent = i;
+                item.onclick = () => {
+                    currentPage = i;
+                    fetchUsers();
+                };
+                container.appendChild(item);
+            }
+        }
+
+        function updateStats(filteredTotal, overallStats, currentCount) {
+            const totalSystemUsers = (overallStats.alumni || 0) + (overallStats.student || 0) + (overallStats.admin || 0);
+
+            // Header
+            document.getElementById('headerTotalUsers').innerText = totalSystemUsers.toLocaleString();
+
+            // Cards with animation
+            animateCounter(document.getElementById('statAlumniCount'), (overallStats.alumni || 0));
+            animateCounter(document.getElementById('statStudentCount'), (overallStats.student || 0));
+            animateCounter(document.getElementById('statAdminCount'), (overallStats.admin || 0));
+            animateCounter(document.getElementById('statPendingCount'), (overallStats.pending || 0));
+
+            // Footer
+            document.getElementById('footerShowingText').innerHTML = `<i class="fas fa-database"></i> showing ${currentCount} of ${filteredTotal.toLocaleString()} users (filtered)`;
+
+            // Summary text
+            document.querySelector('.section-header h3').innerHTML = `<i class="fas fa-list"></i> registered users <span style="font-size: 0.85rem; font-weight: 500; color: #888; margin-left:12px;">· showing page ${currentPage} of ${totalPages}</span>`;
+
+            // Recent Activity
+            const activityItems = document.getElementById('activityItems');
+            activityItems.innerHTML = `
+                <span style="margin-right: 35px; border-right: 1px solid rgba(0,0,0,0.05); padding-right: 35px;"><i class="fas fa-user-check" style="color:#2a7a3b; margin-right: 8px;"></i> ${overallStats.pending || 0} pending verification</span>
+                <span style="margin-right: 35px; border-right: 1px solid rgba(0,0,0,0.05); padding-right: 35px;"><i class="fas fa-user-shield" style="color:var(--ember); margin-right: 8px;"></i> ${overallStats.admin || 0} active admins</span>
+                <span><i class="fas fa-clock" style="color:#666; margin-right: 8px;"></i> Last sync: Just now</span>
+            `;
+        }
+
+        async function handleExport() {
+            Swal.fire({
+                title: 'Exporting Users...',
+                text: 'Generating Excel with separate sheets for Alumni and Students',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            try {
+                const res = await fetch('http://localhost:5000/api/admin/export-users', {
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                });
+
+                if (!res.ok) throw new Error('Export failed');
+
+                const blob = await res.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `hLPU_Users_Export_${new Date().getTime()}.xlsx`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(url);
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Export Complete',
+                    text: 'Your Excel file has been downloaded.',
+                    confirmButtonColor: '#C2491F',
+                    background: '#FFF8F0'
+                });
+            } catch (err) {
+                console.error('[export] Error:', err);
+                Swal.fire('Error', 'Failed to generate export', 'error');
+            }
+        }
+
+        function bulkAction(cmd) {
+            if (cmd === 'email') Swal.fire({ title: 'Bulk email', text: 'Compose message to selected users', input: 'textarea', confirmButtonColor: '#c2491f' });
+            if (cmd === 'verify') Swal.fire({ title: 'Bulk verify', text: 'Verify selected users?', showCancelButton: true, confirmButtonColor: '#2d6a4f' });
+            if (cmd === 'export') handleExport();
+        }
+
+        // Filters
+        document.getElementById('roleFilter').addEventListener('change', () => { currentPage = 1; fetchUsers(); });
+        document.getElementById('statusFilter').addEventListener('change', () => { currentPage = 1; fetchUsers(); });
+        document.querySelector('.search-box input').addEventListener('input', debounce(() => {
+            currentPage = 1;
+            fetchUsers();
+        }, 500));
+
+        function debounce(func, wait) {
+            let timeout;
+            return function (...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+
+        function addUser() {
+            Swal.fire({
+                title: 'Add new user',
+                html: '<input placeholder="Full name" class="swal2-input"><input placeholder="Email" class="swal2-input"><select class="swal2-input"><option>alumni</option><option>student</option><option>admin</option></select>',
+                confirmButtonText: 'Create',
+                confirmButtonColor: '#c2491f',
+                background: '#FFF8F0'
+            });
+        }
+
+        async function userAction(action, userId, userName) {
+            if (action === 'view') {
+                Swal.fire({
+                    title: 'Loading profile...',
+                    didOpen: () => Swal.showLoading(),
+                    allowOutsideClick: false
+                });
+
+                try {
+                    const res = await fetch(`http://localhost:5000/api/admin/users/${userId}`, {
+                        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                    });
+                    const user = await res.json();
+
+                    if (!res.ok) throw new Error(user.message || 'Failed to fetch user');
+
+                    Swal.fire({
+                        title: `<span style="color:var(--ember)">${user.name}'s Profile</span>`,
+                        html: `
+                            <div style="text-align: left; font-size: 0.9rem;">
+                                <p><strong>Email:</strong> ${user.email}</p>
+                                <p><strong>Role:</strong> ${user.role.toUpperCase()}</p>
+                                <p><strong>Stream:</strong> ${user.stream || 'N/A'}</p>
+                                <p><strong>Department:</strong> ${user.department || 'N/A'}</p>
+                                <p><strong>Reg No:</strong> ${user.regNo || 'N/A'}</p>
+                                <p><strong>Phone:</strong> ${user.phoneNumber || 'N/A'}</p>
+                                <p><strong>Joined:</strong> ${new Date(user.createdAt).toLocaleDateString()}</p>
+                                ${user.company ? `<p><strong>Company:</strong> ${user.company}</p>` : ''}
+                                ${user.batch ? `<p><strong>Batch:</strong> ${user.batch}</p>` : ''}
+                            </div>
+                        `,
+                        confirmButtonText: 'Close',
+                        confirmButtonColor: '#c2491f',
+                        background: '#FFF8F0'
+                    });
+                } catch (err) {
+                    Swal.fire('Error', err.message, 'error');
+                }
+            }
+
+            if (action === 'message') {
+                const { value: text } = await Swal.fire({
+                    title: `Message to ${userName}`,
+                    input: 'textarea',
+                    inputPlaceholder: 'Type your message here...',
+                    inputAttributes: { 'aria-label': 'Type your message here' },
+                    showCancelButton: true,
+                    confirmButtonText: 'Send Message',
+                    confirmButtonColor: '#c2491f',
+                    cancelButtonColor: '#6e7d88'
+                });
+
+                if (text) {
+                    try {
+                        const res = await fetch(`http://localhost:5000/api/admin/users/${userId}/message`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                            },
+                            body: JSON.stringify({ message: text, title: 'Admin Communication' })
+                        });
+                        const data = await res.json();
+                        if (!res.ok) throw new Error(data.message);
+                        Swal.fire('Sent!', 'Message has been delivered to the users dashboard.', 'success');
+                    } catch (err) {
+                        Swal.fire('Error', err.message, 'error');
+                    }
+                }
+            }
+
+            if (action === 'suspend') {
+                Swal.fire({
+                    title: 'Suspend user?',
+                    text: `Place ${userName} on limited access`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#b85c1a',
+                    confirmButtonText: 'Suspend'
+                });
+            }
+        }
+
+        // Initial fetch
+        window.addEventListener('DOMContentLoaded', () => {
+            fetchUsers();
+            // Live data refresh every 30 seconds
+            setInterval(fetchUsers, 30000);
+        });
+        function animateCounter(element, target, duration = 1400) {
+            if (!element) return;
+            const start = parseInt(element.innerText.replace(/,/g, '')) || 0;
+            if (start === target) {
+                element.innerText = target.toLocaleString();
+                return;
+            }
+            let startTime = null;
+
+            function update(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const progress = Math.min((timestamp - startTime) / duration, 1);
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const value = Math.floor(start + (target - start) * easeOut);
+                element.innerText = value.toLocaleString();
+                if (progress < 1) requestAnimationFrame(update);
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        window.addEventListener("load", () => {
+            document.querySelectorAll(".number").forEach(stat => {
+                animateCounter(stat);
+            });
+        });
+        window.addEventListener('scroll', function () {
+            const nav = document.querySelector('.navbar');
+            if (window.scrollY > 20) {
+                nav.style.boxShadow = "0 18px 45px -12px rgba(0,0,0,0.25)";
+                nav.style.backdropFilter = "blur(20px)";
+            } else {
+                nav.style.boxShadow = "0 10px 30px -10px rgba(10, 20, 30, 0.15)";
+                nav.style.backdropFilter = "blur(16px)";
+            }
+        });
+
+    </script>
+    <script src="../js/core/loadComponents.js" defer></script>
+    <script src="../js/core/authGuard.js"></script>
+
+
+    <script src="../js/core/api.js"></script>
+    <script src="../js/mobile-nav.js"></script>
+    <script src="../js/mobile-admin-nav.js"></script>
+    <script src="../js/mobile-admin-users.js"></script>
+    <script src="../js/mobile-fixes.js"></script>
+</body>
+
+</html>

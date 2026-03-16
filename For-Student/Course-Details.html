@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hLPU | Intelligence Blueprint</title>
+    <link rel="icon" type="image/png" href="../assets/images/hlpu logo.png">
+
+    <!-- Bootstrap 4.6 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+    <link rel="stylesheet" href="../css/core/NavBar.css" />
+    <link rel="stylesheet" href="../css/core/Main.css" />
+    <link rel="stylesheet" href="../css/mobile-nav.css" />
+    <link rel="stylesheet" href="../css/mobile-fixes.css" />
+
+    <style>
+        .details-hero {
+            padding: 120px 20px 60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .premium-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .hero-inner {
+            padding: 60px;
+            display: flex;
+            align-items: flex-start;
+            gap: 40px;
+        }
+
+        .icon-shield {
+            width: 100px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--ember), var(--gilt));
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            box-shadow: 0 15px 30px rgba(194, 73, 31, 0.3);
+        }
+
+        .stats-strip {
+            display: flex;
+            gap: 30px;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px dashed rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: var(--ember);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--ink);
+        }
+
+        /* Career Path Timeline */
+        .timeline-box {
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .timeline-v-line {
+            position: absolute;
+            left: 20px;
+            top: 10px;
+            bottom: 10px;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--ember), var(--gilt), transparent);
+            opacity: 0.2;
+        }
+
+        .timeline-node {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .node-dot {
+            position: absolute;
+            left: -38px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 4px solid var(--ember);
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        .node-content {
+            background: white;
+            padding: 24px;
+            border-radius: 20px;
+            border: 1px solid rgba(194, 73, 31, 0.1);
+            transition: var(--transition);
+        }
+
+        .node-content:hover {
+            transform: translateX(10px);
+            border-color: var(--ember);
+            box-shadow: 0 10px 25px rgba(194, 73, 31, 0.08);
+        }
+
+        /* Sidebar Widgets */
+        .widget {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .skill-tag-3d {
+            display: inline-block;
+            padding: 8px 18px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin: 0 8px 12px 0;
+            transition: var(--transition);
+        }
+
+        .skill-tag-3d:hover {
+            background: var(--ink);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px -5px rgba(10, 26, 47, 0.2);
+        }
+
+        .company-logo-placeholder {
+            width: 100%;
+            padding: 15px;
+            background: #fafafa;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 800;
+            color: #ccc;
+            border: 1px dashed #eee;
+        }
+
+        .ai-score-ring {
+            width: 120px;
+            height: 120px;
+            border: 8px solid #f1f5f9;
+            border-top: 8px solid #10b981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin: 0 auto 20px;
+            color: #059669;
+        }
+
+        .btn-blueprint {
+            background: var(--ink);
+            color: white;
+            width: 100%;
+            padding: 20px;
+            border-radius: 20px;
+            border: none;
+            font-weight: 800;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: var(--transition);
+            box-shadow: 0 15px 30px rgba(10, 26, 47, 0.3);
+        }
+
+        .btn-blueprint:hover {
+            background: #1a3a5f;
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(10, 26, 47, 0.4);
+            color: white;
+        }
+    </style>
+    <!-- Global Mobile Nav Injection -->
+
+
+</head>
+
+<body>
+
+
+    <div id="navbar"></div>
+    <div class="mesh-bg">
+        <div class="mesh mesh-1"></div>
+        <div class="mesh mesh-2"></div>
+        <div class="mesh mesh-3"></div>
+        <div class="mesh mesh-4"></div>
+    </div>
+
+    <main class="details-hero">
+        <div class="container">
+            <!-- Hero Section -->
+            <div class="premium-card">
+                <div class="hero-inner flex-column flex-lg-row">
+                    <div class="icon-shield shadow-lg">
+                        <i class="fas fa-sparkles"></i>
+                    </div>
+                    <div class="flex-grow-1 mt-4 mt-lg-0">
+                        <div id="courseCategory" class="badge badge-heritage px-3 py-2 mb-3"
+                            style="border-radius: 50px; text-transform: uppercase; font-weight: 800; letter-spacing: 1px;">
+                            Loading Category...</div>
+                        <h1 id="courseTitle" class="font-weight-800 text-ink mb-3"
+                            style="font-size: 3rem; letter-spacing: -0.04em;">Intelligence subject</h1>
+                        <p id="courseSummary" class="lead text-muted mb-4" style="font-size: 1.2rem; font-weight: 400;">
+                        </p>
+
+                        <div class="stats-strip">
+                            <div class="stat-item">
+                                <span class="stat-label">Intensity</span>
+                                <span id="courseLevel" class="stat-value text-capitalize">...</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Duration</span>
+                                <span id="courseDuration" class="stat-value">...</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Eligibility</span>
+                                <span id="courseYears" class="stat-value">...</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Engagement</span>
+                                <span id="courseViews" class="stat-value">0 Views</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Main Column -->
+                <div class="col-lg-8">
+                    <div class="premium-card p-5 mb-4">
+                        <h3 class="font-weight-800 text-ink mb-4 d-flex align-items-center">
+                            <i class="fas fa-file-alt mr-3 text-ember"></i>
+                            Blueprint Overview
+                        </h3>
+                        <div id="courseDescription" class="text-ink"
+                            style="font-size: 1.15rem; line-height: 1.8; opacity: 0.9;">
+                            Loading detailed intelligence...
+                        </div>
+                    </div>
+
+                    <div class="premium-card p-5">
+                        <div class="d-flex justify-content-between align-items-center mb-5">
+                            <h3 class="font-weight-800 text-ink mb-0 d-flex align-items-center">
+                                <i class="fas fa-route mr-3 text-ember"></i>
+                                Professional Pathway
+                            </h3>
+                            <span class="badge badge-light border px-3 py-2"
+                                style="border-radius: 12px; font-weight: 700; color: #64748b;">
+                                JOURNEY MAP
+                            </span>
+                        </div>
+
+                        <div class="timeline-box">
+                            <div class="timeline-v-line"></div>
+                            <div id="pathwayTimeline">
+                                <!-- Pathway nodes -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <div class="widget">
+                        <h5 class="font-weight-800 text-ink mb-4">TECH STACK UNITS</h5>
+                        <div id="skillsStack">
+                            <!-- Skills -->
+                        </div>
+                    </div>
+
+                    <div class="widget" style="background: var(--ink); color: white;">
+                        <div class="ai-score-ring">94</div>
+                        <h5 class="text-center font-weight-800">AI MATCH SCORE</h5>
+                        <p class="text-center small opacity-75 mb-0">Based on your current profile strength &
+                            academic
+                            records.</p>
+                    </div>
+
+                    <div class="widget">
+                        <h5 class="font-weight-800 text-ink mb-4">ALUMNI ENDORSED</h5>
+                        <div class="d-flex align-items-center gap-2 mb-3">
+                            <div class="d-flex" id="alumniIcons">
+                                <img src="https://ui-avatars.com/api/?name=JS&background=random"
+                                    class="rounded-circle border border-white"
+                                    style="width: 32px; height: 32px; margin-right: -10px;">
+                                <img src="https://ui-avatars.com/api/?name=AM&background=random"
+                                    class="rounded-circle border border-white"
+                                    style="width: 32px; height: 32px; margin-right: -10px;">
+                                <img src="https://ui-avatars.com/api/?name=RK&background=random"
+                                    class="rounded-circle border border-white" style="width: 32px; height: 32px;">
+                            </div>
+                            <span class="small font-weight-700 ml-2">128+ Endorsements</span>
+                        </div>
+                        <p class="small text-muted mb-0">Verified alumni from <b>Google</b>, <b>Microsoft</b> &
+                            <b>Amazon</b> recommend this blueprint.
+                        </p>
+                    </div>
+
+                    <div class="widget">
+                        <h5 class="font-weight-800 text-ink mb-4">TOP HIRING UNITS</h5>
+                        <div id="topCompanies" class="d-flex flex-wrap gap-2">
+                            <!-- Companies -->
+                        </div>
+                    </div>
+
+                    <div class="cta-box">
+                        <button id="downloadBtn" class="btn-blueprint">
+                            <i class="fas fa-file-pdf"></i>
+                            Download Roadmap PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../js/core/api.js"></script>
+    <script src="../js/core/loadComponents.js" defer></script>
+    <script src="../js/core/authGuard.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const slug = params.get('slug');
+
+            if (!slug) {
+                window.location.href = 'Course-Map.html';
+                return;
+            }
+
+            fetchCourseDetails(slug);
+        });
+
+        async function fetchCourseDetails(slug) {
+            try {
+                const res = await apiFetch(`/api/courses/${slug}`);
+                if (res.success) {
+                    renderCourse(res.data);
+                } else {
+                    Swal.fire('Error', 'Subject node not found.', 'error').then(() => {
+                        window.location.href = 'Course-Map.html';
+                    });
+                }
+            } catch (err) {
+                console.error(err);
+                Swal.fire('Error', 'Intelligence sync failed.', 'error');
+            }
+        }
+
+        function renderCourse(course) {
+            document.title = `hLPU | ${course.title}`;
+            document.getElementById('courseTitle').textContent = course.title;
+            document.getElementById('courseCategory').textContent = course.category;
+            document.getElementById('courseSummary').textContent = course.summaryLine;
+            document.getElementById('courseDescription').innerHTML = course.description.replace(/\n/g, '<br>');
+            document.getElementById('courseLevel').textContent = course.level;
+            document.getElementById('courseDuration').textContent = course.durationEstimate;
+            document.getElementById('courseYears').textContent = `Year ${course.eligibleYears.join(', ')}`;
+            document.getElementById('courseViews').textContent = `${course.viewCount || 0} Professional Views`;
+
+            // Skills
+            const skillsBox = document.getElementById('skillsStack');
+            skillsBox.innerHTML = (course.skillsRequired || []).map(s => `
+                <span class="skill-tag-3d">${s}</span>
+            `).join('');
+
+            // Companies
+            const compBox = document.getElementById('topCompanies');
+            compBox.innerHTML = (course.topCompanies || []).map(c => `
+                <div class="company-logo-placeholder mb-2">${c}</div>
+            `).join('');
+
+            // Pathway Timeline
+            const timeline = document.getElementById('pathwayTimeline');
+            if (course.jobRoles && course.jobRoles.length > 0) {
+                timeline.innerHTML = course.jobRoles.map((role, idx) => `
+                    <div class="timeline-node">
+                        <div class="node-dot"></div>
+                        <div class="node-content">
+                            <span class="badge badge-white border mb-2" style="font-weight: 800; color: var(--ember);">PHASE ${idx + 1}</span>
+                            <h4 class="font-weight-800 text-ink mb-2">${role}</h4>
+                            <p class="text-muted small mb-0">Successfully navigating this phase opens up opportunities for ${role} roles at top ${course.category} firms.</p>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                timeline.innerHTML = '<div class="text-muted p-4 border rounded text-center">Detailed pathway nodes are being finalized for this sector.</div>';
+            }
+
+            // Download Logic
+            const dlBtn = document.getElementById('downloadBtn');
+            dlBtn.onclick = () => downloadRoadmap(course.slug);
+        }
+
+        async function downloadRoadmap(slug) {
+            try {
+                const res = await apiFetch(`/api/courses/${slug}/download`);
+                if (res.success && res.downloadUrl) {
+                    window.open(res.downloadUrl, '_blank');
+                } else {
+                    Swal.fire('Standby', 'The PDF Roadmap is being synchronized for your node.', 'info');
+                }
+            } catch (err) {
+                Swal.fire('Information', 'Update in progress. Please check again shortly.', 'info');
+            }
+        }
+    </script>
+
+
+    <script src="../js/mobile-fixes.js"></script>
+</body>
+
+</html>

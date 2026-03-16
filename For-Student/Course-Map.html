@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hLPU | Course Map</title>
+    <link rel="icon" type="image/png" href="../assets/images/hlpu logo.png">
+
+    <!-- Bootstrap 4.6 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+    <link rel="stylesheet" href="../css/core/NavBar.css" />
+    <link rel="stylesheet" href="../css/core/Main.css" />
+    <link rel="stylesheet" href="../css/mobile-nav.css" />
+    <link rel="stylesheet" href="../css/mobile-fixes.css" />
+    <link rel="stylesheet" href="../css/mobile-course-map.css" />
+    <style>
+        /* ===== HERO SECTION ===== */
+        .hero {
+            padding: 25px 20px;
+            margin-top: 80px;
+            min-height: calc(100vh - 100px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== PREMIUM GLASS CONTAINER ===== */
+        .container-glass {
+            width: 100%;
+            max-width: 1200px;
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            padding: 35px;
+            margin: 20px 0;
+            border-radius: 32px;
+            box-shadow: var(--shadow-elevation);
+            border: 1px solid rgba(194, 73, 31, 0.08);
+            transition: var(--transition);
+            animation: slideUp 0.6s ease forwards;
+            position: relative;
+            z-index: 2;
+        }
+
+        .container-glass:hover {
+            background: var(--glass-deep);
+            border-color: rgba(230, 138, 46, 0.2);
+            box-shadow: var(--shadow-hover);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 10px;
+            text-align: left;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hero h1 i {
+            color: var(--ember);
+            font-size: 1.8rem;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            color: #52606d;
+            text-align: left;
+            margin-bottom: 25px;
+            font-weight: 400;
+        }
+
+        hr {
+            border: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--ember), var(--gilt));
+            margin: 25px 0;
+            opacity: 0.2;
+            border-radius: 2px;
+        }
+
+        /* ===== PREMIUM SEARCH BAR ===== */
+        .search-container {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 60px;
+            padding: 6px 6px 6px 20px;
+            border: 1.5px solid rgba(10, 26, 47, 0.06);
+            transition: var(--transition);
+        }
+
+        .search-bar:focus-within {
+            border-color: var(--ember);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(194, 73, 31, 0.08);
+        }
+
+        .search-bar i {
+            color: var(--ember);
+            margin-right: 12px;
+            font-size: 1.1rem;
+        }
+
+        .search-bar input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 0.95rem;
+            color: var(--ink);
+            padding: 12px 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .search-bar input::placeholder {
+            color: #8f9aaa;
+            font-weight: 400;
+        }
+
+        .search-btn {
+            background: var(--ink);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-btn:hover {
+            background: #12243f;
+            transform: translateX(3px);
+        }
+
+        /* ===== PREMIUM FILTERS ===== */
+        .filter-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .filter-label {
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: var(--ink);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-right: 10px;
+            opacity: 0.6;
+        }
+
+        .category-filter {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(10, 26, 47, 0.08);
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--ink);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-filter:hover {
+            background: white;
+            border-color: var(--ember);
+            transform: translateY(-2px);
+        }
+
+        .category-filter.active {
+            background: var(--ink);
+            color: white;
+            border-color: var(--ink);
+            box-shadow: 0 4px 12px rgba(10, 26, 47, 0.15);
+        }
+
+        /* ===== COURSE CARDS (Discovery) ===== */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 30px;
+        }
+
+        .course-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            padding: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+        }
+
+        .course-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            background: rgba(255, 255, 255, 0.9);
+            border-color: var(--ember);
+            box-shadow: 0 30px 60px -15px rgba(194, 73, 31, 0.15);
+        }
+
+        .trending-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: linear-gradient(135deg, #ff4d4d, #f9cb28);
+            color: white;
+            padding: 6px 20px;
+            font-size: 0.7rem;
+            font-weight: 900;
+            border-bottom-left-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: -4px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-meta-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .level-pill {
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .level-beginner {
+            background: #e6fffa;
+            color: #008f7a;
+        }
+
+        .level-intermediate {
+            background: #fffaf0;
+            color: #9c4221;
+        }
+
+        .level-advanced {
+            background: #fff5f5;
+            color: #c53030;
+        }
+
+        .year-tag {
+            background: rgba(10, 26, 47, 0.04);
+            color: var(--ink);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .course-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--ink);
+            line-height: 1.2;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .course-summary {
+            font-size: 0.95rem;
+            color: #4a5568;
+            margin-bottom: 20px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.5;
+        }
+
+        .path-preview {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(194, 73, 31, 0.04);
+            padding: 15px;
+            border-radius: 18px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .path-icon {
+            width: 38px;
+            height: 38px;
+            background: var(--ember);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+            box-shadow: 0 4px 12px rgba(194, 73, 31, 0.3);
+        }
+
+        .path-line-preview {
+            flex: 1;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .skill-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .skill-chip {
+            background: white;
+            border: 1px solid rgba(10, 26, 47, 0.1);
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        .card-footer-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .btn-discovery {
+            flex: 1;
+            background: var(--ink);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 18px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 10px 20px -5px rgba(10, 26, 47, 0.3);
+        }
+
+        .btn-discovery:hover {
+            transform: translateY(-4px);
+            background: #1a3a5f;
+            box-shadow: 0 15px 30px -10px rgba(10, 26, 47, 0.4);
+            color: white;
+        }
+
+        .btn-roadmap-dl {
+            width: 52px;
+            height: 52px;
+            background: white;
+            border: 1.5px solid rgba(194, 73, 31, 0.15);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--ember);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .btn-roadmap-dl:hover {
+            border-color: var(--ember);
+            background: rgba(194, 73, 31, 0.05);
+            transform: translateY(-4px);
+        }
+
+        /* ===== VIEW TOGGLE ===== */
+        .view-switcher {
+            display: flex;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            padding: 5px;
+            border-radius: 50px;
+            border: 1.5px solid rgba(194, 73, 31, 0.1);
+            margin-bottom: 30px;
+            width: fit-content;
+        }
+
+        .view-btn {
+            padding: 10px 25px;
+            border-radius: 40px;
+            border: none;
+            background: transparent;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #718096;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .view-btn.active {
+            background: var(--ink);
+            color: white;
+            box-shadow: 0 4px 12px rgba(10, 26, 47, 0.2);
+        }
+
+        /* ===== ROADMAP CARD VIEW (Merged from Roadmaps.html) ===== */
+        .roadmap-card {
+            background: white;
+            border-radius: 32px;
+            padding: 30px;
+            border: 1px solid rgba(10, 26, 47, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .roadmap-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(194, 73, 31, 0.1);
+            border-color: var(--gilt);
+        }
+
+        .roadmap-icon-box {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--ember), var(--gilt));
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 20px -5px rgba(194, 73, 31, 0.4);
+        }
+
+        .roadmap-path-preview {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .path-step {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #e2e8f0;
+        }
+
+        .path-step.active {
+            background: var(--ember);
+            box-shadow: 0 0 10px var(--ember);
+        }
+
+        .path-line {
+            flex: 1;
+            height: 2px;
+            background: #f1f5f9;
+        }
+
+        .roadmap-meta-info {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-top: 1px dashed #e2e8f0;
+            border-bottom: 1px dashed #e2e8f0;
+            margin-bottom: 25px;
+        }
+
+        .meta-info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .meta-info-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .meta-info-value {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .btn-roadmap-action {
+            background: var(--ink);
+            color: white;
+            border-radius: 50px;
+            padding: 14px 25px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-align: center;
+            transition: var(--transition);
+            border: none;
+            width: 100%;
+            display: block;
+            text-decoration: none;
+        }
+
+        .btn-roadmap-action:hover {
+            background: #1e3a8a;
+            color: white;
+            transform: scale(1.02);
+            text-decoration: none;
+        }
+
+        .btn-outline-roadmap-action {
+            background: transparent;
+            color: var(--ink);
+            border: 2px solid var(--ink);
+            border-radius: 50px;
+            padding: 12px 25px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-align: center;
+            transition: var(--transition);
+            width: 100%;
+            margin-top: 10px;
+            display: block;
+            text-decoration: none;
+        }
+
+        .btn-outline-roadmap-action:hover {
+            background: var(--ink);
+            color: white;
+            text-decoration: none;
+        }
+
+        /* ===== REDESIGNED MODAL ===== */
+        .modal-content {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(25px) saturate(180%);
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            animation: modalPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes modalPop {
+            from {
+                transform: scale(0.9) translateY(40px);
+                opacity: 0;
+                filter: blur(10px);
+            }
+
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+                filter: blur(0);
+            }
+        }
+
+        .modal-header .close {
+            position: absolute;
+            right: 25px;
+            top: 25px;
+            z-index: 10;
+            background: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            opacity: 1;
+            transition: var(--transition);
+        }
+
+        .modal-header .close:hover {
+            transform: rotate(90deg) scale(1.1);
+            background: var(--ember);
+            color: white;
+        }
+
+        .timeline-container {
+            position: relative;
+            padding-left: 45px;
+            margin-top: 35px;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--ember), var(--gilt), transparent);
+            opacity: 0.3;
+        }
+
+        .timeline-entry {
+            position: relative;
+            margin-bottom: 40px;
+            animation: slideRight 0.5s ease backwards;
+        }
+
+        .timeline-entry:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .timeline-entry:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .timeline-entry:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .timeline-entry:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes slideRight {
+            from {
+                transform: translateX(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -32px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            background: white;
+            border: 3px solid var(--ember);
+            border-radius: 50%;
+            z-index: 2;
+            box-shadow: 0 0 10px rgba(194, 73, 31, 0.4);
+        }
+
+        .timeline-phase {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--ember);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .timeline-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 8px;
+        }
+
+        .timeline-desc {
+            font-size: 0.95rem;
+            color: #52606d;
+            line-height: 1.6;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 15px 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(194, 73, 31, 0.05);
+        }
+
+        .tech-tag {
+            padding: 8px 18px;
+            background: white;
+            border: 1px solid rgba(194, 73, 31, 0.15);
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--ink);
+            transition: var(--transition);
+        }
+
+        .tech-tag:hover {
+            background: var(--ember);
+            color: white;
+            border-color: var(--ember);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(194, 73, 31, 0.2);
+        }
+
+        /* ===== PAGINATION STYLES ===== */
+        .btn-pagination {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(194, 73, 31, 0.1);
+            color: var(--ink);
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .btn-pagination:hover:not(:disabled) {
+            background: var(--ink);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(10, 26, 47, 0.1);
+        }
+
+        .btn-pagination:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .page-indicator {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--ink);
+            padding: 10px 20px;
+            background: white;
+            border-radius: 100px;
+            border: 1px solid rgba(194, 73, 31, 0.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .current-page {
+            color: var(--ember);
+            font-weight: 800;
+        }
+    </style>
+    <!-- Global Mobile Nav Injection -->
+
+
+</head>
+
+<body>
+
+
+    <div id="navbar"></div>
+    <!-- PREMIUM MESH BACKGROUND -->
+    <div class="mesh-bg">
+        <div class="mesh mesh-1"></div>
+        <div class="mesh mesh-2"></div>
+        <div class="mesh mesh-3"></div>
+        <div class="mesh mesh-4"></div>
+    </div>
+
+    <div id="mobile-root"></div>
+    <!-- MAIN CONTENT -->
+    <section class="hero desktop-only">
+        <div class="container-glass">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-1">
+                <h1 id="pageTitle">
+                    <i class="fas fa-map-marked-alt"></i>
+                    Academic Course Map
+                </h1>
+            </div>
+            <p id="pageDescription" class="mb-4">
+                Explore dynamic academic pathways and professional skill frameworks tailored for your year.
+            </p>
+
+            <!-- PREMIUM SEARCH BAR -->
+            <div class="search-container">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="courseSearch" placeholder="Search by title, technology, or keywords...">
+                    <button class="search-btn" onclick="fetchCourses()">
+                        <i class="fas fa-arrow-right"></i> Discover
+                    </button>
+                </div>
+            </div>
+
+            <!-- ENHANCED FILTERS -->
+            <div class="filter-section">
+                <!-- Year Filters -->
+                <div class="filter-row">
+                    <span class="filter-label">Filter by Year</span>
+                    <button class="category-filter active" data-year="all">
+                        <i class="fas fa-calendar"></i> All Years
+                    </button>
+                    <button class="category-filter" data-year="1">1st Year</button>
+                    <button class="category-filter" data-year="2">2nd Year</button>
+                    <button class="category-filter" data-year="3">3rd Year</button>
+                    <button class="category-filter" data-year="4">4th Year</button>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="filter-row" id="categoryFilters">
+                    <span class="filter-label">Industry Sector</span>
+                    <button class="category-filter active" data-category="all">
+                        <i class="fas fa-th-large"></i> All Programs
+                    </button>
+                    <button class="category-filter" data-category="AI & Data">AI & Data</button>
+                    <button class="category-filter" data-category="Web Dev">Web Dev</button>
+                    <button class="category-filter" data-category="Core Engineering">Core Engineering</button>
+                    <button class="category-filter" data-category="Product & Design">Product & Design</button>
+                </div>
+            </div>
+
+            <div id="coursesContainer" class="courses-grid">
+                <!-- Dynamic cards will load here -->
+            </div>
+
+            <!-- PAGINATION -->
+            <div id="paginationContainer" class="d-flex justify-content-center mt-5"></div>
+        </div>
+    </section>
+
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../js/core/api.js"></script>
+    <script src="../js/core/loadComponents.js" defer></script>
+    <script src="../js/core/authGuard.js"></script>
+
+    <script>
+        let currentCategory = 'all';
+        let currentYear = 'all';
+        let currentPage = 1;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.innerWidth <= 768 && typeof MobileCourseMap !== 'undefined') {
+                MobileCourseMap.run();
+            }
+            fetchCourses();
+            setupFilters();
+        });
+
+        function setupFilters() {
+            // Category Filters
+            document.querySelectorAll('#categoryFilters .category-filter').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('#categoryFilters .category-filter').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentCategory = btn.dataset.category;
+                    currentPage = 1;
+                    fetchCourses();
+                });
+            });
+
+            // Year Filters
+            document.querySelectorAll('.filter-row [data-year]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-row [data-year]').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentYear = btn.dataset.year;
+                    currentPage = 1;
+                    fetchCourses();
+                });
+            });
+
+            // Search on enter
+            document.getElementById('courseSearch').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    currentPage = 1;
+                    fetchCourses();
+                }
+            });
+        }
+
+        async function fetchCourses() {
+            const query = document.getElementById('courseSearch').value;
+            const container = document.getElementById('coursesContainer');
+
+            container.innerHTML = `
+                <div class="text-center w-100 py-5">
+                    <div class="spinner-border text-heritage" role="status"></div>
+                    <p class="mt-3 text-muted">Scanning intelligence nodes...</p>
+                </div>`;
+
+            try {
+                let url = `/api/courses?page=${currentPage}&limit=9`;
+                if (currentCategory !== 'all') url += `&category=${currentCategory}`;
+                if (currentYear !== 'all') url += `&year=${currentYear}`;
+                if (query) url += `&search=${query}`;
+
+                const res = await apiFetch(url);
+                if (res.success) {
+                    renderCourses(res.data);
+                    renderPagination(res.page, res.pages);
+                }
+            } catch (err) {
+                console.error('Fetch error:', err);
+                container.innerHTML = `<div class="text-center w-100 py-5 text-danger">Failed to sync course map.</div>`;
+            }
+        }
+
+        function renderCourses(courses) {
+            const container = document.getElementById('coursesContainer');
+            if (!courses || courses.length === 0) {
+                container.innerHTML = `
+                <div class="text-center w-100 py-5">
+                    <i class="fas fa-radar fa-3x mb-3 text-muted opacity-50"></i>
+                    <h4 class="text-muted">No nodes detected</h4>
+                    <p class="text-muted small">Try refining your filter parameters.</p>
+                </div>`;
+                return;
+            }
+
+            container.innerHTML = courses.map(course => {
+                const isRecommended = course.matchScore >= 70 && !course.isCrossStream;
+                const recBadge = isRecommended
+                    ? '<div class="trending-badge" style="right: auto; left: 0; border-radius: 0 0 20px 0; background: linear-gradient(135deg, #10b981, #059669);"><i class="fas fa-check-circle mr-1"></i> Top Match</div>'
+                    : '';
+                const trendBadge = course.isTrending
+                    ? '<div class="trending-badge"><i class="fas fa-fire mr-1"></i> Trending</div>'
+                    : '';
+
+                return `
+            <div class="course-card">
+                ${recBadge}
+                ${trendBadge}
+                <div class="card-meta-top">
+                    <span class="level-pill level-${course.level}">${course.level}</span>
+                    <span class="year-tag">Y${course.eligibleYears.join('/')}</span>
+                </div>
+                
+                <h3 class="course-title">${course.title}</h3>
+                <p class="course-summary">${course.summaryLine}</p>
+                
+                <div class="path-preview">
+                    <div class="path-icon"><i class="fas fa-route"></i></div>
+                    <div class="path-line-preview">
+                        ${course.jobRoles && course.jobRoles.length ? course.jobRoles.slice(0, 2).join(' → ') + '...' : 'Career path discovery...'}
+                    </div>
+                </div>
+
+                <div class="skill-chips">
+                    ${(course.skillsRequired || []).slice(0, 3).map(s => `<span class="skill-chip">${s}</span>`).join('')}
+                    ${(course.skillsRequired || []).length > 3 ? `<span class="skill-chip text-muted">+${course.skillsRequired.length - 3}</span>` : ''}
+                </div>
+
+                <div class="card-footer-actions">
+                    <button class="btn-discovery" onclick="exploreCourse('${course.slug}')">
+                        Explore Blueprint
+                    </button>
+                    ${course.roadmapPdfUrl ? `
+                    <button class="btn-roadmap-dl" onclick="downloadRoadmap('${course.slug}')" title="Download Roadmap">
+                        <i class="fas fa-file-pdf"></i>
+                    </button>` : ''}
+                </div>
+            </div>
+            `;
+            }).join('');
+        }
+
+        function exploreCourse(slug) {
+            window.location.href = `Course-Details.html?slug=${slug}`;
+        }
+
+        async function downloadRoadmap(slug) {
+            try {
+                const res = await apiFetch(`/api/courses/${slug}/download`);
+                if (res.success && res.downloadUrl) {
+                    window.open(res.downloadUrl, '_blank');
+                } else {
+                    Swal.fire('Standby', 'PDF Blueprint is being synchronized for this subject.', 'info');
+                }
+            } catch (err) {
+                Swal.fire('Information', 'Update in progress. Please check again shortly.', 'info');
+            }
+        }
+
+        function renderPagination(current, total) {
+            const container = document.getElementById('paginationContainer');
+            if (total <= 1) {
+                container.innerHTML = '';
+                return;
+            }
+
+            // Create the "Previous Page X / Y Next" style pagination
+            const html = `
+                <div class="pagination-ux d-flex align-items-center justify-content-center gap-4 py-4">
+                    <button class="btn-pagination ${current === 1 ? 'disabled' : ''}" 
+                            onclick="${current === 1 ? '' : `changePage(${current - 1})`}" 
+                            ${current === 1 ? 'disabled' : ''}>
+                        <i class="fas fa-chevron-left mr-2"></i> Previous
+                    </button>
+                    
+                    <div class="page-indicator">
+                        <span class="text-muted">Page</span>
+                        <span class="current-page mx-1">${current}</span>
+                        <span class="text-muted mx-1">/</span>
+                        <span class="total-pages">${total}</span>
+                    </div>
+
+                    <button class="btn-pagination ${current === total ? 'disabled' : ''}" 
+                            onclick="${current === total ? '' : `changePage(${current + 1})`}"
+                            ${current === total ? 'disabled' : ''}>
+                        Next <i class="fas fa-chevron-right ml-2"></i>
+                    </button>
+                </div>
+            `;
+            container.innerHTML = html;
+        }
+
+        function changePage(page) {
+            currentPage = page;
+            fetchCourses();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+    <script src="../js/mobile-nav.js"></script>
+    <script src="../js/mobile-course-map.js"></script>
+
+
+    <script src="../js/mobile-fixes.js"></script>
+</body>
+
+</html>

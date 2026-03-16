@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>hLPU</title>
+    <link rel="icon" type="image/png" href="../assets/images/hlpu logo.png">
+
+    <!-- Bootstrap 4.6 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <!-- Google Fonts - Inter (matching main theme) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+    <link rel="stylesheet" href="../css/core/NavBar.css" />
+    <link rel="stylesheet" href="../css/core/Main.css" />
+    <!-- Mobile Alumni (Mirrored) -->
+    <link rel="stylesheet" href="../css/mobile-nav.css" />
+    <link rel="stylesheet" href="css/mobile-dashboard.css" />
+    <link rel="stylesheet" href="../css/mobile-fixes.css" />
+
+
+    <style>
+        /* ===== WELCOME HEADER ===== */
+        .welcome-header {
+            margin-bottom: 20px;
+            /* Reduced from 35px */
+            position: relative;
+        }
+
+        .welcome-header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .welcome-header h1 span {
+            background: linear-gradient(145deg, var(--ember), var(--gilt));
+            -webkit-text-fill-color: transparent;
+        }
+
+        .welcome-header p {
+            font-size: 1rem;
+            color: #52606d;
+            font-weight: 400;
+        }
+
+        /* ===== PROFILE SUMMARY CARD ===== */
+        .profile-summary {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 28px;
+            margin-bottom: 25px;
+            /* Reduced from 30px */
+            border: 1px solid rgba(194, 73, 31, 0.08);
+            box-shadow: var(--shadow-elevation);
+            transition: var(--transition);
+        }
+
+        .profile-summary:hover {
+            background: rgba(255, 255, 255, 0.85);
+            border-color: var(--gilt);
+            box-shadow: 0 30px 60px -12px rgba(194, 73, 31, 0.15);
+        }
+
+        .profile-content {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, var(--ember), var(--gilt));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 600;
+            flex-shrink: 0;
+            box-shadow: 0 10px 20px rgba(194, 73, 31, 0.25);
+        }
+
+        .profile-info {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .profile-info h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+
+        .profile-info p {
+            font-size: 0.95rem;
+            color: #52606d;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .profile-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .profile-tag {
+            background: rgba(255, 255, 255, 0.5);
+            color: var(--ink);
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(194, 73, 31, 0.15);
+            backdrop-filter: blur(4px);
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 35px;
+            margin-left: auto;
+            flex-wrap: wrap;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 15px 25px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+        }
+
+        .stat-item {
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 2px;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #5f6b7a;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            /* Matching Alumni 6 stats */
+            gap: 15px;
+            /* Reduced from 20px */
+            margin-bottom: 25px;
+            /* Reduced from 35px */
+        }
+
+        .stat-card {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 20px 15px;
+            box-shadow: var(--shadow-elevation);
+            transition: var(--transition);
+            border: 1px solid rgba(194, 73, 31, 0.08);
+            position: relative;
+            overflow: hidden;
+            min-width: 0;
+            /* Prevent overflow */
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.9);
+            border-color: var(--ember);
+            box-shadow: 0 20px 40px -10px rgba(194, 73, 31, 0.15);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--ember), var(--gilt));
+            border-radius: 24px 24px 0 0;
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            background: linear-gradient(145deg, rgba(194, 73, 31, 0.1), rgba(230, 138, 46, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--ember);
+            font-size: 1.3rem;
+        }
+
+        .stat-title h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .stat-title p {
+            font-size: 0.8rem;
+            color: #5f6b7a;
+            margin: 0;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1;
+        }
+
+        /* ===== CONTENT GRID ===== */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            /* Reduced from 30px */
+            margin-bottom: 20px;
+            /* Reduced from 35px */
+        }
+
+        /* Helper for side-by-side widgets in left column */
+        .dashboard-row-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 1200px) {
+            .dashboard-row-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== ACTIVITY FEED ===== */
+        .activity-feed {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 22px;
+            /* Reduced from 28px */
+            box-shadow: var(--shadow-elevation);
+            transition: var(--transition);
+            border: 1px solid rgba(194, 73, 31, 0.08);
+            margin-bottom: 20px;
+            /* Reduced from 30px */
+        }
+
+        .activity-feed:hover {
+            background: rgba(255, 255, 255, 0.85);
+            border-color: rgba(230, 138, 46, 0.2);
+            box-shadow: 0 30px 60px -12px rgba(194, 73, 31, 0.1);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(10, 26, 47, 0.06);
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin: 0;
+            letter-spacing: -0.01em;
+        }
+
+        .section-link {
+            font-size: 0.85rem;
+            color: var(--ember);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .section-link:hover {
+            color: var(--gilt);
+            text-decoration: none;
+            transform: translateX(3px);
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(10, 26, 47, 0.04);
+            transition: var(--transition);
+        }
+
+        .activity-item:hover {
+            background: rgba(194, 73, 31, 0.05);
+            padding-left: 10px;
+            border-radius: 12px;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: linear-gradient(145deg, rgba(194, 73, 31, 0.08), rgba(230, 138, 46, 0.08));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            color: var(--ember);
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .activity-details {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .activity-description {
+            font-size: 0.85rem;
+            color: #5f6b7a;
+            margin-bottom: 4px;
+        }
+
+        .activity-time {
+            font-size: 0.75rem;
+            color: #8f9aaa;
+            font-weight: 500;
+        }
+
+        /* ===== JOB CARDS ===== */
+        .job-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            padding: 22px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(194, 73, 31, 0.08);
+            transition: var(--transition);
+        }
+
+        .job-card:hover {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: var(--gilt);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px -10px rgba(194, 73, 31, 0.12);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .job-info h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 6px;
+        }
+
+        .job-company {
+            font-size: 0.85rem;
+            color: #5f6b7a;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .job-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .job-tag {
+            background: rgba(255, 255, 255, 0.6);
+            color: var(--ink);
+            padding: 5px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            border: 1px solid rgba(10, 26, 47, 0.08);
+        }
+
+        .job-status {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 40px;
+            background: rgba(40, 167, 69, 0.12);
+            color: #0f7b3a;
+            border: 1px solid rgba(40, 167, 69, 0.2);
+        }
+
+        .job-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        /* btn-heritage removed to use global theme.css styles */
+
+        /* ===== SIDEBAR SECTIONS ===== */
+        .progress-section,
+        .events-section,
+        .quick-actions-section {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 22px;
+            /* Reduced from 28px */
+            margin-bottom: 20px;
+            /* Reduced from 30px */
+            border: 1px solid rgba(194, 73, 31, 0.08);
+            box-shadow: var(--shadow-elevation);
+            transition: var(--transition);
+        }
+
+        .progress-section:hover,
+        .events-section:hover,
+        .quick-actions-section:hover {
+            background: rgba(255, 255, 255, 0.85);
+            border-color: rgba(230, 138, 46, 0.2);
+            box-shadow: 0 25px 50px -12px rgba(194, 73, 31, 0.12);
+        }
+
+        /* ===== PROGRESS BARS ===== */
+        .progress-item {
+            margin-bottom: 20px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .progress-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .progress-percentage {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--ember);
+        }
+
+        .progress-bar-bg {
+            height: 8px;
+            background: rgba(10, 26, 47, 0.06);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--ember), var(--gilt));
+            border-radius: 10px;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 10px rgba(194, 73, 31, 0.3);
+        }
+
+        /* ===== EVENTS ===== */
+        .event-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(10, 26, 47, 0.04);
+            transition: var(--transition);
+        }
+
+        .event-item:hover {
+            background: rgba(194, 73, 31, 0.04);
+            padding-left: 10px;
+            border-radius: 16px;
+        }
+
+        .event-item:last-child {
+            border-bottom: none;
+        }
+
+        .event-date {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(145deg, rgba(194, 73, 31, 0.1), rgba(230, 138, 46, 0.1));
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-right: 18px;
+            color: var(--ember);
+            flex-shrink: 0;
+            border: 1px solid rgba(194, 73, 31, 0.2);
+        }
+
+        .event-day {
+            font-size: 1.2rem;
+            font-weight: 800;
+            line-height: 1;
+            color: var(--ink);
+        }
+
+        .event-month {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--ember);
+        }
+
+        .event-details h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .event-details p {
+            font-size: 0.8rem;
+            color: #5f6b7a;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* ===== QUICK ACTIONS ===== */
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .action-btn {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(194, 73, 31, 0.12);
+            border-radius: 20px;
+            padding: 20px 12px;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .action-btn:hover {
+            background: rgba(194, 73, 31, 0.06);
+            border-color: var(--ember);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px -10px rgba(194, 73, 31, 0.2);
+            text-decoration: none;
+        }
+
+        .action-icon {
+            font-size: 1.5rem;
+            color: var(--ember);
+        }
+
+        .action-text {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        /* ===== MENTOR/MENTEE CARDS ===== */
+        .mentor-card {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(194, 73, 31, 0.1);
+            border-radius: 24px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 25px -12px rgba(10, 26, 47, 0.08);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .mentor-card:hover {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: var(--gilt);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px -15px rgba(194, 73, 31, 0.15);
+        }
+
+        .mentee-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .mentee-avatar {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, var(--ember), var(--gilt));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 700;
+            box-shadow: 0 4px 10px -2px rgba(194, 73, 31, 0.2);
+            flex-shrink: 0;
+        }
+
+        .mentee-info h4 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--ink);
+            margin: 0 0 2px 0;
+            letter-spacing: -0.01em;
+        }
+
+        .mentee-dept {
+            font-size: 0.75rem;
+            color: var(--ember);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .mentee-meta-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: var(--ink);
+            font-weight: 600;
+        }
+
+        .meta-item i {
+            color: var(--gilt);
+            width: 14px;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .btn-connect {
+            background: var(--ink);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .btn-connect:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px -5px rgba(10, 26, 47, 0.4);
+            filter: brightness(1.1);
+            color: white;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .slide-in {
+            animation: slideUp 0.6s ease forwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+
+            #navbar,
+            .mesh-bg,
+            .dashboard-container,
+            .floating-widget,
+            .footer {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <!-- MOBILE ROOT - Injected High in DOM -->
+    <div id="mobile-root"></div>
+
+    <!-- navbar -->
+    <div id="navbar"></div>
+
+    <!-- PREMIUM MESH BACKGROUND -->
+    <div class="mesh-bg">
+        <div class="mesh mesh-1"></div>
+        <div class="mesh mesh-2"></div>
+        <div class="mesh mesh-3"></div>
+        <div class="mesh mesh-4"></div>
+    </div>
+
+
+    <div class="dashboard-container">
+        <div class="welcome-header slide-in">
+            <h1 id="welcome-name">Welcome back, Alumni!</h1>
+            <p>Track your contributions and stay connected with the LPU community.</p>
+        </div>
+
+        <!-- PROFILE SUMMARY CARD -->
+        <div class="profile-summary slide-in glass-hover-elevate">
+            <div class="profile-content">
+                <div class="profile-avatar">...</div>
+                <div class="profile-info">
+                    <h2>...</h2>
+                    <p id="alumni-info-line"><i class="fas fa-briefcase"></i> ...</p>
+                    <div class="profile-tags">
+                        <span class="profile-tag"><i class="fas fa-star"></i> Alumni</span>
+                        <span class="profile-tag"><i class="fas fa-chalkboard-teacher"></i> Active Mentor</span>
+                    </div>
+                </div>
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" id="profile-stat-mentees">...</div>
+                        <div class="stat-label">Mentees</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="stat-profile-percentage">...</div>
+                        <div class="stat-label">Profile</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STATS GRID -->
+        <div class="stats-grid">
+            <div class="stat-card slide-in glass-hover-elevate">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="stat-title">
+                        <h3>Jobs Posted</h3>
+                        <p>Total shared</p>
+                    </div>
+                </div>
+                <div class="stat-value" id="stat-jobs-posted">...</div>
+            </div>
+
+            <div class="stat-card slide-in glass-hover-elevate">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-title">
+                        <h3>Applicants</h3>
+                        <p>Total received</p>
+                    </div>
+                </div>
+                <div class="stat-value" id="stat-total-applicants">...</div>
+            </div>
+
+            <div class="stat-card slide-in glass-hover-elevate">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div class="stat-title">
+                        <h3>Mentees</h3>
+                        <p>Connected</p>
+                    </div>
+                </div>
+                <div class="stat-value" id="stat-mentees">...</div>
+            </div>
+
+            <div class="stat-card slide-in glass-hover-elevate">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <div class="stat-title">
+                        <h3>Mock Sessions</h3>
+                        <p>Completed</p>
+                    </div>
+                </div>
+                <div class="stat-value" id="stat-mocks">...</div>
+            </div>
+
+            <div class="stat-card slide-in glass-hover-elevate">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="stat-title">
+                        <h3>Active Projects</h3>
+                        <p>Innovation LaunchPad</p>
+                    </div>
+                </div>
+                <div class="stat-value" id="stat-launch-projects">—</div>
+            </div>
+
+            <div class="stat-card slide-in glass-hover-elevate">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <div class="stat-title">
+                        <h3>Launch Applicants</h3>
+                        <p>Pending responses</p>
+                    </div>
+                </div>
+                <div class="stat-value" id="stat-launch-applicants">—</div>
+            </div>
+        </div>
+
+        <!-- CONTENT GRID -->
+        <div class="content-grid">
+            <!-- LEFT COLUMN -->
+            <div class="left-column">
+                <!-- ACTIVITY FEED -->
+                <div class="activity-feed slide-in">
+                    <div class="section-header">
+                        <h3 class="section-title"><i class="fas fa-bolt"></i> Recent Activity</h3>
+                        <a href="#" class="section-link">View All</a>
+                    </div>
+
+                    <div id="recent-activity-container">
+                        <p style="color:#8f9aaa; text-align:center; padding:20px 0;">Loading activity...</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-row-grid">
+                    <!-- RECENT OPPORTUNITIES SHARED -->
+                    <div class="activity-feed slide-in" style="margin-bottom: 0;">
+                        <div class="section-header">
+                            <h3 class="section-title" style="font-size: 1.1rem;"><i class="fas fa-briefcase"></i>
+                                Jobs Shared</h3>
+                            <a href="Post-Job.html" class="section-link"><i class="fas fa-plus-circle"></i></a>
+                        </div>
+                        <div id="recent-posted-jobs-container">
+                            <p style="color:#8f9aaa; text-align:center; padding:20px 0;">Loading…</p>
+                        </div>
+                    </div>
+
+                    <!-- STUDENTS SEEKING GUIDANCE -->
+                    <div class="activity-feed slide-in" style="margin-bottom: 0;">
+                        <div class="section-header">
+                            <h3 class="section-title" style="font-size: 1.1rem;"><i class="fas fa-user-graduate"></i>
+                                Guidance</h3>
+                            <a href="Mentor-Accepts.html" class="section-link">View All</a>
+                        </div>
+                        <div id="mentee-requests-container"
+                            style="max-height: 400px; overflow-y: auto; padding-right: 5px;">
+                            <p style="color:#8f9aaa; text-align:center; padding:20px 0; width: 100%;">Finding
+                                students...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN -->
+            <div class="right-column">
+                <!-- UPCOMING EVENTS -->
+                <div class="events-section slide-in">
+                    <div class="section-header">
+                        <h3 class="section-title"><i class="fas fa-calendar-alt"></i> Mock Interviews</h3>
+                        <a href="Mock-Interviews.html" class="section-link">Schedule</a>
+                    </div>
+                    <div id="upcoming-mocks-container">
+                        <p style="color:#8f9aaa; text-align:center; padding:20px 0;">Loading sessions...</p>
+                    </div>
+                </div>
+
+                <!-- ALUMNI ENGAGEMENT -->
+                <div class="progress-section slide-in">
+                    <div class="section-header">
+                        <h3 class="section-title"><i class="fas fa-chart-line"></i> Engagement</h3>
+                    </div>
+
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-label">Mentoring</span>
+                            <span class="progress-percentage">78%</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-fill" style="width: 78%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="progress-item" style="margin-bottom: 0;">
+                        <div class="progress-header">
+                            <span class="progress-label">Network</span>
+                            <span class="progress-percentage">65%</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-fill" style="width: 65%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QUICK ACTIONS -->
+                <div class="quick-actions-section slide-in">
+                    <div class="section-header">
+                        <h3 class="section-title"><i class="fas fa-rocket"></i> Quick Actions</h3>
+                    </div>
+
+                    <div class="actions-grid">
+                        <a href="Messages.html" class="action-btn">
+                            <i class="fas fa-comment-dots action-icon"></i>
+                            <span class="action-text">Messages</span>
+                        </a>
+
+                        <a href="Messages.html?focusSearch=true" class="action-btn">
+                            <i class="fas fa-search action-icon"></i>
+                            <span class="action-text">Search People</span>
+                        </a>
+
+                        <a href="Alumni-Profile.html" class="action-btn">
+                            <i class="fas fa-user-edit action-icon"></i>
+                            <span class="action-text">Profile</span>
+                        </a>
+
+                        <a href="Post-Job.html" class="action-btn">
+                            <i class="fas fa-plus action-icon"></i>
+                            <span class="action-text">Post Job</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- SCRIPTS -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        // ===== ACCEPT MENTEE REQUEST =====
+        function acceptMentee(studentName) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Request Accepted!',
+                text: `You are now mentoring ${studentName}`,
+                confirmButtonColor: '#C2491F',
+                timer: 2500,
+                showConfirmButton: false,
+                background: '#FFF8F0',
+                iconColor: '#C2491F'
+            });
+
+            // Visual feedback on button
+            const buttons = document.querySelectorAll('.btn-accept');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function (e) {
+                    this.innerHTML = '<i class="fas fa-check-circle"></i> Accepted';
+                    this.style.background = '#28a745';
+                    this.style.transform = 'none';
+                    this.disabled = true;
+                }, { once: true });
+            });
+        }
+
+        // ===== JOB BUTTON INTERACTIONS =====
+        document.addEventListener('DOMContentLoaded', function () {
+            // Handle all tropical buttons
+            document.querySelectorAll('.btn-tropical').forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const text = this.textContent.trim();
+
+                    if (text.includes('View Applications')) {
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Applications',
+                            text: 'You have 3 applicants for this position',
+                            confirmButtonColor: '#C2491F',
+                            background: '#FFF8F0'
+                        });
+                    } else if (text.includes('Edit')) {
+                        window.location.href = 'Edit-Job.html';
+                    } else if (text.includes('Manage Applicants')) {
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Applicants',
+                            text: '2 students have applied for this internship',
+                            confirmButtonColor: '#C2491F',
+                            background: '#FFF8F0'
+                        });
+                    } else if (text.includes('Close')) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Close Posting?',
+                            text: 'This opportunity will no longer be visible to students',
+                            showCancelButton: true,
+                            confirmButtonColor: '#C2491F',
+                            cancelButtonColor: '#6c757d',
+                            confirmButtonText: 'Yes, close it',
+                            background: '#FFF8F0'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                Swal.fire('Closed', 'Job posting has been closed', 'success');
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Smooth animations
+            setTimeout(() => {
+                document.querySelectorAll('.stat-card, .profile-summary, .activity-feed, .job-card, .progress-section, .events-section, .quick-actions-section, .mentor-card').forEach((el, index) => {
+                    setTimeout(() => {
+                        el.classList.add('slide-in');
+                    }, index * 80);
+                });
+            }, 100);
+
+            // Profile dropdown active state
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === 'Dashboard.html') {
+                    link.parentElement.classList.add('active');
+                }
+            });
+        });
+    </script>
+    <!-- UI Helpers -->
+    <script src="../js/core/ui-helpers.js"></script>
+    <script src="../js/core/loadComponents.js" defer></script>
+    <script src="../js/core/authGuard.js"></script>
+    <script src="../js/core/api.js"></script>
+    <script>
+        // ===== DYNAMIC ALUMNI DASHBOARD ENGINE =====
+
+        async function fetchAlumniProfile() {
+            try {
+                const data = await apiFetch('/api/profile/me');
+                if (data) {
+                    const initials = data.name.split(' ').map(n => n[0]).join('').toUpperCase();
+
+                    // Update Welcome Name
+                    if (document.getElementById('welcome-name')) {
+                        document.getElementById('welcome-name').textContent = `Welcome back, ${data.name.split(' ')[0]} !`;
+                    }
+
+                    // Update Summary Card
+                    const avatarEl = document.querySelector('.profile-avatar');
+                    const nameEl = document.querySelector('.profile-info h2');
+                    const infoLineEl = document.querySelector('.profile-info p');
+                    const tagsContainer = document.querySelector('.profile-tags');
+
+                    if (avatarEl) avatarEl.textContent = initials;
+                    if (nameEl) {
+                        nameEl.innerHTML = `${data.name} ${data.isVerified ? '<span class="verified-badge-large" style="font-size: 0.6em; margin-left: 10px;" title="Verified Profile"><i class="fas fa-certificate"></i></span>' : ''}`;
+                    }
+
+                    if (infoLineEl) {
+                        const company = data.company || 'LPU Alumni';
+                        const title = data.title || 'Mentor';
+                        // Extract batch/period from education if available
+                        const batch = data.education && data.education.length > 0 ? `· Batch ${data.education[0].period.split('-')[1].trim()}` : '';
+                        infoLineEl.innerHTML = `<i class="fas fa-briefcase"></i> ${title} @ ${company} ${batch}`;
+                        infoLineEl.id = 'alumni-info-line';
+                    }
+
+                    if (tagsContainer && data.skills) {
+                        // Keep the fixed Alumni and Mentor tags, then add first 2 skills
+                        tagsContainer.innerHTML = `
+                            <span class="profile-tag"><i class="fas fa-star"></i> Alumni</span>
+                            <span class="profile-tag"><i class="fas fa-chalkboard-teacher"></i> Active Mentor</span>
+                        `;
+                        data.skills.slice(0, 2).forEach(skill => {
+                            tagsContainer.innerHTML += `<span class="profile-tag"><i class="fas fa-code"></i> ${skill}</span>`;
+                        });
+                    }
+
+                    // Mobile Data Bridge
+                    if (window.updateAlumniMobileData) {
+                        window.updateAlumniMobileData({
+                            userName: data.name,
+                            userInitial: initials,
+                            role: data.title || 'Mentor',
+                            company: data.company || 'LPU Alumni',
+                            batch: data.education && data.education.length > 0 ? `Batch ${data.education[0].period.split('-')[1].trim()}` : 'Alumni'
+                        });
+                    }
+                }
+            } catch (err) {
+                console.error('[dashboard] Profile error:', err);
+            }
+        }
+
+        async function fetchDashboardStats() {
+            try {
+                const data = await apiFetch('/api/dashboard/alumni');
+                if (data) {
+                    if (document.getElementById('stat-jobs-posted'))
+                        document.getElementById('stat-jobs-posted').textContent = data.totalJobsPosted;
+                    if (document.getElementById('stat-total-applicants'))
+                        document.getElementById('stat-total-applicants').textContent = data.totalApplicantsReceived;
+                    if (document.getElementById('stat-mentees'))
+                        document.getElementById('stat-mentees').textContent = data.totalMenteesConnected;
+                    if (document.getElementById('profile-stat-mentees'))
+                        document.getElementById('profile-stat-mentees').textContent = data.totalMenteesConnected;
+                    if (document.getElementById('stat-mocks'))
+                        document.getElementById('stat-mocks').textContent = data.totalMockSessions;
+                    if (document.getElementById('stat-launch-projects'))
+                        document.getElementById('stat-launch-projects').textContent = data.activeLaunchProjectsCount;
+                    if (document.getElementById('stat-launch-applicants'))
+                        document.getElementById('stat-launch-applicants').textContent = data.pendingLaunchApplicantsCount;
+
+                    fetchProfileStrength();
+                    if (window.renderUpcomingMocks) {
+                        window.renderUpcomingMocks(data.upcomingMocks || []);
+                    }
+                    renderRecentJobs(data.recentPostedJobs);
+
+                    // Mobile Data Bridge
+                    if (window.updateAlumniMobileData) {
+                        window.updateAlumniMobileData({
+                            opportunityCount: data.totalJobsPosted,
+                            features: [
+                                { value: data.totalMenteesConnected },
+                                { value: data.totalApplicantsReceived },
+                                { value: data.totalMockSessions },
+                                { value: data.totalJobsPosted }
+                            ]
+                        });
+                    }
+                }
+            } catch (err) {
+                console.error('[dashboard] Stats error:', err);
+            }
+        }
+
+        async function fetchProfileStrength() {
+            try {
+                const data = await apiFetch('/api/profile/strength');
+                if (data) {
+                    const percEl = document.getElementById('stat-profile-percentage');
+                    const textEl = document.getElementById('profile-strength-text');
+                    const fillEl = document.getElementById('profile-strength-fill');
+
+                    if (percEl) percEl.textContent = `${data.percentage}%`;
+                    if (textEl) textEl.textContent = `${data.percentage}%`;
+                    if (fillEl) fillEl.style.width = `${data.percentage}%`;
+
+                    // if (data.percentage < 80) {
+                    //     showToast({ 
+                    //         title: 'Complete Your Profile', 
+                    //         message: `Add ${data.missingFields[0]} to help students find you!` 
+                    //     });
+                    // }
+                }
+            } catch (err) {
+                console.error('[profile] Strength error:', err);
+            }
+        }
+
+        window.renderUpcomingMocks = function (mocks) {
+            const container = document.getElementById('upcoming-mocks-container');
+            const statEl = document.getElementById('stat-mocks');
+            if (!container) return;
+
+            if (statEl) statEl.textContent = mocks.length;
+
+            if (!mocks || mocks.length === 0) {
+                container.innerHTML = '<p class="text-center py-4 text-muted">No upcoming mock interviews</p>';
+                return;
+            }
+
+            container.innerHTML = mocks.map(m => {
+                const date = new Date(m.scheduledDate);
+                return `
+                    <div class="event-item glass-hover-elevate">
+                        <div class="event-date">
+                            <div class="event-day">${date.getDate()}</div>
+                            <div class="event-month">${date.toLocaleString('default', { month: 'short' }).toUpperCase()}</div>
+                        </div>
+                        <div class="event-details">
+                            <h4>${m.roleRequested} Mock</h4>
+                            <p><i class="fas fa-user-graduate"></i> ${m.student ? m.student.name : 'Student'} · ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        };
+
+        window.fetchUpcomingMocks = async function () {
+            try {
+                const mocks = await apiFetch('/api/mock-interviews/upcoming');
+                window.renderUpcomingMocks(mocks);
+            } catch (err) {
+                console.error('[mocks] Fetch error:', err);
+            }
+        };
+
+        function renderRecentJobs(jobs) {
+            const container = document.getElementById('recent-posted-jobs-container');
+            if (!container) return;
+
+            if (!jobs || jobs.length === 0) {
+                container.innerHTML = '<p style="color:#8f9aaa; text-align:center; padding:20px 0;">No jobs posted yet. <a href="Post-Job.html" style="color:var(--ember); font-weight:600;">Post one now!</a></p>';
+                return;
+            }
+
+            container.innerHTML = jobs.map(job => {
+                const posted = new Date(job.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+                const typeLabel = job.jobType ? job.jobType.charAt(0).toUpperCase() + job.jobType.slice(1) : '';
+                const appCount = job.applicants ? job.applicants.length : 0;
+                return `
+                    <div class="job-card glass-hover-elevate">
+                        <div class="job-header">
+                            <div class="job-info">
+                                <h4>${job.title}</h4>
+                                <div class="job-company"><i class="fas fa-building"></i> ${job.company} ${job.location ? '· ' + job.location : ''}</div>
+                            </div>
+                            <div class="job-status"><i class="fas fa-check-circle"></i> Active</div>
+                        </div>
+                        <div class="job-tags">
+                            ${typeLabel ? `<span class="job-tag">${typeLabel}</span>` : ''}
+                            <span class="job-tag">${appCount} Applicant${appCount !== 1 ? 's' : ''}</span>
+                            <span class="job-tag">${posted}</span>
+                        </div>
+                        <div class="job-actions">
+                            <a href="Post-Job.html" class="btn-heritage"><i class="fas fa-eye"></i> View Details</a>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        window.renderRecentActivity = async function () {
+            const container = document.getElementById('recent-activity-container');
+            if (!container) return;
+
+            try {
+                const data = await apiFetch('/api/notifications?limit=5');
+                if (!data || !data.notifications || data.notifications.length === 0) {
+                    container.innerHTML = '<p class="text-center py-4 text-muted">No recent activity yet</p>';
+                    return;
+                }
+
+                container.innerHTML = data.notifications.map(n => `
+                    <div class="activity-item">
+                        <div class="activity-icon"><i class="fas ${getIcon(n.type)}"></i></div>
+                        <div class="activity-details">
+                            <div class="activity-title">${n.title}</div>
+                            <div class="activity-description">${n.message}</div>
+                            <div class="activity-time"><i class="far fa-clock"></i> ${formatTimeAgo(new Date(n.createdAt))}</div>
+                        </div>
+                    </div>
+                `).join('');
+
+                // Mobile Data Bridge
+                if (window.updateAlumniMobileData) {
+                    const mobileActivities = data.notifications.map(n => ({
+                        title: n.title,
+                        description: n.message,
+                        timeLabel: formatTimeAgo(new Date(n.createdAt)),
+                        iconHTML: `<i class="fas ${getIcon(n.type)}"></i>`,
+                        isToday: new Date(n.createdAt).toDateString() === new Date().toDateString()
+                    })).slice(0, 1); // Only need 1 for mobile dashboard
+                    window.updateAlumniMobileData({ recentActivities: mobileActivities });
+                }
+            } catch (err) {
+                container.innerHTML = '<p class="text-center py-4 text-danger">Failed to load activity</p>';
+            }
+        };
+
+        async function fetchMenteeRequests() {
+            const container = document.getElementById('mentee-requests-container');
+            if (!container) return;
+
+            try {
+                const requests = await apiFetch('/api/mentorship/alumni');
+                if (!requests || requests.length === 0) {
+                    container.innerHTML = '<p class="text-center py-4 text-muted w-100">No pending requests at the moment</p>';
+                    return;
+                }
+
+                container.innerHTML = requests.map(r => {
+                    const initials = r.student.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                    return `
+                        <div class="mentor-card glass-hover-elevate" id="request-${r._id}">
+                            <div class="mentee-header">
+                                <div class="mentee-avatar">${initials}</div>
+                                <div class="mentee-info">
+                                    <h4>${r.student.name}</h4>
+                                    <div class="mentee-dept">
+                                        <i class="fas fa-graduation-cap"></i> ${r.student.department || 'Student'}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mentee-meta-list">
+                                <div class="meta-item">
+                                    <i class="fas fa-layer-group"></i>
+                                    <span>${r.preferredDomain}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-headset"></i>
+                                    <span>${r.preferredMode}</span>
+                                </div>
+                            </div>
+
+                            <button class="btn-connect" onclick="handleMenteeRequest('${r._id}', '${r.student.name}', 'accepted')">
+                                <i class="fas fa-check-circle"></i> Accept Request
+                            </button>
+                        </div>
+                    `;
+                }).join('');
+            } catch (err) {
+                container.innerHTML = `<p class="text-center py-4 text-danger w-100">Failed to load requests: ${err.message}</p>`;
+            }
+        }
+
+        window.handleMenteeRequest = async function (requestId, studentName, status) {
+            try {
+                await apiFetch(`/api/mentorship/${requestId}/respond`, {
+                    method: 'PATCH',
+                    body: JSON.stringify({ status })
+                });
+
+                if (window.UIHelper) {
+                    window.UIHelper.showToast(status === 'accepted' ? 'Request Accepted!' : 'Request Rejected', status === 'accepted' ? 'success' : 'info');
+                } else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: status === 'accepted' ? 'Request Accepted!' : 'Request Rejected',
+                        text: status === 'accepted' ? `You are now mentoring ${studentName}` : `Request from ${studentName} rejected`,
+                        confirmButtonColor: '#C2491F',
+                        timer: 2000,
+                        showConfirmButton: false,
+                        background: '#FFF8F0'
+                    });
+                }
+
+                // Remove or update the card
+                const card = document.getElementById(`request-${requestId}`);
+                if (card) card.remove();
+
+                // Refresh stats
+                fetchDashboardStats();
+            } catch (err) {
+                Swal.fire('Error', err.message || 'Failed to respond to request', 'error');
+            }
+        };
+
+        function getIcon(type) {
+            if (type.includes('job')) return 'fa-briefcase';
+            if (type.includes('mentor')) return 'fa-handshake';
+            if (type.includes('mock')) return 'fa-video';
+            return 'fa-bell';
+        }
+
+        function formatTimeAgo(date) {
+            const seconds = Math.floor((new Date() - date) / 1000);
+            let interval = seconds / 31536000;
+            if (interval > 1) return Math.floor(interval) + " years ago";
+            interval = seconds / 2592000;
+            if (interval > 1) return Math.floor(interval) + " months ago";
+            interval = seconds / 86400;
+            if (interval > 1) return Math.floor(interval) + " days ago";
+            interval = seconds / 3600;
+            if (interval > 1) return Math.floor(interval) + " hours ago";
+            interval = seconds / 60;
+            if (interval > 1) return Math.floor(interval) + " minutes ago";
+            return "Just now";
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Load Navigation
+            if (typeof loadComponent === 'function') {
+                loadComponent('navbar', 'Navbar-Alumini.html');
+            }
+
+            const userName = localStorage.getItem('userName');
+            if (userName) {
+                document.getElementById('welcome-name').textContent = `Welcome back, ${userName} !`;
+            }
+
+            fetchDashboardStats();
+            fetchAlumniProfile();
+            renderRecentActivity();
+            fetchMenteeRequests();
+        });
+    </script>
+    <script src="../js/core/api.js"></script>
+    <script src="../js/core/authGuard.js"></script>
+    <script src="../js/core/loadComponents.js" defer></script>
+    <script src="../js/mobile-nav.js"></script>
+    <script src="../js/mobile-alumni-nav.js"></script>
+    <script>if (window.AlumniMobileNav) window.MobileNav = window.AlumniMobileNav;</script>
+    <script src="js/mobile-dashboard.js"></script>
+    <script src="../js/mobile-fixes.js"></script>
+</body>
+
+</html>
+```

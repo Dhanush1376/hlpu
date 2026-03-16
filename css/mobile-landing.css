@@ -1,0 +1,254 @@
+/* ==============================================================
+   mobile-landing.css
+   Isolated mobile styles for hLPU Landing Page.
+   Matches premium design system.
+   ============================================================== */
+
+@media (max-width: 768px) {
+
+    /* 1. GLOBAL OVERRIDES */
+    body {
+        overflow-x: hidden !important;
+    }
+
+    .container {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+
+    /* 2. HERO SECTION */
+    .hero-section {
+        padding: 100px 0 40px !important;
+        min-height: auto !important;
+        text-align: center;
+    }
+
+    .hero-title {
+        font-size: 2.2rem !important;
+        margin-bottom: 15px !important;
+    }
+
+    .hero-sub {
+        font-size: 1rem !important;
+        margin: 0 auto 25px !important;
+        padding: 0 10px;
+    }
+
+    .hero-img {
+        max-height: 280px !important;
+        margin-top: 30px;
+    }
+
+    .hero-section .d-flex {
+        flex-direction: column;
+        gap: 12px !important;
+        align-items: center;
+    }
+
+    .hero-section .btn {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 14px 20px !important;
+        font-size: 0.95rem !important;
+    }
+
+    /* 3. NAVIGATION */
+    .navbar {
+        display: flex !important;
+        padding: 12px 0 !important;
+        background: rgba(255, 255, 255, 0.8) !important;
+        backdrop-filter: blur(20px) !important;
+    }
+
+    .navbar-brand img {
+        height: 36px !important;
+    }
+
+    .navbar-toggler {
+        border: none !important;
+        padding: 0 !important;
+        outline: none !important;
+    }
+
+    .navbar-toggler-icon {
+        background-image: none !important;
+        position: relative;
+        width: 24px !important;
+        height: 2px !important;
+        background: var(--ink) !important;
+        display: block;
+        transition: 0.3s ease;
+    }
+
+    .navbar-toggler-icon::before,
+    .navbar-toggler-icon::after {
+        content: '';
+        position: absolute;
+        width: 24px;
+        height: 2px;
+        background: var(--ink);
+        left: 0;
+        transition: 0.3s ease;
+    }
+
+    .navbar-toggler-icon::before {
+        top: -8px;
+    }
+
+    .navbar-toggler-icon::after {
+        bottom: -8px;
+    }
+
+    .navbar-toggler:not(.collapsed) .navbar-toggler-icon {
+        background: transparent !important;
+    }
+
+    .navbar-toggler:not(.collapsed) .navbar-toggler-icon::before {
+        transform: rotate(45deg);
+        top: 0;
+    }
+
+    .navbar-toggler:not(.collapsed) .navbar-toggler-icon::after {
+        transform: rotate(-45deg);
+        bottom: 0;
+    }
+
+    .navbar-collapse {
+        display: none !important;
+    }
+
+    .mob-login-btn {
+        margin: 0 !important;
+        padding: 10px 18px !important;
+        font-size: 0.85rem !important;
+        font-weight: 700 !important;
+        border-radius: 12px !important;
+        box-shadow: 0 4px 12px rgba(194, 73, 31, 0.15) !important;
+    }
+
+    /* 4. SECTIONS & CARDS */
+    section {
+        padding: 60px 0 !important;
+    }
+
+    .section-title {
+        font-size: 1.8rem !important;
+    }
+
+    .role-container {
+        margin-bottom: 24px;
+        padding: 2rem 1.5rem !important;
+        border-radius: 32px !important;
+        background: rgba(255, 255, 255, 0.7) !important;
+        border: 1px solid rgba(194, 73, 31, 0.12) !important;
+    }
+
+    .role-title {
+        font-size: 1.6rem !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .role-list li {
+        padding: 0.8rem 0 !important;
+        font-size: 0.92rem !important;
+    }
+
+    .about-stats {
+        margin-top: 40px !important;
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .about-stats>div {
+        padding: 0 !important;
+    }
+
+    .stat-item {
+        width: 100% !important;
+        margin-bottom: 0 !important;
+        border-radius: 24px !important;
+        padding: 1.5rem 0.5rem !important;
+        background: rgba(255, 255, 255, 0.6) !important;
+    }
+
+    .stat-number {
+        font-size: 1.9rem !important;
+    }
+
+    .stat-label {
+        font-size: 0.75rem !important;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .service-card {
+        padding: 2rem 1.5rem !important;
+        border-radius: 28px !important;
+        margin-bottom: 20px;
+    }
+
+    .course-tabs {
+        gap: 8px !important;
+        padding: 0 5px;
+    }
+
+    .course-tab {
+        padding: 0.6rem 1.2rem !important;
+        font-size: 0.85rem !important;
+        flex: 1 1 calc(50% - 10px);
+        text-align: center;
+    }
+
+    .path-step {
+        gap: 1rem !important;
+    }
+
+    .step-number {
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 1.1rem !important;
+        border-radius: 12px !important;
+    }
+
+    /* 5. CONTACT & MISC */
+    .lead {
+        font-size: 1.15rem !important;
+    }
+
+    .contact-form {
+        padding: 1.5rem !important;
+        border-radius: 28px !important;
+    }
+
+    .contact-info {
+        margin-bottom: 30px;
+    }
+
+    /* 6. FOOTER */
+    footer {
+        padding: 50px 0 30px !important;
+        border-radius: 36px 36px 0 0 !important;
+        text-align: center;
+    }
+
+    .footer-column {
+        margin-bottom: 40px;
+    }
+
+    .social-links {
+        justify-content: center !important;
+    }
+
+    /* 7. UTILITIES */
+    .animate-in {
+        transition: all 0.6s ease-out !important;
+    }
+
+    /* Prevent interaction delay on mobile buttons */
+    button,
+    .btn,
+    .nav-link {
+        touch-action: manipulation;
+    }
+}

@@ -1,0 +1,641 @@
+/* ==============================================================
+   mobile-alumni.css
+   Shared mobile styles for ALL Alumni pages.
+   Inherits design tokens from mobile-nav.css.
+   ============================================================== */
+
+@media (max-width: 768px) {
+
+    /* 1. ROOT */
+    html,
+    body {
+        background: linear-gradient(180deg, #fdf6ec 0%, #fae9e3 40%, #ffffff 100%) !important;
+        background-attachment: fixed !important;
+    }
+
+    #mobile-root {
+        padding: 85px 15px 100px 15px;
+        min-height: 100vh;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* 2. DESKTOP ISOLATION */
+    .dashboard-container.desktop-only,
+    .hero.desktop-only,
+    .settings-container.desktop-only {
+        display: none !important;
+    }
+
+    #navbar {
+        display: none !important;
+    }
+
+    .navbar-hlpu {
+        display: none !important;
+    }
+
+    .mesh-bg {
+        display: none !important;
+    }
+
+    /* 3. PAGE HEADER */
+    .mob-page-header {
+        margin-bottom: 16px;
+    }
+
+    .mob-page-header h1 {
+        font-size: 1.4rem;
+        font-weight: 900;
+        color: #0A1A2F;
+        letter-spacing: -0.02em;
+        margin: 0 0 4px;
+    }
+
+    .mob-page-header p {
+        font-size: 0.78rem;
+        color: #5f6b7a;
+        margin: 0;
+    }
+
+    /* 4. STATS ROW */
+    .mob-stats-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        margin-bottom: 14px;
+    }
+
+    .mob-stat-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(14px);
+        border-radius: 18px;
+        padding: 14px 10px;
+        text-align: center;
+        border: 1px solid rgba(194, 73, 31, 0.06);
+        box-shadow: 0 4px 12px rgba(10, 26, 47, 0.04);
+    }
+
+    .mob-stat-value {
+        font-size: 1.3rem;
+        font-weight: 900;
+        color: #0A1A2F;
+        line-height: 1;
+    }
+
+    .mob-stat-label {
+        font-size: 0.62rem;
+        font-weight: 700;
+        color: #5f6b7a;
+        text-transform: uppercase;
+        margin-top: 4px;
+        letter-spacing: 0.3px;
+    }
+
+    /* 5. SECTION CARD */
+    .mob-section-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(14px);
+        border-radius: 22px;
+        padding: 16px;
+        margin-bottom: 12px;
+        border: 1px solid rgba(194, 73, 31, 0.06);
+        box-shadow: 0 4px 15px rgba(10, 26, 47, 0.04);
+    }
+
+    .mob-section-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+    }
+
+    .mob-section-title h3 {
+        font-size: 0.88rem;
+        font-weight: 800;
+        color: #0A1A2F;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin: 0;
+    }
+
+    .mob-section-title h3 i {
+        color: #C2491F;
+        font-size: 0.82rem;
+    }
+
+    .mob-section-title a {
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: #C2491F;
+        text-decoration: none;
+    }
+
+    /* 6. PROFILE CARD */
+    .mob-profile-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(14px);
+        border-radius: 22px;
+        padding: 16px;
+        margin-bottom: 14px;
+        border: 1px solid rgba(194, 73, 31, 0.06);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .mob-profile-avatar {
+        width: 52px;
+        height: 52px;
+        border-radius: 16px;
+        background: linear-gradient(145deg, #C2491F, #E68A2E);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    .mob-profile-info h2 {
+        font-size: 0.95rem;
+        font-weight: 800;
+        color: #0A1A2F;
+        margin: 0 0 2px;
+    }
+
+    .mob-profile-info p {
+        font-size: 0.72rem;
+        color: #5f6b7a;
+        margin: 0;
+    }
+
+    .mob-profile-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-top: 6px;
+    }
+
+    .mob-profile-tag {
+        padding: 3px 8px;
+        border-radius: 20px;
+        font-size: 0.6rem;
+        font-weight: 700;
+        background: rgba(194, 73, 31, 0.06);
+        color: #C2491F;
+        border: 1px solid rgba(194, 73, 31, 0.1);
+    }
+
+    /* 7. REQUEST CARD */
+    .mob-request-card {
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 14px;
+        margin-bottom: 10px;
+        border: 1px solid rgba(194, 73, 31, 0.06);
+        animation: mobSlideUp 0.3s ease forwards;
+    }
+
+    @keyframes mobSlideUp {
+        from {
+            opacity: 0;
+            transform: translateY(12px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .mob-request-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 8px;
+    }
+
+    .mob-request-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
+        background: linear-gradient(145deg, #C2491F, #E68A2E);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 0.85rem;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    .mob-request-name {
+        font-size: 0.88rem;
+        font-weight: 800;
+        color: #0A1A2F;
+        margin: 0;
+    }
+
+    .mob-request-dept {
+        font-size: 0.68rem;
+        color: #C2491F;
+        font-weight: 600;
+    }
+
+    .mob-request-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin-bottom: 8px;
+    }
+
+    .mob-meta-pill {
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.65rem;
+        font-weight: 600;
+        background: rgba(10, 26, 47, 0.04);
+        color: #5f6b7a;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .mob-meta-pill i {
+        font-size: 0.6rem;
+        color: #C2491F;
+    }
+
+    .mob-request-message {
+        font-size: 0.75rem;
+        color: #4a5568;
+        background: rgba(10, 26, 47, 0.03);
+        padding: 8px 12px;
+        border-radius: 10px;
+        border-left: 3px solid #C2491F;
+        font-style: italic;
+        margin-bottom: 10px;
+        line-height: 1.4;
+    }
+
+    .mob-request-actions {
+        display: flex;
+        gap: 6px;
+    }
+
+    .mob-btn-accept {
+        flex: 1;
+        padding: 10px;
+        border-radius: 14px;
+        border: none;
+        background: #0A1A2F;
+        color: white;
+        font-size: 0.75rem;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    .mob-btn-accept:active {
+        transform: scale(0.97);
+    }
+
+    .mob-btn-dismiss {
+        padding: 10px 14px;
+        border-radius: 14px;
+        border: 1px solid rgba(10, 26, 47, 0.08);
+        background: white;
+        color: #5f6b7a;
+        font-size: 0.75rem;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .mob-btn-dismiss:active {
+        background: #f5f5f5;
+    }
+
+    .mob-btn-view {
+        padding: 10px 14px;
+        border-radius: 14px;
+        border: 1px solid rgba(194, 73, 31, 0.15);
+        background: white;
+        color: #C2491F;
+        font-size: 0.75rem;
+        font-weight: 700;
+        cursor: pointer;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    /* 8. STATUS BADGE */
+    .mob-status-badge {
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 0.6rem;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .mob-status-badge.pending {
+        background: rgba(230, 138, 46, 0.1);
+        color: #C2491F;
+    }
+
+    .mob-status-badge.accepted {
+        background: rgba(15, 123, 58, 0.1);
+        color: #0F7B3A;
+    }
+
+    .mob-status-badge.completed {
+        background: rgba(10, 26, 47, 0.06);
+        color: #5f6b7a;
+    }
+
+    .mob-status-badge.rejected {
+        background: rgba(176, 42, 55, 0.08);
+        color: #B02A37;
+    }
+
+    /* 9. ACTIVITY ITEM */
+    .mob-activity-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(10, 26, 47, 0.04);
+    }
+
+    .mob-activity-item:last-child {
+        border-bottom: none;
+    }
+
+    .mob-activity-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: rgba(194, 73, 31, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #C2491F;
+        font-size: 0.78rem;
+        flex-shrink: 0;
+    }
+
+    .mob-activity-title {
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: #0A1A2F;
+    }
+
+    .mob-activity-desc {
+        font-size: 0.72rem;
+        color: #5f6b7a;
+        margin-top: 1px;
+    }
+
+    .mob-activity-time {
+        font-size: 0.65rem;
+        color: #8f9aaa;
+        margin-top: 2px;
+    }
+
+    /* 10. QUICK ACTIONS */
+    .mob-actions-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .mob-action-btn {
+        background: rgba(255, 255, 255, 0.5);
+        border: 1px solid rgba(194, 73, 31, 0.08);
+        border-radius: 16px;
+        padding: 14px 8px;
+        text-align: center;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .mob-action-btn:active {
+        background: #f0e6de;
+    }
+
+    .mob-action-btn i {
+        font-size: 1.1rem;
+        color: #C2491F;
+    }
+
+    .mob-action-btn span {
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: #0A1A2F;
+    }
+
+    /* 11. TAB CHIPS */
+    .mob-tab-chips {
+        display: flex;
+        gap: 6px;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        margin-bottom: 12px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .mob-tab-chips::-webkit-scrollbar {
+        display: none;
+    }
+
+    .mob-tab-chip {
+        flex-shrink: 0;
+        padding: 9px 16px;
+        border-radius: 40px;
+        border: 1px solid rgba(10, 26, 47, 0.08);
+        background: rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(4px);
+        font-size: 0.76rem;
+        font-weight: 700;
+        color: #0A1A2F;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.25s ease;
+    }
+
+    .mob-tab-chip.active {
+        background: #0A1A2F;
+        color: white;
+        border-color: #0A1A2F;
+        box-shadow: 0 4px 10px rgba(10, 26, 47, 0.15);
+    }
+
+    /* 12. ENGAGEMENT */
+    .mob-progress-item {
+        margin-bottom: 12px;
+    }
+
+    .mob-progress-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 4px;
+    }
+
+    .mob-progress-label {
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: #0A1A2F;
+    }
+
+    .mob-progress-pct {
+        font-size: 0.72rem;
+        font-weight: 800;
+        color: #C2491F;
+    }
+
+    .mob-progress-bar-bg {
+        height: 6px;
+        background: rgba(10, 26, 47, 0.06);
+        border-radius: 6px;
+        overflow: hidden;
+    }
+
+    .mob-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #C2491F, #E68A2E);
+        border-radius: 6px;
+        transition: width 0.8s ease;
+    }
+
+    /* 13. EMPTY STATE */
+    .mob-empty-state {
+        text-align: center;
+        padding: 30px 15px;
+        color: #5f6b7a;
+    }
+
+    .mob-empty-state i {
+        font-size: 2rem;
+        opacity: 0.4;
+        margin-bottom: 10px;
+        color: #E68A2E;
+    }
+
+    .mob-empty-state h4 {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #0A1A2F;
+    }
+
+    .mob-empty-state p {
+        font-size: 0.72rem;
+    }
+
+    /* 14. FILTER SELECT */
+    .mob-filter-select {
+        width: 100%;
+        padding: 10px 14px;
+        border-radius: 14px;
+        border: 1px solid rgba(10, 26, 47, 0.08);
+        background: white;
+        font-size: 0.82rem;
+        color: #0A1A2F;
+        margin-bottom: 10px;
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* 15. EVENT ITEM */
+    .mob-event-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(10, 26, 47, 0.04);
+    }
+
+    .mob-event-item:last-child {
+        border-bottom: none;
+    }
+
+    .mob-event-date {
+        width: 44px;
+        height: 44px;
+        background: rgba(194, 73, 31, 0.08);
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .mob-event-day {
+        font-size: 1rem;
+        font-weight: 900;
+        color: #0A1A2F;
+        line-height: 1;
+    }
+
+    .mob-event-month {
+        font-size: 0.55rem;
+        font-weight: 700;
+        color: #C2491F;
+        text-transform: uppercase;
+    }
+
+    .mob-event-info h4 {
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: #0A1A2F;
+        margin: 0 0 1px;
+    }
+
+    .mob-event-info p {
+        font-size: 0.68rem;
+        color: #5f6b7a;
+        margin: 0;
+    }
+
+    /* 16. TOGGLE ITEM */
+    .mob-toggle-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(10, 26, 47, 0.04);
+    }
+
+    .mob-toggle-row:last-child {
+        border-bottom: none;
+    }
+
+    .mob-toggle-row-label {
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: #0A1A2F;
+    }
+
+    .mob-toggle-row-desc {
+        font-size: 0.68rem;
+        color: #5f6b7a;
+    }
+}
+
+@media (min-width: 769px) {
+    #mobile-root {
+        display: none !important;
+    }
+}

@@ -1,0 +1,641 @@
+/* ==============================================================
+   mobile-launchpad.css
+   Mobile-specific styles for Launch Pad page
+   Matches Direct Jobs / Mentors / Course Map mobile design
+   ============================================================== */
+
+@media (max-width: 768px) {
+
+    /* 1. ROOT */
+    html,
+    body {
+        background: linear-gradient(180deg, #fdf6ec 0%, #fae9e3 40%, #ffffff 100%) !important;
+        background-attachment: fixed !important;
+    }
+
+    #mobile-root {
+        padding: 85px 15px 100px 15px;
+        min-height: 100vh;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* 2. PAGE HEADER */
+    .mob-lp-header {
+        margin-bottom: 18px;
+    }
+
+    .mob-lp-header h1 {
+        font-size: 1.45rem;
+        font-weight: 800;
+        color: #0A1A2F;
+        margin-bottom: 4px;
+        letter-spacing: -0.02em;
+    }
+
+    .mob-lp-header p {
+        font-size: 0.8rem;
+        color: #5f6b7a;
+        line-height: 1.5;
+    }
+
+    /* 3. STATS ROW */
+    .mob-stats-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .mob-stat-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(8px);
+        border-radius: 18px;
+        padding: 16px 14px;
+        text-align: center;
+        border: 1px solid rgba(194, 73, 31, 0.06);
+    }
+
+    .mob-stat-number {
+        font-size: 1.6rem;
+        font-weight: 900;
+        background: linear-gradient(145deg, #C2491F, #E68A2E);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: 1.1;
+        margin-bottom: 2px;
+    }
+
+    .mob-stat-label {
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #5f6b7a;
+    }
+
+    /* 4. SECTION NAV TABS */
+    .mob-lp-tabs {
+        display: flex;
+        gap: 6px;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        margin-bottom: 18px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .mob-lp-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .mob-lp-tab {
+        flex-shrink: 0;
+        padding: 10px 18px;
+        border-radius: 40px;
+        border: 1px solid rgba(10, 26, 47, 0.08);
+        background: rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(4px);
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #0A1A2F;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.25s ease;
+    }
+
+    .mob-lp-tab.active {
+        background: #0A1A2F;
+        color: white;
+        border-color: #0A1A2F;
+        box-shadow: 0 4px 10px rgba(10, 26, 47, 0.15);
+    }
+
+    .mob-lp-tab i {
+        margin-right: 5px;
+        font-size: 0.75rem;
+    }
+
+    /* 5. JOURNEY STEP CARDS */
+    .mob-step-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+        border-radius: 20px;
+        padding: 20px 18px;
+        margin-bottom: 12px;
+        border: 1px solid rgba(194, 73, 31, 0.06);
+        box-shadow: 0 4px 15px rgba(10, 26, 47, 0.04);
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+    }
+
+    .mob-step-num {
+        width: 40px;
+        height: 40px;
+        border-radius: 14px;
+        background: linear-gradient(145deg, #C2491F, #E68A2E);
+        color: white;
+        font-size: 0.9rem;
+        font-weight: 900;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .mob-step-content {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .mob-step-content h5 {
+        font-size: 0.95rem;
+        font-weight: 800;
+        color: #0A1A2F;
+        margin-bottom: 4px;
+    }
+
+    .mob-step-content p {
+        font-size: 0.78rem;
+        color: #5f6b7a;
+        line-height: 1.5;
+        margin: 0;
+    }
+
+    /* 6. SEARCH BAR */
+    .mob-lp-search-container {
+        margin-bottom: 15px;
+    }
+
+    .mob-lp-unified-search {
+        display: flex;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(8px);
+        border-radius: 18px;
+        padding: 4px 6px 4px 18px;
+        border: 1.5px solid rgba(10, 26, 47, 0.06);
+        transition: all 0.25s ease;
+    }
+
+    .mob-lp-unified-search:focus-within {
+        border-color: #C2491F;
+        background: white;
+        box-shadow: 0 0 0 4px rgba(194, 73, 31, 0.08);
+    }
+
+    .mob-lp-unified-search i {
+        color: #C2491F;
+        margin-right: 10px;
+        font-size: 1rem;
+    }
+
+    .mob-lp-unified-search input {
+        flex: 1;
+        border: none;
+        background: transparent;
+        outline: none;
+        font-size: 0.88rem;
+        color: #0A1A2F;
+        padding: 12px 0;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .mob-lp-unified-search input::placeholder {
+        color: #8f9aaa;
+    }
+
+    /* 7. FILTER CHIPS */
+    .mob-lp-filter-row {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        margin-bottom: 14px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .mob-lp-filter-row::-webkit-scrollbar {
+        display: none;
+    }
+
+    .mob-lp-filter-chip {
+        flex-shrink: 0;
+        padding: 8px 16px;
+        border-radius: 40px;
+        border: 1px solid rgba(10, 26, 47, 0.08);
+        background: rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(4px);
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #0A1A2F;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.25s ease;
+    }
+
+    .mob-lp-filter-chip.active {
+        background: #0A1A2F;
+        color: white;
+        border-color: #0A1A2F;
+        box-shadow: 0 4px 10px rgba(10, 26, 47, 0.15);
+    }
+
+    /* 8. PROJECT CARDS */
+    .mob-project-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+        border-radius: 22px;
+        padding: 20px 18px;
+        margin-bottom: 16px;
+        border: 1px solid rgba(194, 73, 31, 0.06);
+        box-shadow: 0 6px 20px rgba(10, 26, 47, 0.04);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .mob-proj-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .mob-proj-type-badge {
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 0.65rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .mob-proj-type-startup {
+        background: rgba(194, 73, 31, 0.1);
+        color: #C2491F;
+    }
+
+    .mob-proj-type-research {
+        background: rgba(45, 110, 170, 0.1);
+        color: #2D6EAA;
+    }
+
+    .mob-proj-type-default {
+        background: rgba(10, 26, 47, 0.06);
+        color: #0A1A2F;
+    }
+
+    .mob-proj-domain-badge {
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 0.65rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #C2491F, #E68A2E);
+        color: white;
+    }
+
+    .mob-proj-stage-badge {
+        padding: 3px 10px;
+        border-radius: 6px;
+        font-size: 0.6rem;
+        font-weight: 800;
+        background: #C2491F;
+        color: white;
+        margin-left: 6px;
+    }
+
+    .mob-proj-title {
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: #0A1A2F;
+        margin-bottom: 8px;
+        letter-spacing: -0.02em;
+        line-height: 1.3;
+    }
+
+    .mob-proj-desc {
+        font-size: 0.82rem;
+        color: #5f6b7a;
+        line-height: 1.5;
+        margin-bottom: 12px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    /* Score Bar */
+    .mob-proj-score {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+
+    .mob-score-bar-bg {
+        flex: 1;
+        height: 6px;
+        background: rgba(10, 26, 47, 0.05);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .mob-score-bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #C2491F, #E68A2E);
+        border-radius: 10px;
+    }
+
+    .mob-score-label {
+        font-size: 0.72rem;
+        font-weight: 800;
+        color: #C2491F;
+        white-space: nowrap;
+    }
+
+    /* Skill Chips (project) */
+    .mob-proj-skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 12px;
+    }
+
+    .mob-proj-skill {
+        background: white;
+        border: 1px solid rgba(10, 26, 47, 0.08);
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: #4a5568;
+    }
+
+    /* Meta Row */
+    .mob-proj-meta-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-top: 1px solid rgba(10, 26, 47, 0.05);
+        border-bottom: 1px solid rgba(10, 26, 47, 0.05);
+        margin-bottom: 14px;
+        font-size: 0.78rem;
+        color: #5f6b7a;
+    }
+
+    .mob-proj-meta-row i {
+        color: #C2491F;
+        margin-right: 4px;
+    }
+
+    /* Actions */
+    .mob-proj-actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    .mob-btn-details {
+        flex: 1;
+        padding: 12px;
+        border: none;
+        border-radius: 14px;
+        background: #0A1A2F;
+        color: white;
+        font-size: 0.82rem;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        cursor: pointer;
+        box-shadow: 0 6px 15px rgba(10, 26, 47, 0.2);
+        transition: all 0.2s ease;
+    }
+
+    .mob-btn-details:active {
+        transform: scale(0.97);
+    }
+
+    .mob-btn-apply {
+        flex: 1;
+        padding: 12px;
+        border: 1.5px solid #C2491F;
+        border-radius: 14px;
+        background: transparent;
+        color: #C2491F;
+        font-size: 0.82rem;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .mob-btn-apply:active {
+        transform: scale(0.97);
+    }
+
+    /* 9. QUICK ACTION CARDS */
+    .mob-quick-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .mob-quick-action-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(8px);
+        border-radius: 18px;
+        padding: 18px 14px;
+        text-align: center;
+        border: 1px solid rgba(194, 73, 31, 0.06);
+        box-shadow: 0 4px 12px rgba(10, 26, 47, 0.04);
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .mob-quick-action-card:active {
+        transform: scale(0.97);
+    }
+
+    .mob-quick-action-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        background: linear-gradient(145deg, #C2491F, #E68A2E);
+        color: white;
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 10px;
+    }
+
+    .mob-quick-action-label {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #0A1A2F;
+    }
+
+    /* 10. SUBMIT SECTION */
+    .mob-submit-section {
+        margin-top: 10px;
+    }
+
+    .mob-submit-section h2 {
+        font-size: 1.2rem;
+        font-weight: 800;
+        color: #0A1A2F;
+        margin-bottom: 6px;
+    }
+
+    .mob-submit-section p {
+        font-size: 0.8rem;
+        color: #5f6b7a;
+        margin-bottom: 14px;
+    }
+
+    .mob-submit-options {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .mob-submit-option {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+        border-radius: 20px;
+        padding: 20px 18px;
+        border: 1px solid rgba(194, 73, 31, 0.06);
+        box-shadow: 0 4px 15px rgba(10, 26, 47, 0.04);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .mob-submit-option:active {
+        transform: scale(0.97);
+    }
+
+    .mob-submit-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 16px;
+        background: linear-gradient(145deg, #C2491F, #E68A2E);
+        color: white;
+        font-size: 1.3rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .mob-submit-text h4 {
+        font-size: 0.95rem;
+        font-weight: 800;
+        color: #0A1A2F;
+        margin-bottom: 2px;
+    }
+
+    .mob-submit-text p {
+        font-size: 0.75rem;
+        color: #5f6b7a;
+        margin: 0;
+        line-height: 1.4;
+    }
+
+    /* 11. PAGINATION */
+    .mob-lp-pagination {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        padding: 15px 0;
+    }
+
+    .mob-lp-page-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 14px;
+        border: 1px solid rgba(10, 26, 47, 0.08);
+        background: white;
+        color: #0A1A2F;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .mob-lp-page-btn:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+    }
+
+    .mob-lp-page-btn:not(:disabled):active {
+        background: #0A1A2F;
+        color: white;
+    }
+
+    .mob-lp-page-info {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #0A1A2F;
+    }
+
+    .mob-lp-page-info .current {
+        color: #C2491F;
+    }
+
+    /* 12. SECURITY NOTE */
+    .mob-security-note {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 16px;
+        background: rgba(194, 73, 31, 0.04);
+        border-radius: 14px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #5f6b7a;
+        margin-top: 16px;
+    }
+
+    .mob-security-note i {
+        color: #C2491F;
+        font-size: 0.9rem;
+    }
+
+    /* 13. ISOLATION */
+    section.hero.desktop-only,
+    .hero.desktop-only {
+        display: none !important;
+    }
+
+    #navbar {
+        display: none !important;
+    }
+
+    .mesh-bg {
+        display: none !important;
+    }
+
+    .scroll-nav-btn {
+        display: none !important;
+    }
+}
+
+@media (min-width: 769px) {
+    #mobile-root {
+        display: none !important;
+    }
+}

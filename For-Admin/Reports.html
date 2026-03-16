@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>hLPU</title>
+    <link rel="icon" type="image/png" href="../assets/images/hlpu logo.png">
+
+    <!-- Bootstrap 4.6 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <!-- Google Fonts - Inter -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+        rel="stylesheet" />
+
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+
+    <!-- Chart.js 3 for clean graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+
+    <link rel="stylesheet" href="../css/core/theme.css" />
+
+
+    <link rel="stylesheet" href="../css/core/NavBar.css" />
+    <link rel="stylesheet" href="../css/mobile-nav.css" />
+    <link rel="stylesheet" href="../css/mobile-fixes.css" />
+    <link rel="stylesheet" href="../css/mobile-admin.css" />
+
+
+
+
+    <style>
+        /* mesh background */
+        .mesh-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .mesh {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.2;
+        }
+
+        .mesh-1 {
+            width: 600px;
+            height: 600px;
+            background: #ffb68b;
+            top: -200px;
+            left: -100px;
+        }
+
+        .mesh-2 {
+            width: 650px;
+            height: 650px;
+            background: #fdae6a;
+            bottom: -250px;
+            right: -100px;
+        }
+
+        .mesh-3 {
+            width: 500px;
+            height: 500px;
+            background: #f9d7b0;
+            top: 30%;
+            left: 20%;
+        }
+
+        .mesh-4 {
+            width: 700px;
+            height: 700px;
+            background: #eac1a3;
+            bottom: 5%;
+            right: 10%;
+            opacity: 0.15;
+        }
+
+        /* dashboard container */
+        .dashboard-container {
+            padding: 110px 35px 50px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* ---------- ADMIN NAVIGATION (same as dashboard) ---------- */
+        /* Admin Navbar styles removed - now using AdminNavBar.css */
+
+        /* ---------- report page specific styles ---------- */
+        .welcome-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .welcome-header h1 span {
+            background: linear-gradient(145deg, var(--ember), #bd6725);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .date-range-picker {
+            background: rgba(255, 250, 240, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 60px;
+            padding: 8px 18px;
+            border: var(--border-light);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* stats mini cards for reports */
+        .insight-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+            margin: 30px 0;
+        }
+
+        .insight-card {
+            background: rgba(255, 249, 240, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 28px;
+            padding: 22px 20px;
+            border: var(--border-light);
+            box-shadow: var(--shadow-elevation);
+        }
+
+        .insight-card .label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: #5f6d7c;
+        }
+
+        .insight-card .number {
+            font-size: 2.4rem;
+            font-weight: 800;
+            line-height: 1;
+            margin: 10px 0;
+            background: linear-gradient(135deg, var(--ink), #4d2f1a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .insight-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 160px;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .insight-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .insight-card:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: rgba(194, 73, 31, 0.4);
+        }
+
+        .insight-card:hover::before {
+            left: 100%;
+        }
+
+        .insight-grid {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .trend-up {
+            color: #2a7a3b;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .trend-down {
+            color: #b23c1a;
+        }
+
+        /* chart row (2 columns) */
+        .chart-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .action-bar {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 15px 25px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+        }
+
+        .action-item {
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .action-item:hover {
+            color: var(--ember);
+        }
+
+        .action-item i {
+            font-size: 1.1rem;
+        }
+
+        /* Tiled panels for tables */
+        .tile-panel {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .table-professional {
+            margin-bottom: 0;
+        }
+
+        .table-professional thead th {
+            background: #fafafa;
+            border-top: none;
+            border-bottom: 1px solid #eee;
+            color: #888;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 12px 15px;
+        }
+
+        .table-professional tbody td {
+            padding: 14px 15px;
+            font-size: 0.9rem;
+            color: var(--ink);
+            border-bottom: 1px solid #f9f9f9;
+        }
+
+        .chart-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 24px 24px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .chart-card:hover {
+            background: rgba(255, 255, 255, 0.6);
+            border-color: rgba(194, 73, 31, 0.2);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .chart-header h5 {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 240px;
+            width: 100%;
+        }
+
+        /* table glass (enriched) */
+        .glass-panel {
+            background: rgba(255, 249, 240, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 36px;
+            padding: 26px;
+            border: var(--border-light);
+            box-shadow: var(--shadow-elevation);
+            margin-bottom: 35px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(10, 26, 47, 0.08);
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .table thead th {
+            border-bottom: 2px solid rgba(194, 73, 31, 0.2);
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #3f4a57;
+        }
+
+        .badge-role {
+            background: rgba(194, 73, 31, 0.1);
+            color: var(--ink);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.7rem;
+        }
+
+        .btn-outline-admin {
+            border: 1.5px solid var(--ember);
+            background: transparent;
+            color: var(--ember);
+            border-radius: 30px;
+            padding: 5px 18px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+
+        .btn-outline-admin:hover {
+            background: var(--ember);
+            color: white;
+        }
+
+        /* export buttons */
+        .export-actions {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin: 20px 0 10px;
+        }
+
+        .export-btn {
+            background: white;
+            border: 1px solid rgba(194, 73, 31, 0.3);
+            border-radius: 40px;
+            padding: 12px 28px;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .export-btn:hover {
+            background: var(--ember);
+            color: white;
+            border-color: var(--ember);
+        }
+
+        @media (max-width: 1200px) {
+            .insight-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .chart-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .insight-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dashboard-container {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: pageFadeIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        @keyframes pageFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .insight-card {
+            opacity: 0;
+            transform: translateY(35px);
+            animation: revealUp 0.6s ease forwards;
+        }
+
+        .insight-card:nth-child(1) {
+            animation-delay: 0.1s
+        }
+
+        .insight-card:nth-child(2) {
+            animation-delay: 0.2s
+        }
+
+        .insight-card:nth-child(3) {
+            animation-delay: 0.3s
+        }
+
+        .insight-card:nth-child(4) {
+            animation-delay: 0.4s
+        }
+
+        @keyframes revealUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chart-card {
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+            animation: revealChart 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        .chart-card:nth-child(1) {
+            animation-delay: 0.4s
+        }
+
+        .chart-card:nth-child(2) {
+            animation-delay: 0.5s
+        }
+
+        @keyframes revealChart {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .mesh {
+            animation: floatMesh 25s ease-in-out infinite alternate;
+        }
+
+        .mesh-2 {
+            animation-delay: 5s;
+        }
+
+        .mesh-3 {
+            animation-delay: 10s;
+        }
+
+        .mesh-4 {
+            animation-delay: 15s;
+        }
+
+        @keyframes floatMesh {
+            0% {
+                transform: translateY(0px) scale(1);
+            }
+
+            100% {
+                transform: translateY(-45px) scale(1.06);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="mobile-root"></div>
+
+    <div id="navbar"></div>
+    <div class="mesh-bg">
+        <div class="mesh mesh-1"></div>
+        <div class="mesh mesh-2"></div>
+        <div class="mesh mesh-3"></div>
+        <div class="mesh mesh-4"></div>
+    </div>
+    <div class="dashboard-container">
+        <!-- header with date picker -->
+        <div class="welcome-header d-flex flex-wrap align-items-center justify-content-between">
+            <div class="welcome-header">
+                <h1>Reports & <span>Analytics</span></h1>
+                <p id="reportOverviewHeader" style="color: #666; font-weight: 500;">Syncing live reports...</p>
+                <div id="lastSyncTime" style="font-size: 0.75rem; color: #888; font-family: monospace;"></div>
+            </div>
+            <div class="date-range-picker">
+                <i class="fas fa-calendar-alt" style="color:var(--ember);"></i>
+                <span id="reportDateRange">Fetching period...</span>
+                <i class="fas fa-chevron-down" style="font-size:0.75rem;"></i>
+            </div>
+        </div>
+
+        <!-- business highlights banner -->
+        <div class="glass-panel"
+            style="background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-left: 6px solid var(--ember); margin-bottom: 25px; padding: 20px 30px; border-radius: 12px; border-top: 1px solid rgba(255,255,255,0.3); border-right: 1px solid rgba(255,255,255,0.3); border-bottom: 1px solid rgba(255,255,255,0.3);">
+            <div class="d-flex align-items-center gap-3">
+                <div
+                    style="background: rgba(194, 73, 31, 0.1); width: 50px; height: 50px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-right: 20px;">
+                    <i class="fas fa-robot" style="color:var(--ember); font-size: 1.4rem;"></i>
+                </div>
+                <div>
+                    <h6
+                        style="margin:0; font-weight:700; color:var(--ink); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; margin-bottom: 4px;">
+                        AI-Generated Executive Summary</h6>
+                    <p style="margin:0; font-size: 1.05rem; color: var(--ink); font-weight: 500;" id="executiveInsight">
+                        Syncing live platform data...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- insight cards (business metrics) - RECTANGULAR TILES -->
+        <div class="insight-grid">
+            <div class="insight-card">
+                <div class="label"><i class="fas fa-users"></i> Platform Adoption</div>
+                <div class="number" id="metricTotalUsers">0</div>
+                <span class="trend-up" id="metricUserTrend"><i class="fas fa-arrow-up"></i> 0% growth</span>
+            </div>
+            <div class="insight-card">
+                <div class="label"><i class="fas fa-chart-line"></i> Engagement Index</div>
+                <div class="number" id="metricEngagement">0%</div>
+                <span class="trend-up"><i class="fas fa-check-circle"></i> live activity</span>
+            </div>
+            <div class="insight-card">
+                <div class="label"><i class="fas fa-user-check"></i> Conversion Rate</div>
+                <div class="number" id="metricPlacement">0%</div>
+                <span class="trend-up"><i class="fas fa-handshake"></i> hire success</span>
+            </div>
+            <div class="insight-card">
+                <div class="label"><i class="fas fa-bullseye"></i> KPI Progress</div>
+                <div class="number" id="metricGoal">0%</div>
+                <span class="trend-up">tracked real-time</span>
+            </div>
+        </div>
+
+        <!-- action bar -->
+        <div class="action-bar">
+            <div class="action-item" onclick="exportReport('pdf')">
+                <i class="fas fa-file-pdf" style="color: #d14d2b;"></i> Export as PDF
+            </div>
+            <div class="action-item" onclick="exportReport('csv')">
+                <i class="fas fa-file-csv" style="color: #2b8c5e;"></i> Download raw data (CSV)
+            </div>
+            <div class="action-item" onclick="fetchStats()">
+                <i class="fas fa-sync-alt"></i> Refresh Data
+            </div>
+        </div>
+
+        <!-- first row: growth & distribution -->
+        <div class="chart-grid">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h5><i class="fas fa-users" style="color:var(--ember); margin-right:10px;"></i> User Acquisition
+                    </h5>
+                    <span class="badge-role">live tracking</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="userGrowthChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h5><i class="fas fa-pie-chart" style="color:var(--ember);"></i> Distribution</h5>
+                </div>
+                <div class="chart-container">
+                    <canvas id="userPieChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- second row: response & dept focus -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h5><i class="fas fa-clock" style="color:var(--ember);"></i> Response Time (Hours)</h5>
+                </div>
+                <div class="chart-container" style="height: 200px;">
+                    <canvas id="responseDoughnut"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h5><i class="fas fa-layer-group" style="color:var(--ember);"></i> Department Focus</h5>
+                </div>
+                <div class="chart-container" style="height: 200px;">
+                    <canvas id="deptBarChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- third row: tables -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+            <!-- top performig opportunities -->
+            <div class="tile-panel">
+                <div class="section-header" style="border:none; margin-bottom: 15px; padding-bottom: 0;">
+                    <h5 style="font-weight:700; font-size: 1rem; margin:0;"><i class="fas fa-star"
+                            style="color:var(--ember); margin-right:8px;"></i> Top Performing Opportunities (All
+                        Time)
+                    </h5>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-professional">
+                        <thead>
+                            <tr>
+                                <th>Job title</th>
+                                <th>company</th>
+                                <th>est. views</th>
+                                <th>applications</th>
+                                <th>conv. rate</th>
+                            </tr>
+                        </thead>
+                        <tbody id="topJobsTable">
+                            <!-- Dynamic -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- verification queue -->
+            <div class="tile-panel">
+                <div class="section-header" style="border:none; margin-bottom: 15px; padding-bottom: 0;">
+                    <h5 style="font-weight:700; font-size: 1rem; margin:0;"><i class="fas fa-check-double"
+                            style="color:var(--ember); margin-right:8px;"></i> Verification Queue Performance</h5>
+                    <a href="Verification.html"
+                        style="font-size: 0.75rem; color: var(--ember); font-weight: 600;">process queue</a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-professional">
+                        <thead>
+                            <tr>
+                                <th>date</th>
+                                <th>pending</th>
+                                <th>approved</th>
+                                <th>rejected</th>
+                                <th>avg. time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="verificationTable">
+                            <!-- Dynamic -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let charts = {};
+
+        async function fetchStats() {
+            try {
+                const token = localStorage.getItem('token');
+                const res = await fetch('http://localhost:5000/api/reports/stats', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.message);
+
+                updateUI(data);
+            } catch (err) {
+                console.error('[reports] fetchStats error:', err.message);
+                Swal.fire('Error', 'Failed to load report data', 'error');
+            }
+        }
+
+        function updateUI(data) {
+            // Update Insight Cards
+            const totalUsersNum = data.metrics.totalUsers >= 1000 ? (data.metrics.totalUsers / 1000).toFixed(1) + "K" : data.metrics.totalUsers;
+            document.getElementById('metricTotalUsers').innerText = totalUsersNum;
+            document.getElementById('metricEngagement').innerText = data.metrics.engagementRate + "%";
+            document.getElementById('metricPlacement').innerText = data.metrics.placementRatio + "%";
+            document.getElementById('metricGoal').innerText = data.metrics.goalProgress + "%";
+
+            document.getElementById('metricUserTrend').innerHTML = `<i class="fas fa-arrow-up"></i> ${data.metrics.userTrend}% growth`;
+            document.getElementById('executiveInsight').innerText = data.insight;
+
+            // Updated Date Information
+            const now = new Date();
+            const start = new Date(now.getFullYear(), now.getMonth(), 1);
+            const end = now; // Real-time sync to current moment
+
+            const formatDate = (d) => d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            const currentMonth = monthNames[now.getMonth()];
+
+            document.getElementById('reportDateRange').innerText = `${formatDate(start)} – ${formatDate(end)}`;
+            document.getElementById('reportOverviewHeader').innerText = `Overview for ${currentMonth}, ${now.getFullYear()} (updated hourly)`;
+            document.getElementById('lastSyncTime').innerText = `LAST SYNC: ${now.toLocaleTimeString()}`;
+
+            // Store raw data for export
+            window._lastReportData = data;
+
+            // Charts
+            renderCharts(data.charts);
+
+            // Tables
+            renderTables(data.topJobs, data.verificationQueue);
+
+            // Animate only on first load
+            document.querySelectorAll(".insight-card .number").forEach(stat => animateCounter(stat));
+        }
+
+        function renderCharts(chartData) {
+            // 1. User Growth
+            if (charts.growth) charts.growth.destroy();
+            const ctx1 = document.getElementById('userGrowthChart').getContext('2d');
+            charts.growth = new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: chartData.userGrowth.map(d => d.label),
+                    datasets: [{
+                        label: 'engagement',
+                        data: chartData.userGrowth.map(d => d.count),
+                        borderColor: '#c2491f',
+                        backgroundColor: 'rgba(194,73,31,0.03)',
+                        tension: 0.3,
+                        fill: true,
+                        pointBackgroundColor: '#e68a2e',
+                        borderWidth: 3,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true, grid: { display: false } }, x: { grid: { display: false } } }
+                }
+            });
+
+            // 2. Composition (Rectangular Tile)
+            if (charts.pie) charts.pie.destroy();
+            const ctx2 = document.getElementById('userPieChart').getContext('2d');
+            charts.pie = new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(chartData.composition),
+                    datasets: [{
+                        data: Object.values(chartData.composition),
+                        backgroundColor: ['#c2491f', '#e68a2e', '#f1c9b0', '#888'],
+                        borderWidth: 2,
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, cutout: '75%', plugins: { legend: { display: false } } }
+            });
+
+            // 3. Response Doughnut (Resized)
+            if (charts.resp) charts.resp.destroy();
+            const ctx4 = document.getElementById('responseDoughnut').getContext('2d');
+            charts.resp = new Chart(ctx4, {
+                type: 'doughnut',
+                data: {
+                    labels: ['SLA Meta', 'Warning'],
+                    datasets: [{
+                        data: [82, 18],
+                        backgroundColor: ['#2a7a3b', '#e68a2e'],
+                        borderWidth: 0
+                    }]
+                },
+                options: { cutout: '75%', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            // 4. Dept Focus (New Real-time Metric)
+            if (charts.dept) charts.dept.destroy();
+            const ctx5 = document.getElementById('deptBarChart').getContext('2d');
+            charts.dept = new Chart(ctx5, {
+                type: 'bar',
+                data: {
+                    labels: chartData.deptFocus.map(d => d.label),
+                    datasets: [{
+                        data: chartData.deptFocus.map(d => d.count),
+                        backgroundColor: '#c2491f',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { x: { display: false }, y: { grid: { display: false } } }
+                }
+            });
+        }
+
+
+        function renderTables(topJobs, queue) {
+            const jobsTable = document.getElementById('topJobsTable');
+            jobsTable.innerHTML = topJobs.map(j => `
+                <tr>
+                    <td><i class="fas fa-circle" style="color:var(--gilt); font-size:0.5rem;"></i> ${j.title}</td>
+                    <td>${j.company}</td>
+                    <td>${j.views.toLocaleString()}</td>
+                    <td>${j.applicants}</td>
+                    <td>${j.conversion}</td>
+                </tr>
+            `).join('');
+
+            const queueTable = document.getElementById('verificationTable');
+            queueTable.innerHTML = queue.map(q => `
+                <tr>
+                    <td>${q.date}</td>
+                    <td>${q.pending}</td>
+                    <td>${q.approved}</td>
+                    <td>${q.rejected}</td>
+                    <td>${q.avgTime}</td>
+                </tr>
+            `).join('');
+        }
+
+        // ----- CHARTS INIT -----
+        document.addEventListener('DOMContentLoaded', fetchStats);
+
+        // interactive functions (reports page)
+        function exportReport(type) {
+            if (!window._lastReportData) return Swal.fire('Error', 'No data to export', 'error');
+
+            if (type === 'csv') {
+                const data = window._lastReportData;
+                let csv = 'Metric,Value\n';
+                csv += `Total Users,${data.metrics.totalUsers}\n`;
+                csv += `Engagement Rate,${data.metrics.engagementRate}%\n`;
+                csv += `Placement Ratio,${data.metrics.placementRatio}%\n`;
+                csv += `Goal Progress,${data.metrics.goalProgress}%\n`;
+
+                const blob = new Blob([csv], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.setAttribute('hidden', '');
+                a.setAttribute('href', url);
+                a.setAttribute('download', `platform_report_${new Date().toISOString().split('T')[0]}.csv`);
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                Swal.fire('Success', 'CSV Report Downloaded', 'success');
+            } else if (type === 'pdf') {
+                Swal.fire({ icon: 'info', title: 'PDF Export', text: 'Printing view prepared. Use Ctrl+P to save as PDF.', timer: 3000 });
+                window.print();
+            }
+        }
+        function scheduleReport() {
+            Swal.fire({ title: 'Schedule weekly report', input: 'select', inputOptions: { 'monday': 'Monday 9am', 'thursday': 'Thursday 3pm' }, confirmButtonColor: '#c2491f' });
+        }
+        function sysAction(cmd) {
+            if (cmd === 'refresh') Swal.fire({ title: 'Refreshing data', text: 'Dashboard synced', icon: 'success', timer: 1500 });
+            if (cmd === 'archive') Swal.fire({ title: 'Archiving', text: 'Reports moved to long-term storage', icon: 'info' });
+        }
+
+        // minor slide-in effect
+        document.querySelectorAll('.insight-card, .chart-card, .glass-panel').forEach(el => el.style.opacity = 1);
+        function animateCounter(element, duration = 1500) {
+            let rawText = element.innerText;
+            let isK = rawText.includes('K');
+            let numericValue = parseFloat(rawText.replace(/,/g, '').replace('K', ''));
+
+            if (isK) numericValue *= 1000;
+
+            let startTime = null;
+
+            function update(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const progress = Math.min((timestamp - startTime) / duration, 1);
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const value = Math.floor(easeOut * numericValue);
+
+                if (isK) {
+                    element.innerText = (value / 1000).toFixed(1) + "K";
+                } else {
+                    element.innerText = value.toLocaleString();
+                }
+
+                if (progress < 1) requestAnimationFrame(update);
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        window.addEventListener("load", () => {
+            document.querySelectorAll(".insight-card .number").forEach(stat => {
+                animateCounter(stat);
+            });
+        });
+        window.addEventListener('scroll', function () {
+            const nav = document.querySelector('.navbar');
+            if (window.scrollY > 20) {
+                nav.style.boxShadow = "0 20px 50px -15px rgba(0,0,0,0.25)";
+                nav.style.backdropFilter = "blur(20px)";
+            } else {
+                nav.style.boxShadow = "0 10px 30px -10px rgba(10, 20, 30, 0.15)";
+                nav.style.backdropFilter = "blur(16px)";
+            }
+        });
+
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../js/core/loadComponents.js" defer></script>
+    <script src="../js/core/authGuard.js"></script>
+
+
+    <script src="../js/core/api.js"></script>
+    <script src="../js/mobile-nav.js"></script>
+    <script src="../js/mobile-admin-nav.js"></script>
+    <script src="../js/mobile-admin-reports.js"></script>
+    <script src="../js/mobile-fixes.js"></script>
+</body>
+
+</html>

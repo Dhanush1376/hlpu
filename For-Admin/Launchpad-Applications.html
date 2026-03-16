@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LaunchPad Administration | hLPU</title>
+    <link rel="icon" type="image/png" href="../assets/images/hlpu logo.png" />
+
+    <!-- Bootstrap 4.5.2 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+
+
+    <link rel="stylesheet" href="../css/core/NavBar.css" />
+    <link rel="stylesheet" href="../css/mobile-nav.css" />
+    <link rel="stylesheet" href="../css/mobile-fixes.css" />
+    <link rel="stylesheet" href="../css/mobile-admin.css" />
+    <link rel="stylesheet" href="../css/core/Main.css" />
+
+    <style>
+        .dashboard-container {
+            padding: 110px 35px 50px;
+            min-height: 100vh;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .container-glass {
+            background: rgba(255, 250, 242, 0.7);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 40px;
+            border: 1px solid rgba(194, 73, 31, 0.1);
+            box-shadow: var(--shadow-elevation);
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--ink);
+            letter-spacing: -0.02em;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 24px;
+            border-radius: 28px;
+            border: var(--border-light);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--ember);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--ember);
+            opacity: 0.1;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #5f6b7a;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--ink);
+            margin-top: 5px;
+        }
+
+        /* Table Stylings */
+        .table-container {
+            background: white;
+            border-radius: 32px;
+            border: var(--border-light);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .admin-table th {
+            background: #fbfbfc;
+            padding: 20px 24px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--ink);
+            border-bottom: 1.5px solid #f0f0f5;
+            text-transform: uppercase;
+        }
+
+        .admin-table td {
+            padding: 20px 24px;
+            border-bottom: 1px solid #f8f8fa;
+            vertical-align: middle;
+        }
+
+        .user-block {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar-circle {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            background: var(--glass-deep);
+            color: var(--ember);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.9rem;
+        }
+
+        .user-meta h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin: 0;
+            color: var(--ink);
+        }
+
+        .user-meta p {
+            font-size: 0.8rem;
+            color: #7f8fa4;
+            margin: 2px 0 0;
+        }
+
+        .role-tag {
+            padding: 4px 10px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .tag-student {
+            background: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .tag-alumni {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .status-pill {
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .pill-pending {
+            background: #fff7ed;
+            color: #c2410c;
+        }
+
+        .pill-accepted {
+            background: #f0fdf4;
+            color: #15803d;
+        }
+
+        .pill-rejected {
+            background: #fef2f2;
+            color: #b91c1c;
+        }
+
+        .action-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-circle {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .btn-approve {
+            background: #ecfdf5;
+            color: #059669;
+        }
+
+        .btn-approve:hover {
+            background: #059669;
+            color: white;
+        }
+
+        .btn-deny {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .btn-deny:hover {
+            background: #dc2626;
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div id="navbar"></div>
+
+    <main class="dashboard-container">
+        <div class="container-glass">
+            <header class="page-header">
+                <div>
+                    <h1>LaunchPad Operations</h1>
+                    <p class="text-muted">Global oversight of all student and alumni collaboration requests.</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-outline-admin" onclick="loadData()"><i
+                            class="fas fa-sync-alt mr-2"></i>Refresh Data</button>
+                </div>
+            </header>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">System Applications</div>
+                    <div class="stat-value" id="globalTotal">-</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Pending Review</div>
+                    <div class="stat-value text-warning" id="globalPending">-</div>
+                </div>
+                <div class="stat-card text-success">
+                    <div class="stat-label">Matches Made</div>
+                    <div class="stat-value" id="globalAccepted">-</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Projects</div>
+                    <div class="stat-value" id="globalProjects">-</div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Applicant</th>
+                            <th>Project Details</th>
+                            <th>Status</th>
+                            <th>Applied Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminAppsBody">
+                        <tr>
+                            <td colspan="5" class="text-center py-5">Syncing with platform database...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../js/core/api.js"></script>
+    <script src="../js/core/loadComponents.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', loadData);
+
+        async function loadData() {
+            const tbody = document.getElementById('adminAppsBody');
+            try {
+                // Fetch Global Stats
+                const statsRes = await apiFetch('/api/launchpad/applications/stats');
+                if (statsRes.success && statsRes.data.admin) {
+                    const { admin } = statsRes.data;
+                    document.getElementById('globalTotal').textContent = admin.total;
+                    document.getElementById('globalPending').textContent = admin.pending;
+                    document.getElementById('globalAccepted').textContent = admin.accepted;
+                }
+
+                // Projects count
+                const projectsRes = await apiFetch('/api/launchpad/projects');
+                if (projectsRes.success) {
+                    document.getElementById('globalProjects').textContent = projectsRes.total || projectsRes.data.length;
+                }
+
+                // Fetch Global Applications
+                const appsRes = await apiFetch('/api/launchpad/applications/admin/all');
+                if (appsRes.success) {
+                    renderTable(appsRes.data);
+                }
+            } catch (err) {
+                console.error('Admin data load error:', err);
+                tbody.innerHTML = '<tr><td colspan="5" class="text-center py-5 text-danger">Failed to sync with database.</td></tr>';
+            }
+        }
+
+        function renderTable(apps) {
+            const tbody = document.getElementById('adminAppsBody');
+            if (!apps || apps.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="text-center py-5">No activity recorded on LaunchPad yet.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = apps.map(app => `
+                <tr>
+                    <td>
+                        <div class="user-block">
+                            <div class="avatar-circle">${app.applicant?.name?.charAt(0) || 'U'}</div>
+                            <div class="user-meta">
+                                <h4>${app.applicant?.name || 'N/A'}</h4>
+                                <span class="role-tag tag-${app.applicant?.role || 'student'}">${app.applicant?.role || 'student'}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="font-weight-bold" style="color:var(--ink)">${app.project?.title || 'Unknown Project'}</div>
+                        <div class="small text-muted">${app.project?.domain || 'N/A'} • ${app.project?.projectType || 'Standard'}</div>
+                        <div class="mt-2 d-flex gap-2">
+                            <button onclick="viewProjectDetails('${app.project?._id}')" class="btn btn-xs btn-outline-info py-0 px-2" style="font-size: 0.7rem;">
+                                <i class="fas fa-eye"></i> Details
+                            </button>
+                            ${app.project?.startupPitchDeck ? `
+                                <a href="${app.project.startupPitchDeck}" target="_blank" class="btn btn-xs btn-outline-primary py-0 px-2" style="font-size: 0.7rem;">
+                                    <i class="fas fa-file-pdf"></i> Pitch Deck
+                                </a>
+                            ` : ''}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex flex-column gap-1">
+                            <span class="status-pill pill-${app.status}">${app.status.toUpperCase()}</span>
+                            ${app.project && !app.project.isApproved ? `
+                                <span class="badge badge-warning" style="font-size: 0.6rem;">NOT APPROVED</span>
+                            ` : (app.project ? `
+                                <span class="badge badge-success" style="font-size: 0.6rem;">APPROVED</span>
+                            ` : '')}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="small">${new Date(app.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</div>
+                        <div class="small text-muted">${new Date(app.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                    </td>
+                    <td>
+                        <div class="action-row">
+                            ${app.project && !app.project.isApproved ? `
+                                <button onclick="moderateProject('${app.project._id}', true)" class="btn-circle btn-approve" title="Approve Project">
+                                    <i class="fas fa-rocket"></i>
+                                </button>
+                            ` : ''}
+                            ${app.status === 'pending' ? `
+                                <button onclick="moderateApp('${app._id}', 'accepted')" class="btn-circle btn-approve" title="Approve Application">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                                <button onclick="moderateApp('${app._id}', 'rejected')" class="btn-circle btn-deny" title="Reject Application">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            ` : `
+                                <span class="badge badge-light badge-pill px-3 py-2 border">Processed</span>
+                            `}
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function viewProjectDetails(id) {
+            try {
+                const res = await apiFetch(`/api/launchpad/projects/${id}`);
+                if (res.success) {
+                    const p = res.data;
+                    Swal.fire({
+                        title: p.title,
+                        html: `
+                            <div class="text-left">
+                                <p><strong>Domain:</strong> ${p.domain}</p>
+                                <p><strong>Type:</strong> ${p.projectType}</p>
+                                <p><strong>Description:</strong></p>
+                                <div class="bg-light p-3 rounded" style="max-height: 200px; overflow-y: auto;">
+                                    ${p.description}
+                                </div>
+                            </div>
+                        `,
+                        confirmButtonColor: '#C2491F'
+                    });
+                }
+            } catch (err) {
+                Swal.fire('Error', 'Failed to fetch project details', 'error');
+            }
+        }
+
+        async function moderateProject(id, isApproved) {
+            const confirm = await Swal.fire({
+                title: 'Project Approval',
+                text: `Are you sure you want to ${isApproved ? 'approve' : 'reject'} this project?`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#C2491F',
+                confirmButtonText: 'Yes, proceed'
+            });
+
+            if (confirm.isConfirmed) {
+                try {
+                    const res = await apiFetch(`/api/launchpad/projects/${id}/approve`, {
+                        method: 'PATCH',
+                        body: JSON.stringify({ isApproved })
+                    });
+                    if (res.success) {
+                        Swal.fire('Success', 'Project status updated', 'success');
+                        loadData();
+                    }
+                } catch (err) {
+                    Swal.fire('Error', 'Failed to update project status', 'error');
+                }
+            }
+        }
+
+        async function moderateApp(id, status) {
+            const confirm = await Swal.fire({
+                title: 'Admin Action Required',
+                text: `Are you sure you want to ${status} this collaboration request?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: status === 'accepted' ? '#059669' : '#dc2626',
+                confirmButtonText: `Yes, ${status}`
+            });
+
+            if (confirm.isConfirmed) {
+                try {
+                    const res = await apiFetch(`/api/launchpad/applications/${id}/respond`, {
+                        method: 'PATCH',
+                        body: JSON.stringify({ status })
+                    });
+                    if (res.success) {
+                        Swal.fire('Success', `Application status updated to ${status}.`, 'success');
+                        loadData();
+                    }
+                } catch (err) {
+                    Swal.fire('Error', 'Failed to update application status.', 'error');
+                }
+            }
+        }
+    </script>
+
+
+    <div id="mobile-root"></div>
+
+    <script src="../js/mobile-nav.js"></script>
+    <script src="../js/mobile-admin-nav.js"></script>
+    <script src="../js/mobile-admin-launchpad.js"></script>
+
+    <script src="../js/mobile-fixes.js"></script>
+</body>
+
+</html>

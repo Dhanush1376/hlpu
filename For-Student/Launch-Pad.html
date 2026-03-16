@@ -1,0 +1,1712 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hLPU</title>
+    <link rel="icon" type="image/png" href="../assets/images/hlpu logo.png" />
+
+    <!-- Bootstrap 4.5.2 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <!-- Google Fonts - Inter (premium theme) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/core/NavBar.css" />
+    <link rel="stylesheet" href="../css/core/Main.css" />
+    <link rel="stylesheet" href="../css/mobile-nav.css" />
+    <link rel="stylesheet" href="../css/mobile-fixes.css" />
+    <link rel="stylesheet" href="../css/mobile-launchpad.css" />
+    <style>
+        /* ===== HERO SECTION ===== */
+        .hero {
+            padding: 25px 30px;
+            margin-top: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: calc(100vh - 80px);
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== PREMIUM GLASS CONTAINER ===== */
+        .container-glass {
+            width: 100%;
+            max-width: 1400px;
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            padding: 50px;
+            border-radius: 48px;
+            box-shadow: var(--shadow-elevation);
+            border: 1px solid rgba(194, 73, 31, 0.08);
+            transition: var(--transition);
+            animation: slideUp 0.6s ease forwards;
+            position: relative;
+            z-index: 2;
+        }
+
+        .container-glass:hover {
+            background: rgba(255, 255, 250, 0.9);
+            border-color: var(--gilt);
+            box-shadow: 0 40px 80px -20px rgba(194, 73, 31, 0.15);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+
+        /* ===== SPLIT ABOUT SECTION ===== */
+        .about-section-split {
+            width: 100%;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .split-about-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .split-about-content {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 20px;
+        }
+
+        .split-about-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--ink);
+            margin-bottom: 15px;
+            letter-spacing: -0.02em;
+        }
+
+        .split-about-content h1 span {
+            background: linear-gradient(145deg, var(--ember), var(--gilt));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-divider {
+            height: 4px;
+            width: 100px;
+            background: linear-gradient(to right, var(--ember), var(--gilt));
+            border: none;
+            margin: 20px 0 30px;
+            border-radius: 4px;
+        }
+
+        .about-description p {
+            font-size: 1.1rem;
+            color: #3f4d5e;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .split-about-image {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .image-wrapper {
+            position: relative;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: var(--shadow-hover);
+            transition: var(--transition);
+            height: 100%;
+            min-height: 400px;
+            border: 1px solid rgba(194, 73, 31, 0.15);
+        }
+
+        .image-wrapper:hover {
+            transform: scale(1.02);
+            box-shadow: 0 40px 60px -15px rgba(194, 73, 31, 0.3);
+        }
+
+        .about-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .image-wrapper:hover .about-image {
+            transform: scale(1.05);
+        }
+
+        /* ===== STATS CARDS ===== */
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(8px);
+            padding: 25px 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(194, 73, 31, 0.12);
+            backdrop-filter: blur(8px);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .stat-item:hover {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: var(--gilt);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px -10px rgba(194, 73, 31, 0.12);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(145deg, var(--ember), var(--gilt));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #5f6b7a;
+            font-weight: 500;
+        }
+
+        /* ===== SECTION HEADINGS ===== */
+        .section-heading {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-heading h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 15px;
+            letter-spacing: -0.02em;
+        }
+
+        .section-heading p {
+            font-size: 1.1rem;
+            color: #5f6b7a;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* ===== STEPS CONTAINER ===== */
+        .steps-container {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+            width: 100%;
+            margin-bottom: 20px;
+            perspective: 1000px;
+        }
+
+        /* ===== STEP CARDS ===== */
+        .step-card {
+            padding: 36px 28px;
+            border-radius: 28px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(194, 73, 31, 0.08);
+            transition: var(--transition);
+            box-shadow: var(--shadow-elevation);
+        }
+
+        .step-card:hover {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: var(--gilt);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px -15px rgba(194, 73, 31, 0.2);
+        }
+
+        .step-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(145deg, var(--ember), var(--gilt));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+            line-height: 1;
+        }
+
+        .step-card h5 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 12px;
+        }
+
+        .step-card p {
+            color: #5f6b7a;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* ===== BENEFITS SECTION ===== */
+        .benefits-section {
+            width: 100%;
+            padding: 30px 0;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        /* ===== SUBMIT IDEA SECTION ===== */
+        .submit-idea-section {
+            width: 100%;
+            padding: 30px 0;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .submit-idea-section h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 15px;
+            letter-spacing: -0.02em;
+        }
+
+        .submit-idea-section p {
+            font-size: 1rem;
+            color: #5f6b7a;
+            margin-bottom: 20px;
+        }
+
+        /* ===== OPTION CARDS ===== */
+        .option-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 28px;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        .option-card {
+            flex: 1;
+            min-width: 280px;
+            max-width: 350px;
+            padding: 40px 30px;
+            border-radius: 28px;
+            text-align: center;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(194, 73, 31, 0.08);
+            transition: var(--transition);
+            box-shadow: var(--shadow-elevation);
+        }
+
+        .option-card:hover {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: var(--gilt);
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px -20px rgba(194, 73, 31, 0.2);
+        }
+
+        .option-icon {
+            font-size: 3.5rem;
+            color: var(--ember);
+            margin-bottom: 20px;
+        }
+
+        .option-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 15px;
+        }
+
+        .option-description {
+            color: #5f6b7a;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        /* btn-heritage removed to use global theme.css styles */
+
+        .btn-connect {
+            background: transparent;
+            color: var(--ember);
+            border: 1.8px solid var(--ember);
+            padding: 14px 32px;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .btn-connect:hover {
+            background: var(--ember);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px -10px rgba(194, 73, 31, 0.4);
+        }
+
+        /* ===== FLOATING SCROLL BUTTON ===== */
+        .scroll-nav-btn {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(145deg, var(--ember), var(--gilt));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(194, 73, 31, 0.4);
+            z-index: 999;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            opacity: 0.95;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .scroll-nav-btn:hover {
+            transform: translateY(-6px) scale(1.1);
+            box-shadow: 0 20px 40px rgba(194, 73, 31, 0.6);
+            opacity: 1;
+        }
+
+        .scroll-nav-btn:active {
+            transform: translateY(-2px) scale(1.05);
+        }
+
+        .scroll-nav-btn.upward {
+            transform: rotate(180deg);
+        }
+
+        .scroll-nav-btn.upward:hover {
+            transform: rotate(180deg) translateY(-6px) scale(1.1);
+        }
+
+        .scroll-nav-btn:focus {
+            outline: none;
+        }
+
+        /* ===== MODAL STYLES ===== */
+        .role-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 26, 47, 0.65);
+            backdrop-filter: blur(12px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+
+        .role-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: rgba(255, 250, 240, 0.95);
+            backdrop-filter: blur(40px);
+            border-radius: 32px;
+            border: 1px solid rgba(194, 73, 31, 0.2);
+            width: 92%;
+            max-width: 900px;
+            max-height: 85vh;
+            padding: 40px;
+            overflow-y: auto;
+            box-shadow: 0 40px 80px rgba(10, 26, 47, 0.4);
+            transform: translateY(40px) scale(0.96);
+            opacity: 0;
+            transition: all 0.45s cubic-bezier(0.16, 0.84, 0.44, 1);
+        }
+
+        .role-modal.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--ink);
+            letter-spacing: -0.02em;
+        }
+
+        .modal-subtitle {
+            color: #5f6b7a;
+            font-size: 0.95rem;
+            margin-top: 5px;
+        }
+
+        .close-modal {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            border: none;
+            cursor: pointer;
+            background: rgba(10, 26, 47, 0.06);
+            font-size: 1.4rem;
+            transition: var(--transition);
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            background: var(--ember);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        /* ===== FORM STYLES ===== */
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--ink);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .form-label i {
+            color: var(--ember);
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 18px;
+            border: 1.5px solid rgba(10, 26, 47, 0.08);
+            background: white;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--ember);
+            box-shadow: 0 0 0 4px rgba(194, 73, 31, 0.08);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* ===== FILE UPLOAD ===== */
+        .file-upload-container {
+            border: 2px dashed rgba(194, 73, 31, 0.3);
+            padding: 40px 30px;
+            border-radius: 24px;
+            text-align: center;
+            margin-top: 15px;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .file-upload-container.dragover {
+            border-color: var(--ember);
+            background: rgba(194, 73, 31, 0.04);
+        }
+
+        .file-upload-icon {
+            font-size: 3rem;
+            color: var(--ember);
+            margin-bottom: 15px;
+        }
+
+        .file-upload-text {
+            font-weight: 600;
+            color: var(--ink);
+            font-size: 1rem;
+        }
+
+        .file-upload-hint {
+            font-size: 0.8rem;
+            color: #777;
+            margin-top: 8px;
+        }
+
+        .upload-btn {
+            margin-top: 20px;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 40px;
+            background: linear-gradient(145deg, var(--ember), var(--gilt));
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(194, 73, 31, 0.4);
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-list {
+            margin-top: 20px;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 18px;
+            background: white;
+            border-radius: 16px;
+            margin-top: 10px;
+            border: 1px solid rgba(10, 26, 47, 0.06);
+            transition: var(--transition);
+        }
+
+        .file-item:hover {
+            background: rgba(194, 73, 31, 0.02);
+            border-color: var(--gilt);
+        }
+
+        .file-name {
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .file-size {
+            font-size: 0.75rem;
+            color: #777;
+            margin-top: 4px;
+        }
+
+        .file-remove {
+            color: var(--ember);
+            cursor: pointer;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+
+        .file-remove:hover {
+            background: rgba(194, 73, 31, 0.1);
+        }
+
+        /* ===== MODAL FOOTER ===== */
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .btn-form {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .btn-primary-form {
+            background: var(--ink);
+            color: white;
+        }
+
+        .btn-primary-form:hover {
+            background: #12243f;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px -8px rgba(10, 26, 47, 0.3);
+        }
+
+        .btn-secondary-form {
+            background: #e9ecef;
+            color: var(--ink);
+        }
+
+        .btn-secondary-form:hover {
+            background: #dde2e6;
+            transform: translateY(-2px);
+        }
+
+        /* ===== SCROLLBAR ===== */
+        .modal-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(10, 26, 47, 0.04);
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: linear-gradient(145deg, var(--ember), var(--gilt));
+            border-radius: 10px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .hero {
+                padding: 20px;
+            }
+
+            .container-glass {
+                padding: 40px 30px;
+            }
+
+            .split-about-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .split-about-content {
+                padding-right: 0;
+                padding-bottom: 20px;
+            }
+
+            .split-about-content h1 {
+                font-size: 2.6rem;
+            }
+
+            .image-wrapper {
+                min-height: 350px;
+            }
+
+            .section-heading h1 {
+                font-size: 2.2rem;
+            }
+
+            .steps-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container-glass {
+                padding: 30px 20px;
+                border-radius: 32px;
+            }
+
+            .split-about-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .option-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .option-card {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .modal-content {
+                padding: 30px 20px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .scroll-nav-btn {
+                bottom: 30px;
+                right: 20px;
+                width: 56px;
+                height: 56px;
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .split-about-content h1 {
+                font-size: 1.9rem;
+            }
+
+            .section-heading h1 {
+                font-size: 1.8rem;
+            }
+
+            .submit-idea-section h1 {
+                font-size: 1.9rem;
+            }
+
+            .image-wrapper {
+                min-height: 250px;
+            }
+
+            .modal-title {
+                font-size: 1.5rem;
+            }
+
+            .modal-footer {
+                flex-direction: column;
+            }
+
+            .btn-form {
+                width: 100%;
+            }
+        }
+
+        /* Section spacing */
+        #about-section,
+        #benefits-section,
+        #submit-section,
+        #projects-feed {
+            scroll-margin-top: 90px;
+        }
+
+        /* Project Feed Styles */
+        .project-card {
+            padding: 30px !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .badge-domain {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(194, 73, 31, 0.1);
+            color: var(--ember);
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .project-type-tag {
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            color: #5f6b7a;
+            margin-bottom: 8px;
+        }
+
+        .project-desc {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #5f6b7a;
+            margin: 15px 0;
+            height: 4.8em;
+            overflow: hidden;
+        }
+
+        .skill-tag {
+            background: rgba(10, 26, 47, 0.05);
+            color: var(--ink);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            margin-right: 6px;
+            margin-bottom: 6px;
+            display: inline-block;
+        }
+
+        .meta-item {
+            font-size: 0.85rem;
+            color: #5f6b7a;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .meta-item i {
+            color: var(--ember);
+        }
+
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: 1px solid rgba(194, 73, 31, 0.2);
+            background: white;
+            color: var(--ink);
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+
+        .page-btn.active {
+            background: var(--ember);
+            color: white;
+            border-color: var(--ember);
+        }
+
+        .filter-glass {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 25px;
+            border: 1px solid rgba(194, 73, 31, 0.1);
+            margin-bottom: 40px;
+        }
+    </style>
+    <!-- Global Mobile Nav Injection -->
+
+
+</head>
+
+<body>
+
+
+    <div id="navbar"></div>
+    <!-- PREMIUM MESH BACKGROUND -->
+    <div class="mesh-bg">
+        <div class="mesh mesh-1"></div>
+        <div class="mesh mesh-2"></div>
+        <div class="mesh mesh-3"></div>
+        <div class="mesh mesh-4"></div>
+    </div>
+    <div id="mobile-root"></div>
+    <!-- MAIN CONTENT -->
+    <section class="hero desktop-only">
+        <div class="container-glass cursor-glow">
+            <!-- SECTION 1: ABOUT VISION TO VENTURE -->
+            <div id="about-section" class="about-section-split">
+                <div class="split-about-container">
+                    <!-- Left Column: Content -->
+                    <div class="split-about-content">
+                        <h1>
+                            Launch Pad
+                        </h1>
+                        <div class="about-description">
+                            <p>Launch Pad is your pathway from idea to impact. We help student innovators transform
+                                concepts into successful ventures through mentorship, resources, and funding support
+                                —
+                                guiding you from validation to scalable growth.</p>
+                        </div>
+
+                        <div class="about-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">500+</div>
+                                <div class="stat-label">Ideas Supported</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">200+</div>
+                                <div class="stat-label">Projects Funded</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">85%</div>
+                                <div class="stat-label">Success Rate</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">50+</div>
+                                <div class="stat-label">Industry Partners</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Image -->
+                    <div class="split-about-image">
+                        <div class="image-wrapper">
+                            <img src="../assets/images/launchpad.jpg" alt="Team collaboration and innovation"
+                                class="about-image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+            <!-- SECTION 2: BENEFITS/PROCESS STEPS -->
+            <div id="benefits-section" class="benefits-section">
+                <div class="section-heading">
+                    <h1>Your Journey in <span>8 Steps</span></h1>
+                    <p>From initial idea validation to market launch and beyond, we guide you through every stage of
+                        your entrepreneurial journey</p>
+                </div>
+
+                <div class="steps-container">
+                    <div class="step-card cursor-glow">
+                        <div class="step-number">01</div>
+                        <h5>Validate Your Idea</h5>
+                        <p>We pressure-test your concept and shape it into a scalable product with market potential
+                            and
+                            feasibility analysis.</p>
+                    </div>
+
+                    <div class="step-card cursor-glow">
+                        <div class="step-number">02</div>
+                        <h5>Get Funding</h5>
+                        <p>Access incubation support, grants, and investor connections so financial constraints
+                            never
+                            hinder your innovation.</p>
+                    </div>
+
+                    <div class="step-card cursor-glow">
+                        <div class="step-number">03</div>
+                        <h5>Build With Experts</h5>
+                        <p>Professors, industry mentors, and technical experts guide you through the development
+                            process
+                            with hands-on support.</p>
+                    </div>
+
+                    <div class="step-card cursor-glow">
+                        <div class="step-number">04</div>
+                        <h5>Find Your Team</h5>
+                        <p>We connect you with designers, developers, marketers, and business strategists across
+                            departments and disciplines.</p>
+                    </div>
+
+                    <div class="step-card cursor-glow">
+                        <div class="step-number">05</div>
+                        <h5>Create The Prototype</h5>
+                        <p>Utilize state-of-the-art labs, workshops, and digital tools to build functional
+                            prototypes
+                            and minimum viable products.</p>
+                    </div>
+
+                    <div class="step-card cursor-glow">
+                        <div class="step-number">06</div>
+                        <h5>Launch To Market</h5>
+                        <p>Marketing, branding, and business development teams help position, promote, and release
+                            your
+                            product effectively.</p>
+                    </div>
+
+                    <div class="step-card cursor-glow">
+                        <div class="step-number">07</div>
+                        <h5>Protect Your Innovation</h5>
+                        <p>Get guidance on patents, trademarks, copyrights, and legal frameworks to secure your
+                            intellectual property rights.</p>
+                    </div>
+
+                    <div class="step-card cursor-glow">
+                        <div class="step-number">08</div>
+                        <h5>Scale Without Limits</h5>
+                        <p>From early traction to rapid expansion, we provide ongoing support to help you grow into
+                            a
+                            sustainable business.</p>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <!-- SECTION 3: INNOVATION FEED -->
+            <div id="projects-feed" class="submit-idea-section mt-5">
+                <div class="section-heading">
+                    <h1>Explore <span>Innovation</span></h1>
+                    <p>Discover projects, startups, and research ideas from the hLPU community. Find your next
+                        collaboration.</p>
+                </div>
+
+                <!-- Filters -->
+                <div class="filter-glass mb-5">
+                    <div class="row align-items-center">
+                        <div class="col-md-5 mb-3 mb-md-0">
+                            <div class="form-group mb-0">
+                                <div class="position-relative">
+                                    <i class="fas fa-search position-absolute"
+                                        style="left: 15px; top: 15px; color: #5f6b7a;"></i>
+                                    <input type="text" id="projectSearch" class="form-input pl-5"
+                                        placeholder="Search by title, keywords...">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3 mb-md-0">
+                            <select id="domainFilter" class="form-select">
+                                <option value="">All Domains</option>
+                                <option value="AI">AI/ML</option>
+                                <option value="Web">Web Dev</option>
+                                <option value="FinTech">FinTech</option>
+                                <option value="EdTech">EdTech</option>
+                                <option value="Health">Health</option>
+                                <option value="Research">Research</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 text-md-right">
+                            <button class="btn-heritage"
+                                onclick="document.getElementById('submit-section').scrollIntoView({behavior: 'smooth'})">
+                                <i class="fas fa-plus"></i> Post Your Idea
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" id="projectsContainer">
+                    <!-- Dynamic Projects Load Here -->
+                    <div class="col-12 text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="paginationContainer" class="d-flex justify-content-center mt-5"></div>
+            </div>
+
+            <hr>
+
+            <!-- SECTION 4: IDEA SUBMISSION -->
+            <div id="submit-section" class="submit-idea-section">
+                <div class="section-heading">
+                    <h1>Share Your <span>Vision</span></h1>
+                    <p>Share your innovative idea with us through one of these submission methods</p>
+                </div>
+
+                <div class="option-cards">
+                    <div class="option-card cursor-glow">
+                        <div class="option-icon"><i class="fas fa-file-alt"></i></div>
+                        <div class="option-title">Detailed Idea Form</div>
+                        <div class="option-description">
+                            Fill out a comprehensive step-by-step form to explain your concept, problem, and
+                            solution in
+                            detail.
+                        </div>
+                        <button class="btn-heritage" onclick="openPostModal()">
+                            <i class="fas fa-edit"></i> Detailed Idea Form
+                        </button>
+                    </div>
+
+
+
+                    <div class="option-card cursor-glow">
+                        <div class="option-icon"><i class="fas fa-video"></i></div>
+                        <div class="option-title">Video Pitch</div>
+                        <div class="option-description">
+                            Upload a video explaining your idea (max 5 minutes) along with supporting documents.
+                        </div>
+                        <button class="btn-heritage" onclick="openVideoUpload()">
+                            <i class="fas fa-cloud-upload-alt"></i> Upload Video
+                        </button>
+                    </div>
+                </div>
+
+                <div class="text-center mt-5">
+                    <p
+                        style="color: #5f6b7a; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <i class="fas fa-shield-alt" style="color: var(--ember);"></i>
+                        All submissions are confidential and protected by non-disclosure agreements. Our team
+                        typically
+                        responds within 3-5 business days.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FLOATING NAVIGATION BUTTON -->
+    <button class="scroll-nav-btn" id="scrollNavBtn" title="Navigate to Benefits">
+        <i class="fas fa-arrow-down"></i>
+    </button>
+
+    <!-- ===== PROJECT POSTING MODAL (Standardized) ===== -->
+    <div class="role-modal" id="postProjectModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title">Post Your Project</h2>
+                    <p class="modal-subtitle">Share your vision with the hLPU community</p>
+                </div>
+                <button class="close-modal" id="closeModalBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <form id="ideaSubmissionForm">
+                <!-- Personal Information Section -->
+                <div class="modal-section">
+                    <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--ink); margin-bottom: 20px;">
+                        <i class="fas fa-user-circle" style="color: var(--ember); margin-right: 10px;"></i>
+                        Personal Information
+                    </h3>
+
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label class="form-label" for="firstName">
+                                <i class="fas fa-user"></i> First Name *
+                            </label>
+                            <input type="text" class="form-input" id="firstName" name="firstName" required
+                                placeholder="Enter your first name">
+                        </div>
+                        <div class="form-col">
+                            <label class="form-label" for="lastName">
+                                <i class="fas fa-user"></i> Last Name *
+                            </label>
+                            <input type="text" class="form-input" id="lastName" name="lastName" required
+                                placeholder="Enter your last name">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label class="form-label" for="email">
+                                <i class="fas fa-envelope"></i> Email Address *
+                            </label>
+                            <input type="email" class="form-input" id="email" name="email" required
+                                placeholder="student@hlpu.edu.in">
+                        </div>
+                        <div class="form-col">
+                            <label class="form-label" for="phone">
+                                <i class="fas fa-phone"></i> Phone Number
+                            </label>
+                            <input type="tel" class="form-input" id="phone" name="phone" placeholder="+91 98765 43210">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label class="form-label" for="studentId">
+                                <i class="fas fa-id-card"></i> Student ID *
+                            </label>
+                            <input type="text" class="form-input" id="studentId" name="studentId" required
+                                placeholder="Enter your student ID">
+                        </div>
+                        <div class="form-col">
+                            <label class="form-label" for="department">
+                                <i class="fas fa-graduation-cap"></i> Department *
+                            </label>
+                            <select class="form-select" id="department" name="department" required>
+                                <option value="" disabled selected>Select department</option>
+                                <option value="cse">Computer Science & Engineering</option>
+                                <option value="ece">Electronics & Communication</option>
+                                <option value="mech">Mechanical Engineering</option>
+                                <option value="civil">Civil Engineering</option>
+                                <option value="bba">Business Administration</option>
+                                <option value="design">Design</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Idea Details Section -->
+                <div class="modal-section" style="margin-top: 30px;">
+                    <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--ink); margin-bottom: 20px;">
+                        <i class="fas fa-lightbulb" style="color: var(--ember); margin-right: 10px;"></i>
+                        Idea Details
+                    </h3>
+
+                    <div class="form-group">
+                        <label class="form-label" for="ideaTitle">
+                            <i class="fas fa-tag"></i> Idea Title *
+                        </label>
+                        <input type="text" class="form-input" id="ideaTitle" name="ideaTitle" required
+                            placeholder="Give your idea a compelling title">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="problemStatement">
+                            <i class="fas fa-exclamation-triangle"></i> Problem Statement *
+                        </label>
+                        <textarea class="form-textarea" id="problemStatement" name="problemStatement" required
+                            placeholder="What problem does your idea solve? Describe the pain points and current challenges."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="solution">
+                            <i class="fas fa-check-circle"></i> Your Solution *
+                        </label>
+                        <textarea class="form-textarea" id="solution" name="solution" required
+                            placeholder="Describe your innovative solution. How does it solve the problem uniquely?"></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label class="form-label" for="targetMarket">
+                                <i class="fas fa-users"></i> Target Market
+                            </label>
+                            <input type="text" class="form-input" id="targetMarket" name="targetMarket"
+                                placeholder="Who will use your solution?">
+                        </div>
+                        <div class="form-col">
+                            <label class="form-label" for="stage">
+                                <i class="fas fa-chart-line"></i> Development Stage *
+                            </label>
+                            <select class="form-select" id="stage" name="stage" required>
+                                <option value="" disabled selected>Select current stage</option>
+                                <option value="idea">Just an Idea</option>
+                                <option value="prototype">Working on Prototype</option>
+                                <option value="mvp">Minimum Viable Product</option>
+                                <option value="testing">Testing & Validation</option>
+                                <option value="ready">Ready for Market</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- File Upload Section -->
+                <div class="modal-section" style="margin-top: 30px;">
+                    <h3 style="font-size: 1.2rem; font-weight: 700; color: var(--ink); margin-bottom: 20px;">
+                        <i class="fas fa-cloud-upload-alt" style="color: var(--ember); margin-right: 10px;"></i>
+                        Supporting Documents
+                    </h3>
+                    <p style="color: #5f6b7a; font-size: 0.9rem; margin-bottom: 15px;">
+                        Upload any supporting documents, diagrams, or presentations (PDF, DOC, JPG, PNG). Max file
+                        size:
+                        10MB each
+                    </p>
+
+                    <div class="file-upload-container" id="dropArea">
+                        <div class="file-upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <div class="file-upload-text">
+                            Drag & drop files here or click to browse
+                        </div>
+                        <div class="file-upload-hint">
+                            Supported formats: PDF, DOC, DOCX, JPG, PNG, PPT (Max 10MB each)
+                        </div>
+                        <button type="button" class="upload-btn" id="browseBtn">
+                            <i class="fas fa-folder-open"></i> Browse Files
+                        </button>
+                        <input type="file" class="file-input" id="fileInput" multiple
+                            accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.ppt,.pptx">
+                    </div>
+
+                    <div class="file-list" id="fileList"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-form btn-secondary-form" id="cancelBtnForm">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="submit" class="btn-form btn-primary-form">
+                        <i class="fas fa-paper-plane"></i> Submit Idea
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        // ===== CURSOR GLOW EFFECT =====
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.innerWidth <= 768 && typeof MobileLaunchpad !== 'undefined') {
+                MobileLaunchpad.run();
+            }
+            const cards = document.querySelectorAll('.cursor-glow');
+
+            document.addEventListener('mousemove', (e) => {
+                cards.forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    card.style.setProperty('--x', `${x}px`);
+                    card.style.setProperty('--y', `${y}px`);
+                });
+            });
+        });
+
+        // ===== SECTION NAVIGATION =====
+        const scrollNavBtn = document.getElementById('scrollNavBtn');
+        const aboutSection = document.getElementById('about-section');
+        const benefitsSection = document.getElementById('benefits-section');
+        const submitSection = document.getElementById('submit-section');
+
+        let currentSection = 0;
+
+        function updateNavButton() {
+            const icon = scrollNavBtn.querySelector('i');
+            if (currentSection === 2) {
+                scrollNavBtn.classList.add('upward');
+                icon.className = 'fas fa-arrow-up';
+                scrollNavBtn.title = 'Navigate to About Section';
+            } else {
+                scrollNavBtn.classList.remove('upward');
+                icon.className = 'fas fa-arrow-down';
+                scrollNavBtn.title = currentSection === 0 ? 'Navigate to Benefits Section' : 'Navigate to Submit Section';
+            }
+        }
+
+        function navigateToNextSection() {
+            if (currentSection === 0) {
+                benefitsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentSection = 1;
+            } else if (currentSection === 1) {
+                submitSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentSection = 2;
+            } else {
+                aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                currentSection = 0;
+            }
+            updateNavButton();
+        }
+
+        if (scrollNavBtn) {
+            scrollNavBtn.addEventListener('click', navigateToNextSection);
+            updateNavButton();
+        }
+
+        window.addEventListener('scroll', function () {
+            const aboutRect = aboutSection.getBoundingClientRect();
+            const benefitsRect = benefitsSection.getBoundingClientRect();
+            const submitRect = submitSection.getBoundingClientRect();
+
+            const aboutDistance = Math.abs(aboutRect.top);
+            const benefitsDistance = Math.abs(benefitsRect.top);
+            const submitDistance = Math.abs(submitRect.top);
+
+            const distances = [aboutDistance, benefitsDistance, submitDistance];
+            const minDistance = Math.min(...distances);
+
+            if (minDistance === aboutDistance) currentSection = 0;
+            else if (minDistance === benefitsDistance) currentSection = 1;
+            else currentSection = 2;
+
+            updateNavButton();
+        });
+
+        // ===== MODAL FUNCTIONALITY =====
+        const ideaFormModal = document.getElementById('ideaFormModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const cancelBtnForm = document.getElementById('cancelBtnForm');
+        const fileInput = document.getElementById('fileInput');
+        const browseBtn = document.getElementById('browseBtn');
+        const dropArea = document.getElementById('dropArea');
+        const fileList = document.getElementById('fileList');
+        const ideaSubmissionForm = document.getElementById('ideaSubmissionForm');
+
+        let uploadedFiles = [];
+
+        window.openPostModal = function () {
+            const modal = document.getElementById('postProjectModal');
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        };
+
+        window.openPdfUpload = function () {
+            Swal.fire({
+                title: 'Upload PDF',
+                text: 'PDF upload functionality is coming soon. Please use the "Detailed Idea Form" for now.',
+                icon: 'info',
+                confirmButtonColor: '#C2491F',
+                background: '#FFF8F0',
+                confirmButtonText: 'Got it'
+            });
+        };
+
+        window.openVideoUpload = function () {
+            Swal.fire({
+                title: 'Upload Video',
+                text: 'Video upload functionality is coming soon. Please use the "Detailed Idea Form" for now.',
+                icon: 'info',
+                confirmButtonColor: '#C2491F',
+                background: '#FFF8F0',
+                confirmButtonText: 'Got it'
+            });
+        };
+
+        if (closeModalBtn) {
+            closeModalBtn.addEventListener('click', () => {
+                document.getElementById('postProjectModal').classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        }
+
+        if (cancelBtnForm) {
+            cancelBtnForm.addEventListener('click', () => {
+                document.getElementById('postProjectModal').classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        }
+
+        const postModal = document.getElementById('postProjectModal');
+        if (postModal) {
+            postModal.addEventListener('click', (e) => {
+                if (e.target === postModal) {
+                    postModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && postModal && postModal.classList.contains('active')) {
+                postModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // ===== FILE UPLOAD =====
+        if (browseBtn && fileInput) {
+            browseBtn.addEventListener('click', () => {
+                fileInput.click();
+            });
+        }
+
+        if (fileInput) {
+            fileInput.addEventListener('change', (e) => {
+                handleFiles(e.target.files);
+            });
+        }
+
+        if (dropArea) {
+            dropArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropArea.classList.add('dragover');
+            });
+
+            dropArea.addEventListener('dragleave', () => {
+                dropArea.classList.remove('dragover');
+            });
+
+            dropArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropArea.classList.remove('dragover');
+
+                if (e.dataTransfer.files.length) {
+                    handleFiles(e.dataTransfer.files);
+                }
+            });
+        }
+
+        function handleFiles(files) {
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+
+                if (file.size > 10 * 1024 * 1024) {
+                    Swal.fire({
+                        title: 'File Too Large',
+                        text: `File ${file.name} exceeds the 10MB size limit.`,
+                        icon: 'error',
+                        confirmButtonColor: '#C2491F',
+                        background: '#FFF8F0'
+                    });
+                    continue;
+                }
+
+                const validTypes = ['application/pdf', 'application/msword',
+                    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                    'application/vnd.ms-powerpoint',
+                    'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                    'image/jpeg', 'image/jpg', 'image/png'];
+
+                if (!validTypes.includes(file.type) && !file.type.startsWith('image/')) {
+                    Swal.fire({
+                        title: 'Unsupported File Type',
+                        text: `File ${file.name} has an unsupported file type.`,
+                        icon: 'error',
+                        confirmButtonColor: '#C2491F',
+                        background: '#FFF8F0'
+                    });
+                    continue;
+                }
+
+                uploadedFiles.push(file);
+                displayFile(file);
+            }
+        }
+
+        function displayFile(file) {
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+
+            const fileSize = formatFileSize(file.size);
+
+            fileItem.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <i class="fas fa-file" style="color: var(--ember); font-size: 1.2rem;"></i>
+                    <div>
+                        <div class="file-name">${file.name}</div>
+                        <div class="file-size">${fileSize}</div>
+                    </div>
+                </div>
+                <div class="file-remove" data-file-name="${file.name}">
+                    <i class="fas fa-trash"></i> Remove
+                </div>
+            `;
+
+            if (fileList) {
+                fileList.appendChild(fileItem);
+            }
+
+            const removeBtn = fileItem.querySelector('.file-remove');
+            removeBtn.addEventListener('click', () => {
+                uploadedFiles = uploadedFiles.filter(f => f.name !== file.name);
+                fileItem.remove();
+            });
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // ===== FORM SUBMISSION =====
+        if (ideaSubmissionForm) {
+            ideaSubmissionForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const ideaTitle = document.getElementById('ideaTitle').value;
+                const problemStatement = document.getElementById('problemStatement').value;
+                const solution = document.getElementById('solution').value;
+                const stage = document.getElementById('stage').value;
+                const department = document.getElementById('department').value;
+
+                if (!ideaTitle || !problemStatement || !solution || !stage) {
+                    Swal.fire({
+                        title: 'Required Fields Missing',
+                        text: 'Please fill in all required fields.',
+                        icon: 'warning',
+                        confirmButtonColor: '#C2491F',
+                        background: '#FFF8F0'
+                    });
+                    return;
+                }
+
+                // Use LaunchPad core logic
+                let pitchDeckUrl = '';
+                if (uploadedFiles.length > 0) {
+                    const uploadFormData = new FormData();
+                    uploadFormData.append('pitchDeck', uploadedFiles[0]); // Only take the first file for now as per model
+                    try {
+                        const uploadRes = await fetch('/api/launchpad/upload-pitch', {
+                            method: 'POST',
+                            headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
+                            body: uploadFormData
+                        });
+                        const uploadData = await uploadRes.json();
+                        if (uploadData.success) {
+                            pitchDeckUrl = uploadData.data;
+                        }
+                    } catch (err) {
+                        console.error('File upload failed:', err);
+                    }
+                }
+
+                // Map UI fields to Backend LaunchProject model
+                const formData = {
+                    title: ideaTitle,
+                    description: `${problemStatement}\n\nSolution: ${solution}`,
+                    domain: department === 'cse' ? 'AI' : (department === 'design' ? 'Web' : 'Research'),
+                    projectType: 'startup', // Default to startup for incubation
+                    skillsRequired: ['Innovation', department.toUpperCase()],
+                    teamSizeNeeded: 3,
+                    stage: 'idea_submitted',
+                    startupPitchDeck: pitchDeckUrl,
+                    evaluation: {
+                        innovationScore: 70, // Default base score
+                        marketSize: 60,
+                        technicalFeasibility: 50
+                    }
+                };
+
+                await LaunchPad.createProject(formData);
+
+                ideaSubmissionForm.reset();
+                uploadedFiles = [];
+                if (fileList) {
+                    fileList.innerHTML = '';
+                }
+                document.getElementById('postProjectModal').classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        }
+    </script>
+    <script src="../js/core/loadComponents.js" defer></script>
+    <script src="../js/core/authGuard.js"></script>
+    <script src="../js/core/api.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../js/core/launchpad.js"></script>
+    <script src="../js/mobile-nav.js"></script>
+    <script src="../js/mobile-launchpad.js"></script>
+
+
+    <script src="../js/mobile-fixes.js"></script>
+</body>
+
+</html>

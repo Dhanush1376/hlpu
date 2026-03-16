@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>hLPU</title>
+    <link rel="icon" type="image/png" href="../assets/images/hlpu logo.png">
+
+    <!-- Bootstrap 4.6 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <!-- Google Fonts - Inter -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+        rel="stylesheet" />
+
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+
+    <link rel="stylesheet" href="../css/core/theme.css" />
+    <link rel="stylesheet" href="../css/core/NavBar.css" />
+    <link rel="stylesheet" href="../css/mobile-nav.css" />
+    <link rel="stylesheet" href="../css/mobile-fixes.css" />
+    <link rel="stylesheet" href="../css/mobile-admin.css" />
+
+
+
+
+    <style>
+        /* mesh background */
+        .mesh-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .mesh {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.2;
+        }
+
+        .mesh-1 {
+            width: 600px;
+            height: 600px;
+            background: #ffb68b;
+            top: -200px;
+            left: -100px;
+        }
+
+        .mesh-2 {
+            width: 650px;
+            height: 650px;
+            background: #fdae6a;
+            bottom: -250px;
+            right: -100px;
+        }
+
+        .mesh-3 {
+            width: 500px;
+            height: 500px;
+            background: #f9d7b0;
+            top: 30%;
+            left: 20%;
+        }
+
+        .mesh-4 {
+            width: 700px;
+            height: 700px;
+            background: #eac1a3;
+            bottom: 5%;
+            right: 10%;
+            opacity: 0.15;
+        }
+
+        /* dashboard container */
+        .dashboard-container {
+            padding: 110px 35px 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Admin Navbar styles removed - now using AdminNavBar.css */
+
+        /* ---------- profile page specific styles ---------- */
+        .profile-header-card {
+            background: rgba(255, 250, 240, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 48px;
+            padding: 36px 40px;
+            border: var(--border-light);
+            box-shadow: var(--shadow-elevation);
+            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 35px;
+        }
+
+        .profile-avatar-large {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, var(--ember), var(--gilt));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            font-weight: 600;
+            box-shadow: 0 15px 30px -8px rgba(194, 73, 31, 0.5);
+            border: 4px solid white;
+        }
+
+        .profile-title h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .profile-title p {
+            font-size: 1rem;
+            color: #4f5b68;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-badges {
+            display: flex;
+            gap: 15px;
+            margin-left: auto;
+            flex-wrap: wrap;
+        }
+
+        .badge-profile {
+            background: white;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            border: 1px solid rgba(194, 73, 31, 0.2);
+            box-shadow: 0 4px 12px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* profile content grid */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.8fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .glass-panel {
+            background: rgba(255, 249, 240, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 36px;
+            padding: 28px;
+            border: var(--border-light);
+            box-shadow: var(--shadow-elevation);
+            transition: var(--transition);
+        }
+
+        .glass-panel:hover {
+            background: rgba(255, 244, 230, 0.9);
+            border-color: rgba(230, 138, 46, 0.25);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(10, 26, 47, 0.08);
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .edit-link {
+            color: var(--ember);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .edit-link:hover {
+            color: var(--gilt);
+            transform: scale(1.05);
+        }
+
+        /* info rows */
+        .info-row {
+            display: flex;
+            padding: 12px 0;
+            border-bottom: 1px dashed rgba(194, 73, 31, 0.1);
+        }
+
+        .info-label {
+            width: 120px;
+            font-weight: 600;
+            color: #5f6d7c;
+        }
+
+        .info-value {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        /* activity list */
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .activity-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--ember);
+            margin-right: 16px;
+        }
+
+        .activity-text {
+            flex: 1;
+            font-size: 0.95rem;
+        }
+
+        .activity-time {
+            color: #8b99a8;
+            font-size: 0.8rem;
+        }
+
+        /* security settings */
+        .security-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0;
+            border-bottom: 1px solid rgba(194, 73, 31, 0.1);
+        }
+
+        .security-left h6 {
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .security-left p {
+            font-size: 0.8rem;
+            color: #5f6d7c;
+            margin: 0;
+        }
+
+        .toggle-switch {
+            width: 52px;
+            height: 28px;
+            background: #e0d6cc;
+            border-radius: 40px;
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .toggle-switch.active {
+            background: var(--ember);
+        }
+
+        .toggle-slider {
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: var(--transition);
+        }
+
+        .toggle-switch.active .toggle-slider {
+            left: 26px;
+        }
+
+        /* two-factor row */
+        .twofa-row {
+            background: rgba(230, 138, 46, 0.08);
+            border-radius: 24px;
+            padding: 18px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 992px) {
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dashboard-container {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: pageFadeIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        @keyframes pageFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .profile-header-card {
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+            animation: headerReveal 0.8s ease forwards;
+            animation-delay: 0.1s;
+        }
+
+        @keyframes headerReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .glass-panel {
+            opacity: 0;
+            transform: translateY(35px);
+            animation: panelReveal 0.7s ease forwards;
+        }
+
+        .glass-panel:nth-of-type(1) {
+            animation-delay: 0.2s
+        }
+
+        .glass-panel:nth-of-type(2) {
+            animation-delay: 0.3s
+        }
+
+        .glass-panel:nth-of-type(3) {
+            animation-delay: 0.4s
+        }
+
+        @keyframes panelReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mesh {
+            animation: floatMesh 24s ease-in-out infinite alternate;
+        }
+
+        .mesh-2 {
+            animation-delay: 6s;
+        }
+
+        .mesh-3 {
+            animation-delay: 12s;
+        }
+
+        .mesh-4 {
+            animation-delay: 18s;
+        }
+
+        @keyframes floatMesh {
+            0% {
+                transform: translateY(0px) scale(1);
+            }
+
+            100% {
+                transform: translateY(-40px) scale(1.05);
+            }
+        }
+
+        .profile-avatar-large {
+            animation: avatarPulse 3.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes avatarPulse {
+            0% {
+                box-shadow: 0 15px 30px -8px rgba(194, 73, 31, 0.5);
+            }
+
+            100% {
+                box-shadow: 0 25px 45px -10px rgba(230, 138, 46, 0.7);
+            }
+        }
+
+        .toggle-switch {
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle-switch.active {
+            box-shadow: 0 0 15px rgba(194, 73, 31, 0.5);
+        }
+
+        @keyframes subtleAlert {
+            0% {
+                box-shadow: 0 0 0 rgba(178, 60, 26, 0.0);
+            }
+
+            100% {
+                box-shadow: 0 0 25px rgba(178, 60, 26, 0.2);
+            }
+        }
+
+        div[style*="danger zone"] {
+            animation: subtleAlert 2s ease-in-out infinite alternate;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div id="navbar"></div>
+    <div class="mesh-bg">
+        <div class="mesh mesh-1"></div>
+        <div class="mesh mesh-2"></div>
+        <div class="mesh mesh-3"></div>
+        <div class="mesh mesh-4"></div>
+    </div>
+    <div class="dashboard-container">
+        <!-- profile header card -->
+        <div class="profile-header-card">
+            <div class="profile-avatar-large">
+                <span>AD</span>
+            </div>
+            <div class="profile-title">
+                <h2>Dhanush Atmakuri <span
+                        style="font-size:1rem; font-weight:400; background:#e9d9cb; padding:5px 15px; border-radius:40px; margin-left:15px;">admin</span>
+                </h2>
+                <p><i class="fas fa-envelope" style="color:var(--ember);"></i> dhanush1376@hLPU-admin.net · <i
+                        class="fas fa-phone-alt"></i> +91 98765 43210 · <i class="fas fa-map-pin"></i> Delhi, India
+                </p>
+            </div>
+            <div class="profile-badges">
+                <span class="badge-profile"><i class="fas fa-calendar-check"></i> joined Mar 2020</span>
+                <span class="badge-profile"><i class="fas fa-shield-alt"></i> admin</span>
+                <span class="badge-profile"><i class="fas fa-key"></i> last login 2h ago</span>
+            </div>
+        </div>
+
+        <!-- profile grid: left column personal info, right column activity + security -->
+        <div class="profile-grid">
+            <!-- left: personal details & contact -->
+            <div class="glass-panel">
+                <div class="section-header">
+                    <h3 class="section-title"><i class="fas fa-user-circle" style="color:var(--ember);"></i>
+                        personal
+                        information</h3>
+                    <span class="edit-link" onclick="editSection('personal')"><i class="fas fa-pen"></i> edit</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">full name</span>
+                    <span class="info-value">Dhanush Atmakuri</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">display name</span>
+                    <span class="info-value">Dhanush A. (Admin)</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">email address</span>
+                    <span class="info-value">dhanush1376@hLPU-admin.net <span class="badge-status verified"
+                            style="margin-left:10px;">primary</span></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">phone</span>
+                    <span class="info-value">+91 9154691315</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">location</span>
+                    <span class="info-value">Punjab, India (GMT+5:30)</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">language</span>
+                    <span class="info-value">English (UK)</span>
+                </div>
+
+                <div class="section-header" style="margin-top:30px;">
+                    <h3 class="section-title"><i class="fas fa-building" style="color:var(--ember);"></i> admin role
+                        &
+                        permissions</h3>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">role</span>
+                    <span class="info-value"><span class="badge-role">admin · full access</span></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">permissions</span>
+                    <span class="info-value">user mgmt, content, reports, system settings</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">managed since</span>
+                    <span class="info-value">15 Mar 2020 (6 years)</span>
+                </div>
+            </div>
+
+            <!-- right column (split internally) -->
+            <div style="display: flex; flex-direction: column; gap: 30px;">
+                <!-- recent activity panel -->
+                <div class="glass-panel">
+                    <div class="section-header">
+                        <h3 class="section-title"><i class="fas fa-history" style="color:var(--ember);"></i> recent
+                            admin activity</h3>
+                        <span class="edit-link" onclick="viewAllActivity()">view all</span>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-dot"></div>
+                        <div class="activity-text">Approved 12 user verifications</div>
+                        <div class="activity-time">25 min ago</div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-dot"></div>
+                        <div class="activity-text">Modified job posting #2341 (flagged)</div>
+                        <div class="activity-time">2 hours ago</div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-dot"></div>
+                        <div class="activity-text">Exported user report (CSV)</div>
+                        <div class="activity-time">5 hours ago</div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-dot"></div>
+                        <div class="activity-text">Changed system notification settings</div>
+                        <div class="activity-time">yesterday</div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-dot"></div>
+                        <div class="activity-text">Reviewed 3 moderation flags</div>
+                        <div class="activity-time">yesterday</div>
+                    </div>
+                </div>
+
+                <!-- security & authentication panel -->
+                <div class="glass-panel">
+                    <div class="section-header">
+                        <h3 class="section-title"><i class="fas fa-lock" style="color:var(--ember);"></i> security &
+                            authentication</h3>
+                        <span class="edit-link" onclick="editSection('security')"><i class="fas fa-pen"></i>
+                            manage</span>
+                    </div>
+
+                    <div class="security-item">
+                        <div class="security-left">
+                            <h6>two-factor authentication (2FA)</h6>
+                            <p>protect your account with TOTP</p>
+                        </div>
+                        <div class="toggle-switch active" onclick="toggle2FA(this)" id="2faToggle">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+
+                    <div class="security-item">
+                        <div class="security-left">
+                            <h6>session timeout</h6>
+                            <p>auto-logout after 30 minutes</p>
+                        </div>
+                        <div class="toggle-switch active" onclick="toggleSession(this)" id="sessionToggle">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+
+                    <div class="security-item">
+                        <div class="security-left">
+                            <h6>login notifications</h6>
+                            <p>email on new device login</p>
+                        </div>
+                        <div class="toggle-switch active" onclick="toggleNotify(this)" id="notifToggle">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+
+                    <div class="twofa-row d-flex justify-content-between align-items-center">
+                        <div><i class="fas fa-shield-alt" style="color:var(--ember);"></i> <strong>backup
+                                codes:</strong> 8 codes remaining</div>
+                        <span class="badge-role" style="cursor:pointer;" onclick="generateCodes()">regenerate</span>
+                    </div>
+
+                    <div style="margin-top:20px;">
+                        <span class="badge-role" style="padding:10px 20px; cursor:pointer;"
+                            onclick="changePassword()"><i class="fas fa-key"></i> change password</span>
+                        <span class="badge-role" style="padding:10px 20px; margin-left:10px; cursor:pointer;"
+                            onclick="sessions()"><i class="fas fa-desktop"></i> active sessions (3)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- additional: admin preferences & notifications (full width) -->
+        <div class="glass-panel" style="margin-top:30px;">
+            <div class="section-header">
+                <h3 class="section-title"><i class="fas fa-bell" style="color:var(--ember);"></i> notification
+                    preferences</h3>
+                <span class="edit-link" onclick="editSection('notifications')"><i class="fas fa-pen"></i>
+                    customize</span>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" checked id="notif1">
+                        <label class="form-check-label" for="notif1">email me on new user registrations</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" checked id="notif2">
+                        <label class="form-check-label" for="notif2">slack alerts for urgent flags</label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="notif3">
+                        <label class="form-check-label" for="notif3">daily digest (user activity)</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- danger zone (delete account) -->
+        <div
+            style="margin-top: 35px; padding: 20px; background: rgba(245, 200, 190, 0.2); border-radius: 28px; border: 1px solid rgba(194,73,31,0.2);">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 style="font-weight:800;"><i class="fas fa-exclamation-triangle" style="color:#b23c1a;"></i>
+                        danger zone</h5>
+                    <p style="margin:0; color:#5f6b7a;">permanently delete account or transfer ownership</p>
+                </div>
+                <div>
+                    <button class="btn"
+                        style="border:2px solid #b23c1a; background:transparent; color:#b23c1a; border-radius:40px; padding:10px 28px; font-weight:700;"
+                        onclick="deleteAccount()">delete account</button>
+                    <button class="btn"
+                        style="background:var(--ink); color:white; border-radius:40px; padding:10px 28px; margin-left:12px;"
+                        onclick="transferOwnership()">transfer admin</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../js/core/api.js"></script>
+    <script src="../js/core/loadComponents.js" defer></script>
+    <script src="../js/core/authGuard.js"></script>
+
+    <script>
+        let currentUser = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initProfile();
+        });
+
+        async function initProfile() {
+            try {
+                const user = await apiFetch('/api/profile/me');
+                if (user) {
+                    currentUser = user;
+                    renderProfile(user);
+                    loadActivityLogs();
+                }
+            } catch (err) {
+                console.error('Failed to load profile:', err);
+                Swal.fire('Error', 'Failed to load profile data', 'error');
+            }
+        }
+
+        function renderProfile(user) {
+            // Header
+            document.querySelector('.profile-avatar-large span').textContent = user.name ? user.name.split(' ').map(n => n[0]).join('').toUpperCase() : 'AD';
+            document.querySelector('.profile-title h2').childNodes[0].textContent = user.name + ' ';
+            document.querySelector('.profile-title p').innerHTML = `
+                <i class="fas fa-envelope" style="color:var(--ember);"></i> ${user.email} · 
+                <i class="fas fa-phone-alt"></i> ${user.phoneNumber || '+91 00000 00000'} · 
+                <i class="fas fa-map-pin"></i> ${user.contact?.location || 'Not Set'}
+            `;
+
+            // Joined Date
+            const joinedDate = new Date(user.createdAt).toLocaleDateString('en-IN', { month: 'short', year: 'numeric' });
+            document.querySelector('.profile-badges').innerHTML = `
+                <span class="badge-profile"><i class="fas fa-calendar-check"></i> joined ${joinedDate}</span>
+                <span class="badge-profile"><i class="fas fa-shield-alt"></i> ${user.role}</span>
+                <span class="badge-profile"><i class="fas fa-key"></i> last login ${formatTimeAgo(user.lastActive)}</span>
+            `;
+
+            // Personal Info
+            const personalFields = {
+                'fullname': user.name,
+                'displayname': user.name + ' (Admin)',
+                'email': user.email,
+                'phone': user.phoneNumber || 'Not Set',
+                'location': user.contact?.location || 'Not Set',
+                'language': 'English (UK)' // Default or add to schema if needed
+            };
+
+            const infoRows = document.querySelectorAll('.glass-panel:first-of-type .info-row');
+            if (infoRows.length >= 5) {
+                infoRows[0].querySelector('.info-value').textContent = personalFields.fullname;
+                infoRows[1].querySelector('.info-value').textContent = personalFields.displayname;
+                infoRows[2].querySelector('.info-value').innerHTML = `${personalFields.email} <span class="badge-status verified" style="margin-left:10px;">primary</span>`;
+                infoRows[3].querySelector('.info-value').textContent = personalFields.phone;
+                infoRows[4].querySelector('.info-value').textContent = personalFields.location;
+            }
+
+            // Managed Since
+            const managedDate = user.settings?.adminMetadata?.managedSince ? new Date(user.settings.adminMetadata.managedSince) : new Date(user.createdAt);
+            const years = new Date().getFullYear() - managedDate.getFullYear();
+            const managedRows = document.querySelectorAll('.glass-panel:first-of-type .info-row');
+            if (managedRows.length >= 9) {
+                managedRows[8].querySelector('.info-value').textContent = `${managedDate.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })} (${years} ${years === 1 ? 'year' : 'years'})`;
+            }
+
+            // Security Toggles
+            syncToggle('2faToggle', user.settings?.security?.twoFactorEnabled);
+            // Add more toggles as needed
+        }
+
+        async function loadActivityLogs() {
+            try {
+                const logs = await apiFetch('/api/profile/logs');
+                const container = document.querySelector('.glass-panel:nth-of-type(2)');
+                const items = container.querySelectorAll('.activity-item');
+
+                // Remove old items
+                items.forEach(item => item.remove());
+
+                if (logs && logs.length > 0) {
+                    logs.forEach(log => {
+                        const div = document.createElement('div');
+                        div.className = 'activity-item';
+                        div.innerHTML = `
+                            <div class="activity-dot"></div>
+                            <div class="activity-text">${log.description || log.action}</div>
+                            <div class="activity-time">${formatTimeAgo(log.createdAt)}</div>
+                        `;
+                        container.appendChild(div);
+                    });
+                } else {
+                    const div = document.createElement('div');
+                    div.className = 'activity-item';
+                    div.innerHTML = `<div class="activity-text text-muted">No recent activity</div>`;
+                    container.appendChild(div);
+                }
+            } catch (err) {
+                console.error('Failed to load logs:', err);
+            }
+        }
+
+        function formatTimeAgo(dateString) {
+            if (!dateString) return 'Never';
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffMs = now - date;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffHours = Math.floor(diffMins / 60);
+            const diffDays = Math.floor(diffHours / 24);
+
+            if (diffMins < 60) return `${diffMins} min ago`;
+            if (diffHours < 24) return `${diffHours} hours ago`;
+            return `${diffDays} days ago`;
+        }
+
+        function syncToggle(id, active) {
+            const el = document.getElementById(id);
+            if (el) {
+                if (active) el.classList.add('active');
+                else el.classList.remove('active');
+            }
+        }
+
+        async function toggleSecuritySetting(type, el) {
+            if (!currentUser) return;
+
+            const field = type === '2fa' ? 'twoFactorEnabled' : 'loginNotifications';
+            const newValue = !el.classList.contains('active');
+
+            try {
+                const updateData = {
+                    settings: {
+                        ...currentUser.settings,
+                        security: {
+                            ...currentUser.settings?.security,
+                            [field]: newValue
+                        }
+                    }
+                };
+
+                const res = await apiFetch('/api/profile/me', {
+                    method: 'PATCH',
+                    body: JSON.stringify(updateData)
+                });
+
+                if (res) {
+                    currentUser = res;
+                    el.classList.toggle('active');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Updated',
+                        text: `Security setting ${newValue ? 'enabled' : 'disabled'}`,
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                }
+            } catch (err) {
+                Swal.fire('Error', 'Failed to update security setting', 'error');
+            }
+        }
+
+        // Override existing toggle functions
+        function toggle2FA(el) { toggleSecuritySetting('2fa', el); }
+
+        async function editSection(section) {
+            if (section === 'personal') {
+                const { value: formValues } = await Swal.fire({
+                    title: 'Edit Personal Information',
+                    html:
+                        `<input id="swal-name" class="swal2-input" placeholder="Full Name" value="${currentUser.name}">` +
+                        `<input id="swal-phone" class="swal2-input" placeholder="Phone Number" value="${currentUser.phoneNumber || ''}">` +
+                        `<input id="swal-location" class="swal2-input" placeholder="Location" value="${currentUser.contact?.location || ''}">`,
+                    focusConfirm: false,
+                    showCancelButton: true,
+                    confirmButtonColor: '#c2491f',
+                    preConfirm: () => {
+                        return {
+                            name: document.getElementById('swal-name').value,
+                            phoneNumber: document.getElementById('swal-phone').value,
+                            location: document.getElementById('swal-location').value
+                        }
+                    }
+                });
+
+                if (formValues) {
+                    updateUserProfile({
+                        name: formValues.name,
+                        phoneNumber: formValues.phoneNumber,
+                        contact: { ...currentUser.contact, location: formValues.location }
+                    });
+                }
+            }
+        }
+
+        async function updateUserProfile(updates) {
+            try {
+                const res = await apiFetch('/api/profile/me', {
+                    method: 'PATCH',
+                    body: JSON.stringify(updates)
+                });
+                if (res) {
+                    currentUser = res;
+                    renderProfile(res);
+                    Swal.fire('Success', 'Profile updated successfully', 'success');
+                }
+            } catch (err) {
+                Swal.fire('Error', 'Failed to update profile', 'error');
+            }
+        }
+
+        function viewAllActivity() {
+            window.location.href = 'Audit-trails.html';
+        }
+
+        window.addEventListener('scroll', function () {
+            const nav = document.querySelector('.navbar');
+            if (nav) {
+                if (window.scrollY > 20) {
+                    nav.style.boxShadow = "0 20px 50px -15px rgba(0,0,0,0.25)";
+                    nav.style.backdropFilter = "blur(20px)";
+                } else {
+                    nav.style.boxShadow = "0 10px 30px -10px rgba(10, 20, 30, 0.15)";
+                    nav.style.backdropFilter = "blur(16px)";
+                }
+            }
+        });
+    </script>
+
+
+    <div id="mobile-root"></div>
+
+    <script src="../js/mobile-nav.js"></script>
+    <script src="../js/mobile-admin-nav.js"></script>
+    <script src="../js/mobile-admin-profile.js"></script>
+
+    <script src="../js/mobile-fixes.js"></script>
+</body>
+
+</html>

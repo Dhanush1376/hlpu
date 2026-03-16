@@ -1,0 +1,284 @@
+/* =========================================
+   Mobile UI Fixes (Strictly Non-Desktop)
+   ========================================= */
+
+/* 1. Fix Blank Mobile Screen */
+@media (max-width: 768px) {
+
+    /* Override global display: none on .desktop-only wrapper that causes blank screen */
+    .desktop-only {
+        display: block !important;
+    }
+
+    /* Prevent parent container height collapse and ensure content is visible */
+    html,
+    body {
+        height: auto !important;
+        min-height: 100vh !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        position: relative !important;
+    }
+
+    /* Fix overlay issues and scoped height collapses */
+    .dashboard-container,
+    #mobile-root,
+    #mobile-dashboard-root {
+        display: block !important;
+        height: auto !important;
+        min-height: 100vh !important;
+        position: relative;
+    }
+
+    /* Safe Spacing to prevent position:fixed covering content */
+    .mobile-safe-area {
+        padding-bottom: calc(90px + env(safe-area-inset-bottom)) !important;
+        /* for bottom nav */
+    }
+
+    /* Global Mobile Nav Link Fix — Force non-blue hover and remove underlines */
+    .mob-header a,
+    .mob-bottom-nav a,
+    .mob-sidenav a,
+    .mob-nav-item,
+    .mob-sidenav-item {
+        text-decoration: none !important;
+    }
+
+    .mob-header a:hover,
+    .mob-bottom-nav a:hover,
+    .mob-sidenav a:hover,
+    .mob-nav-item:hover,
+    .mob-sidenav-item:hover {
+        text-decoration: none !important;
+        color: inherit;
+        /* Fallback to parent color to avoid default blue */
+    }
+
+    /* Explicitly lock primary navigation colors on hover if they aren't inherited */
+    .mob-header .mob-avatar:hover,
+    .mob-header .mob-notif-btn:hover,
+    .mob-nav-item:hover,
+    .mob-sidenav-item:hover {
+        color: #C2491F !important;
+    }
+}
+
+/* 2. Proper Navbar Isolation (Required Implementation Pattern) */
+
+/* Desktop Navbar Safety */
+@media (max-width: 768px) {
+
+    .desktop-navbar,
+    #navbar,
+    nav.navbar:not(.mob-header):not(.mob-bottom-nav-container) {
+        display: none !important;
+    }
+}
+
+/* Mobile Navbar Safety */
+@media (min-width: 769px) {
+
+    .mobile-navbar,
+    .mob-header,
+    .mob-bottom-nav-container,
+    .mob-bottom-nav {
+        display: none !important;
+    }
+}
+
+/* 3. Global Popup / Modal Fixes — must sit above #mobile-root z-index:9999 */
+@media (max-width: 770px) {
+
+    /* === SweetAlert2 === */
+    .swal2-container {
+        z-index: 999999 !important;
+    }
+
+    .swal2-container.swal2-backdrop-show {
+        background: rgba(10, 26, 47, 0.45) !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+    }
+
+    .swal2-popup {
+        border-radius: 28px !important;
+        padding: 30px 25px !important;
+        box-shadow: 0 25px 60px rgba(10, 26, 47, 0.3) !important;
+        font-family: 'Inter', sans-serif !important;
+    }
+
+    .swal2-title {
+        font-size: 1.3rem !important;
+        font-weight: 800 !important;
+        color: #0A1A2F !important;
+    }
+
+    .swal2-html-container {
+        font-size: 0.9rem !important;
+        color: #52606d !important;
+    }
+
+    .swal2-confirm,
+    .swal2-cancel {
+        border-radius: 16px !important;
+        padding: 12px 28px !important;
+        font-weight: 700 !important;
+        font-size: 0.9rem !important;
+    }
+
+    /* === Bootstrap Modals === */
+    .modal {
+        z-index: 999999 !important;
+    }
+
+    .modal-backdrop {
+        z-index: 999998 !important;
+        background: rgba(10, 26, 47, 0.45) !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+    }
+
+    .modal-backdrop.show {
+        opacity: 1 !important;
+    }
+
+    .modal-dialog {
+        margin: 20px 15px !important;
+        max-width: calc(100% - 30px) !important;
+    }
+
+    .modal-content {
+        border-radius: 28px !important;
+        border: 1px solid rgba(194, 73, 31, 0.1) !important;
+        box-shadow: 0 25px 60px rgba(10, 26, 47, 0.25) !important;
+        overflow: hidden;
+        max-height: 80vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .modal-header {
+        border-bottom: 1px solid rgba(10, 26, 47, 0.06) !important;
+        padding: 20px !important;
+    }
+
+    .modal-body {
+        max-height: 60vh !important;
+        overflow-y: auto !important;
+        padding: 20px !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .modal-footer {
+        border-top: 1px solid rgba(10, 26, 47, 0.06) !important;
+        padding: 15px 20px !important;
+    }
+
+    /* === Custom Role Modal (Launchpad Post Project) === */
+    .role-modal {
+        z-index: 999999 !important;
+        background: rgba(10, 26, 47, 0.45) !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        padding: 15px !important;
+    }
+
+    .role-modal .modal-content {
+        border-radius: 24px !important;
+        padding: 25px 18px !important;
+        max-height: 85vh !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+        box-shadow: 0 25px 60px rgba(10, 26, 47, 0.35) !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .role-modal .modal-header {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .role-modal .modal-title {
+        font-size: 1.3rem !important;
+    }
+
+    .role-modal .modal-subtitle {
+        font-size: 0.85rem !important;
+    }
+
+    .role-modal .form-row {
+        flex-direction: column !important;
+        gap: 12px !important;
+    }
+
+    .role-modal .form-input,
+    .role-modal .form-select,
+    .role-modal .form-textarea {
+        font-size: 0.9rem !important;
+        padding: 12px 14px !important;
+        border-radius: 14px !important;
+    }
+
+    .role-modal .close-modal {
+        width: 40px !important;
+        height: 40px !important;
+        border-radius: 12px !important;
+    }
+
+    .role-modal .modal-footer {
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+
+    .role-modal .btn-form {
+        width: 100% !important;
+        border-radius: 16px !important;
+        padding: 14px !important;
+    }
+
+    .role-modal .file-upload-container {
+        padding: 25px 15px !important;
+        border-radius: 18px !important;
+    }
+
+    /* 6. UX POLISH — Touch Target Enforcement */
+    button,
+    a,
+    input[type="submit"],
+    input[type="button"],
+    .btn,
+    .page-item,
+    .mob-nav-item {
+        min-height: 44px;
+    }
+
+    /* Smooth scroll */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    /* 7. Bootstrap Modal Footer — Stack buttons vertically on mobile */
+    .modal-footer {
+        flex-direction: column !important;
+        gap: 8px !important;
+    }
+
+    .modal-footer .btn {
+        width: 100% !important;
+        border-radius: 14px !important;
+    }
+
+    /* 8. Modal scroll lock helper */
+    body.modal-open {
+        overflow: hidden !important;
+        position: fixed !important;
+        width: 100% !important;
+    }
+
+    /* 9. Prevent horizontal scroll globally */
+    body {
+        overflow-x: hidden !important;
+    }
+}

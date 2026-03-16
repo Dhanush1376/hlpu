@@ -1,0 +1,263 @@
+/* ============================================================
+   theme.css — hLPU Global Design Tokens & Base Styles
+   ============================================================ */
+
+:root {
+    --ink: #0A1A2F;
+    --ember: #C2491F;
+    --gilt: #E68A2E;
+    --soft-cream: #FFF8F0;
+    --glass: rgba(255, 250, 240, 0.65);
+    --glass-deep: rgba(255, 250, 240, 0.85);
+    --border-light: rgba(10, 26, 47, 0.06);
+    --shadow-elevation: 0 20px 35px -10px rgba(10, 26, 47, 0.08), 0 5px 12px rgba(0, 0, 0, 0.02);
+    --shadow-hover: 0 30px 45px -15px rgba(194, 73, 31, 0.15);
+    --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #FDFBF9;
+    color: var(--ink);
+    min-height: 100vh;
+    line-height: 1.6;
+    /* Improved typography readability */
+    font-size: 14.5px;
+    /* Slightly bumped up for mobile readability */
+    padding-bottom: 30px;
+    overflow-x: hidden;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+    /* Crisp fonts */
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== GLOBAL SCROLLBAR POLISH ===== */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(194, 73, 31, 0.2);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--ember);
+}
+
+/* ===== SHARED GLASS CARD UX CLASSES ===== */
+.glass-hover-elevate {
+    transition: var(--transition);
+}
+
+.glass-hover-elevate:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 25px 45px -12px rgba(10, 26, 47, 0.12);
+    border-color: rgba(194, 73, 31, 0.15);
+}
+
+/* ===== PREMIUM MESH BACKGROUND ===== */
+.mesh-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    pointer-events: none;
+}
+
+.mesh {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-blend-mode: overlay;
+    opacity: 0.35;
+    animation: breathe 12s infinite alternate ease-in-out;
+}
+
+.mesh-1 {
+    background: radial-gradient(circle at 10% 20%, #FCE7C8, #E5D9F2 40%, transparent 70%);
+}
+
+.mesh-2 {
+    background: radial-gradient(circle at 95% 60%, #D6E6F5, #FFD9B0 30%, transparent 70%);
+    animation-delay: -3s;
+}
+
+.mesh-3 {
+    background: radial-gradient(circle at 40% 85%, #FADADD, #FDCFB0 40%, transparent 70%);
+    animation-delay: -6s;
+}
+
+.mesh-4 {
+    background: radial-gradient(circle at 65% 15%, #DFE7FF, #F9E6CF 35%, transparent 70%);
+    animation-delay: -9s;
+}
+
+@keyframes breathe {
+    0% {
+        opacity: 0.3;
+    }
+
+    100% {
+        opacity: 0.45;
+    }
+}
+
+/* ===== VERIFIED BADGE & STATUS ===== */
+.verified-badge {
+    color: #4facfe;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 0.9em;
+    filter: drop-shadow(0 2px 4px rgba(79, 172, 254, 0.3));
+    margin-left: 6px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.verified-badge i {
+    font-weight: 900;
+}
+
+.status-verified {
+    background: rgba(79, 172, 254, 0.1);
+    border: 1px solid rgba(79, 172, 254, 0.3);
+    color: #1a73e8;
+    padding: 4px 12px;
+    border-radius: 40px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* ===== PROFESSIONAL FORM COMPONENTS ===== */
+.form-group label {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #5f6d7c;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.form-control {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(194, 73, 31, 0.12);
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    color: var(--ink);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+}
+
+.form-control:focus {
+    background: white;
+    border-color: var(--ember);
+    box-shadow: 0 0 0 4px rgba(194, 73, 31, 0.1);
+    outline: none;
+}
+
+/* Custom Dropdown Arrow */
+select.form-control {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23C2491F' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 40px;
+}
+
+textarea.form-control {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* ===== PREMIUM BUTTONS (Global) ===== */
+.btn-heritage {
+    background: white;
+    color: var(--ink);
+    border: 1.5px solid rgba(194, 73, 31, 0.15);
+    padding: 10px 24px;
+    border-radius: 40px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    transition: var(--transition);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.btn-heritage:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -10px rgba(194, 73, 31, 0.4);
+    background: linear-gradient(135deg, var(--ember), #b33912);
+    color: white !important;
+    border-color: transparent;
+    text-decoration: none;
+}
+
+.btn-heritage:active {
+    transform: translateY(0);
+}
+
+.btn-skeleton {
+    background: transparent;
+    border: 1.5px solid rgba(194, 73, 31, 0.3);
+    color: var(--ember) !important;
+    border-radius: 12px;
+    padding: 11px 23px;
+    font-weight: 700;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.btn-skeleton:hover {
+    background: rgba(194, 73, 31, 0.05);
+    border-color: var(--ember);
+    text-decoration: none;
+}
+
+/* ===== BOOTSTRAP DROPDOWN OVERRIDES ===== */
+.dropdown-menu {
+    border: 1px solid rgba(10, 26, 47, 0.08);
+    border-radius: 18px !important;
+    box-shadow: 0 20px 45px -12px rgba(10, 20, 30, 0.2) !important;
+    padding: 10px !important;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(15px);
+}
+
+.dropdown-item {
+    border-radius: 10px;
+    padding: 10px 15px !important;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.dropdown-item:hover {
+    background: rgba(194, 73, 31, 0.08) !important;
+    color: var(--ember) !important;
+}

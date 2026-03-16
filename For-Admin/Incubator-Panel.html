@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incubator Panel | hLPU Admin</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../css/core/NavBar.css">
+    <link rel="stylesheet" href="../css/core/Main.css">
+    <link rel="stylesheet" href="../css/mobile-nav.css" />
+    <link rel="stylesheet" href="../css/mobile-fixes.css" />
+    <link rel="stylesheet" href="../css/mobile-admin.css" />
+    <style>
+        .admin-container {
+            margin-top: 100px;
+            padding: 30px;
+        }
+
+        .startup-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+            position: relative;
+        }
+
+        .startup-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .stage-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 8px;
+            text-transform: uppercase;
+        }
+
+        .score-gauge {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 4px solid var(--ember);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: var(--ember);
+        }
+
+        .btn-action {
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div id="navbar"></div>
+    <div class="admin-container">
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <div>
+                <h1 class="font-weight-800 text-ink">Incubator Panel</h1>
+                <p class="text-muted">Manage the startup incubation lifecycle from idea to graduation.</p>
+            </div>
+            <div class="score-gauge" id="globalSuccessRate">85%</div>
+        </div>
+
+        <div class="row" id="startupsContainer">
+            <!-- Dynamic Startups Load Here -->
+            <div class="col-12 text-center py-5">
+                <div class="spinner-border text-primary" role="status"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Evaluation Modal -->
+    <div class="modal fade" id="evaluationModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="border-radius: 30px; border: none; background: #FFF8F0;">
+                <div class="modal-header border-0 p-4">
+                    <h5 class="modal-title font-weight-bold">Startup Evaluation</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="evaluationForm">
+                        <input type="hidden" id="evalStartupId">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label>Innovation Score (1-100)</label>
+                                <input type="number" class="form-control" name="innovationScore" min="0" max="100"
+                                    required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>Market Size (1-100)</label>
+                                <input type="number" class="form-control" name="marketSize" min="0" max="100" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>Technical Feasibility (1-100)</label>
+                                <input type="number" class="form-control" name="technicalFeasibility" min="0" max="100"
+                                    required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label>Team Strength (1-100)</label>
+                                <input type="number" class="form-control" name="teamStrength" min="0" max="100"
+                                    required>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label>Admin Feedback</label>
+                                <textarea class="form-control" name="adminFeedback" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-primary px-5 rounded-pill">Update
+                                Evaluation</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../js/core/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadStartups();
+        });
+
+        async function loadStartups() {
+            try {
+                const result = await apiFetch('/api/launchpad/projects?projectType=startup&limit=100');
+                if (result.success) renderStartups(result.data);
+            } catch (err) { console.error('Error loading startups'); }
+        }
+
+        function renderStartups(startups) {
+            const container = document.getElementById('startupsContainer');
+            container.innerHTML = startups.map(s => `
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="startup-card">
+                        <span class="stage-badge badge-${s.stage === 'rejected' ? 'danger' : 'success'}" style="background: ${getStageColor(s.stage)}">${s.stage.replace(/_/g, ' ')}</span>
+                        <h5 class="font-weight-700">${s.title}</h5>
+                        <p class="text-muted small mb-3">${s.description.substring(0, 100)}...</p>
+                        
+                        <div class="mb-4">
+                            <small class="font-weight-bold d-block mb-1">Impact Score: ${s.evaluation?.startupScore || 0}%</small>
+                            <div class="progress" style="height: 6px; border-radius: 10px;">
+                                <div class="progress-bar" style="width: ${s.evaluation?.startupScore || 0}%; background: var(--ember);"></div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-sm btn-outline-dark btn-action" onclick="openEvaluation('${s._id}')">Evaluate</button>
+                            <button class="btn btn-sm btn-outline-primary btn-action" onclick="matchMentors('${s._id}', '${s.domain}')">Match Mentors</button>
+                            <select class="form-control form-control-sm rounded-pill" onchange="updateStage('${s._id}', this.value)">
+                                <option value="" disabled selected>Change Stage</option>
+                                <option value="shortlisted">Shortlist</option>
+                                <option value="incubating">Incubate</option>
+                                <option value="investor_ready">Investor Ready</option>
+                                <option value="graduated">Graduate</option>
+                                <option value="rejected">Reject</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getStageColor(stage) {
+            const colors = {
+                'idea_submitted': '#6c757d',
+                'under_review': '#17a2b8',
+                'shortlisted': '#ffc107',
+                'incubating': '#28a745',
+                'investor_ready': '#fd7e14',
+                'graduated': '#007bff',
+                'rejected': '#dc3545'
+            };
+            return colors[stage] || '#6c757d';
+        }
+
+        function openEvaluation(id) {
+            document.getElementById('evalStartupId').value = id;
+            $('#evaluationModal').modal('show');
+        }
+
+        document.getElementById('evaluationForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('evalStartupId').value;
+            const data = Object.fromEntries(new FormData(e.target));
+
+            try {
+                const result = await apiFetch(`/api/launchpad/startups/${id}/evaluation`, {
+                    method: 'PATCH',
+                    body: JSON.stringify(data)
+                });
+                if (result.success) {
+                    Swal.fire('Success', 'Evaluation updated', 'success');
+                    $('#evaluationModal').modal('hide');
+                    loadStartups();
+                }
+            } catch (err) { Swal.fire('Error', err.message, 'error'); }
+        });
+
+        async function updateStage(id, stage) {
+            try {
+                const result = await apiFetch(`/api/launchpad/startups/${id}/stage`, {
+                    method: 'PATCH',
+                    body: JSON.stringify({ stage })
+                });
+                if (result.success) {
+                    Swal.fire('Success', 'Stage updated', 'success');
+                    loadStartups();
+                }
+            } catch (err) { Swal.fire('Error', err.message, 'error'); }
+        }
+    </script>
+    <script src="../js/core/loadComponents.js" defer></script>
+
+
+    <script src="../js/mobile-fixes.js"></script>
+    <script src="../js/mobile-admin-nav.js"></script>
+    <script src="../js/mobile-admin-incubator.js"></script>
+</body>
+
+</html>

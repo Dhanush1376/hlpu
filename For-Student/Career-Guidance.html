@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>hLPU</title>
+  <link rel="icon" type="image/png" href="../assets/images/hlpu logo.png">
+
+  <!-- Bootstrap 4.6 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <!-- Google Fonts - Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+  <link rel="stylesheet" href="../css/core/NavBar.css" />
+  <link rel="stylesheet" href="../css/core/Main.css" />
+  <link rel="stylesheet" href="../css/mobile-nav.css" />
+  <link rel="stylesheet" href="../css/mobile-fixes.css" />
+  <style>
+    /* ===== HERO SECTION ===== */
+    .hero {
+      padding: 25px 20px;
+      margin-top: 80px;
+      min-height: calc(100vh - 100px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ===== PREMIUM GLASS CONTAINER ===== */
+    .container-glass {
+      width: 100%;
+      max-width: 1200px;
+      background: var(--glass);
+      backdrop-filter: blur(16px);
+      padding: 35px;
+      margin: 20px 0;
+      border-radius: 32px;
+      box-shadow: var(--shadow-elevation);
+      border: 1px solid rgba(194, 73, 31, 0.08);
+      transition: var(--transition);
+      animation: slideUp 0.6s ease forwards;
+      position: relative;
+      z-index: 2;
+    }
+
+    .container-glass:hover {
+      background: var(--glass-deep);
+      border-color: rgba(230, 138, 46, 0.2);
+      box-shadow: var(--shadow-hover);
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 10px;
+      text-align: left;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero h1 i {
+      color: var(--ember);
+      font-size: 1.8rem;
+    }
+
+    .hero p {
+      font-size: 1rem;
+      color: #52606d;
+      text-align: left;
+      margin-bottom: 25px;
+      font-weight: 400;
+    }
+
+    hr {
+      border: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--ember), var(--gilt));
+      margin: 25px 0;
+      opacity: 0.2;
+      border-radius: 2px;
+    }
+
+    /* ===== PREMIUM SEARCH BAR ===== */
+    .search-container {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(8px);
+      border-radius: 60px;
+      padding: 6px 6px 6px 20px;
+      border: 1.5px solid rgba(10, 26, 47, 0.06);
+      transition: var(--transition);
+    }
+
+    .search-bar:focus-within {
+      border-color: var(--ember);
+      background: white;
+      box-shadow: 0 0 0 4px rgba(194, 73, 31, 0.08);
+    }
+
+    .search-bar i {
+      color: var(--ember);
+      margin-right: 12px;
+      font-size: 1.1rem;
+    }
+
+    .search-bar input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 0.95rem;
+      color: var(--ink);
+      padding: 12px 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .search-bar input::placeholder {
+      color: #8f9aaa;
+      font-weight: 400;
+    }
+
+    .search-btn {
+      background: var(--ink);
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: var(--transition);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .search-btn:hover {
+      background: #12243f;
+      transform: translateX(3px);
+    }
+
+    /* ===== PREMIUM CATEGORY FILTERS ===== */
+    .category-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 30px;
+      padding-bottom: 10px;
+    }
+
+    .category-filter {
+      padding: 12px 24px;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(4px);
+      border: 1.5px solid rgba(10, 26, 47, 0.06);
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--ink);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .category-filter:hover {
+      background: white;
+      border-color: var(--gilt);
+      transform: translateY(-2px);
+    }
+
+    .category-filter.active {
+      background: var(--ink);
+      color: white;
+      border-color: var(--ink);
+    }
+
+    .category-filter.active i {
+      color: white;
+    }
+
+    .category-filter i {
+      color: var(--ember);
+      font-size: 0.9rem;
+    }
+
+    /* ===== COURSE CARDS ===== */
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 25px;
+      margin-top: 10px;
+    }
+
+    .course-card {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(8px);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: var(--shadow-elevation);
+      transition: var(--transition);
+      border: 1px solid rgba(194, 73, 31, 0.08);
+      opacity: 0;
+      transform: translateY(20px);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .course-card:hover {
+      background: white;
+      border-color: var(--gilt);
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .course-card.slide-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .course-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .course-icon-container {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(145deg, rgba(194, 73, 31, 0.08), rgba(230, 138, 46, 0.08));
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .course-icon {
+      font-size: 1.8rem;
+      color: var(--ember);
+    }
+
+    .course-info {
+      flex: 1;
+    }
+
+    .course-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0 0 8px 0;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+
+    .course-description {
+      font-size: 0.9rem;
+      color: #5f6b7a;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .course-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .course-tag {
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(10, 26, 47, 0.08);
+      border-radius: 40px;
+      padding: 6px 14px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--ink);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .course-tag i {
+      color: var(--ember);
+      font-size: 0.7rem;
+    }
+
+    .course-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 18px;
+      border-top: 1px solid rgba(10, 26, 47, 0.06);
+      margin-top: auto;
+    }
+
+    .career-opportunities {
+      font-size: 0.85rem;
+      color: #5f6b7a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+    }
+
+    .career-opportunities i {
+      color: var(--success-color);
+    }
+
+    .btn-heritage {
+      background: white;
+      color: var(--ink);
+      border: 1px solid rgba(10, 26, 47, 0.1);
+      padding: 10px 20px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .btn-heritage:hover {
+      background: var(--ink);
+      color: white;
+      border-color: var(--ink);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 20px -10px rgba(10, 26, 47, 0.3);
+      text-decoration: none;
+    }
+
+    .btn-heritage i {
+      font-size: 0.8rem;
+    }
+
+    /* ===== MODAL STYLES ===== */
+    .modal-content {
+      background: rgba(255, 250, 240, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 32px;
+      border: 1px solid rgba(194, 73, 31, 0.15);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .modal-header {
+      border-bottom: 1px solid rgba(10, 26, 47, 0.06);
+      padding: 28px 32px;
+    }
+
+    .modal-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0;
+      letter-spacing: -0.01em;
+    }
+
+    .modal-subtitle {
+      font-size: 0.95rem;
+      color: var(--ember);
+      margin: 8px 0 0 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+    }
+
+    .modal-subtitle i {
+      color: var(--ember);
+    }
+
+    .modal-body {
+      padding: 32px;
+      max-height: 70vh;
+      overflow-y: auto;
+    }
+
+    .modal-footer {
+      border-top: 1px solid rgba(10, 26, 47, 0.06);
+      padding: 24px 32px;
+    }
+
+    .close {
+      font-size: 1.5rem;
+      color: var(--ink);
+      opacity: 0.6;
+      transition: var(--transition);
+    }
+
+    .close:hover {
+      opacity: 1;
+      color: var(--ember);
+    }
+
+    /* ===== INFO GRID ===== */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .info-item {
+      background: rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(10, 26, 47, 0.06);
+      border-radius: 20px;
+      padding: 18px;
+    }
+
+    .info-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #5f6b7a;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .info-value {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .stars {
+      display: flex;
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    .stars i {
+      color: var(--gilt);
+      font-size: 0.9rem;
+    }
+
+    /* ===== SECTION TITLES ===== */
+    .modal-section {
+      margin-bottom: 28px;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0 0 16px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 2px solid rgba(194, 73, 31, 0.1);
+      padding-bottom: 12px;
+    }
+
+    .section-title i {
+      color: var(--ember);
+    }
+
+    /* ===== TECH TAGS ===== */
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tech-tag {
+      background: rgba(194, 73, 31, 0.06);
+      border: 1px solid rgba(194, 73, 31, 0.15);
+      color: var(--ink);
+      padding: 8px 18px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+
+    .tech-tag:hover {
+      background: var(--ember);
+      color: white;
+      border-color: var(--ember);
+    }
+
+    .tech-tag i {
+      font-size: 0.8rem;
+    }
+
+    /* ===== LIST CONTENT ===== */
+    .list-content {
+      padding-left: 20px;
+      margin-bottom: 0;
+    }
+
+    .list-content li {
+      font-size: 0.9rem;
+      color: #3f4d5e;
+      margin-bottom: 10px;
+      line-height: 1.5;
+      position: relative;
+      padding-left: 8px;
+    }
+
+    .list-content li::marker {
+      color: var(--ember);
+      font-weight: 600;
+    }
+
+    /* ===== ROADMAP TIMELINE ===== */
+    .roadmap-timeline {
+      position: relative;
+      padding-left: 30px;
+    }
+
+    .roadmap-timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--ember), var(--gilt));
+      opacity: 0.3;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 25px;
+      padding-bottom: 25px;
+      border-bottom: 1px solid rgba(10, 26, 47, 0.06);
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -30px;
+      top: 5px;
+      width: 16px;
+      height: 16px;
+      background: var(--ember);
+      border-radius: 50%;
+      border: 3px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 0 2px rgba(194, 73, 31, 0.2);
+    }
+
+    .timeline-year {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--ember);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .timeline-content {
+      font-size: 0.9rem;
+      color: #3f4d5e;
+      line-height: 1.6;
+    }
+
+    /* ===== NO COURSES MESSAGE ===== */
+    .no-courses-message {
+      text-align: center;
+      padding: 60px 20px;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(8px);
+      border-radius: 32px;
+      border: 2px dashed rgba(194, 73, 31, 0.2);
+      margin: 30px 0;
+    }
+
+    .no-courses-message i {
+      font-size: 3rem;
+      color: var(--gilt);
+      opacity: 0.4;
+      margin-bottom: 20px;
+    }
+
+    .no-courses-message h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+
+    .no-courses-message p {
+      font-size: 0.95rem;
+      color: #5f6b7a;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .container-glass {
+        padding: 25px 20px;
+        border-radius: 24px;
+      }
+
+      .hero h1 {
+        font-size: 1.6rem;
+      }
+
+      .courses-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .search-bar {
+        flex-direction: column;
+        background: transparent;
+        padding: 0;
+      }
+
+      .search-bar input {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 60px;
+        padding: 14px 20px;
+        margin-bottom: 10px;
+      }
+
+      .search-btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .category-filters {
+        gap: 8px;
+      }
+
+      .category-filter {
+        padding: 10px 18px;
+        font-size: 0.85rem;
+      }
+
+      .course-header {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .course-icon-container {
+        align-self: flex-start;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero h1 {
+        font-size: 1.4rem;
+      }
+
+      .category-filters {
+        flex-direction: column;
+      }
+
+      .category-filter {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .modal-header {
+        padding: 20px;
+      }
+
+      .modal-body {
+        padding: 20px;
+      }
+
+      .modal-title {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+
+  <div id="navbar"></div>
+  <!-- PREMIUM MESH BACKGROUND -->
+  <div class="mesh-bg">
+    <div class="mesh mesh-1"></div>
+    <div class="mesh mesh-2"></div>
+    <div class="mesh mesh-3"></div>
+    <div class="mesh mesh-4"></div>
+  </div>
+  <!-- MAIN CONTENT -->
+  <section class="hero">
+    <div class="container-glass">
+      <h1>
+        <i class="fas fa-map-signals"></i>
+        Academic Course Map
+      </h1>
+      <p>
+        <i class="fas fa-compass" style="color: var(--ember);"></i>
+        Explore career pathways and professional opportunities across LPU's diverse academic programs
+      </p>
+      <hr />
+
+      <!-- PREMIUM SEARCH BAR -->
+      <div class="search-container">
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input type="text" id="courseSearch" placeholder="Search courses, programs, or career paths...">
+          <button class="search-btn" id="searchBtn">
+            <i class="fas fa-arrow-right"></i> Search
+          </button>
+        </div>
+      </div>
+
+      <!-- PREMIUM CATEGORY FILTERS -->
+      <div class="category-filters">
+        <button class="category-filter active" data-category="all">
+          <i class="fas fa-th-large"></i> All Programs
+        </button>
+        <button class="category-filter" data-category="engineering">
+          <i class="fas fa-microchip"></i> Engineering
+        </button>
+        <button class="category-filter" data-category="management">
+          <i class="fas fa-chart-line"></i> Management
+        </button>
+        <button class="category-filter" data-category="arts">
+          <i class="fas fa-palette"></i> Arts & Design
+        </button>
+        <button class="category-filter" data-category="science">
+          <i class="fas fa-flask"></i> Science
+        </button>
+        <button class="category-filter" data-category="law">
+          <i class="fas fa-gavel"></i> Law
+        </button>
+        <button class="category-filter" data-category="pharmacy">
+          <i class="fas fa-pills"></i> Pharmacy
+        </button>
+      </div>
+
+      <!-- COURSES GRID -->
+      <div id="coursesContainer">
+        <div class="courses-grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COURSE DETAILS MODAL -->
+  <div class="modal fade" id="courseModal" tabindex="-1" aria-labelledby="courseModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div>
+            <h5 class="modal-title" id="courseModalLabel">Course Details</h5>
+            <div class="modal-subtitle" id="modalSubtitle"></div>
+          </div>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="modalBody">
+          <!-- Content dynamically inserted -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-heritage" data-dismiss="modal">
+            <i class="fas fa-times"></i> Close
+          </button>
+          <button type="button" class="btn-heritage" id="connectMentorBtn"
+            style="background: var(--ember); color: white; border-color: var(--ember);">
+            <i class="fas fa-handshake"></i> Connect with Mentor
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    // ===== HLPU HERITAGE CAREER GUIDANCE =====
+
+    // Enhanced Course Data with more roles and details
+    const coursesData = [
+      {
+        id: "cse",
+        title: "Computer Science Engineering",
+        category: "engineering",
+        icon: "fas fa-laptop-code",
+        keywords: ["AI/ML", "Software Dev", "High Salary", "Full Stack"],
+        description: "Focuses on computation, algorithms, programming languages, and software development.",
+        careerCount: "15+ Career Paths",
+        roles: [
+          {
+            title: "Machine Learning Engineer",
+            salary: "₹8L - ₹30L",
+            difficulty: 4,
+            description: "Develop algorithms that enable machines to learn from and make predictions on data. Work on cutting-edge AI applications.",
+            technologies: ["Python", "TensorFlow", "PyTorch", "SQL", "Scikit-learn", "Computer Vision"],
+            responsibilities: [
+              "Design and implement machine learning models",
+              "Clean and preprocess data for training",
+              "Optimize model performance and accuracy",
+              "Deploy models to production systems",
+              "Collaborate with data engineers and scientists",
+              "Stay updated with latest ML research"
+            ],
+            projects: [
+              "Fake news detection system using NLP",
+              "Stock price prediction with LSTM",
+              "Real-time object detection application",
+              "Personalized recommendation engine",
+              "Sentiment analysis for social media"
+            ],
+            resources: [
+              "Coursera: Deep Learning Specialization",
+              "Fast.ai Practical Deep Learning",
+              "Google ML Crash Course",
+              "Hands-On ML with Scikit-Learn",
+              "Papers with Code - Daily Research"
+            ],
+            roadmap: [
+              { year: "Year 1", content: "Master Python fundamentals, learn OOP, basic algorithms, and mathematics (linear algebra, calculus)" },
+              { year: "Year 2", content: "Study data structures, databases, statistics, and introductory ML concepts" },
+              { year: "Year 3", content: "Specialize in ML/DL electives, build portfolio projects, participate in Kaggle competitions" },
+              { year: "Year 4", content: "Industry internship, research papers, advanced specializations, placement preparation" }
+            ]
+          },
+          {
+            title: "Full Stack Developer",
+            salary: "₹5L - ₹20L",
+            difficulty: 3,
+            description: "Develop both client-side and server-side components of web applications. End-to-end product development.",
+            technologies: ["JavaScript/TypeScript", "React.js", "Node.js", "MongoDB", "Express", "AWS"],
+            responsibilities: [
+              "Develop responsive user interfaces with React",
+              "Build scalable RESTful APIs with Node.js",
+              "Design and optimize database schemas",
+              "Implement authentication and authorization",
+              "Deploy applications to cloud platforms",
+              "Write clean, maintainable code"
+            ],
+            projects: [
+              "E-commerce platform with payment integration",
+              "Task management with real-time updates",
+              "Social media dashboard with analytics",
+              "Real-time chat application",
+              "Portfolio CMS for developers"
+            ],
+            resources: [
+              "The Odin Project - Full Stack JavaScript",
+              "Full Stack Open - University of Helsinki",
+              "MDN Web Docs",
+              "JavaScript.info",
+              "Frontend Masters"
+            ],
+            roadmap: [
+              { year: "Year 1", content: "Master HTML5, CSS3, JavaScript ES6+ fundamentals" },
+              { year: "Year 2", content: "Learn React, Node.js basics, and version control with Git" },
+              { year: "Year 3", content: "Build full-stack projects, learn databases, deployment, and testing" },
+              { year: "Year 4", content: "Internship, contribute to open source, system design, interview prep" }
+            ]
+          }
+        ]
+      },
+      {
+        id: "it",
+        title: "Information Technology",
+        category: "engineering",
+        icon: "fas fa-shield",
+        keywords: ["Cybersecurity", "Cloud", "Networking", "DevOps"],
+        description: "Focuses on computer systems, networks, information security, and cloud infrastructure.",
+        careerCount: "12+ Career Paths",
+        roles: [
+          {
+            title: "Cybersecurity Analyst",
+            salary: "₹6L - ₹25L",
+            difficulty: 4,
+            description: "Protect systems and networks from cyber threats, implement security measures, and conduct vulnerability assessments.",
+            technologies: ["SIEM tools", "Firewalls", "Kali Linux", "Wireshark", "Metasploit", "Nmap"],
+            responsibilities: [
+              "Monitor systems for security breaches",
+              "Investigate and respond to security incidents",
+              "Implement security policies and procedures",
+              "Conduct vulnerability assessments and penetration testing",
+              "Develop security awareness training",
+              "Stay updated with latest threats and vulnerabilities"
+            ],
+            projects: [
+              "Network vulnerability scanner",
+              "Security audit and compliance report",
+              "Phishing detection and prevention system",
+              "Encryption tool for files",
+              "Intrusion detection system"
+            ],
+            resources: [
+              "CompTIA Security+ Certification",
+              "Certified Ethical Hacker (CEH)",
+              "TryHackMe - Hands-on security training",
+              "Hack The Box challenges",
+              "OWASP Web Security Testing Guide"
+            ],
+            roadmap: [
+              { year: "Year 1", content: "Networking fundamentals, OS basics, programming (Python)" },
+              { year: "Year 2", content: "Security fundamentals, cryptography, operating systems security" },
+              { year: "Year 3", content: "Advanced security, ethical hacking, certifications, CTF competitions" },
+              { year: "Year 4", content: "Security internships, specialized tracks, job preparation" }
+            ]
+          },
+          {
+            title: "DevOps Engineer",
+            salary: "₹7L - ₹22L",
+            difficulty: 4,
+            description: "Bridge development and operations, automate deployment pipelines, and manage cloud infrastructure.",
+            technologies: ["Docker", "Kubernetes", "Jenkins", "AWS/Azure", "Terraform", "Ansible"],
+            responsibilities: [
+              "Design and implement CI/CD pipelines",
+              "Manage container orchestration with Kubernetes",
+              "Infrastructure as Code implementation",
+              "Monitor system performance and reliability",
+              "Automate deployment processes",
+              "Collaborate with development teams"
+            ],
+            projects: [
+              "Complete CI/CD pipeline setup",
+              "Kubernetes cluster deployment",
+              "Infrastructure as Code with Terraform",
+              "Monitoring stack with Prometheus/Grafana",
+              "Microservices deployment architecture"
+            ],
+            resources: [
+              "Docker Mastery Course",
+              "Kubernetes Certified Administrator (CKA)",
+              "AWS Solutions Architect Certification",
+              "DevOps with AWS Course",
+              "Terraform Up & Running Book"
+            ],
+            roadmap: [
+              { year: "Year 1", content: "Linux fundamentals, scripting (Python/Bash), version control" },
+              { year: "Year 2", content: "Containerization with Docker, CI/CD basics, cloud fundamentals" },
+              { year: "Year 3", content: "Orchestration with Kubernetes, infrastructure as code, monitoring" },
+              { year: "Year 4", content: "Advanced cloud architecture, site reliability engineering, internships" }
+            ]
+          }
+        ]
+      },
+      {
+        id: "mba",
+        title: "MBA (General)",
+        category: "management",
+        icon: "fas fa-chart-line",
+        keywords: ["Leadership", "Strategy", "Consulting", "Analytics"],
+        description: "Prepares students for leadership roles in business organizations with a focus on strategy and analytics.",
+        careerCount: "20+ Career Paths",
+        roles: [
+          {
+            title: "Business Analyst",
+            salary: "₹7L - ₹20L",
+            difficulty: 3,
+            description: "Analyze business processes, identify improvement opportunities, and bridge the gap between IT and business.",
+            technologies: ["Excel", "SQL", "Tableau", "Power BI", "SAP", "JIRA"],
+            responsibilities: [
+              "Gather and document business requirements",
+              "Analyze data to identify trends and insights",
+              "Create dashboards and reports",
+              "Facilitate communication between stakeholders",
+              "Recommend process improvements",
+              "Support project management activities"
+            ],
+            projects: [
+              "Market research and competitor analysis",
+              "Process optimization study",
+              "Customer segmentation analysis",
+              "Sales forecasting model",
+              "Business case development"
+            ],
+            resources: [
+              "IIBA Business Analysis Certification",
+              "Harvard Business Review",
+              "Coursera Business Analytics",
+              "Tableau Desktop Specialist",
+              "Case Interview Secrets"
+            ],
+            roadmap: [
+              { year: "Year 1", content: "Core business fundamentals (Marketing, Finance, Operations, HR)" },
+              { year: "Year 2", content: "Specialization in Business Analytics, electives, certifications" },
+              { year: "Summer", content: "Summer internship in consulting, analytics, or corporate roles" },
+              { year: "Final", content: "Capstone project, placement preparation, networking" }
+            ]
+          }
+        ]
+      },
+      {
+        id: "llb",
+        title: "LLB (Hons)",
+        category: "law",
+        icon: "fas fa-gavel",
+        keywords: ["Corporate Law", "Litigation", "Legal", "Compliance"],
+        description: "Provides comprehensive legal education for practice in corporate law, litigation, and compliance.",
+        careerCount: "10+ Career Paths",
+        roles: [
+          {
+            title: "Corporate Lawyer",
+            salary: "₹5L - ₹30L",
+            difficulty: 4,
+            description: "Handle legal matters for businesses including contracts, mergers, acquisitions, and compliance.",
+            technologies: ["Legal Research Tools", "Contract Lifecycle Management", "Compliance Software"],
+            responsibilities: [
+              "Draft and review contracts and agreements",
+              "Ensure regulatory compliance",
+              "Advise on business regulations",
+              "Handle mergers and acquisitions",
+              "Represent in legal disputes",
+              "Corporate governance advisory"
+            ],
+            projects: [
+              "Contract review and analysis",
+              "Legal compliance audit report",
+              "Merger and acquisition case study",
+              "Corporate governance framework",
+              "Intellectual property registration"
+            ],
+            resources: [
+              "Indian Contract Act, 1872",
+              "Companies Act, 2013",
+              "SCC Online Database",
+              "Manupatra Legal Database",
+              "Corporate Law Journals"
+            ],
+            roadmap: [
+              { year: "Year 1", content: "Foundational law courses, legal writing, and research methods" },
+              { year: "Year 2", content: "Contract law, constitutional law, criminal law, internships" },
+              { year: "Year 3", content: "Corporate law, taxation, intellectual property, moot courts" },
+              { year: "Year 4-5", content: "Specialization, bar exam preparation, legal clinic, placements" }
+            ]
+          }
+        ]
+      },
+      {
+        id: "design",
+        title: "Graphic Design",
+        category: "arts",
+        icon: "fas fa-paint-brush",
+        keywords: ["UI/UX", "Visual Design", "Branding", "Creative"],
+        description: "Focuses on visual communication, creative problem-solving, and digital design.",
+        careerCount: "8+ Career Paths",
+        roles: [
+          {
+            title: "UI/UX Designer",
+            salary: "₹4L - ₹15L",
+            difficulty: 3,
+            description: "Create intuitive and engaging user interfaces and experiences for web and mobile applications.",
+            technologies: ["Figma", "Adobe XD", "Sketch", "Illustrator", "Photoshop", "Principle"],
+            responsibilities: [
+              "Design user interfaces and experiences",
+              "Create wireframes and interactive prototypes",
+              "Conduct user research and usability testing",
+              "Maintain design systems and component libraries",
+              "Collaborate with developers on implementation",
+              "Iterate based on user feedback"
+            ],
+            projects: [
+              "Mobile app redesign with user research",
+              "E-commerce website UI with design system",
+              "Design system creation and documentation",
+              "User research study and personas",
+              "Interactive prototype for new product"
+            ],
+            resources: [
+              "Google UX Design Professional Certificate",
+              "Interaction Design Foundation",
+              "Refactoring UI Book",
+              "Dribbble for inspiration",
+              "Laws of UX"
+            ],
+            roadmap: [
+              { year: "Year 1", content: "Design fundamentals, color theory, typography, composition" },
+              { year: "Year 2", content: "Master design tools, learn UI/UX principles, create first portfolio pieces" },
+              { year: "Year 3", content: "Build comprehensive portfolio, real-world projects, design internships" },
+              { year: "Year 4", content: "Specialize in UX research or UI engineering, job preparation" }
+            ]
+          }
+        ]
+      }
+    ];
+
+    // DOM Elements
+    const coursesContainer = document.querySelector('#coursesContainer .courses-grid');
+    const categoryFilters = document.querySelectorAll('.category-filter');
+    const courseSearch = document.getElementById('courseSearch');
+    const searchBtn = document.getElementById('searchBtn');
+
+    // ===== INITIALIZATION =====
+    function initCourses() {
+      displayCourses(coursesData);
+      animateCards();
+    }
+
+    // ===== DISPLAY COURSES =====
+    function displayCourses(courses) {
+      coursesContainer.innerHTML = '';
+
+      if (courses.length === 0) {
+        coursesContainer.innerHTML = `
+          <div class="no-courses-message">
+            <i class="fas fa-map-signs"></i>
+            <h3>No courses found</h3>
+            <p>Try adjusting your search or filter criteria</p>
+          </div>
+        `;
+        return;
+      }
+
+      courses.forEach(course => {
+        const courseCard = document.createElement('div');
+        courseCard.className = 'course-card';
+        courseCard.dataset.id = course.id;
+        courseCard.dataset.category = course.category;
+
+        courseCard.innerHTML = `
+          <div class="course-header">
+            <div class="course-icon-container">
+              <i class="${course.icon} course-icon"></i>
+            </div>
+            <div class="course-info">
+              <h3 class="course-title">${course.title}</h3>
+              <p class="course-description">${course.description}</p>
+            </div>
+          </div>
+          <div class="course-tags">
+            ${course.keywords.map(keyword => `
+              <span class="course-tag">
+                <i class="fas fa-tag"></i> ${keyword}
+              </span>
+            `).join('')}
+          </div>
+          <div class="course-footer">
+            <div class="career-opportunities">
+              <i class="fas fa-briefcase"></i>
+              <span>${course.careerCount}</span>
+            </div>
+            <button class="btn-heritage explore-course" data-id="${course.id}">
+              Explore Careers
+              <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        `;
+
+        coursesContainer.appendChild(courseCard);
+      });
+
+      // Add event listeners to explore buttons
+      document.querySelectorAll('.explore-course').forEach(btn => {
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          const courseId = this.dataset.id;
+          const course = coursesData.find(c => c.id === courseId);
+          if (course && course.roles && course.roles.length > 0) {
+            showCourseModal(course, course.roles[0]);
+          }
+        });
+      });
+
+      animateCards();
+    }
+
+    // ===== ANIMATE CARDS =====
+    function animateCards() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('slide-in');
+            }, index * 100);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.course-card').forEach(card => observer.observe(card));
+    }
+
+    // ===== SHOW COURSE MODAL =====
+    function showCourseModal(course, role) {
+      document.getElementById('courseModalLabel').textContent = role.title;
+      document.getElementById('modalSubtitle').innerHTML = `
+        <i class="fas fa-graduation-cap"></i>
+        ${course.title} · ${course.category.charAt(0).toUpperCase() + course.category.slice(1)}
+      `;
+
+      const modalBody = document.getElementById('modalBody');
+      modalBody.innerHTML = `
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="info-label">Expected Salary</div>
+            <div class="info-value">${role.salary}</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Difficulty Level</div>
+            <div class="stars">
+              ${Array.from({ length: 5 }, (_, i) =>
+        i < role.difficulty ?
+          '<i class="fas fa-star"></i>' :
+          '<i class="far fa-star"></i>'
+      ).join('')}
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Career Growth</div>
+            <div class="info-value">High Potential</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Market Demand</div>
+            <div class="info-value">🔥 Growing</div>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <h3 class="section-title">
+            <i class="fas fa-bullseye"></i> Role Overview
+          </h3>
+          <p style="color: var(--text-medium); line-height: 1.7; margin-bottom: 0;">${role.description}</p>
+        </div>
+
+        <div class="modal-section">
+          <h3 class="section-title">
+            <i class="fas fa-code"></i> Core Technologies
+          </h3>
+          <div class="tech-tags">
+            ${role.technologies.map(tech => `
+              <span class="tech-tag">
+                <i class="fas fa-cube"></i> ${tech}
+              </span>
+            `).join('')}
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <h3 class="section-title">
+            <i class="fas fa-tasks"></i> Key Responsibilities
+          </h3>
+          <ul class="list-content">
+            ${role.responsibilities.map(resp => `<li>${resp}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="modal-section">
+          <h3 class="section-title">
+            <i class="fas fa-rocket"></i> Portfolio Projects
+          </h3>
+          <ul class="list-content">
+            ${role.projects.map(project => `<li>${project}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="modal-section">
+          <h3 class="section-title">
+            <i class="fas fa-book-open"></i> Learning Resources
+          </h3>
+          <ul class="list-content">
+            ${role.resources.map(resource => `<li>${resource}</li>`).join('')}
+          </ul>
+        </div>
+
+        <div class="modal-section">
+          <h3 class="section-title">
+            <i class="fas fa-road"></i> 4-Year Academic Roadmap
+          </h3>
+          <div class="roadmap-timeline">
+            ${role.roadmap.map(item => `
+              <div class="timeline-item">
+                <div class="timeline-year">${item.year}</div>
+                <div class="timeline-content">${item.content}</div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+
+      $('#courseModal').modal('show');
+    }
+
+    // ===== FILTER COURSES =====
+    function filterCourses(category) {
+      if (category === 'all') {
+        displayCourses(coursesData);
+      } else {
+        const filteredCourses = coursesData.filter(course => course.category === category);
+        displayCourses(filteredCourses);
+      }
+    }
+
+    // ===== SEARCH COURSES =====
+    function searchCourses(query) {
+      const filteredCourses = coursesData.filter(course =>
+        course.title.toLowerCase().includes(query.toLowerCase()) ||
+        course.description.toLowerCase().includes(query.toLowerCase()) ||
+        course.keywords.some(keyword => keyword.toLowerCase().includes(query.toLowerCase())) ||
+        course.roles.some(role =>
+          role.title.toLowerCase().includes(query.toLowerCase()) ||
+          role.technologies.some(tech => tech.toLowerCase().includes(query.toLowerCase()))
+        )
+      );
+      displayCourses(filteredCourses);
+    }
+
+    // ===== EVENT LISTENERS =====
+    categoryFilters.forEach(btn => {
+      btn.addEventListener('click', function () {
+        categoryFilters.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        filterCourses(this.dataset.category);
+      });
+    });
+
+    courseSearch.addEventListener('input', function () {
+      searchCourses(this.value);
+    });
+
+    searchBtn.addEventListener('click', function () {
+      searchCourses(courseSearch.value);
+    });
+
+    // ===== CONNECT WITH MENTOR BUTTON =====
+    document.getElementById('connectMentorBtn').addEventListener('click', function () {
+      Swal.fire({
+        icon: 'success',
+        title: 'Mentor Request Sent!',
+        text: 'An alumni mentor will reach out to you within 48 hours.',
+        confirmButtonColor: '#C2491F',
+        background: '#FFF8F0',
+        timer: 2500,
+        showConfirmButton: true,
+        confirmButtonText: 'Great!'
+      });
+    });
+
+    // ===== INITIALIZE ON PAGE LOAD =====
+    document.addEventListener('DOMContentLoaded', initCourses);
+  </script>
+  <script src="../js/core/loadComponents.js" defer></script>
+  <script src="../js/core/authGuard.js"></script>
+
+
+  <script src="../js/mobile-fixes.js"></script>
+</body>
+
+</html>

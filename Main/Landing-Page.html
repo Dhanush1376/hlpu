@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hLPU</title>
+  <!-- favicon (kept original) -->
+  <link rel="icon" type="image/png"
+    href="https://res.cloudinary.com/drxgnnzeb/image/upload/v1721650897/Screenshot_2024-07-22_174912-removebg-preview_rlokrq.png">
+
+  <!-- Bootstrap + Font Awesome + Inter font -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../css/mobile-landing.css?v=1.1">
+  <link rel="stylesheet" href="../css/mobile-fixes.css">
+
+  <!-- refined theme: deep navy & warm amber / signature gradients -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #FDFBF9;
+      /* soft white with warmth */
+      color: #1E1E2F;
+      overflow-x: hidden;
+    }
+
+    /* ===== Page Load Animation ===== */
+
+    body {
+
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+
+
+    /* stagger animation for sections */
+    .hero-section,
+    .role-container,
+    .service-card,
+    .course-path,
+    .contact-form,
+    .stat-item,
+    .path-step {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease;
+    }
+
+    .animate-in {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    /* DO NOT animate navbar */
+    .navbar {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+
+    /* Animate only main content */
+    .hero-section,
+    .role-container,
+    .service-card,
+    .course-path,
+    .contact-form,
+    .stat-item,
+    .path-step {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease;
+    }
+
+    .animate-in {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    /* --- background mesh — subtle, layered, sophisticated --- */
+    .mesh-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    .mesh {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-blend-mode: overlay;
+      opacity: 0.35;
+    }
+
+    .mesh-1 {
+      background: radial-gradient(circle at 10% 20%, #FCE7C8, #E5D9F2 40%, transparent 70%);
+    }
+
+    .mesh-2 {
+      background: radial-gradient(circle at 95% 60%, #D6E6F5, #FFD9B0 30%, transparent 70%);
+    }
+
+    .mesh-3 {
+      background: radial-gradient(circle at 40% 85%, #FADADD, #FDCFB0 40%, transparent 70%);
+    }
+
+    .mesh-4 {
+      background: radial-gradient(circle at 65% 15%, #DFE7FF, #F9E6CF 35%, transparent 70%);
+    }
+
+    /* --- premium colour palette --- */
+    :root {
+      --ink: #0A1A2F;
+      /* deep navy heritage */
+      --ember: #C2491F;
+      /* burnt amber - accent */
+      --gilt: #E68A2E;
+      /* warm gold */
+      --soft-cream: #FFF8F0;
+      --glass: rgba(255, 250, 240, 0.5);
+      --border-light: rgba(10, 26, 47, 0.08);
+      --shadow-elevation: 0 20px 35px -10px rgba(10, 26, 47, 0.08), 0 5px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    /* --- navigation – refined translucent, deep tones --- */
+    .navbar {
+      background: rgba(255, 250, 240, 0.65);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(10, 26, 47, 0.05);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.02);
+      padding: 12px 0;
+    }
+
+    .navbar-brand img {
+      height: 44px;
+      filter: drop-shadow(0 2px 6px rgba(194, 73, 31, 0.12));
+    }
+
+    .nav-link {
+      font-weight: 550;
+      font-size: 0.98rem;
+      color: var(--ink) !important;
+      margin: 0 0.6rem;
+      transition: 0.25s ease;
+      letter-spacing: -0.01em;
+      position: relative;
+    }
+
+    .nav-link:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 2px;
+      left: 0.5rem;
+      background: linear-gradient(90deg, var(--ember), var(--gilt));
+      transition: width 0.2s ease;
+    }
+
+    .nav-link:hover:after {
+      width: calc(100% - 1rem);
+    }
+
+    .nav-item:last-child .nav-link {
+      margin-right: 0;
+    }
+
+    /* --- primary CTA — deep, prestigious --- */
+    .btn-primary-custom {
+      background: var(--ink);
+      color: #FDF1E6;
+      border: none;
+      padding: 10px 28px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.3px;
+      box-shadow: 0 10px 18px -6px rgba(10, 26, 47, 0.2);
+      transition: all 0.25s;
+    }
+
+    .btn-primary-custom:hover {
+      background: #12243f;
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 18px 25px -10px rgba(194, 73, 31, 0.35);
+    }
+
+    .btn-secondary-custom {
+      background: transparent;
+      border: 1.8px solid var(--ink);
+      color: var(--ink);
+      padding: 10px 28px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: 0.2s;
+    }
+
+    .btn-secondary-custom:hover {
+      background: rgba(10, 26, 47, 0.03);
+      border-color: var(--ember);
+      color: var(--ember);
+    }
+
+    /* --- hero --- */
+    .hero-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 140px 0 80px;
+      position: relative;
+    }
+
+    .hero-title {
+      font-size: 3.6rem;
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+
+    .hero-title span {
+      background: linear-gradient(145deg, var(--ember), #B0641A);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    .hero-sub {
+      font-size: 1.2rem;
+      color: #3f4a5a;
+      margin: 1.5rem 0 2rem;
+      max-width: 550px;
+      font-weight: 400;
+    }
+
+    .hero-img {
+      border-radius: 20px;
+      animation: floatImage 4s ease-in-out infinite;
+    }
+
+    /* Floating Animation */
+    @keyframes floatImage {
+      0% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-12px);
+        /* height of float */
+      }
+
+      100% {
+        transform: translateY(0px);
+      }
+    }
+
+
+    /* --- section headers --- */
+    .section-title {
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-subhead {
+      font-size: 1.1rem;
+      color: #52606d;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      font-weight: 400;
+    }
+
+    .overline {
+      display: inline-block;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--ember);
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    /* --- cards & containers — cohesive frosted glass with warm edge --- */
+    .role-container,
+    .service-card,
+    .course-path,
+    .contact-form,
+    .stat-item {
+      background: rgba(255, 250, 245, 0.65);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(194, 73, 31, 0.08);
+      border-radius: 28px;
+      padding: 2.2rem 1.8rem;
+      box-shadow: var(--shadow-elevation);
+      transition: all 0.25s;
+      height: 100%;
+    }
+
+    .role-container:hover,
+    .service-card:hover {
+      background: rgba(255, 250, 245, 0.8);
+      border-color: rgba(230, 138, 46, 0.2);
+      box-shadow: 0 30px 40px -18px rgba(194, 73, 31, 0.12);
+    }
+
+    .role-title {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+    }
+
+    .role-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .role-list li {
+      padding: 0.7rem 0;
+      border-bottom: 1px solid rgba(10, 26, 47, 0.04);
+      display: flex;
+      align-items: center;
+      font-weight: 450;
+      color: #2e3b4b;
+    }
+
+    .role-list i {
+      width: 1.8rem;
+      color: var(--ember);
+      font-size: 1.1rem;
+    }
+
+    /* --- about stats --- */
+    .stat-item {
+      padding: 1.8rem 0.8rem;
+      width: 120%;
+      text-align: center;
+      background: rgba(255, 250, 245, 0.55);
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1;
+    }
+
+    .stat-label {
+      color: #5a4a3a;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* --- course tabs modern --- */
+    .course-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+
+    .course-tab {
+      padding: 0.75rem 2rem;
+      background: white;
+      border: 1px solid rgba(10, 26, 47, 0.1);
+      border-radius: 60px;
+      font-weight: 600;
+      color: var(--ink);
+      transition: 0.2s;
+      background: rgba(255, 250, 240, 0.7);
+      backdrop-filter: blur(8px);
+    }
+
+    .course-tab.active {
+      background: var(--ink);
+      color: white;
+      border-color: var(--ink);
+    }
+
+    .course-tab:hover:not(.active) {
+      background: rgba(230, 138, 46, 0.08);
+      border-color: var(--gilt);
+    }
+
+    .path-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.8rem;
+      border-bottom: 1px dashed rgba(10, 26, 47, 0.1);
+    }
+
+    .path-step:last-child {
+      border-bottom: none;
+    }
+
+    .step-number {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(145deg, var(--ember), var(--gilt));
+      color: white;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    /* --- service icon --- */
+    .service-icon {
+      font-size: 2.2rem;
+      color: var(--ember);
+      margin-bottom: 1.4rem;
+    }
+
+    .service-title {
+      font-size: 1.5rem;
+      font-weight: 650;
+      color: var(--ink);
+    }
+
+    /* --- contact & footer --- */
+    .contact-icon {
+      width: 54px;
+      height: 54px;
+      background: var(--ink);
+      color: #FDF1E6;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-right: 1.2rem;
+    }
+
+    .form-control {
+      background: rgba(255, 250, 245, 0.8);
+      border: 1px solid rgba(10, 26, 47, 0.08);
+      border-radius: 18px;
+      padding: 0.9rem 1.2rem;
+      font-size: 0.98rem;
+    }
+
+    .form-control:focus {
+      box-shadow: 0 0 0 3px rgba(194, 73, 31, 0.12);
+      border-color: var(--ember);
+      background: white;
+    }
+
+    footer {
+      background: var(--ink);
+      color: #EADFD8;
+      padding: 70px 0 30px;
+      border-radius: 48px 48px 0 0;
+      margin-top: 40px;
+    }
+
+    .footer-column h3 {
+      color: #FFEAD2;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .footer-links a {
+      color: #cbd5e0;
+      text-decoration: none;
+      font-weight: 400;
+      transition: 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #FBC19E;
+      padding-left: 6px;
+    }
+
+    .social-links a {
+      background: rgba(255, 255, 245, 0.08);
+      border-radius: 14px;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      transition: 0.2s;
+    }
+
+    .social-links a:hover {
+      background: var(--ember);
+      transform: translateY(-4px);
+    }
+
+    /* responsive touches */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.7rem;
+      }
+
+      .section-title {
+        font-size: 2.2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- subtle layered mesh (premium) -->
+  <div class="mesh-bg">
+    <div class="mesh mesh-1"></div>
+    <div class="mesh mesh-2"></div>
+    <div class="mesh mesh-3"></div>
+    <div class="mesh mesh-4"></div>
+  </div>
+
+  <!-- ✦ NAVIGATION – DUAL ARCHITECTURE ✦ -->
+
+  <!-- 1. DESKTOP NAVBAR (Visible > 768px) -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top desktop-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img
+          src="https://res.cloudinary.com/drxgnnzeb/image/upload/v1721650897/Screenshot_2024-07-22_174912-removebg-preview_rlokrq.png"
+          alt="hLPU" style="height: 44px;">
+      </a>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto align-items-center">
+          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#how-it-works">How it works</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#courses">Course maps</a></li>
+          <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item ml-lg-3">
+            <a href="Login.html" class="btn btn-primary-custom"><i
+                class="fas fa-arrow-right-to-bracket mr-2"></i>Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 2. MOBILE NAVBAR (Visible ≤ 768px) -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top mobile-navbar mob-header">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img
+          src="https://res.cloudinary.com/drxgnnzeb/image/upload/v1721650897/Screenshot_2024-07-22_174912-removebg-preview_rlokrq.png"
+          alt="hLPU" style="height: 44px;">
+      </a>
+      <!-- Direct Login Button for Mobile -->
+      <a href="Login.html" class="btn btn-primary-custom mob-login-btn">
+        <i class="fas fa-arrow-right-to-bracket mr-2"></i>Login
+      </a>
+    </div>
+  </nav>
+
+  <!-- ✦ HERO – bridging legacy & future ✦ -->
+  <section id="home" class="hero-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <img src="../assets/images/hlpu logo.png" alt="hLPU" class="d-lg-none d-block mb-4 mx-auto" style="height: 50px;">
+          <span class="overline"><i class="fas fa-graduation-cap mr-2" style="color: var(--ember);"></i> Alumni ·
+            student nexus</span>
+          <h1 class="hero-title" id="hero-title">Bridge the <span>gap,</span><br>ignite legacy.</h1>
+          <p class="hero-sub" id="hero-sub">Where LPU’s heritage meets ambition — mentorship, career pathways, and a
+            community that
+            builds tomorrow.</p>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="#how-it-works" class="btn btn-primary-custom mr-3" id="hero-cta-1"><i
+                class="fas fa-compass mr-2"></i>Explore
+              features</a>
+            <a href="#contact" class="btn btn-secondary-custom" id="hero-cta-2"><i
+                class="fas fa-handshake mr-2"></i>Connect</a>
+          </div>
+        </div>
+        <div class="col-lg-6 text-center d-lg-block d-none">
+          <img
+            src="https://res.cloudinary.com/drxgnnzeb/image/upload/v1721650897/Screenshot_2024-07-22_174912-removebg-preview_rlokrq.png"
+            alt="hLPU emblem" class="img-fluid hero-img" id="hero-illustration" style="max-height: 380px;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✦ HOW IT WORKS – double role cards ✦ -->
+  <section id="how-it-works" class="py-5" style="padding: 100px 0;">
+    <div class="container">
+      <div class="text-center">
+        <span class="overline">reciprocal network</span>
+        <h2 class="section-title">How it works</h2>
+        <p class="section-subhead mb-5">Alumni empower, students rise. A continuous circle of guidance.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-lg-6 mb-4">
+          <div class="role-container h-100">
+            <h3 class="role-title"><i class="fas fa-user-tie mr-2" style="color: var(--ember);"></i> For alumni</h3>
+            <p style="color: #3e4a5b; font-size: 1.05rem;">Leave your mark. Mentor, hire, inspire.</p>
+            <ul class="role-list">
+              <li><i class="fas fa-briefcase"></i> Post exclusive job openings</li>
+              <li><i class="fas fa-chalkboard-user"></i> Mentorship & guest lectures</li>
+              <li><i class="fas fa-video"></i> Conduct Mock Interviews</li>
+              <li><i class="fas fa-diagram-project"></i>Launch Pad</li>
+              <li><i class="fas fa-user-friends"></i> Alumini Circle</li>
+              <li><i class="fas fa-comment-dots"></i> 1:1 career strategy</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-6 mb-4">
+          <div class="role-container h-100">
+            <h3 class="role-title"><i class="fas fa-user-graduate mr-2" style="color: var(--ember);"></i> For students
+            </h3>
+            <p style="color: #3e4a5b; font-size: 1.05rem;">Access the unspoken network. Rise faster.</p>
+            <ul class="role-list">
+              <li><i class="fas fa-magnifying-glass"></i> Jobs & Internships</li>
+              <li><i class="fas fa-handshake"></i> Guided mentorship tracks</li>
+              <li><i class="fas fa-comments"></i> Mock interviews by alumni</li>
+              <li><i class="fas fa-diagram-project"></i>Launch Pad</li>
+              <li><i class="fas fa-file-signature"></i> Resume makeovers</li>
+              <li><i class="fas fa-map"></i> Custom career roadmaps</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✦ ABOUT — heritage & numbers ✦ -->
+  <section id="about" class="py-5" style="background: rgba(255,248,240,0.3); padding: 100px 0;">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <span class="overline">founded 2026 · lpu legacy</span>
+          <h2 class="section-title text-left">About <span style="color: var(--ember);">hLPU</span></h2>
+          <p class="lead" style="color: #26323F; font-weight: 500;">More than a platform — a heritage bridge.</p>
+          <p style="color: #3f4d5e;">We began with a simple belief: LPU’s greatest strength lies in its people. hLPU
+            creates meaningful connections between those who have already walked these paths and those shaping their
+            journeys today. Through mentorship, career guidance, and collaborative innovation, every interaction is
+            grounded in the shared spirit of the LPU community.</p>
+          <div class="about-stats row mt-5">
+            <div class="col-6 col-md-3 mb-3">
+              <div class="stat-item">
+                <div class="stat-number">5.2k+</div>
+                <div class="stat-label">alumni</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 mb-3">
+              <div class="stat-item">
+                <div class="stat-number">2.1k+</div>
+                <div class="stat-label">students</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 mb-3">
+              <div class="stat-item">
+                <div class="stat-number">480+</div>
+                <div class="stat-label">mentorships</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3 mb-3">
+              <div class="stat-item">
+                <div class="stat-number">200+</div>
+                <div class="stat-label">placements</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 mt-5 mt-lg-0 pl-lg-5">
+          <div class="about-image">
+            <img src="../assets/images/Landingpage.jpg" alt="LPU community" class="img-fluid rounded-4"
+              style="border-radius: 28px; box-shadow: var(--shadow-elevation);">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✦ COURSE MAPS — career pathways ✦ -->
+  <section id="courses" class="py-5" style="padding: 100px 0;">
+    <div class="container">
+      <div class="text-center">
+        <span class="overline">structured for success</span>
+        <h2 class="section-title">Course maps & career paths</h2>
+      </div>
+      <div class="course-tabs">
+        <button class="course-tab active" data-field="engineering">Engineering</button>
+        <button class="course-tab" data-field="business">Business</button>
+        <button class="course-tab" data-field="cs">Computer Science</button>
+        <button class="course-tab" data-field="design">Design & arts</button>
+      </div>
+      <div class="course-path" id="engineering-path">
+        <h3 class="text-center mb-4" style="font-weight: 700; color: var(--ink);">Engineering career path</h3>
+        <div class="path-step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h4>Foundation core</h4>
+            <p>Math, physics, engineering essentials – cohort style</p>
+          </div>
+        </div>
+        <div class="path-step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h4>Discipline deep‑dive</h4>
+            <p>Mechanical, civil, electrical or chemical specialization</p>
+          </div>
+        </div>
+        <div class="path-step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h4>Industry immersion</h4>
+            <p>Paid internships, co‑ops, alumni‑hosted labs</p>
+          </div>
+        </div>
+        <div class="path-step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h4>Professional launch</h4>
+            <p>Entry‑level engineering with continuous mentorship</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✦ SERVICES — offering cards with character ✦ -->
+  <section id="services" class="py-5" style="background: rgba(255,248,240,0.3); padding: 100px 0;">
+    <div class="container">
+      <div class="text-center">
+        <span class="overline">end-to-end ecosystem</span>
+        <h2 class="section-title">Services that connect</h2>
+        <p class="section-subhead mb-5">From portfolio to paycheck, we walk with you.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="service-card">
+            <div class="service-icon"><i class="fa-regular fa-handshake"></i></div>
+            <h4 class="service-title">Mentorship</h4>
+            <p style="color: #475569;">Direct 1:1 guidance from alumni who’ve built what you aspire to.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="service-card">
+            <div class="service-icon"><i class="fa fa-briefcase"></i></div>
+            <h4 class="service-title">Opportunity Hub</h4>
+            <p style="color: #475569;">Internships, fresher roles, referrals — vetted by the network.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="service-card">
+            <div class="service-icon"><i class="fa-regular fa-file-pdf"></i></div>
+            <h4 class="service-title">Resume studio</h4>
+            <p style="color: #475569;">Industry feedback, A‑list templates, 48‑h turnarounds.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="service-card">
+            <div class="service-icon"><i class="fas fa-video"></i></div>
+            <h4 class="service-title">Mock Interviews</h4>
+            <p style="color: #475569;">Practice with professionals, gain feedback, and enter real interviews with
+              confidence.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="service-card">
+            <div class="service-icon"><i class="fas fa-lightbulb"></i></div>
+            <h4 class="service-title">Entrepreneurship Hub</h4>
+            <p style="color: #475569;">Turn ideas into ventures with alumni support and collaborative execution.</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="service-card">
+            <div class="service-icon"><i class="fa-regular fa-compass"></i></div>
+            <h4 class="service-title">Career navigation</h4>
+            <p style="color: #475569;">Personalised roadmaps, industry simulations, mock promo panels.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✦ CONTACT — warm, direct ✦ -->
+  <section id="contact" class="py-5" style="padding: 100px 0;">
+    <div class="container">
+      <div class="text-center">
+        <span class="overline">reach out</span>
+        <h2 class="section-title">Get in touch</h2>
+      </div>
+      <div class="row">
+        <div class="col-lg-5 mb-5 mb-lg-0">
+          <div class="contact-info">
+            <div class="d-flex mb-4">
+              <div class="contact-icon"><i class="fas fa-map-pin"></i></div>
+              <div>
+                <h5 class="font-weight-bold" style="color: var(--ink);">Our Location</h5>
+                <p style="color: #3e4a5b;">Phagwara, Punjab 144411</p>
+              </div>
+            </div>
+            <div class="d-flex mb-4">
+              <div class="contact-icon"><i class="fas fa-phone"></i></div>
+              <div>
+                <h5 class="font-weight-bold" style="color: var(--ink);">Phone Number</h5>
+                <p style="color: #3e4a5b;">+91 91546 91315</p>
+              </div>
+            </div>
+            <div class="d-flex mb-4">
+              <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+              <div>
+                <h5 class="font-weight-bold" style="color: var(--ink);">Email Address</h5>
+                <p style="color: #3e4a5b;">hlpuscholar@gmail.com</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="contact-form">
+            <h4 style="color: var(--ink); font-weight: 650; margin-bottom: 1.8rem;">Send a message</h4>
+            <form id="contactForm">
+              <div class="row">
+                <div class="col-md-6 mb-3"><input type="text" name="user_name" class="form-control"
+                    placeholder="Full name" required></div>
+                <div class="col-md-6 mb-3"><input type="email" name="user_email" class="form-control"
+                    placeholder="Email address" required></div>
+              </div>
+              <input type="text" name="subject" class="form-control mb-3" placeholder="Subject" required>
+              <textarea name="message" class="form-control mb-4" rows="5" placeholder="How can we help?"
+                required></textarea>
+              <button type="submit" class="btn btn-primary-custom w-100" style="padding: 14px;"><i
+                  class="fas fa-paper-plane mr-2"></i><span class="btn-text">Send message</span></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ✦ FOOTER — signature navy ✦ -->
+  <footer>
+    <div class="container">
+      <div class="footer-content row">
+        <div class="col-lg-4 mb-5 mb-lg-0">
+          <h3 style="display: flex; align-items: center;"><img
+              src="https://res.cloudinary.com/drxgnnzeb/image/upload/v1721650897/Screenshot_2024-07-22_174912-removebg-preview_rlokrq.png"
+              alt="hLPU" style="height: 40px; margin-right: 10px; filter: brightness(0) invert(1);"></h3>
+          <p style="color: #ddcec1;">Bridging generations of LPU. Heritage meets horizon.</p>
+          <div class="social-links d-flex">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+          <h3>Explore</h3>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#how-it-works">How it works</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#courses">Course maps</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <h3>Capabilities</h3>
+          <ul class="footer-links">
+            <li><a href="#">Mentorship programs</a></li>
+            <li><a href="#">Opportunities</a></li>
+            <li><a href="#">Resume building</a></li>
+            <li><a href="#">Workshops</a></li>
+            <li><a href="#">Project collab</a></li>
+            <li><a href="#">Path guidance</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom text-center mt-5">
+        <p style="border-top: 1px solid rgba(255,255,245,0.08); padding-top: 30px; color: #b9afa7;">© 2023 hLPU. Rooted
+          in Punjab, reaching global.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- EmailJS integration -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function () {
+      // Initialize EmailJS with your Public Key
+      emailjs.init('YOUR_PUBLIC_KEY');
+    })();
+  </script>
+  <script>
+    /* Page fade-in */
+    window.addEventListener("load", () => {
+      document.body.classList.add("page-loaded");
+
+      // stagger sections
+      const elements = document.querySelectorAll(
+        ".hero-section, .role-container, .service-card, .course-path, .contact-form, .stat-item, .path-step"
+      );
+
+      elements.forEach((el, index) => {
+        setTimeout(() => {
+          el.classList.add("animate-in");
+        }, 150 * index); // stagger timing
+      });
+    });
+  </script>
+
+  <script>
+    // smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const id = this.getAttribute('href');
+        if (!id.startsWith('#') || id === '#') return;
+
+        e.preventDefault();
+        const el = document.querySelector(id);
+        if (el) window.scrollTo({ top: el.offsetTop - 70, behavior: 'smooth' });
+      });
+    });
+
+    // course tabs dynamic
+    const tabs = document.querySelectorAll('.course-tab');
+    const pathContainer = document.getElementById('engineering-path');
+    function updatePath(field) {
+      const title = pathContainer.querySelector('h3');
+      const steps = pathContainer.querySelectorAll('.path-step');
+      const paths = {
+        engineering: { title: 'Engineering career path', steps: ['Foundation core: Math, physics, engineering essentials – cohort style', 'Discipline deep‑dive: Mechanical, civil, electrical or chemical', 'Industry immersion: Paid internships, co‑ops, alumni‑hosted labs', 'Professional launch: Entry‑level engineering with continuous mentorship'] },
+        business: { title: 'Business & management', steps: ['Foundations: Economics, accounting, org behavior', 'Specialization: Marketing, finance, HR, or operations', 'Experiential: Case competitions, corporate projects', 'Leadership: Management trainee → analyst track'] },
+        cs: { title: 'Computer science', steps: ['Core: Python, DSA, systems', 'Deepen: AI/ML, web3, cloud, cybersecurity', 'Build: Portfolio, open source, hackathons', 'Deploy: SDE, data, product — alumni referrals'] },
+        design: { title: ' Design & arts', steps: ['Fundamentals: Color, typography, storytelling', 'Craft: UI/UX, product, animation, graphic', 'Portfolio: real briefs, studio projects', 'Creative roles: design residencies, in‑house placements'] }
+      };
+      if (paths[field]) {
+        title.textContent = paths[field].title;
+        steps.forEach((step, i) => {
+          let [h, p] = paths[field].steps[i].split(': ');
+          step.querySelector('h4').textContent = h;
+          step.querySelector('p').textContent = p;
+        });
+      }
+    }
+    tabs.forEach(t => {
+      t.addEventListener('click', function () {
+        tabs.forEach(tab => tab.classList.remove('active'));
+        this.classList.add('active');
+        updatePath(this.dataset.field);
+      });
+    });
+
+    // contact form
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const submitBtn = this.querySelector('button[type="submit"]');
+      const btnText = submitBtn.querySelector('.btn-text');
+      const originalIcon = submitBtn.querySelector('i').className;
+
+      // Prevent double submission and show loading state
+      submitBtn.disabled = true;
+      submitBtn.querySelector('i').className = 'fas fa-circle-notch fa-spin mr-2';
+      btnText.textContent = 'Sending...';
+
+      // Send the email using EmailJS form
+      // params: YOUR_SERVICE_ID, YOUR_TEMPLATE_ID, formElement
+      emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+        .then(() => {
+          alert('✨ Thank you. A member of the hLPU network will reply soon.');
+          this.reset();
+        }, (error) => {
+          console.error('FAILED...', error);
+          alert('❌ Failed to send the message. Please try again later.');
+        })
+        .finally(() => {
+          // Restore button state
+          submitBtn.disabled = false;
+          submitBtn.querySelector('i').className = originalIcon;
+          btnText.textContent = 'Send message';
+        });
+    });
+  </script>
+  <!-- mobile enhancements -->
+  <script src="../js/mobile-landing.js?v=1.1"></script>
+</body>
+
+</html>

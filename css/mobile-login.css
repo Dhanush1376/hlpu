@@ -1,0 +1,308 @@
+/* ==============================================================
+   mobile-login.css
+   Isolated mobile styles for hLPU Login Page.
+   Matches premium design system.
+   ============================================================== */
+
+@media (max-width: 768px) {
+
+    /* 1. GLOBAL LAYOUT REDEFINITION */
+    body {
+        padding: 20px 15px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        min-height: 100svh !important;
+        overflow-x: hidden !important;
+        background-color: #FDFBF9 !important;
+    }
+
+    /* 2. NAVIGATION & BACK ARROW */
+    .navbar {
+        display: flex !important;
+        padding: 8px 0 !important;
+        background: rgba(255, 255, 255, 0.8) !important;
+        backdrop-filter: blur(20px) !important;
+        height: 56px !important;
+    }
+
+    .mob-back-arrow {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        color: var(--ink) !important;
+        font-size: 1.2rem !important;
+        text-decoration: none !important;
+        border-radius: 50%;
+        background: rgba(10, 26, 47, 0.04);
+        transition: all 0.2s ease;
+    }
+
+    .mob-back-arrow:active {
+        background: rgba(10, 26, 47, 0.1);
+        transform: scale(0.95);
+    }
+
+    .navbar-brand img {
+        height: 32px !important;
+    }
+
+    .navbar-toggler,
+    .navbar-collapse {
+        display: none !important;
+    }
+
+    .navbar-toggler-icon {
+        background-image: none !important;
+        position: relative;
+        width: 24px !important;
+        height: 2px !important;
+        background: var(--ink) !important;
+        display: block;
+        transition: 0.3s ease;
+    }
+
+    .navbar-toggler-icon::before,
+    .navbar-toggler-icon::after {
+        content: '';
+        position: absolute;
+        width: 24px;
+        height: 2px;
+        background: var(--ink);
+        left: 0;
+        transition: 0.3s ease;
+    }
+
+    .navbar-toggler-icon::before {
+        top: -8px;
+    }
+
+    .navbar-toggler-icon::after {
+        bottom: -8px;
+    }
+
+    .navbar-toggler:not(.collapsed) .navbar-toggler-icon {
+        background: transparent !important;
+    }
+
+    .navbar-toggler:not(.collapsed) .navbar-toggler-icon::before {
+        transform: rotate(45deg);
+        top: 0;
+    }
+
+    .navbar-toggler:not(.collapsed) .navbar-toggler-icon::after {
+        transform: rotate(-45deg);
+        bottom: 0;
+    }
+
+    .navbar-collapse {
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(25px);
+        margin-top: 15px;
+        border-radius: 24px;
+        padding: 25px !important;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        border: 1px solid rgba(194, 73, 31, 0.15);
+    }
+
+    .nav-link {
+        padding: 12px 0 !important;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        font-size: 1.05rem !important;
+    }
+
+    .nav-link:after {
+        display: none !important;
+    }
+
+    .navbar-nav .btn-primary-custom {
+        margin-top: 15px !important;
+        width: 100% !important;
+        padding: 14px !important;
+    }
+
+    .admin-corner-btn {
+        position: relative !important;
+        top: 0 !important;
+        right: 0 !important;
+        margin: 0 auto 30px !important;
+        width: fit-content;
+        padding: 10px 22px !important;
+        font-size: 0.85rem !important;
+        z-index: 10 !important;
+    }
+
+    /* 3. AUTH CONTAINER */
+    .auth-container {
+        max-width: 100% !important;
+        padding: 30px 20px !important;
+        border-radius: 28px !important;
+        margin-top: 0 !important;
+        margin-bottom: 30px;
+    }
+
+    /* 4. LOGO SECTION */
+    .logo-img {
+        height: 60px !important;
+    }
+
+    .logo-tagline {
+        font-size: 0.85rem !important;
+    }
+
+    /* 5. TABS & SELECTORS */
+    .auth-tabs {
+        padding: 4px !important;
+        margin-bottom: 25px !important;
+    }
+
+    .auth-tab {
+        padding: 10px 12px !important;
+        font-size: 0.85rem !important;
+    }
+
+    .user-type-grid {
+        flex-direction: column !important;
+        gap: 12px !important;
+        margin-bottom: 25px !important;
+    }
+
+    .user-card {
+        padding: 15px 20px !important;
+        display: flex !important;
+        align-items: center;
+        text-align: left !important;
+        gap: 15px;
+    }
+
+    .user-icon {
+        margin-bottom: 0 !important;
+        font-size: 1.4rem !important;
+        flex-shrink: 0;
+    }
+
+    .user-card h4 {
+        font-size: 1rem !important;
+        margin-bottom: 2px !important;
+    }
+
+    .user-card p {
+        font-size: 0.75rem !important;
+    }
+
+    /* 6. FORM ELEMENTS */
+    .form-section {
+        padding: 18px !important;
+        border-radius: 20px !important;
+        margin-bottom: 20px !important;
+    }
+
+    .form-section-title {
+        font-size: 1rem !important;
+        margin-bottom: 15px !important;
+    }
+
+    .form-control {
+        padding: 12px 18px 12px 44px !important;
+        font-size: 0.95rem !important;
+        height: auto !important;
+        /* Fix for 45% height in desktop CSS */
+    }
+
+    .form-label {
+        font-size: 0.8rem !important;
+        margin-bottom: 6px !important;
+    }
+
+    .input-icon {
+        left: 14px !important;
+        font-size: 0.9rem !important;
+    }
+
+    /* Password visibility toggle positioning */
+    .password-toggle {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #8f9aaa;
+        cursor: pointer;
+        z-index: 5;
+        padding: 10px;
+    }
+
+    /* 7. CHECKBOXES & LINKS */
+    .auth-options {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 15px;
+        margin: 15px 0 25px !important;
+    }
+
+    .forgot-link {
+        font-size: 0.85rem !important;
+    }
+
+    .terms {
+        font-size: 0.8rem !important;
+    }
+
+    /* 8. BUTTONS */
+    .btn {
+        padding: 14px 24px !important;
+        font-size: 0.95rem !important;
+        border-radius: 50px !important;
+    }
+
+    .btn-primary {
+        width: 100% !important;
+    }
+
+    /* 9. MODALS */
+    .admin-modal-card {
+        padding: 35px 20px !important;
+        border-radius: 36px !important;
+        max-width: 92% !important;
+    }
+
+    .admin-title {
+        font-size: 1.6rem !important;
+    }
+
+    .admin-badge {
+        font-size: 0.75rem !important;
+        padding: 6px 15px !important;
+    }
+
+    .security-hint {
+        padding: 14px !important;
+        margin: 20px 0 !important;
+    }
+
+    .security-icon {
+        width: 40px !important;
+        height: 40px !important;
+        font-size: 1.1rem !important;
+    }
+
+    .security-text {
+        font-size: 0.75rem !important;
+    }
+
+    /* 10. ERROR STATES */
+    .form-control.error {
+        border-color: var(--ember) !important;
+        background-color: rgba(194, 73, 31, 0.02) !important;
+    }
+
+    .error-text {
+        color: var(--ember);
+        font-size: 0.75rem;
+        margin-top: 5px;
+        font-weight: 500;
+        display: block;
+    }
+}

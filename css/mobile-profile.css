@@ -1,0 +1,516 @@
+/* ==============================================================
+   mobile-profile.css
+   Mobile-specific styles for Student Profile page
+   Matches hLPU mobile design system
+   ============================================================== */
+
+@media (max-width: 768px) {
+
+    /* 1. ROOT */
+    html,
+    body {
+        background: linear-gradient(180deg, #fdf6ec 0%, #fae9e3 40%, #ffffff 100%) !important;
+        background-attachment: fixed !important;
+    }
+
+    #mobile-root {
+        padding: 85px 15px 100px 15px;
+        min-height: 100vh;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* 2. DESKTOP ISOLATION */
+    section.hero.desktop-only,
+    .hero.desktop-only {
+        display: none !important;
+    }
+
+    #navbar {
+        display: none !important;
+    }
+
+    .mesh-bg {
+        display: none !important;
+    }
+
+    .resume-actions.desktop-only {
+        display: none !important;
+    }
+
+    .loading-overlay {
+        z-index: 999999 !important;
+    }
+
+    /* 3. PROFILE HEADER CARD */
+    .mob-profile-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(14px);
+        border-radius: 24px;
+        padding: 24px 18px;
+        margin-bottom: 16px;
+        border: 1px solid rgba(194, 73, 31, 0.06);
+        box-shadow: 0 8px 25px rgba(10, 26, 47, 0.05);
+        text-align: center;
+    }
+
+    .mob-profile-avatar-wrapper {
+        position: relative;
+        width: 90px;
+        height: 90px;
+        margin: 0 auto 12px;
+    }
+
+    .mob-profile-avatar {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: linear-gradient(145deg, #C2491F, #E68A2E);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 2rem;
+        font-weight: 700;
+        border: 3px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 8px 20px rgba(194, 73, 31, 0.2);
+        overflow: hidden;
+    }
+
+    .mob-profile-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    .mob-profile-avatar-edit {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 30px;
+        height: 30px;
+        background: white;
+        border-radius: 50%;
+        border: 2px solid #C2491F;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #C2491F;
+        font-size: 0.7rem;
+        cursor: pointer;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .mob-profile-name {
+        font-size: 1.4rem;
+        font-weight: 900;
+        color: #0A1A2F;
+        margin-bottom: 4px;
+        letter-spacing: -0.02em;
+    }
+
+    .mob-profile-badges {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+        margin-bottom: 8px;
+    }
+
+    .mob-profile-badge {
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.68rem;
+        font-weight: 700;
+        background: rgba(194, 73, 31, 0.08);
+        color: #C2491F;
+        border: 1px solid rgba(194, 73, 31, 0.12);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .mob-profile-badge i {
+        font-size: 0.6rem;
+    }
+
+    .mob-profile-title {
+        font-size: 0.82rem;
+        color: #5f6b7a;
+        margin-bottom: 4px;
+        line-height: 1.4;
+    }
+
+    .mob-profile-university {
+        font-size: 0.78rem;
+        color: #C2491F;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        margin-bottom: 12px;
+    }
+
+    .mob-profile-university i {
+        font-size: 0.7rem;
+    }
+
+    .mob-edit-profile-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 20px;
+        border: 1.5px solid rgba(10, 26, 47, 0.1);
+        border-radius: 40px;
+        background: white;
+        color: #0A1A2F;
+        font-size: 0.8rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .mob-edit-profile-btn:active {
+        background: #0A1A2F;
+        color: white;
+    }
+
+    /* 4. RESUME QUICK ACTIONS */
+    .mob-resume-actions {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 16px;
+    }
+
+    .mob-resume-btn {
+        flex: 1;
+        padding: 12px;
+        border-radius: 16px;
+        border: none;
+        font-size: 0.78rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .mob-resume-btn:active {
+        transform: scale(0.97);
+    }
+
+    .mob-resume-btn-primary {
+        background: #0A1A2F;
+        color: white;
+        box-shadow: 0 6px 15px rgba(10, 26, 47, 0.2);
+    }
+
+    .mob-resume-btn-outline {
+        background: white;
+        color: #C2491F;
+        border: 1.5px solid rgba(194, 73, 31, 0.2);
+    }
+
+    /* 5. SECTION CARDS (reusable pattern) */
+    .mob-section-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+        border-radius: 22px;
+        padding: 18px 16px;
+        margin-bottom: 14px;
+        border: 1px solid rgba(194, 73, 31, 0.06);
+        box-shadow: 0 4px 15px rgba(10, 26, 47, 0.04);
+    }
+
+    .mob-section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 14px;
+        padding-bottom: 10px;
+        border-bottom: 1.5px solid rgba(194, 73, 31, 0.08);
+    }
+
+    .mob-section-title {
+        font-size: 0.75rem;
+        font-weight: 800;
+        color: #0A1A2F;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0;
+    }
+
+    .mob-section-title i {
+        color: #C2491F;
+        font-size: 0.7rem;
+    }
+
+    .mob-section-edit-btn {
+        padding: 5px 12px;
+        border: 1px solid rgba(10, 26, 47, 0.08);
+        border-radius: 20px;
+        background: white;
+        color: #0A1A2F;
+        font-size: 0.7rem;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .mob-section-edit-btn:active {
+        background: #0A1A2F;
+        color: white;
+    }
+
+    /* 6. ABOUT */
+    .mob-about-text {
+        font-size: 0.85rem;
+        color: #3f4d5e;
+        line-height: 1.7;
+        margin: 0;
+    }
+
+    /* 7. SKILLS */
+    .mob-skills-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .mob-skill-tag {
+        background: white;
+        border: 1px solid rgba(194, 73, 31, 0.15);
+        padding: 6px 14px;
+        border-radius: 40px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: #0A1A2F;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .mob-skill-tag i {
+        color: #C2491F;
+        font-size: 0.68rem;
+    }
+
+    /* 8. EXPERIENCE / PROJECT CARDS */
+    .mob-exp-card,
+    .mob-proj-card-inner {
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 18px;
+        padding: 16px 14px;
+        margin-bottom: 10px;
+        border: 1px solid rgba(194, 73, 31, 0.06);
+    }
+
+    .mob-exp-title {
+        font-size: 0.95rem;
+        font-weight: 800;
+        color: #0A1A2F;
+        margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .mob-exp-title i {
+        color: #C2491F;
+        font-size: 0.8rem;
+    }
+
+    .mob-exp-company {
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: #C2491F;
+        margin-bottom: 2px;
+    }
+
+    .mob-exp-period {
+        font-size: 0.72rem;
+        color: #8f9aaa;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .mob-exp-desc {
+        font-size: 0.8rem;
+        color: #5f6b7a;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    /* 9. PROJECT TECH TAGS */
+    .mob-tech-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin: 8px 0;
+    }
+
+    .mob-tech-tag {
+        background: rgba(194, 73, 31, 0.08);
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 0.68rem;
+        font-weight: 600;
+        color: #0A1A2F;
+    }
+
+    .mob-project-link {
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: #C2491F;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    /* 10. EDUCATION CARD */
+    .mob-edu-card {
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 18px;
+        padding: 16px 14px;
+        margin-bottom: 10px;
+        border: 1px solid rgba(194, 73, 31, 0.06);
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .mob-edu-degree {
+        font-size: 0.95rem;
+        font-weight: 800;
+        color: #0A1A2F;
+        margin-bottom: 2px;
+    }
+
+    .mob-edu-institution {
+        font-size: 0.82rem;
+        color: #5f6b7a;
+        margin-bottom: 4px;
+    }
+
+    .mob-edu-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        font-size: 0.72rem;
+        color: #5f6b7a;
+    }
+
+    .mob-edu-meta i {
+        color: #C2491F;
+        margin-right: 3px;
+    }
+
+    .mob-edu-gpa {
+        padding: 8px 14px;
+        border-radius: 30px;
+        background: linear-gradient(145deg, #C2491F, #E68A2E);
+        color: white;
+        font-size: 0.78rem;
+        font-weight: 800;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    /* 11. CONTACT ITEMS */
+    .mob-contact-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .mob-contact-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 14px;
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 16px;
+        border: 1px solid rgba(194, 73, 31, 0.06);
+    }
+
+    .mob-contact-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 12px;
+        background: rgba(194, 73, 31, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #C2491F;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+    }
+
+    .mob-contact-label {
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #8f9aaa;
+        font-weight: 700;
+    }
+
+    .mob-contact-value {
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #0A1A2F;
+        word-break: break-word;
+    }
+
+    .mob-contact-value a {
+        color: #0A1A2F;
+        text-decoration: none;
+    }
+
+    /* 12. EMPTY PLACEHOLDER */
+    .mob-empty-placeholder {
+        padding: 30px 16px;
+        text-align: center;
+        color: #5f6b7a;
+        border: 2px dashed rgba(194, 73, 31, 0.12);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.2);
+        cursor: pointer;
+    }
+
+    .mob-empty-placeholder i {
+        font-size: 2rem;
+        color: #C2491F;
+        opacity: 0.4;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .mob-empty-placeholder h5 {
+        font-size: 0.95rem;
+        font-weight: 800;
+        color: #0A1A2F;
+        margin-bottom: 4px;
+    }
+
+    .mob-empty-placeholder p {
+        font-size: 0.78rem;
+        margin: 0;
+        color: #8f9aaa;
+    }
+}
+
+@media (min-width: 769px) {
+    #mobile-root {
+        display: none !important;
+    }
+}

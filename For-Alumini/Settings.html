@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hLPU</title>
+    <link rel="icon" type="image/png" href="../assets/images/hlpu logo.png">
+
+    <!-- Bootstrap 4.6 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <!-- Google Fonts - Inter (premium theme) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="../css/core/NavBar.css" />
+    <link rel="stylesheet" href="../css/core/Main.css" />
+    <!-- Mobile Alumni -->
+    <link rel="stylesheet" href="../css/mobile-nav.css" />
+    <link rel="stylesheet" href="css/mobile-settings.css" />
+    <link rel="stylesheet" href="../css/mobile-fixes.css" />
+    <style>
+        /* ===== SETTINGS CONTAINER ===== */
+        .settings-container {
+            padding: 110px 30px 50px;
+            max-width: 1300px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .settings-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .settings-header h1 {
+            font-size: 2.6rem;
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .settings-header h1 span {
+            background: linear-gradient(145deg, var(--ember), var(--gilt));
+            -webkit-text-fill-color: transparent;
+        }
+
+        .settings-header p {
+            font-size: 1.1rem;
+            color: #5f6b7a;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--gilt), transparent);
+            margin: 30px auto;
+            max-width: 800px;
+            border: none;
+            opacity: 0.3;
+        }
+
+        /* ===== SETTINGS WRAPPER ===== */
+        .settings-wrapper {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .settings-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== SETTINGS SIDEBAR ===== */
+        .settings-sidebar {
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            border-radius: 28px;
+            padding: 28px;
+            box-shadow: var(--shadow-elevation);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+            border: 1px solid rgba(194, 73, 31, 0.08);
+            transition: var(--transition);
+        }
+
+        .settings-sidebar:hover {
+            background: var(--glass-deep);
+            border-color: rgba(230, 138, 46, 0.2);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .settings-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .settings-nav-item {
+            margin-bottom: 6px;
+        }
+
+        .settings-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 18px;
+            color: var(--ink);
+            text-decoration: none;
+            border-radius: 18px;
+            transition: var(--transition);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .settings-nav-link i {
+            width: 22px;
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--ink);
+            transition: var(--transition);
+        }
+
+        .settings-nav-link:hover,
+        .settings-nav-link.active {
+            background: rgba(255, 255, 255, 0.5);
+            color: var(--ember);
+            text-decoration: none;
+            transform: translateX(5px);
+        }
+
+        .settings-nav-link:hover i,
+        .settings-nav-link.active i {
+            color: var(--ember);
+        }
+
+        .settings-nav-link.active {
+            background: white;
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--ember);
+        }
+
+        /* ===== SETTINGS CONTENT ===== */
+        .settings-content {
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            border-radius: 28px;
+            padding: 35px;
+            box-shadow: var(--shadow-elevation);
+            border: 1px solid rgba(194, 73, 31, 0.08);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .settings-content.slide-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .settings-content:hover {
+            background: var(--glass-deep);
+            border-color: rgba(230, 138, 46, 0.2);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .settings-section {
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .settings-section.active {
+            display: block;
+            animation: slideUp 0.5s ease forwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(194, 73, 31, 0.15);
+            position: relative;
+            letter-spacing: -0.01em;
+        }
+
+        .section-title i {
+            color: var(--ember);
+            margin-right: 12px;
+        }
+
+        /* ===== FORM STYLES ===== */
+        .form-group {
+            margin-bottom: 22px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--ink);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-label i {
+            color: var(--ember);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1.5px solid rgba(10, 26, 47, 0.08);
+            border-radius: 16px;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.8);
+            font-family: 'Inter', sans-serif;
+            color: var(--ink);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--ember);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(194, 73, 31, 0.08);
+        }
+
+        .form-text {
+            font-size: 0.8rem;
+            color: #5f6b7a;
+            margin-top: 6px;
+        }
+
+        /* ===== TOGGLE SWITCH ===== */
+        .toggle-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 22px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(194, 73, 31, 0.08);
+            transition: var(--transition);
+        }
+
+        .toggle-group:hover {
+            background: white;
+            border-color: var(--gilt);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .toggle-label {
+            font-weight: 600;
+            color: var(--ink);
+            font-size: 0.95rem;
+        }
+
+        .toggle-description {
+            font-size: 0.8rem;
+            color: #5f6b7a;
+            margin-top: 4px;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+            flex-shrink: 0;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .3s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .3s;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        input:checked+.slider {
+            background: linear-gradient(145deg, var(--ember), var(--gilt));
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(30px);
+        }
+
+        /* ===== BUTTON STYLES ===== */
+        .btn-heritage {
+            background: white;
+            color: var(--ink);
+            border: 1px solid rgba(10, 26, 47, 0.1);
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .btn-heritage:hover {
+            background: var(--ink);
+            color: white;
+            border-color: var(--ink);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px -10px rgba(10, 26, 47, 0.3);
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--ink);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 18px -6px rgba(10, 26, 47, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: #12243f;
+            transform: translateY(-3px);
+            box-shadow: 0 18px 25px -10px rgba(194, 73, 31, 0.35);
+            color: white;
+            text-decoration: none;
+        }
+
+        .btn-danger {
+            background: white;
+            color: var(--danger);
+            border: 1.5px solid var(--danger);
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-danger:hover {
+            background: var(--danger);
+            color: white;
+            border-color: var(--danger);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px -10px rgba(176, 42, 55, 0.3);
+        }
+
+        /* ===== CARD STYLES ===== */
+        .card {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 24px;
+            border: 1px solid rgba(194, 73, 31, 0.08);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            background: white;
+            border-color: var(--gilt);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 8px;
+        }
+
+        .card-text {
+            font-size: 0.9rem;
+            color: #5f6b7a;
+            margin-bottom: 18px;
+        }
+
+        /* ===== PROFILE PICTURE ===== */
+        .profile-picture-section {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+        }
+
+        .profile-picture {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, var(--ember), var(--gilt));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            font-weight: 600;
+            box-shadow: 0 15px 30px -8px rgba(194, 73, 31, 0.3);
+            border: 4px solid white;
+        }
+
+        .profile-actions {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        /* ===== SECURITY ITEMS ===== */
+        .security-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 22px 25px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(194, 73, 31, 0.08);
+            transition: var(--transition);
+        }
+
+        .security-item:hover {
+            background: white;
+            border-color: var(--gilt);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .security-info h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 5px;
+        }
+
+        .security-info p {
+            font-size: 0.85rem;
+            color: #5f6b7a;
+            margin: 0;
+        }
+
+        /* ===== NOTIFICATION CATEGORY ===== */
+        .notification-category {
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(194, 73, 31, 0.12);
+        }
+
+        .notification-category:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .category-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-title i {
+            color: var(--ember);
+        }
+
+        /* ===== COLOR OPTIONS ===== */
+        .color-option {
+            height: 48px;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .color-option:hover {
+            transform: scale(1.08);
+            box-shadow: var(--shadow-md);
+            border-color: white;
+        }
+
+        .color-option.active {
+            border: 3px solid var(--ink);
+            transform: scale(1.05);
+        }
+
+        /* ===== DANGER ZONE ===== */
+        .danger-zone {
+            background: rgba(176, 42, 55, 0.04);
+            border: 1px solid rgba(176, 42, 55, 0.15);
+            border-radius: 28px;
+            padding: 28px;
+            margin-top: 30px;
+        }
+
+        .danger-zone .section-title {
+            color: var(--danger);
+            border-bottom-color: rgba(176, 42, 55, 0.2);
+        }
+
+        .danger-zone .section-title i {
+            color: var(--danger);
+        }
+
+        .danger-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 22px 25px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(176, 42, 55, 0.15);
+            transition: var(--transition);
+        }
+
+        .danger-item:hover {
+            background: white;
+            border-color: var(--danger);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        @media (max-width: 768px) {
+
+            #navbar,
+            .mesh-bg,
+            .settings-container,
+            .footer {
+                display: none !important;
+            }
+        }
+
+        /* ===== SETTINGS FOOTER ===== */
+        .settings-footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(194, 73, 31, 0.15);
+            color: #5f6b7a;
+            font-size: 0.9rem;
+        }
+
+        /* ===== THEME CARDS ===== */
+        .theme-card {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            padding: 24px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(194, 73, 31, 0.08);
+            height: 100%;
+        }
+
+        .theme-card:hover {
+            background: white;
+            border-color: var(--gilt);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .theme-card i {
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+            color: var(--ember);
+        }
+
+        .theme-card h5 {
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 12px;
+        }
+
+        .btn-theme {
+            background: transparent;
+            border: 1px solid rgba(10, 26, 47, 0.1);
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: var(--transition);
+            width: 100%;
+        }
+
+        .btn-theme.active {
+            background: var(--ink);
+            color: white;
+            border-color: var(--ink);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .settings-container {
+                padding: 100px 20px 40px;
+            }
+
+            .settings-header h1 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .settings-container {
+                padding: 90px 15px 30px;
+            }
+
+            .settings-header h1 {
+                font-size: 1.9rem;
+            }
+
+            .profile-picture-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-actions {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .security-item,
+            .danger-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 18px;
+            }
+
+            .security-actions,
+            .danger-actions {
+                width: 100%;
+            }
+
+            .security-actions button,
+            .danger-actions button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .settings-header h1 {
+                font-size: 1.7rem;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .settings-content {
+                padding: 25px 20px;
+            }
+
+            .toggle-group {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .switch {
+                align-self: flex-end;
+            }
+
+            .btn-heritage,
+            .btn-primary,
+            .btn-danger {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <!-- MOBILE ROOT - Injected High in DOM -->
+    <div id="mobile-root"></div>
+
+    <!-- navbar -->
+    <div id="navbar"></div>
+
+    <!-- PREMIUM MESH BACKGROUND -->
+    <div class="mesh-bg">
+        <div class="mesh mesh-1"></div>
+        <div class="mesh mesh-2"></div>
+        <div class="mesh mesh-3"></div>
+        <div class="mesh mesh-4"></div>
+    </div>
+    <!-- SETTINGS CONTAINER -->
+    <div class="settings-container">
+        <!-- SETTINGS HEADER -->
+        <div class="settings-header">
+            <h1> Settings</h1>
+        </div>
+
+
+        <!-- SETTINGS WRAPPER -->
+        <div class="settings-wrapper">
+            <!-- SETTINGS SIDEBAR -->
+            <div class="settings-sidebar slide-in">
+                <ul class="settings-nav">
+                    <li class="settings-nav-item">
+                        <a href="#profile" class="settings-nav-link active" data-section="profile">
+                            <i class="fas fa-user"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                    <li class="settings-nav-item">
+                        <a href="#account" class="settings-nav-link" data-section="account">
+                            <i class="fas fa-id-card"></i>
+                            <span>Account</span>
+                        </a>
+                    </li>
+                    <li class="settings-nav-item">
+                        <a href="#privacy" class="settings-nav-link" data-section="privacy">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Privacy & Security</span>
+                        </a>
+                    </li>
+                    <li class="settings-nav-item">
+                        <a href="#notifications" class="settings-nav-link" data-section="notifications">
+                            <i class="fas fa-bell"></i>
+                            <span>Notifications</span>
+                        </a>
+                    </li>
+                    <li class="settings-nav-item">
+                        <a href="#preferences" class="settings-nav-link" data-section="preferences">
+                            <i class="fas fa-sliders-h"></i>
+                            <span>Preferences</span>
+                        </a>
+                    </li>
+                    <li class="settings-nav-item">
+                        <a href="#danger" class="settings-nav-link" data-section="danger">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Deactivate Or Deletion</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- SETTINGS CONTENT -->
+            <div class="settings-content slide-in">
+                <!-- PROFILE SETTINGS -->
+                <div id="profile" class="settings-section active">
+                    <h2 class="section-title">
+                        <i class="fas fa-user-circle"></i>
+                        Profile Information
+                    </h2>
+
+                    <div class="profile-picture-section">
+                        <div class="profile-picture">D</div>
+                        <div class="profile-actions">
+                            <button class="btn-heritage">
+                                <i class="fas fa-camera"></i>
+                                Change Picture
+                            </button>
+                            <button class="btn-heritage">
+                                <i class="fas fa-times"></i>
+                                Remove Picture
+                            </button>
+                        </div>
+                    </div>
+
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <i class="fas fa-user"></i>
+                                        First Name
+                                    </label>
+                                    <input type="text" id="profileFirstName" class="form-control" value="Sarah">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">
+                                        <i class="fas fa-user"></i>
+                                        Last Name
+                                    </label>
+                                    <input type="text" id="profileLastName" class="form-control"
+                                        placeholder="Enter last name">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-envelope"></i>
+                                Email Address
+                            </label>
+                            <input type="email" id="profileEmail" class="form-control" value="sarah.j@alumni.hlpu.ac.in"
+                                readonly>
+                            <div class="form-text">This email will be used for account notifications</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-phone"></i>
+                                Phone Number
+                            </label>
+                            <input type="tel" id="profilePhone" class="form-control" value="+91 98765 43210">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-align-left"></i>
+                                Bio
+                            </label>
+                            <textarea id="profileBio" class="form-control" rows="4"
+                                placeholder="Tell us about yourself...">Senior Software Engineer at Google | LPU Class of 2020 | Passionate about mentoring the next generation of engineers.</textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-map-marker-alt"></i>
+                                Current Location
+                            </label>
+                            <input type="text" class="form-control" value="Lovely Professional University, Punjab">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-graduation-cap"></i>
+                                Graduation Year
+                            </label>
+                            <select id="profileGradYear" class="form-control">
+                                <option>2018</option>
+                                <option>2019</option>
+                                <option selected>2020</option>
+                                <option>2021</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-save"></i>
+                            Save Changes
+                        </button>
+                    </form>
+                </div>
+
+                <!-- ACCOUNT SETTINGS -->
+                <div id="account" class="settings-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-id-card"></i>
+                        Account Settings
+                    </h2>
+
+                    <div class="card">
+                        <h4 class="card-title">Account Type</h4>
+                        <p class="card-text">Student Account (Batch of 2027)</p>
+                        <button class="btn-heritage">
+                            <i class="fas fa-sync-alt"></i>
+                            Upgrade Account
+                        </button>
+                    </div>
+
+                    <div class="card">
+                        <h4 class="card-title">Connected Accounts</h4>
+                        <p class="card-text">Manage your connected social accounts</p>
+
+                        <div class="toggle-group">
+                            <div>
+                                <div class="toggle-label">LinkedIn</div>
+                                <div class="toggle-description">
+                                    <i class="fas fa-check-circle" style="color: var(--success);"></i> Connected
+                                </div>
+                            </div>
+                            <button class="btn-heritage">Disconnect</button>
+                        </div>
+
+                        <div class="toggle-group">
+                            <div>
+                                <div class="toggle-label">GitHub</div>
+                                <div class="toggle-description">
+                                    <i class="fas fa-times-circle" style="color: #8f9aaa;"></i> Not Connected
+                                </div>
+                            </div>
+                            <button class="btn-heritage">Connect</button>
+                        </div>
+
+                        <div class="toggle-group">
+                            <div>
+                                <div class="toggle-label">Google Account</div>
+                                <div class="toggle-description">
+                                    <i class="fas fa-check-circle" style="color: var(--success);"></i> Connected
+                                </div>
+                            </div>
+                            <button class="btn-heritage">Disconnect</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-language"></i>
+                            Language Preference
+                        </label>
+                        <select class="form-control">
+                            <option selected>English (US)</option>
+                            <option>English (UK)</option>
+                            <option>Hindi</option>
+                            <option>Spanish</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- PRIVACY & SECURITY -->
+                <div id="privacy" class="settings-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-shield-alt"></i>
+                        Privacy & Security
+                    </h2>
+
+                    <div class="security-item">
+                        <div class="security-info">
+                            <h4>Two-Factor Authentication</h4>
+                            <p>Add an extra layer of security to your account</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="security-item">
+                        <div class="security-info">
+                            <h4>Password</h4>
+                            <p>Last changed 30 days ago</p>
+                        </div>
+                        <button class="btn-heritage" onclick="openPasswordModal()">
+                            <i class="fas fa-key"></i> Change Password
+                        </button>
+                    </div>
+
+                    <div class="security-item">
+                        <div class="security-info">
+                            <h4>Login Activity</h4>
+                            <p>Review recent account activity</p>
+                        </div>
+                        <button class="btn-heritage">
+                            <i class="fas fa-history"></i> View Activity
+                        </button>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-eye"></i>
+                            Profile Visibility
+                        </label>
+                        <select id="privacyVisibility" class="form-control">
+                            <option value="public" selected>Public (Visible to all users)</option>
+                            <option value="connections">Private (Only visible to connections)</option>
+                            <option value="private">Hidden (Only visible to me)</option>
+                        </select>
+                        <div class="form-text">Control who can see your profile information</div>
+                    </div>
+
+                    <div class="toggle-group">
+                        <div>
+                            <div class="toggle-label">Show Email Address</div>
+                            <div class="toggle-description">Allow others to see your email</div>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="privacyShowEmail">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="toggle-group">
+                        <div>
+                            <div class="toggle-label">Data Sharing</div>
+                            <div class="toggle-description">Share anonymous usage data</div>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="privacyDataSharing" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- NOTIFICATION SETTINGS -->
+                <div id="notifications" class="settings-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-bell"></i>
+                        Notification Preferences
+                    </h2>
+
+                    <div class="notification-category">
+                        <h4 class="category-title">
+                            <i class="fas fa-envelope"></i>
+                            Email Notifications
+                        </h4>
+
+                        <div class="toggle-group">
+                            <div>
+                                <div class="toggle-label">Job Alerts</div>
+                                <div class="toggle-description">Get notified about new job opportunities</div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="notifJobAlerts" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="toggle-group">
+                            <div>
+                                <div class="toggle-label">Mentor Messages</div>
+                                <div class="toggle-description">Receive emails when mentees message you</div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="notifMentorMessages" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="toggle-group">
+                            <div>
+                                <div class="toggle-label">Event Reminders</div>
+                                <div class="toggle-description">Get reminders about upcoming events</div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="notifEventReminders" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="notification-category">
+                        <h4 class="category-title">
+                            <i class="fas fa-mobile-alt"></i>
+                            Push Notifications
+                        </h4>
+
+                        <div class="toggle-group">
+                            <div>
+                                <div class="toggle-label">Application Updates</div>
+                                <div class="toggle-description">Real-time updates on your applications</div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="notifAppUpdates" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="toggle-group">
+                            <div>
+                                <div class="toggle-label">Connection Requests</div>
+                                <div class="toggle-description">Notify when someone wants to connect</div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="notifConnRequests">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="toggle-group">
+                            <div>
+                                <div class="toggle-label">Weekly Summary</div>
+                                <div class="toggle-description">Weekly report of your activity</div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="notifWeeklySummary" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="notification-category">
+                        <h4 class="category-title">
+                            <i class="fas fa-sms"></i>
+                            SMS Notifications
+                        </h4>
+
+                        <div class="toggle-group">
+                            <div>
+                                <div class="toggle-label">Important Alerts</div>
+                                <div class="toggle-description">Critical updates via SMS</div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="notifSmsAlerts">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+
+                        <div class="toggle-group">
+                            <div>
+                                <div class="toggle-label">Interview Reminders</div>
+                                <div class="toggle-description">SMS reminders before interviews</div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="notifInterviewReminders" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- PREFERENCES -->
+                <div id="preferences" class="settings-section">
+                    <h2 class="section-title">
+                        <i class="fas fa-sliders-h"></i>
+                        Preferences
+                    </h2>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-chart-pie"></i>
+                            Default Dashboard View
+                        </label>
+                        <select id="prefDashboardView" class="form-control">
+                            <option value="standard" selected>Standard</option>
+                            <option value="compact">Compact</option>
+                        </select>
+                    </div>
+
+                    <div class="toggle-group">
+                        <div>
+                            <div class="toggle-label">Auto-save Forms</div>
+                            <div class="toggle-description">Automatically save form progress</div>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="prefAutoSave" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="toggle-group">
+                        <div>
+                            <div class="toggle-label">Show Online Status</div>
+                            <div class="toggle-description">Let others see when you're online</div>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="prefOnlineStatus" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="toggle-group">
+                        <div>
+                            <div class="toggle-label">Email Digest</div>
+                            <div class="toggle-description">Receive daily summary emails</div>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="prefEmailDigest">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="card">
+                        <h4 class="card-title">Data Export</h4>
+                        <p class="card-text">Download all your data from hLPU platform</p>
+                        <button class="btn-heritage">
+                            <i class="fas fa-download"></i>
+                            Export Data
+                        </button>
+                    </div>
+                </div>
+
+                <!-- DANGER ZONE -->
+                <div id="danger" class="settings-section">
+                    <div class="danger-zone">
+                        <h2 class="section-title">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Deactivate Or Deletion
+                        </h2>
+
+                        <div class="danger-item">
+                            <div class="security-info">
+                                <h4>Deactivate Account</h4>
+                                <p>Temporarily disable your account. You can reactivate anytime.</p>
+                            </div>
+                            <div class="danger-actions">
+                                <button class="btn-danger" onclick="confirmDeactivate()">
+                                    <i class="fas fa-user-slash"></i>
+                                    Deactivate
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="danger-item">
+                            <div class="security-info">
+                                <h4>Delete Account</h4>
+                                <p>Permanently delete your account and all data. This action cannot be undone.</p>
+                            </div>
+                            <div class="danger-actions">
+                                <button class="btn-danger" onclick="confirmDelete()">
+                                    <i class="fas fa-trash-alt"></i>
+                                    Delete Account
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-footer">
+                        <p>Last updated: March 10, 2025 | hLPU Heritage Network v2.1</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PASSWORD CHANGE MODAL -->
+    <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content"
+                style="border-radius: 28px; background: rgba(255,250,240,0.95); backdrop-filter: blur(20px); border: 1px solid rgba(194,73,31,0.15);">
+                <div class="modal-header" style="border-bottom: 1px solid rgba(194,73,31,0.1); padding: 25px 30px;">
+                    <h5 class="modal-title" style="font-weight: 700; color: var(--ink);">
+                        <i class="fas fa-key" style="color: var(--ember); margin-right: 12px;"></i>
+                        Change Password
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="padding: 30px;">
+                    <form id="passwordForm">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-lock"></i>
+                                Current Password
+                            </label>
+                            <input type="password" id="currentPassword" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-lock"></i>
+                                New Password
+                            </label>
+                            <input type="password" id="newPassword" class="form-control" required>
+                            <div class="form-text">Minimum 8 characters with at least one number and letter</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-check-circle"></i>
+                                Confirm New Password
+                            </label>
+                            <input type="password" id="confirmPassword" class="form-control" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer" style="border-top: 1px solid rgba(194,73,31,0.1); padding: 20px 30px;">
+                    <button type="button" class="btn-heritage" data-dismiss="modal">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="submit" form="passwordForm" class="btn-primary">
+                        <i class="fas fa-save"></i> Update Password
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SWEETALERT2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- SCRIPTS -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+
+    <script src="../js/core/api.js"></script>
+    <script>
+        // Use apiFetch from api.js
+
+        // ===== SETTINGS NAVIGATION =====
+        document.addEventListener('DOMContentLoaded', async function () {
+            const settingsContent = document.querySelector('.settings-content');
+            settingsContent.classList.add('slide-in');
+
+            // Settings navigation
+            document.querySelectorAll('.settings-nav-link').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelectorAll('.settings-nav-link').forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    document.querySelectorAll('.settings-section').forEach(section => section.classList.remove('active'));
+                    const targetId = this.getAttribute('data-section');
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        targetSection.classList.add('active');
+                        document.querySelector('.settings-content').scrollTop = 0;
+                    }
+                });
+            });
+
+            // Initial Data Load
+            await loadSettings();
+
+            // Bind Form Submissions
+            bindForms();
+
+            // Bind Toggles
+            bindToggles();
+        });
+
+        async function loadSettings() {
+            try {
+                const user = await apiFetch('/api/settings/me');
+
+                // Populate Profile
+                const [firstName, ...lastNameParts] = (user.name || '').split(' ');
+                if (document.getElementById('profileFirstName')) document.getElementById('profileFirstName').value = firstName || '';
+                if (document.getElementById('profileLastName')) document.getElementById('profileLastName').value = lastNameParts.join(' ') || '';
+                if (document.getElementById('profileEmail')) document.getElementById('profileEmail').value = user.email || '';
+                if (document.getElementById('profilePhone')) document.getElementById('profilePhone').value = user.contact?.phone || '';
+                if (document.getElementById('profileBio')) document.getElementById('profileBio').value = user.about || '';
+                if (document.getElementById('profileLocation')) document.getElementById('profileLocation').value = user.contact?.location || '';
+                if (document.getElementById('profileGradYear')) document.getElementById('profileGradYear').value = user.graduationYear || '2020';
+
+                // Populate Privacy
+                const settings = user.settings || {};
+                const privacy = settings.privacy || {};
+                if (document.getElementById('privacyVisibility')) document.getElementById('privacyVisibility').value = privacy.profileVisibility || 'public';
+                if (document.getElementById('privacyShowEmail')) document.getElementById('privacyShowEmail').checked = privacy.showEmail ?? true;
+                if (document.getElementById('privacyDataSharing')) document.getElementById('privacyDataSharing').checked = privacy.dataSharing ?? true;
+
+                // Populate Notifications
+                const notifs = settings.notifications || {};
+                const notifMap = {
+                    'notifJobAlerts': notifs.jobAlerts,
+                    'notifMentorMessages': notifs.mentorMessages,
+                    'notifEventReminders': notifs.eventReminders,
+                    'notifAppUpdates': notifs.applicationUpdates,
+                    'notifConnRequests': notifs.connectionRequests,
+                    'notifWeeklySummary': notifs.weeklySummary,
+                    'notifSmsAlerts': notifs.smsAlerts,
+                    'notifInterviewReminders': notifs.interviewReminders
+                };
+                for (const [id, val] of Object.entries(notifMap)) {
+                    if (document.getElementById(id)) document.getElementById(id).checked = val ?? true;
+                }
+
+
+                // Populate Preferences
+                const prefs = settings.preferences || {};
+                if (document.getElementById('prefDashboardView')) document.getElementById('prefDashboardView').value = prefs.dashboardView || 'standard';
+                if (document.getElementById('prefAutoSave')) document.getElementById('prefAutoSave').checked = prefs.autoSaveForms ?? true;
+                if (document.getElementById('prefOnlineStatus')) document.getElementById('prefOnlineStatus').checked = prefs.showOnlineStatus ?? true;
+                if (document.getElementById('prefEmailDigest')) document.getElementById('prefEmailDigest').checked = prefs.emailDigest ?? true;
+
+                // Mobile Data Bridge
+                if (window.updateAlumniMobileSettings) {
+                    window.updateAlumniMobileSettings(user);
+                }
+
+            } catch (err) {
+                console.error('[Settings] Failed to load settings:', err);
+                Swal.fire('Error', 'Failed to load settings. Please try again.', 'error');
+            }
+        }
+
+        function bindForms() {
+            // Profile Form
+            const profileForm = document.querySelector('#profile form');
+            if (profileForm) {
+                profileForm.addEventListener('submit', async function (e) {
+                    e.preventDefault();
+                    const btn = this.querySelector('button[type="submit"]');
+                    const originalHtml = btn.innerHTML;
+                    btn.disabled = true;
+                    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+                    try {
+                        await apiFetch('/api/settings/profile', {
+                            method: 'PATCH',
+                            body: JSON.stringify({
+                                firstName: document.getElementById('profileFirstName').value,
+                                lastName: document.getElementById('profileLastName').value,
+                                phone: document.getElementById('profilePhone').value,
+                                bio: document.getElementById('profileBio').value,
+                                location: document.getElementById('profileLocation').value,
+                                graduationYear: document.getElementById('profileGradYear').value
+                            })
+                        });
+
+                        localStorage.setItem('userName', `${document.getElementById('profileFirstName').value} ${document.getElementById('profileLastName').value}`);
+
+                        Swal.fire({
+                            title: 'Profile Updated!',
+                            text: 'Your information has been saved successfully.',
+                            icon: 'success',
+                            confirmButtonColor: '#C2491F',
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+                    } catch (err) {
+                        Swal.fire('Error', err.message, 'error');
+                    } finally {
+                        btn.disabled = false;
+                        btn.innerHTML = originalHtml;
+                    }
+                });
+            }
+
+            // Password Form
+            const passwordForm = document.getElementById('passwordForm');
+            if (passwordForm) {
+                passwordForm.addEventListener('submit', async function (e) {
+                    e.preventDefault();
+                    const currentPass = document.getElementById('currentPassword').value;
+                    const newPass = document.getElementById('newPassword').value;
+                    const confirmPass = document.getElementById('confirmPassword').value;
+
+                    if (newPass !== confirmPass) {
+                        return Swal.fire('Error', 'New passwords do not match', 'error');
+                    }
+
+                    if (newPass.length < 8) {
+                        return Swal.fire('Error', 'Password must be at least 8 characters long', 'error');
+                    }
+
+                    try {
+                        await apiFetch('/api/settings/password', {
+                            method: 'PATCH',
+                            body: JSON.stringify({ currentPassword: currentPass, newPassword: newPass })
+                        });
+
+                        Swal.fire('Success', 'Password updated successfully!', 'success');
+                        $('#passwordModal').modal('hide');
+                        this.reset();
+                    } catch (err) {
+                        Swal.fire('Error', err.message, 'error');
+                    }
+                });
+            }
+        }
+
+        function bindToggles() {
+            // Notification Toggles
+            const notificationCheckboxes = {
+                'notifJobAlerts': 'jobAlerts',
+                'notifMentorMessages': 'mentorMessages',
+                'notifEventReminders': 'eventReminders',
+                'notifAppUpdates': 'applicationUpdates',
+                'notifConnRequests': 'connectionRequests',
+                'notifWeeklySummary': 'weeklySummary',
+                'notifSmsAlerts': 'smsAlerts',
+                'notifInterviewReminders': 'interviewReminders'
+            };
+
+            Object.entries(notificationCheckboxes).forEach(([id, field]) => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.addEventListener('change', async function () {
+                        try {
+                            const allNotifs = {};
+                            Object.entries(notificationCheckboxes).forEach(([cid, cfield]) => {
+                                allNotifs[cfield] = document.getElementById(cid).checked;
+                            });
+
+                            await apiFetch('/api/settings/notifications', {
+                                method: 'PATCH',
+                                body: JSON.stringify(allNotifs)
+                            });
+                        } catch (err) {
+                            console.error('Failed to update notifications:', err);
+                            this.checked = !this.checked;
+                        }
+                    });
+                }
+            });
+
+            // Privacy Toggles & Select
+            const privacyFields = {
+                'privacyShowEmail': 'showEmail',
+                'privacyDataSharing': 'dataSharing'
+            };
+
+            Object.entries(privacyFields).forEach(([id, field]) => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.addEventListener('change', async function () {
+                        try {
+                            const allPrivacy = {
+                                profileVisibility: document.getElementById('privacyVisibility').value,
+                                showEmail: document.getElementById('privacyShowEmail').checked,
+                                dataSharing: document.getElementById('privacyDataSharing').checked
+                            };
+                            await apiFetch('/api/settings/privacy', {
+                                method: 'PATCH',
+                                body: JSON.stringify(allPrivacy)
+                            });
+                        } catch (err) {
+                            console.error('Failed to update privacy:', err);
+                            this.checked = !this.checked;
+                        }
+                    });
+                }
+            });
+
+            const visibilitySelect = document.getElementById('privacyVisibility');
+            if (visibilitySelect) {
+                visibilitySelect.addEventListener('change', async function () {
+                    try {
+                        const allPrivacy = {
+                            profileVisibility: this.value,
+                            showEmail: document.getElementById('privacyShowEmail').checked,
+                            dataSharing: document.getElementById('privacyDataSharing').checked
+                        };
+                        await apiFetch('/api/settings/privacy', {
+                            method: 'PATCH',
+                            body: JSON.stringify(allPrivacy)
+                        });
+                    } catch (err) {
+                        console.error('Failed to update visibility:', err);
+                    }
+                });
+            }
+
+            // Preferences
+            const prefFields = {
+                'prefAutoSave': 'autoSaveForms',
+                'prefOnlineStatus': 'showOnlineStatus',
+                'prefEmailDigest': 'emailDigest'
+            };
+
+            Object.entries(prefFields).forEach(([id, field]) => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.addEventListener('change', async function () {
+                        try {
+                            const allPrefs = {
+                                dashboardView: document.getElementById('prefDashboardView').value,
+                                autoSaveForms: document.getElementById('prefAutoSave').checked,
+                                showOnlineStatus: document.getElementById('prefOnlineStatus').checked,
+                                emailDigest: document.getElementById('prefEmailDigest').checked
+                            };
+                            await apiFetch('/api/settings/preferences', {
+                                method: 'PATCH',
+                                body: JSON.stringify(allPrefs)
+                            });
+                        } catch (err) {
+                            console.error('Failed to update preferences:', err);
+                            this.checked = !this.checked;
+                        }
+                    });
+                }
+            });
+
+            const dashboardViewSelect = document.getElementById('prefDashboardView');
+            if (dashboardViewSelect) {
+                dashboardViewSelect.addEventListener('change', async function () {
+                    try {
+                        const allPrefs = {
+                            dashboardView: this.value,
+                            autoSaveForms: document.getElementById('prefAutoSave').checked,
+                            showOnlineStatus: document.getElementById('prefOnlineStatus').checked,
+                            emailDigest: document.getElementById('prefEmailDigest').checked
+                        };
+                        await apiFetch('/api/settings/preferences', {
+                            method: 'PATCH',
+                            body: JSON.stringify(allPrefs)
+                        });
+                    } catch (err) {
+                        console.error('Failed to update dashboard view:', err);
+                    }
+                });
+            }
+        }
+
+        // ===== PASSWORD MODAL =====
+        function openPasswordModal() {
+            $('#passwordModal').modal('show');
+        }
+
+        // ===== ACCOUNT ACTIONS =====
+        async function confirmDeactivate() {
+            const result = await Swal.fire({
+                title: 'Deactivate Account?',
+                text: 'Your account will be temporarily disabled. You can reactivate anytime by logging in.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#C2491F',
+                confirmButtonText: 'Yes, deactivate'
+            });
+
+            if (result.isConfirmed) {
+                try {
+                    await apiFetch('/api/settings/deactivate', { method: 'PATCH' });
+                    Swal.fire('Deactivated', 'Your account has been deactivated. Logging out...', 'success').then(() => {
+                        window.handleLogout();
+                    });
+                } catch (err) {
+                    Swal.fire('Error', err.message, 'error');
+                }
+            }
+        }
+
+        async function confirmDelete() {
+            const result = await Swal.fire({
+                title: 'Delete Account?',
+                text: 'This action is PERMANENT and cannot be undone!',
+                icon: 'error',
+                showCancelButton: true,
+                confirmButtonColor: '#B02A37',
+                confirmButtonText: 'Yes, DELETE PERMANENTLY'
+            });
+
+            if (result.isConfirmed) {
+                try {
+                    await apiFetch('/api/settings/delete', { method: 'DELETE' });
+                    Swal.fire('Deleted', 'Your account has been permanently removed.', 'info').then(() => {
+                        window.handleLogout();
+                    });
+                } catch (err) {
+                    Swal.fire('Error', err.message, 'error');
+                }
+            }
+        }
+    </script>
+    <script src="../js/core/loadComponents.js" defer></script>
+    <script src="../js/core/api.js"></script>
+    <script src="../js/core/authGuard.js"></script>
+    <script src="../js/mobile-nav.js"></script>
+    <script src="../js/mobile-alumni-nav.js"></script>
+    <script>if (window.AlumniMobileNav) window.MobileNav = window.AlumniMobileNav;</script>
+    <script src="js/mobile-settings.js"></script>
+    <script>
+        // Data bridge for mobile-settings.js
+        if (window.loadSettings) {
+            window.loadSettings({
+                isAlumni: true // Or dynamically determine this value
+            });
+        }
+    </script>
+    <script src="../js/mobile-fixes.js"></script>
+</body>
+
+</html>

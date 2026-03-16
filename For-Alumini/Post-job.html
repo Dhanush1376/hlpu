@@ -1,0 +1,2330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>hLPU</title>
+  <link rel="icon" type="image/png" href="../assets/images/hlpu logo.png" />
+
+  <!-- Bootstrap 4.6.2 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <!-- Google Fonts - Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="../css/core/NavBar.css" />
+  <link rel="stylesheet" href="../css/core/Main.css" />
+  <link rel="stylesheet" href="./Styles/Container.css" />
+  <!-- Mobile Alumni -->
+  <link rel="stylesheet" href="../css/mobile-nav.css" />
+  <link rel="stylesheet" href="../css/mobile-alumni.css" />
+  <link rel="stylesheet" href="../css/mobile-fixes.css" />
+
+  <style>
+    .btn-view-jobs {
+      background: white;
+      color: var(--ink);
+      border: 1px solid rgba(10, 26, 47, 0.1);
+      padding: 12px 28px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+    }
+
+    .btn-view-jobs:hover {
+      background: rgba(194, 73, 31, 0.08);
+      color: var(--ink);
+      border-color: var(--ember);
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px -10px rgba(194, 73, 31, 0.2);
+    }
+
+    .container-glass p {
+      font-size: 1rem;
+      color: #5f6b7a;
+      margin-bottom: 25px;
+    }
+
+    .divider {
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--gilt), transparent);
+      margin: 20px 0 30px;
+      border: none;
+      opacity: 0.3;
+    }
+
+    /* ===== FORM STYLES ===== */
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+
+    .form-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .form-label i {
+      color: var(--ember);
+      width: 16px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 18px;
+      border: 1.5px solid rgba(10, 26, 47, 0.08);
+      background: white;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      font-family: 'Inter', sans-serif;
+      color: var(--ink);
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--ember);
+      box-shadow: 0 0 0 4px rgba(194, 73, 31, 0.08);
+    }
+
+    .form-control::placeholder {
+      color: #8f9aaa;
+      font-weight: 300;
+    }
+
+    select.form-control {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23C2491F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 18px center;
+      background-size: 16px;
+    }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    /* ===== FORM DROPDOWN MENU ===== */
+    .form-dropdown-toggle {
+      background: white !important;
+      border: 1.5px solid rgba(10, 26, 47, 0.08) !important;
+      border-radius: 18px !important;
+      padding: 14px 18px !important;
+      font-size: 0.95rem !important;
+      color: var(--ink) !important;
+      text-align: left;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .form-dropdown-toggle:after {
+      content: none;
+    }
+
+    .form-dropdown-menu {
+      width: 100%;
+      border-radius: 18px;
+      border: 1px solid rgba(194, 73, 31, 0.15);
+      box-shadow: var(--shadow-elevation);
+      padding: 15px;
+      background: white;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .form-check {
+      margin-bottom: 10px;
+    }
+
+    .form-check-input {
+      margin-right: 10px;
+      accent-color: var(--ember);
+    }
+
+    .form-check-label {
+      color: var(--ink);
+      font-size: 0.9rem;
+    }
+
+    /* ===== BUTTONS ===== */
+    /* btn-heritage removed to use global theme.css styles */
+
+    .btn-outline-heritage {
+      background: transparent;
+      color: var(--ember);
+      border: 1.5px solid var(--ember);
+      padding: 14px 32px;
+      border-radius: 40px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn-outline-heritage:hover {
+      background: var(--ember);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 25px -10px rgba(194, 73, 31, 0.4);
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    /* ===== POSTED JOBS SECTION ===== */
+    .posted-jobs-section {
+      width: 100%;
+      max-width: 1000px;
+      margin-top: 30px;
+      background: var(--glass-deep);
+      backdrop-filter: blur(16px);
+      border-radius: 48px;
+      padding: 35px;
+      border: 1px solid rgba(194, 73, 31, 0.08);
+      box-shadow: var(--shadow-elevation);
+      animation: slideUp 0.6s ease forwards;
+    }
+
+    .posted-jobs-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid rgba(194, 73, 31, 0.15);
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .posted-jobs-header h3 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0;
+      letter-spacing: -0.01em;
+    }
+
+    .jobs-count-badge {
+      background: var(--ember);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-left: 12px;
+    }
+
+    .btn-back {
+      background: white;
+      color: var(--ink);
+      border: 1px solid rgba(10, 26, 47, 0.1);
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-back:hover {
+      background: rgba(194, 73, 31, 0.08);
+      color: var(--ink);
+      border-color: var(--ember);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px -10px rgba(194, 73, 31, 0.15);
+    }
+
+    /* ===== JOB CARDS ===== */
+    .job-card {
+      background: white;
+      border-radius: 28px;
+      padding: 28px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-elevation);
+      border-left: 6px solid var(--gilt);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .job-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .job-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .job-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 0;
+      flex: 1;
+    }
+
+    .job-type-badge {
+      background: linear-gradient(145deg, var(--ember), var(--gilt));
+      color: white;
+      padding: 6px 18px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .job-company {
+      font-size: 1rem;
+      color: var(--ember);
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .job-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 15px;
+    }
+
+    .job-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: #5f6b7a;
+    }
+
+    .job-meta-item i {
+      color: var(--ember);
+      width: 16px;
+    }
+
+    .job-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 15px 0;
+    }
+
+    .skill-tag {
+      background: rgba(194, 73, 31, 0.08);
+      color: var(--ember);
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border: 1px solid rgba(194, 73, 31, 0.15);
+    }
+
+    .job-description {
+      font-size: 0.9rem;
+      color: #3f4d5e;
+      margin: 15px 0;
+      line-height: 1.6;
+    }
+
+    .job-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(194, 73, 31, 0.1);
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .job-posted-date {
+      font-size: 0.8rem;
+      color: #8f9aaa;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .job-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .job-action-btn {
+      background: transparent;
+      border: none;
+      color: #5f6b7a;
+      cursor: pointer;
+      font-size: 0.85rem;
+      padding: 8px 16px;
+      border-radius: 40px;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .job-action-btn:hover {
+      background: rgba(194, 73, 31, 0.08);
+      color: var(--ember);
+    }
+
+    .job-action-btn.delete {
+      color: var(--danger);
+    }
+
+    .job-action-btn.delete:hover {
+      background: rgba(176, 42, 55, 0.08);
+      color: var(--danger);
+    }
+
+    .no-jobs-message {
+      text-align: center;
+      padding: 60px 30px;
+      color: #5f6b7a;
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(8px);
+      border-radius: 28px;
+    }
+
+    .no-jobs-message i {
+      font-size: 4rem;
+      color: var(--gilt);
+      opacity: 0.5;
+      margin-bottom: 20px;
+    }
+
+    .no-jobs-message h4 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+
+    /* ===== MODAL STYLES ===== */
+    .modal-content {
+      background: rgba(255, 250, 240, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 32px;
+      border: 1px solid rgba(194, 73, 31, 0.15);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .modal-header {
+      border-bottom: 1px solid rgba(194, 73, 31, 0.1);
+      padding: 25px 30px;
+    }
+
+    .modal-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    .modal-title i {
+      color: var(--ember);
+      margin-right: 12px;
+    }
+
+    .modal-body {
+      padding: 30px;
+    }
+
+    .modal-footer {
+      border-top: 1px solid rgba(194, 73, 31, 0.1);
+      padding: 20px 30px;
+    }
+
+    .job-preview-card {
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 24px;
+      padding: 28px;
+      border: 1px solid rgba(194, 73, 31, 0.1);
+    }
+
+    #companyName,
+    #jobLocation,
+    #jobType,
+    #jobDeadline {
+      height: auto;
+    }
+
+    .badge-info {
+      background: rgba(194, 73, 31, 0.1);
+      color: var(--ember);
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-size: 0.75rem;
+    }
+
+    .text-success {
+      color: var(--success) !important;
+    }
+
+    .text-danger {
+      color: var(--danger) !important;
+    }
+
+    /* ===== CHIPS UI ===== */
+    .chips-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 10px;
+      border: 1.5px solid rgba(10, 26, 47, 0.08);
+      border-radius: 18px;
+      background: white;
+      min-height: 52px;
+      align-items: center;
+    }
+
+    .chip {
+      background: rgba(194, 73, 31, 0.1);
+      color: var(--ink);
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(194, 73, 31, 0.15);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .chip i {
+      font-size: 0.8rem;
+      cursor: pointer;
+      color: var(--danger);
+      transition: var(--transition);
+    }
+
+    .chip i:hover {
+      transform: scale(1.2);
+    }
+
+    .chip-input {
+      border: none;
+      outline: none;
+      flex: 1;
+      min-width: 120px;
+      font-size: 0.9rem;
+      background: transparent;
+    }
+
+    /* ===== APPLICANTS TABLE ===== */
+    .applicants-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 10px;
+    }
+
+    .applicants-table tr {
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 12px;
+      transition: var(--transition);
+    }
+
+    .applicants-table th {
+      font-size: 0.85rem;
+      color: #8f9aaa;
+      font-weight: 600;
+      padding: 10px 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .applicants-table td {
+      padding: 15px;
+      font-size: 0.9rem;
+      vertical-align: middle;
+    }
+
+    .applicant-status-select {
+      background: white;
+      border: 1px solid rgba(10, 26, 47, 0.1);
+      border-radius: 40px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      outline: none;
+    }
+
+    .status-pill {
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: capitalize;
+    }
+
+    .status-pill-pending {
+      background: rgba(243, 156, 18, 0.1);
+      color: #d35400;
+    }
+
+    .status-pill-accepted {
+      background: rgba(40, 167, 69, 0.1);
+      color: #27ae60;
+    }
+
+    .status-pill-rejected {
+      background: rgba(231, 76, 60, 0.1);
+      color: #c0392b;
+    }
+
+
+    /* ===== RESPONSIVE ===== */
+
+    @media (max-width: 992px) {
+      .hero {
+        padding: 20px;
+      }
+
+      .container-glass,
+      .posted-jobs-section {
+        padding: 30px;
+      }
+
+      .container-glass h2 {
+        font-size: 1.8rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+
+      #navbar,
+      .mesh-bg,
+      .hero,
+      .footer {
+        display: none !important;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .container-glass h2 {
+        font-size: 1.4rem;
+      }
+
+      .posted-jobs-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .job-footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .job-actions {
+        width: 100%;
+      }
+    }
+
+    .form-control,
+    .form-label {
+      height: auto;
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <!-- MOBILE ROOT - Injected High in DOM -->
+  <div id="mobile-root"></div>
+
+  <div id="navbar"></div>
+  <!-- PREMIUM MESH BACKGROUND -->
+  <div class="mesh-bg">
+    <div class="mesh mesh-1"></div>
+    <div class="mesh mesh-2"></div>
+    <div class="mesh mesh-3"></div>
+    <div class="mesh mesh-4"></div>
+  </div>
+  <!-- MAIN CONTENT -->
+  <section class="hero">
+    <!-- POST JOB FORM -->
+    <div class="container-glass">
+      <h2>
+        Post an Opportunity
+        <button type="button" class="btn-view-jobs" id="toggleJobsBtn">
+          <i class="fas fa-eye"></i> View Posted Jobs
+        </button>
+      </h2>
+      <p>Share internships, full-time roles, or projects with LPU students and help them launch their careers.</p>
+      <hr class="divider">
+
+      <form id="jobForm">
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-briefcase"></i> Job Title *
+          </label>
+          <input type="text" class="form-control" id="jobTitle" placeholder="e.g. Software Developer Intern" required>
+        </div>
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">
+              <i class="fas fa-building"></i> Company Name *
+            </label>
+            <input type="text" class="form-control" id="companyName" placeholder="e.g. Microsoft" required>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label">
+              <i class="fas fa-image"></i> Company Logo URL
+            </label>
+            <input type="url" class="form-control" id="companyLogo" placeholder="https://logo.url/logo.png">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">
+              <i class="fas fa-map-marker-alt"></i> Location *
+            </label>
+            <input type="text" class="form-control" id="jobLocation" placeholder="e.g. Hyderabad" required>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label">
+              <i class="fas fa-laptop-house"></i> Work Mode *
+            </label>
+            <select class="form-control" id="workMode" required>
+              <option value="">Select Mode</option>
+              <option value="Remote">Remote</option>
+              <option value="Hybrid">Hybrid</option>
+              <option value="Onsite">Onsite</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">
+              <i class="fas fa-clock"></i> Job Type *
+            </label>
+            <select class="form-control" id="jobType" required>
+              <option value="">Select Type</option>
+              <option>Full Time</option>
+              <option>Part Time</option>
+              <option>Internship</option>
+              <option>Contract</option>
+            </select>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label">
+              <i class="fas fa-user-graduate"></i> Experience Level *
+            </label>
+            <select class="form-control" id="experienceLevel" required>
+              <option value="No Experience">No Experience</option>
+              <option value="0-1 Years">0-1 Years</option>
+              <option value="1-3 Years">1-3 Years</option>
+              <option value="3+ Years">3+ Years</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-4 mb-3">
+            <label class="form-label">
+              <i class="fas fa-money-bill-wave"></i> Salary Min (K)
+            </label>
+            <input type="number" class="form-control" id="salaryMin" placeholder="e.g. 30">
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label">
+              <i class="fas fa-money-bill-wave"></i> Salary Max (K)
+            </label>
+            <input type="number" class="form-control" id="salaryMax" placeholder="e.g. 50">
+          </div>
+          <div class="col-md-4 mb-3">
+            <label class="form-label">
+              <i class="fas fa-calendar-check"></i> Salary Period
+            </label>
+            <select class="form-control" id="salaryPeriod">
+              <option value="Month">Per Month</option>
+              <option value="Year">Per Year</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label class="form-label">
+              <i class="fas fa-calendar-alt"></i> Application Deadline *
+            </label>
+            <input type="date" class="form-control" id="jobDeadline" required>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-graduation-cap"></i> Eligible Streams
+          </label>
+          <div class="dropdown">
+            <button class="btn btn-light dropdown-toggle form-control text-left" type="button" id="streamsDropdown"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Select Eligible Streams
+            </button>
+            <div class="dropdown-menu" aria-labelledby="streamsDropdown">
+              <div class="px-3 py-2">
+                <div class="form-check">
+                  <input class="form-check-input stream-check" type="checkbox" value="CSE" id="streamCSE">
+                  <label class="form-check-label" for="streamCSE">Computer Science (CSE)</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input stream-check" type="checkbox" value="ECE" id="streamECE">
+                  <label class="form-check-label" for="streamECE">Electronics & Comm (ECE)</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input stream-check" type="checkbox" value="EEE" id="streamEEE">
+                  <label class="form-check-label" for="streamEEE">Electrical (EEE)</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input stream-check" type="checkbox" value="Mechanical" id="streamMech">
+                  <label class="form-check-label" for="streamMech">Mechanical</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input stream-check" type="checkbox" value="Civil" id="streamCivil">
+                  <label class="form-check-label" for="streamCivil">Civil</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input stream-check" type="checkbox" value="MBA" id="streamMBA">
+                  <label class="form-check-label" for="streamMBA">MBA</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input stream-check" type="checkbox" value="BBA" id="streamBBA">
+                  <label class="form-check-label" for="streamBBA">BBA</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input stream-check" type="checkbox" value="Law" id="streamLaw">
+                  <label class="form-check-label" for="streamLaw">Law</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input stream-check" type="checkbox" value="Arts" id="streamArts">
+                  <label class="form-check-label" for="streamArts">Arts & Humanities</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input stream-check" type="checkbox" value="Sciences" id="streamSciences">
+                  <label class="form-check-label" for="streamSciences">Pure Sciences</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-code"></i> Skills Required (Press Enter to add)
+          </label>
+          <div class="chips-container" id="skillsChipsContainer">
+            <input type="text" class="chip-input" id="skillsInput" placeholder="e.g. Python, SQL">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-tags"></i> Tags (Press Enter to add)
+          </label>
+          <div class="chips-container" id="tagsChipsContainer">
+            <input type="text" class="chip-input" id="tagsInput" placeholder="e.g. Undergraduate, Immediate Joiner">
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-link"></i> Provide Job Link
+          </label>
+          <input type="text" class="form-control" id="jobLink" placeholder="https://">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-file-alt"></i> Job Description *
+          </label>
+          <textarea class="form-control" id="jobDescription" rows="5"
+            placeholder="Write a detailed description of the role, responsibilities, and requirements..."
+            required></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-heritage">
+            <i class="fas fa-paper-plane"></i> Post Opportunity
+          </button>
+          <button type="button" class="btn-outline-heritage" id="previewBtn">
+            <i class="fas fa-eye"></i> Preview
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- POSTED JOBS SECTION (Initially Hidden) -->
+    <div class="posted-jobs-section" id="postedJobsSection" style="display: none;">
+      <div class="posted-jobs-header">
+        <h3>
+          Your Posted Jobs
+          <span class="jobs-count-badge" id="jobsCount">0</span>
+        </h3>
+        <button type="button" class="btn-back" id="backToFormBtn">
+          <i class="fas fa-arrow-left"></i> Back to Post Form
+        </button>
+      </div>
+
+      <div id="postedJobsList">
+        <!-- Jobs will be dynamically added here -->
+        <div class="no-jobs-message">
+          <i class="fas fa-briefcase"></i>
+          <h4>No Opportunities Posted Yet</h4>
+          <p>Post your first job or internship to get started!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREVIEW MODAL -->
+  <div class="modal fade" id="previewModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            <i class="fas fa-eye"></i> Preview Job Posting
+          </h5>
+          <button type="button" class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="jobPreview"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn-outline-heritage" data-dismiss="modal">
+            <i class="fas fa-edit"></i> Edit
+          </button>
+          <button type="button" class="btn-heritage" id="confirmPost">
+            <i class="fas fa-check"></i> Confirm & Post
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS MODAL -->
+  <div class="modal fade" id="successModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body text-center py-5">
+          <div class="mb-4">
+            <i class="fas fa-check-circle" style="color: var(--success); font-size: 4rem;"></i>
+          </div>
+          <h4 class="mb-3" style="color: var(--ink); font-weight: 700;">Job Posted Successfully!</h4>
+          <p class="mb-4" style="color: #5f6b7a;">Your opportunity is now live and visible to LPU students.</p>
+          <button type="button" class="btn-heritage" data-dismiss="modal">
+            <i class="fas fa-check"></i> Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DELETE CONFIRMATION MODAL -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-danger">
+            <i class="fas fa-exclamation-triangle"></i> Confirm Delete
+          </h5>
+          <button type="button" class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p style="color: #3f4d5e;">Are you sure you want to delete this job posting? This action cannot be undone.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-outline-heritage" data-dismiss="modal">
+            <i class="fas fa-times"></i> Cancel
+          </button>
+          <button type="button" class="btn-heritage"
+            style="background: var(--danger); color: white; border-color: var(--danger);" id="confirmDelete">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDIT JOB MODAL -->
+  <div class="modal fade" id="editJobModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            <i class="fas fa-edit"></i> Edit Job Posting
+          </h5>
+          <button type="button" class="close" data-dismiss="modal">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="editJobForm">
+            <input type="hidden" id="editJobId">
+
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">
+                  <i class="fas fa-briefcase"></i> Job Title *
+                </label>
+                <input type="text" class="form-control" id="editTitle" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">
+                  <i class="fas fa-building"></i> Company Name *
+                </label>
+                <input type="text" class="form-control" id="editCompany" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">
+                  <i class="fas fa-map-marker-alt"></i> Location *
+                </label>
+                <input type="text" class="form-control" id="editLocation" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">
+                  <i class="fas fa-laptop-house"></i> Work Mode *
+                </label>
+                <select class="form-control" id="editWorkMode" required>
+                  <option value="Remote">Remote</option>
+                  <option value="Hybrid">Hybrid</option>
+                  <option value="Onsite">Onsite</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">
+                  <i class="fas fa-clock"></i> Job Type *
+                </label>
+                <select class="form-control" id="editJobType" required>
+                  <option>Full Time</option>
+                  <option>Part Time</option>
+                  <option>Internship</option>
+                  <option>Contract</option>
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">
+                  <i class="fas fa-user-graduate"></i> Experience Level *
+                </label>
+                <select class="form-control" id="editExperienceLevel" required>
+                  <option value="No Experience">No Experience</option>
+                  <option value="0-1 Years">0-1 Years</option>
+                  <option value="1-3 Years">1-3 Years</option>
+                  <option value="3+ Years">3+ Years</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label class="form-label">Salary Min (K)</label>
+                <input type="number" class="form-control" id="editSalaryMin">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label class="form-label">Salary Max (K)</label>
+                <input type="number" class="form-control" id="editSalaryMax">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label class="form-label">Period</label>
+                <select class="form-control" id="editSalaryPeriod">
+                  <option value="Month">Month</option>
+                  <option value="Year">Year</option>
+                  <option value="Hour">Hour</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">
+                  <i class="fas fa-calendar-alt"></i> Deadline *
+                </label>
+                <input type="date" class="form-control" id="editDeadline" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">
+                  <i class="fas fa-graduation-cap"></i> Department
+                </label>
+                <input type="text" class="form-control" id="editDepartment" placeholder="e.g. Engineering">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Skills (Press Enter)</label>
+              <div class="chips-container" id="editSkillsChips">
+                <input type="text" class="chip-input" id="editSkillsInput">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Tags (Press Enter)</label>
+              <div class="chips-container" id="editTagsChips">
+                <input type="text" class="chip-input" id="editTagsInput">
+              </div>
+            </div>
+
+
+
+            <div class="form-group">
+              <label class="form-label">
+                <i class="fas fa-file-alt"></i> Job Description *
+              </label>
+              <textarea class="form-control" id="editDescription" rows="5"
+                placeholder="Write a detailed description of the role, responsibilities, and requirements..."
+                required></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-outline-heritage" data-dismiss="modal">
+            <i class="fas fa-times"></i> Cancel
+          </button>
+          <button type="button" class="btn-heritage" id="saveEditBtn">
+            <i class="fas fa-save"></i> Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Applicants Modal -->
+  <div class="modal fade" id="applicantsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="fas fa-users-gear"></i> <span id="applicantsModalTitle">Job
+              Applicants</span></h5>
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+        </div>
+        <div class="modal-body" style="max-height:65vh;overflow-y:auto;">
+          <div id="applicantsListContainer">
+            <div class="text-center py-5">
+              <i class="fas fa-spinner fa-spin fa-2x text-muted"></i>
+              <p class="mt-2">Loading applicants...</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-heritage" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .applicant-card {
+      background: rgba(255, 250, 240, 0.85);
+      backdrop-filter: blur(8px);
+      border-radius: 20px;
+      padding: 18px 20px;
+      margin-bottom: 14px;
+      border: 1px solid rgba(194, 73, 31, 0.1);
+      transition: all .3s ease;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .applicant-card:hover {
+      border-color: var(--gilt);
+      box-shadow: 0 8px 24px -6px rgba(194, 73, 31, 0.12);
+      transform: translateY(-2px);
+    }
+
+    .applicant-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--ember), var(--gilt));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .applicant-info {
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .applicant-info h6 {
+      margin: 0 0 2px;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .applicant-info small {
+      color: #8f9aaa;
+      font-size: 0.78rem;
+    }
+
+    .match-badge {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .match-top {
+      background: rgba(255, 87, 34, 0.15);
+      color: #e65100;
+    }
+
+    .match-good {
+      background: rgba(255, 193, 7, 0.18);
+      color: #f57f17;
+    }
+
+    .match-low {
+      background: rgba(158, 158, 158, 0.15);
+      color: #616161;
+    }
+
+    .match-bar-bg {
+      width: 80px;
+      height: 7px;
+      border-radius: 6px;
+      background: rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .match-bar-fill {
+      height: 100%;
+      border-radius: 6px;
+      transition: width .6s ease;
+    }
+
+    .applicant-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 6px;
+    }
+
+    .applicant-skills .sk {
+      background: rgba(194, 73, 31, 0.08);
+      color: var(--ember);
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.68rem;
+      font-weight: 600;
+    }
+
+    .applicant-actions {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+      flex-wrap: wrap;
+    }
+
+    .applicant-actions button {
+      border: none;
+      border-radius: 14px;
+      padding: 7px 14px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+
+    .btn-view-profile {
+      background: rgba(194, 73, 31, 0.1);
+      color: var(--ember);
+    }
+
+    .btn-view-profile:hover {
+      background: var(--ember);
+      color: #fff;
+    }
+
+    .btn-accept {
+      background: rgba(46, 125, 50, 0.1);
+      color: #2e7d32;
+    }
+
+    .btn-accept:hover {
+      background: #2e7d32;
+      color: #fff;
+    }
+
+    .btn-reject {
+      background: rgba(198, 40, 40, 0.1);
+      color: #c62828;
+    }
+
+    .btn-reject:hover {
+      background: #c62828;
+      color: #fff;
+    }
+
+    .btn-action-disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    /* Job Lifecycle Status Badges */
+    .job-status-badge {
+      padding: 5px 12px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .badge-active {
+      background: rgba(40, 167, 69, 0.1);
+      color: #28a745;
+      border: 1px solid rgba(40, 167, 69, 0.2);
+    }
+
+    .badge-paused {
+      background: rgba(255, 193, 7, 0.1);
+      color: #e0a800;
+      border: 1px solid rgba(255, 193, 7, 0.2);
+    }
+
+    .badge-closed {
+      background: rgba(108, 117, 125, 0.1);
+      color: #6c757d;
+      border: 1px solid rgba(108, 117, 125, 0.2);
+    }
+
+    .badge-expired {
+      background: rgba(220, 53, 69, 0.08);
+      color: #dc3545;
+      border: 1px solid rgba(220, 53, 69, 0.2);
+    }
+
+    .lifecycle-btns {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .lifecycle-btn {
+      padding: 4px 12px;
+      border-radius: 10px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      border: 1px solid rgba(10, 26, 47, 0.1);
+      background: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .lifecycle-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .lifecycle-btn.pause-btn {
+      color: #e0a800;
+      border-color: #ffc107;
+    }
+
+    .lifecycle-btn.pause-btn:hover {
+      background: #ffc107;
+      color: #fff;
+    }
+
+    .lifecycle-btn.close-btn {
+      color: #6c757d;
+      border-color: #6c757d;
+    }
+
+    .lifecycle-btn.close-btn:hover {
+      background: #6c757d;
+      color: #fff;
+    }
+
+    .lifecycle-btn.reactivate-btn {
+      color: #28a745;
+      border-color: #28a745;
+    }
+
+    .lifecycle-btn.reactivate-btn:hover {
+      background: #28a745;
+      color: #fff;
+    }
+
+    .insights-panel {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      padding: 10px 14px;
+      background: rgba(10, 26, 47, 0.02);
+      border-radius: 12px;
+      border: 1px solid rgba(10, 26, 47, 0.05);
+    }
+
+    .insight-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #5f6b7a;
+    }
+
+    .insight-item i {
+      color: var(--ember);
+      font-size: 0.7rem;
+    }
+
+    .health-high {
+      color: #28a745;
+    }
+
+    .health-medium {
+      color: #e0a800;
+    }
+
+    .health-low {
+      color: #dc3545;
+    }
+  </style>
+
+  <!-- SCRIPTS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    // ===== DATA STORAGE =====
+    let postedJobs = [];
+    let jobToDelete = null;
+
+    // ===== INITIALIZATION =====
+    document.addEventListener("DOMContentLoaded", function () {
+      updateStreamsDropdown();
+      loadMyJobs();
+
+      // Toggle between form and jobs list
+      document.getElementById('toggleJobsBtn').addEventListener('click', () => {
+        document.querySelector('.container-glass').style.display = 'none';
+        document.getElementById('postedJobsSection').style.display = 'block';
+      });
+
+      document.getElementById('backToFormBtn').addEventListener('click', () => {
+        document.querySelector('.container-glass').style.display = 'block';
+        document.getElementById('postedJobsSection').style.display = 'none';
+      });
+
+      // Stream checkboxes
+      document.querySelectorAll('.stream-check').forEach(chk => {
+        chk.addEventListener('change', updateStreamsDropdown);
+      });
+
+      // Preview button
+      document.getElementById('previewBtn').addEventListener('click', previewJob);
+
+      // Form submission
+      document.getElementById("jobForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        previewJob();
+      });
+
+      // Confirm posting
+      document.getElementById("confirmPost").addEventListener("click", postJob);
+
+      // Delete confirmation
+      document.getElementById('confirmDelete').addEventListener('click', deleteJob);
+
+      // Chips Initialization
+      initChipsUI('skillsInput', 'skillsChipsContainer');
+      initChipsUI('tagsInput', 'tagsChipsContainer');
+      initChipsUI('editSkillsInput', 'editSkillsChips');
+      initChipsUI('editTagsInput', 'editTagsChips');
+
+
+      // Save edited job
+
+      document.getElementById('saveEditBtn').addEventListener('click', saveJobEdit);
+    });
+
+    // ===== CHIPS UI LOGIC =====
+    function initChipsUI(inputId, containerId) {
+      const input = document.getElementById(inputId);
+      const container = document.getElementById(containerId);
+
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          const value = input.value.trim();
+          if (value) {
+            addChip(value, container, input);
+          }
+        }
+      });
+    }
+
+    function addChip(text, container, input) {
+      // Check if already exists
+      const existing = Array.from(container.querySelectorAll('.chip span')).map(s => s.textContent);
+      if (existing.includes(text)) {
+        input.value = '';
+        return;
+      }
+
+      const chip = document.createElement('div');
+      chip.className = 'chip';
+      chip.innerHTML = `<span>${text}</span><i class="fas fa-times"></i>`;
+
+      chip.querySelector('i').onclick = () => chip.remove();
+
+      container.insertBefore(chip, input);
+      input.value = '';
+    }
+
+    function getChipsValues(containerId) {
+      return Array.from(document.querySelectorAll(`#${containerId} .chip span`)).map(s => s.textContent);
+    }
+
+
+    // ===== DROPDOWN UPDATE =====
+    function updateStreamsDropdown() {
+      const selected = Array.from(document.querySelectorAll('.stream-check:checked'))
+        .map(cb => cb.value);
+      const dropdownBtn = document.getElementById('streamsDropdown');
+      if (selected.length > 0) {
+        dropdownBtn.innerHTML = selected.join(", ") + (selected.length > 3 ? '...' : '');
+      } else {
+        dropdownBtn.innerHTML = 'Select Eligible Streams';
+      }
+    }
+
+    // ===== GET FORM DATA =====
+    function getFormData() {
+      return {
+        id: Date.now(),
+        title: document.getElementById('jobTitle').value,
+        companyName: document.getElementById('companyName').value,
+        companyLogo: document.getElementById('companyLogo').value.trim(),
+        location: document.getElementById('jobLocation').value,
+        workMode: document.getElementById('workMode').value,
+        type: document.getElementById('jobType').value,
+        experienceLevel: document.getElementById('experienceLevel').value,
+        salaryMin: document.getElementById('salaryMin').value,
+        salaryMax: document.getElementById('salaryMax').value,
+        salaryPeriod: document.getElementById('salaryPeriod').value,
+        streams: Array.from(document.querySelectorAll('.stream-check:checked'))
+          .map(cb => cb.value),
+        skills: getChipsValues('skillsChipsContainer'),
+        tags: getChipsValues('tagsChipsContainer'),
+        link: document.getElementById('jobLink').value.trim(),
+        description: document.getElementById('jobDescription').value,
+        deadline: document.getElementById('jobDeadline').value,
+        postedDate: new Date().toISOString().split('T')[0]
+      };
+    }
+
+
+    // ===== VALIDATE FORM =====
+    function validateFormData(formData) {
+      if (!formData.title.trim()) {
+        alert('Please enter a Job Title');
+        return false;
+      }
+      if (!formData.companyName.trim()) {
+        alert('Please enter a Company Name');
+        return false;
+      }
+      if (!formData.location.trim()) {
+        alert('Please enter a Location');
+        return false;
+      }
+      if (!formData.workMode) {
+        alert('Please select a Work Mode');
+        return false;
+      }
+      if (!formData.type) {
+        alert('Please select a Job Type');
+        return false;
+      }
+      if (!formData.experienceLevel) {
+        alert('Please select an Experience Level');
+        return false;
+      }
+      if (!formData.description.trim()) {
+        alert('Please enter a Job Description');
+        return false;
+      }
+      if (!formData.deadline) {
+        alert('Please select an Application Deadline');
+        return false;
+      }
+      return true;
+    }
+
+
+    // ===== PREVIEW JOB =====
+    function previewJob() {
+      const formData = getFormData();
+
+      if (!validateFormData(formData)) {
+        return;
+      }
+
+      const previewHTML = `
+        <div class="job-preview-card">
+          <div class="d-flex justify-content-between align-items-start mb-4">
+            <div>
+              <h4 style="font-size: 1.4rem; font-weight: 700; color: var(--ink); margin: 0;">${formData.title}</h4>
+              <p style="color: var(--ember); font-weight: 600; margin: 5px 0 0 0;">${formData.companyName}</p>
+            </div>
+            <span class="job-type-badge">${formData.type}</span>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-6">
+              <p style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                <i class="fas fa-map-marker-alt" style="color: var(--ember); width: 16px;"></i>
+                <strong style="color: var(--ink);">Location:</strong> ${formData.location} (${formData.workMode})
+              </p>
+              <p style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                <i class="fas fa-user-graduate" style="color: var(--ember); width: 16px;"></i>
+                <strong style="color: var(--ink);">Exp:</strong> ${formData.experienceLevel}
+              </p>
+            </div>
+            <div class="col-md-6">
+              <p style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                <i class="fas fa-money-bill-wave" style="color: var(--ember); width: 16px;"></i>
+                <strong style="color: var(--ink);">Salary:</strong> ₹${formData.salaryMin || '?'}-${formData.salaryMax || '?'} K/${formData.salaryPeriod}
+              </p>
+              <p style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                <i class="fas fa-calendar-alt" style="color: var(--ember); width: 16px;"></i>
+                <strong style="color: var(--ink);">Deadline:</strong> ${formData.deadline ? new Date(formData.deadline).toLocaleDateString() : 'N/A'}
+              </p>
+            </div>
+          </div>
+          
+          <div style="margin: 20px 0;">
+            <p style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+              <i class="fas fa-code" style="color: var(--ember); width: 16px;"></i>
+              <strong style="color: var(--ink);">Skills:</strong>
+            </p>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+              ${formData.skills.length > 0 ? formData.skills.map(skill => `<span class="badge-info" style="padding: 6px 16px;">${skill}</span>`).join('') : '<span class="text-muted">No skills added</span>'}
+            </div>
+          </div>
+
+          <div style="margin: 20px 0;">
+            <p style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+              <i class="fas fa-tags" style="color: var(--ember); width: 16px;"></i>
+              <strong style="color: var(--ink);">Tags:</strong>
+            </p>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+              ${formData.tags.length > 0 ? formData.tags.map(tag => `<span class="skill-tag">${tag}</span>`).join('') : '<span class="text-muted">No tags added</span>'}
+            </div>
+          </div>
+          
+          <hr style="border-color: rgba(194,73,31,0.1); margin: 25px 0;">
+          
+          <div>
+            <p style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+              <i class="fas fa-file-alt" style="color: var(--ember); width: 16px;"></i>
+              <strong style="color: var(--ink);">Description:</strong>
+            </p>
+            <p style="color: #3f4d5e; line-height: 1.6;">${formData.description}</p>
+          </div>
+        </div>
+      `;
+
+      document.getElementById("jobPreview").innerHTML = previewHTML;
+      $('#previewModal').modal('show');
+    }
+
+
+    // ===== POST JOB =====
+    async function postJob() {
+      var formData = getFormData();
+      var confirmBtn = document.getElementById('confirmPost');
+      confirmBtn.disabled = true;
+      confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Posting...';
+
+      try {
+        await apiFetch('/api/jobs', {
+          method: 'POST',
+          body: JSON.stringify({
+            title: formData.title,
+            companyName: formData.companyName,
+            companyLogo: formData.companyLogo,
+            description: formData.description,
+            location: formData.location,
+            workMode: formData.workMode,
+            jobType: formData.type,
+            experienceLevel: formData.experienceLevel,
+            salaryMin: formData.salaryMin,
+            salaryMax: formData.salaryMax,
+            salaryPeriod: formData.salaryPeriod,
+            department: formData.streams.length ? formData.streams[0] : 'All',
+            skills: formData.skills,
+            tags: formData.tags,
+            applicationDeadline: formData.deadline,
+            link: formData.link
+          })
+        });
+
+
+        $('#previewModal').modal('hide');
+
+        // Success toast
+        if (typeof Swal !== 'undefined') {
+          Swal.fire({
+            icon: 'success',
+            title: 'Job Posted!',
+            text: 'Your opportunity is now live.',
+            confirmButtonColor: '#C2491F',
+            timer: 2000,
+            showConfirmButton: false,
+            background: '#FFF8F0',
+            toast: true,
+            position: 'top-end'
+          });
+        }
+
+        // Reset form and view
+        document.getElementById('jobForm').reset();
+        document.getElementById('streamsDropdown').innerHTML = 'Select Eligible Streams';
+        loadMyJobs();
+
+        // Switch to "Posted Jobs" view
+        setTimeout(function () {
+          document.querySelector('.container-glass').style.display = 'none';
+          document.getElementById('postedJobsSection').style.display = 'block';
+        }, 500);
+
+      } catch (err) {
+        console.error('[postJob] Error:', err.message);
+        Swal.fire({
+          icon: 'error',
+          title: 'Post Failed',
+          text: err.message || 'Could not post the job.',
+          confirmButtonColor: '#C2491F',
+          background: '#FFF8F0'
+        });
+      } finally {
+        confirmBtn.disabled = false;
+        confirmBtn.innerHTML = '<i class="fas fa-check"></i> Confirm & Post';
+      }
+    }
+
+    // ===== LOAD MY JOBS FROM API =====
+    async function loadMyJobs() {
+      var jobsList = document.getElementById('postedJobsList');
+      var jobsCount = document.getElementById('jobsCount');
+
+      try {
+        postedJobs = await apiFetch('/api/jobs/my');
+      } catch (err) {
+        console.error('[myJobs] Load error:', err.message);
+        postedJobs = [];
+      }
+
+      jobsCount.textContent = postedJobs.length;
+
+      if (!postedJobs.length) {
+        jobsList.innerHTML = window.UIHelper ?
+          window.UIHelper.getEmptyStateHTML('No Opportunities Posted Yet', 'Post your first job or internship to get started!', 'fa-briefcase') :
+          '<div class="no-jobs-message">' +
+          '<i class="fas fa-briefcase"></i>' +
+          '<h4>No Opportunities Posted Yet</h4>' +
+          '<p>Post your first job or internship to get started!</p>' +
+          '</div>';
+        return;
+      }
+
+      jobsList.innerHTML = postedJobs.map(function (job) {
+        var typeLabel = job.jobType || job.type || '';
+        var loc = job.location || 'Remote';
+        var appCount = job.applicants ? job.applicants.length : 0;
+        var posted = job.createdAt
+          ? new Date(job.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+          : '';
+        var desc = job.description || '';
+        var jobId = job._id || job.id;
+
+        var deadline = job.deadline
+          ? new Date(job.deadline).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+          : 'N/A';
+
+        // Job status
+        var jobStatus = job.status || 'active';
+        var statusIcons = { active: 'fa-check-circle', paused: 'fa-pause-circle', closed: 'fa-times-circle', expired: 'fa-clock', draft: 'fa-pencil-alt' };
+        var statusBadgeHtml = '<span class="job-status-badge badge-' + jobStatus + '">' +
+          '<i class="fas ' + (statusIcons[jobStatus] || 'fa-circle') + '"></i> ' + jobStatus.toUpperCase() + '</span>';
+
+        // Lifecycle buttons
+        var lifecycleHtml = '<div class="lifecycle-btns">';
+        if (jobStatus === 'active') {
+          lifecycleHtml += '<button class="lifecycle-btn pause-btn" onclick="handleJobStatus(\'' + jobId + '\', \'paused\')" title="Pause hiring"><i class="fas fa-pause"></i> Pause</button>';
+          lifecycleHtml += '<button class="lifecycle-btn close-btn" onclick="handleJobStatus(\'' + jobId + '\', \'closed\')" title="Close this position"><i class="fas fa-stop"></i> Close</button>';
+        } else if (jobStatus === 'paused') {
+          lifecycleHtml += '<button class="lifecycle-btn reactivate-btn" onclick="handleJobStatus(\'' + jobId + '\', \'active\')" title="Reactivate"><i class="fas fa-play"></i> Reactivate</button>';
+          lifecycleHtml += '<button class="lifecycle-btn close-btn" onclick="handleJobStatus(\'' + jobId + '\', \'closed\')" title="Close"><i class="fas fa-stop"></i> Close</button>';
+        } else if (jobStatus === 'closed' || jobStatus === 'expired') {
+          lifecycleHtml += '<button class="lifecycle-btn reactivate-btn" onclick="handleJobStatus(\'' + jobId + '\', \'active\')" title="Reactivate"><i class="fas fa-undo"></i> Reactivate</button>';
+        }
+        lifecycleHtml += '</div>';
+
+        return (
+          '<div class="job-card glass-hover-elevate" data-id="' + jobId + '">' +
+          '<div class="job-card-header">' +
+          '<h3 class="job-title">' + job.title + '</h3>' +
+          '<span class="job-type-badge">' + typeLabel + '</span>' +
+          statusBadgeHtml +
+          '</div>' +
+          '<div class="job-company">' +
+          '<i class="fas fa-building"></i> ' + job.company +
+          '</div>' +
+          '<div class="job-meta">' +
+          '<div class="job-meta-item">' +
+          '<i class="fas fa-map-marker-alt"></i> ' + loc +
+          '</div>' +
+          '<div class="job-meta-item">' +
+          '<i class="fas fa-users"></i> ' + appCount + ' Applicant' + (appCount !== 1 ? 's' : '') +
+          '</div>' +
+          '</div>' +
+          (desc ? '<div class="job-description">' + desc.substring(0, 200) + (desc.length > 200 ? '...' : '') + '</div>' : '') +
+          '<div id="insights-' + jobId + '" class="insights-panel" style="display:none;"></div>' +
+          '<div class="job-footer">' +
+          '<div class="job-posted-date">' +
+          '<div><i class="fas fa-clock"></i> Posted: ' + posted + '</div>' +
+          '<div style="color: var(--ember); margin-top: 5px;"><i class="fas fa-calendar-alt"></i> Deadline: ' + deadline + '</div>' +
+          lifecycleHtml +
+          '</div>' +
+          '<div class="job-actions">' +
+          '<button class="job-action-btn edit-job-btn" data-job-id="' + jobId + '">' +
+          '<i class="fas fa-edit"></i> Edit' +
+          '</button>' +
+          '<button class="job-action-btn view-applicants-btn" data-job-id="' + jobId + '">' +
+          '<i class="fas fa-users"></i> Applicants' +
+          '</button>' +
+          '<button class="job-action-btn delete delete-btn" data-id="' + jobId + '">' +
+          '<i class="fas fa-trash"></i> Delete' +
+          '</button>' +
+          '</div>' +
+          '</div>' +
+          '</div>'
+        );
+      }).join('');
+
+      // Add event listeners for delete buttons
+      document.querySelectorAll('.delete-btn').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+          var jobId = e.target.closest('.delete-btn').dataset.id;
+          confirmDelete(jobId);
+        });
+      });
+
+      // Add event listeners for edit buttons
+      document.querySelectorAll('.edit-job-btn').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+          var jobId = e.target.closest('.edit-job-btn').dataset.jobId;
+          openEditModal(jobId);
+        });
+      });
+
+      // Add event listeners for view applicants buttons
+      document.querySelectorAll('.view-applicants-btn').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+          var jobId = e.target.closest('.view-applicants-btn').dataset.jobId;
+          openApplicantsModal(jobId);
+        });
+      });
+
+      // Load insights for each job
+      postedJobs.forEach(function (job) {
+        var jobId = job._id || job.id;
+        loadJobInsights(jobId);
+      });
+    }
+
+
+    // ===== OPEN EDIT MODAL =====
+    function openEditModal(jobId) {
+      var job = postedJobs.find(function (j) {
+        return (j._id || j.id) === jobId;
+      });
+      if (!job) {
+        console.warn('[edit] Job not found:', jobId);
+        return;
+      }
+
+      // Store job ID in hidden input
+      document.getElementById('editJobId').value = jobId;
+
+      // Prefill form fields
+      document.getElementById('editTitle').value = job.title || '';
+      document.getElementById('editCompany').value = job.companyName || job.company || '';
+      document.getElementById('editLocation').value = job.location || '';
+      document.getElementById('editWorkMode').value = job.workMode || 'Onsite';
+      document.getElementById('editJobType').value = job.jobType || 'Full Time';
+      document.getElementById('editExperienceLevel').value = job.experienceLevel || 'No Experience';
+      document.getElementById('editSalaryMin').value = job.salaryMin || '';
+      document.getElementById('editSalaryMax').value = job.salaryMax || '';
+      document.getElementById('editSalaryPeriod').value = job.salaryPeriod || 'Month';
+      document.getElementById('editDepartment').value = job.department || '';
+      document.getElementById('editDescription').value = job.description || '';
+
+      // Prefill Skills Chips
+      const skillsContainer = document.getElementById('editSkillsChips');
+      const skillsInput = document.getElementById('editSkillsInput');
+      skillsContainer.querySelectorAll('.chip').forEach(c => c.remove());
+      (job.skills || []).forEach(s => addChip(s, skillsContainer, skillsInput));
+
+      // Prefill Tags Chips
+      const tagsContainer = document.getElementById('editTagsChips');
+      const tagsInput = document.getElementById('editTagsInput');
+      tagsContainer.querySelectorAll('.chip').forEach(c => c.remove());
+      (job.tags || []).forEach(t => addChip(t, tagsContainer, tagsInput));
+
+
+      // Dynamic Deadline Prefill
+      const deadline = job.applicationDeadline || job.deadline;
+      if (deadline) {
+        document.getElementById('editDeadline').value = new Date(deadline).toISOString().split('T')[0];
+      } else {
+        document.getElementById('editDeadline').value = '';
+      }
+
+
+      $('#editJobModal').modal('show');
+    }
+
+    // ===== SAVE EDITED JOB =====
+    async function saveJobEdit() {
+      var form = document.getElementById('editJobForm');
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      var jobId = document.getElementById('editJobId').value;
+      var saveBtn = document.getElementById('saveEditBtn');
+
+      // Prevent double submit
+      saveBtn.disabled = true;
+      saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+      var payload = {
+        title: document.getElementById('editTitle').value,
+        companyName: document.getElementById('editCompany').value,
+        location: document.getElementById('editLocation').value,
+        workMode: document.getElementById('editWorkMode').value,
+        jobType: document.getElementById('editJobType').value,
+        experienceLevel: document.getElementById('editExperienceLevel').value,
+        salaryMin: document.getElementById('editSalaryMin').value,
+        salaryMax: document.getElementById('editSalaryMax').value,
+        salaryPeriod: document.getElementById('editSalaryPeriod').value,
+        department: document.getElementById('editDepartment').value,
+        description: document.getElementById('editDescription').value,
+        applicationDeadline: document.getElementById('editDeadline').value || null,
+        skills: getChipsValues('editSkillsChips'),
+        tags: getChipsValues('editTagsChips')
+      };
+
+
+
+      try {
+        await apiFetch('/api/jobs/' + jobId, {
+          method: 'PUT',
+          body: JSON.stringify(payload)
+        });
+
+        $('#editJobModal').modal('hide');
+
+        // Update local data
+        var job = postedJobs.find(function (j) { return (j._id || j.id) === jobId; });
+        if (job) {
+          job.title = payload.title;
+          job.company = payload.company;
+          job.location = payload.location;
+          job.jobType = payload.jobType;
+          job.department = payload.department;
+          job.description = payload.description;
+          job.deadline = payload.deadline;
+        }
+
+        // Update card in DOM without refetch
+        var card = document.querySelector('.job-card[data-id="' + jobId + '"]');
+        if (card) {
+          var titleEl = card.querySelector('.job-title');
+          var companyEl = card.querySelector('.job-company');
+          var metaItems = card.querySelectorAll('.job-meta-item');
+          var badgeEl = card.querySelector('.job-type-badge');
+          var descEl = card.querySelector('.job-description');
+
+          if (titleEl) titleEl.textContent = payload.title;
+          if (companyEl) companyEl.innerHTML = '<i class="fas fa-building"></i> ' + payload.company;
+          if (metaItems[0]) metaItems[0].innerHTML = '<i class="fas fa-map-marker-alt"></i> ' + (payload.location || 'Remote');
+          if (badgeEl) badgeEl.textContent = payload.jobType || '';
+          if (descEl) {
+            var d = payload.description || '';
+            descEl.textContent = d.length > 200 ? d.substring(0, 200) + '...' : d;
+          }
+
+          // Update deadline in footer
+          var footerEl = card.querySelector('.job-posted-date');
+          if (footerEl) {
+            var posted = job.createdAt ? new Date(job.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : 'N/A';
+            var deadline = payload.deadline ? new Date(payload.deadline).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : 'N/A';
+            footerEl.innerHTML = '<div><i class="fas fa-clock"></i> Posted: ' + posted + '</div>' +
+              '<div style="color: var(--ember); margin-top: 5px;"><i class="fas fa-calendar-alt"></i> Deadline: ' + deadline + '</div>';
+          }
+
+          // Brief highlight animation
+          card.style.transition = 'box-shadow 0.3s ease';
+          card.style.boxShadow = '0 0 0 3px rgba(194, 73, 31, 0.3)';
+          setTimeout(function () { card.style.boxShadow = ''; }, 1200);
+        }
+
+        // Success toast
+        if (window.UIHelper) {
+          window.UIHelper.showToast('Job updated successfully!', 'success');
+        } else if (typeof Swal !== 'undefined') {
+          Swal.fire({
+            icon: 'success',
+            title: 'Job Updated!',
+            text: 'Your changes have been saved.',
+            confirmButtonColor: '#C2491F',
+            timer: 2500,
+            showConfirmButton: false,
+            background: '#FFF8F0',
+            iconColor: '#C2491F',
+            toast: true,
+            position: 'top-end'
+          });
+        }
+      } catch (err) {
+        console.error('[editJob] Error:', err.message);
+        alert('Failed to update job: ' + err.message);
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = '<i class="fas fa-save"></i> Save Changes';
+      }
+    }
+
+    // ===== CONFIRM DELETE =====
+    function confirmDelete(jobId) {
+      jobToDelete = jobId;
+      $('#deleteModal').modal('show');
+    }
+
+    // ===== DELETE JOB =====
+    async function deleteJob() {
+      if (!jobToDelete) return;
+
+      var deleteBtn = document.getElementById('confirmDelete');
+      let resetBtn = () => { };
+      if (window.UIHelper) {
+        resetBtn = window.UIHelper.setButtonLoading(deleteBtn);
+      } else {
+        deleteBtn.disabled = true;
+        deleteBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Deleting...';
+      }
+
+      try {
+        await apiFetch('/api/jobs/' + jobToDelete, { method: 'DELETE' });
+        $('#deleteModal').modal('hide');
+        jobToDelete = null;
+
+        if (window.UIHelper) {
+          window.UIHelper.showToast('Job posting deleted successfully', 'success');
+        }
+
+        loadMyJobs();
+      } catch (err) {
+        console.error('[deleteJob] Error:', err.message);
+        if (window.UIHelper) {
+          window.UIHelper.showToast(err.message || 'Deletion failed', 'error');
+        } else {
+          alert('Failed to delete job: ' + err.message);
+        }
+      } finally {
+        resetBtn();
+        if (!window.UIHelper) {
+          deleteBtn.disabled = false;
+          deleteBtn.innerHTML = '<i class="fas fa-trash"></i> Delete';
+        }
+      }
+    }
+
+    // ===== APPLICANTS MANAGEMENT (RANKED VIEW) =====
+    async function openApplicantsModal(jobId) {
+      const container = document.getElementById('applicantsListContainer');
+      container.innerHTML = `
+        <div class="text-center py-5">
+          <i class="fas fa-spinner fa-spin fa-2x text-muted"></i>
+          <p class="mt-2">Ranking applicants...</p>
+        </div>
+      `;
+      $('#applicantsModal').modal('show');
+
+      try {
+        const data = await apiFetch(`/api/jobs/${jobId}/applicants`);
+        const applicants = data.applicants || [];
+        const title = data.jobTitle || 'Job';
+
+        document.getElementById('applicantsModalTitle').textContent = `Applicants — ${title}`;
+
+        if (!applicants.length) {
+          container.innerHTML = `
+            <div class="text-center py-5">
+              <i class="fas fa-user-slash fa-3x text-muted mb-3" style="opacity:0.3;"></i>
+              <p>No one has applied to this job yet.</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = applicants.map(app => {
+          const score = app.matchScore || 0;
+          const initials = (app.name || '?').split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+          let badgeClass, badgeLabel;
+          if (score >= 80) { badgeClass = 'match-top'; badgeLabel = '🔥 Top Match'; }
+          else if (score >= 60) { badgeClass = 'match-good'; badgeLabel = '⭐ Good Fit'; }
+          else { badgeClass = 'match-low'; badgeLabel = '⚠️ Low Fit'; }
+
+          const barColor = score >= 80 ? '#e65100' : score >= 60 ? '#f57f17' : '#9e9e9e';
+          const skillsHtml = (app.skills || []).slice(0, 5).map(s => `<span class="sk">${s}</span>`).join('');
+          const moreSkills = (app.skills || []).length > 5 ? `<span class="sk">+${app.skills.length - 5}</span>` : '';
+          const statusClass = app.status === 'accepted' ? 'match-top' : app.status === 'rejected' ? 'match-low' : 'match-good';
+
+          return `
+            <div class="applicant-card" id="applicant-card-${app._id}">
+              <div class="applicant-avatar">${initials}</div>
+              <div class="applicant-info">
+                <h6>${app.name || 'Unknown'}</h6>
+                <small>${app.email || ''} · ${app.department || 'N/A'}</small>
+                <div style="display:flex;align-items:center;gap:10px;margin-top:4px;">
+                  <span class="match-badge ${badgeClass}">${badgeLabel} · ${score}%</span>
+                  <span class="match-badge ${statusClass}" id="status-badge-${app._id}" style="text-transform:capitalize;">${app.status || 'pending'}</span>
+                </div>
+                <div class="match-bar-bg">
+                  <div class="match-bar-fill" style="width:${score}%;background:${barColor};"></div>
+                </div>
+                <div class="applicant-skills">${skillsHtml}${moreSkills}</div>
+              </div>
+              <div class="applicant-actions">
+                <button class="btn-view-profile" onclick="window.open('../For-Student/Student-Profile.html?userId=${app._id}','_blank')">
+                  <i class="fas fa-user"></i> Profile
+                </button>
+                <button class="btn-accept ${app.status === 'accepted' ? 'btn-action-disabled' : ''}" id="btn-accept-${app._id}" onclick="updateApplicantStatus('${jobId}','${app._id}','accepted')">
+                  <i class="fas fa-check"></i> Accept
+                </button>
+                <button class="btn-reject ${app.status === 'rejected' ? 'btn-action-disabled' : ''}" id="btn-reject-${app._id}" onclick="updateApplicantStatus('${jobId}','${app._id}','rejected')">
+                  <i class="fas fa-times"></i> Reject
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+      } catch (err) {
+        console.error('[applicants] Load error:', err.message);
+        container.innerHTML = `<div class="alert alert-danger">Error loading applicants: ${err.message}</div>`;
+      }
+    }
+
+    async function updateApplicantStatus(jobId, userId, newStatus) {
+      try {
+        await apiFetch(`/api/jobs/${jobId}/applicants/${userId}/status`, {
+          method: 'PUT',
+          body: JSON.stringify({ status: newStatus })
+        });
+
+        // Update badge
+        const badge = document.getElementById(`status-badge-${userId}`);
+        if (badge) {
+          badge.textContent = newStatus;
+          badge.className = `match-badge ${newStatus === 'accepted' ? 'match-top' : newStatus === 'rejected' ? 'match-low' : 'match-good'}`;
+        }
+        // Disable the clicked button
+        if (newStatus === 'accepted') {
+          const btn = document.getElementById(`btn-accept-${userId}`);
+          if (btn) btn.classList.add('btn-action-disabled');
+          const rBtn = document.getElementById(`btn-reject-${userId}`);
+          if (rBtn) rBtn.classList.remove('btn-action-disabled');
+        } else if (newStatus === 'rejected') {
+          const btn = document.getElementById(`btn-reject-${userId}`);
+          if (btn) btn.classList.add('btn-action-disabled');
+          const aBtn = document.getElementById(`btn-accept-${userId}`);
+          if (aBtn) aBtn.classList.remove('btn-action-disabled');
+        }
+
+        if (typeof Swal !== 'undefined') {
+          Swal.fire({
+            icon: 'success',
+            title: 'Status Updated',
+            text: `Applicant marked as ${newStatus}`,
+            timer: 1500,
+            showConfirmButton: false,
+            toast: true,
+            position: 'top-end'
+          });
+        }
+      } catch (err) {
+        console.error('[status] Update error:', err.message);
+        alert('Failed to update status: ' + err.message);
+      }
+    }
+
+    // ===== JOB LIFECYCLE CONTROL =====
+    window.handleJobStatus = async function (jobId, newStatus) {
+      var labels = { active: 'Reactivate', paused: 'Pause', closed: 'Close' };
+      var result = await Swal.fire({
+        title: labels[newStatus] + ' this job?',
+        text: newStatus === 'closed' ? 'Closed jobs will not be visible to students.' : newStatus === 'paused' ? 'Paused jobs will not accept new applications.' : 'This job will be visible and accepting applications again.',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, ' + labels[newStatus],
+        confirmButtonColor: '#C2491F',
+        cancelButtonColor: '#6c757d'
+      });
+
+      if (!result.isConfirmed) return;
+
+      try {
+        await apiFetch('/api/jobs/' + jobId + '/status', {
+          method: 'PATCH',
+          body: JSON.stringify({ status: newStatus })
+        });
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Status Updated',
+          text: 'Job is now ' + newStatus + '.',
+          timer: 1500,
+          showConfirmButton: false,
+          toast: true,
+          position: 'top-end'
+        });
+
+        loadMyJobs();
+      } catch (err) {
+        Swal.fire({ icon: 'error', title: 'Error', text: err.message, confirmButtonColor: '#C2491F' });
+      }
+    };
+
+    // ===== LOAD JOB INSIGHTS =====
+    async function loadJobInsights(jobId) {
+      try {
+        var data = await apiFetch('/api/jobs/' + jobId + '/insights');
+        var panel = document.getElementById('insights-' + jobId);
+        if (!panel) return;
+
+        var healthClass = 'health-' + (data.jobHealth || 'low');
+        var healthIcon = data.jobHealth === 'high' ? 'fa-fire' : data.jobHealth === 'medium' ? 'fa-chart-line' : 'fa-seedling';
+
+        panel.innerHTML =
+          '<div class="insight-item"><i class="fas fa-users"></i> ' + data.totalApplicants + ' Active Applicants</div>' +
+          '<div class="insight-item"><i class="fas fa-trophy"></i> Top Match: ' + data.topMatchScore + '%</div>' +
+          '<div class="insight-item"><i class="fas fa-chart-bar"></i> Avg Match: ' + data.avgMatchScore + '%</div>' +
+          '<div class="insight-item ' + healthClass + '"><i class="fas ' + healthIcon + '"></i> ' + (data.jobHealth || 'N/A').toUpperCase() + ' Health</div>';
+
+        panel.style.display = 'flex';
+      } catch (e) {
+        // Graceful — insights panel stays hidden
+      }
+    }
+
+  </script>
+  <!-- Socket.IO -->
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script>
+    // Socket listener for job status changes
+    document.addEventListener('DOMContentLoaded', function () {
+      if (typeof io !== 'undefined') {
+        var socket = io();
+        socket.on('job:statusChanged', function (data) {
+          console.log('[socket] Job status changed:', data);
+          loadMyJobs();
+        });
+        socket.on('application:withdrawn', function (data) {
+          console.log('[socket] Application withdrawn:', data);
+          loadMyJobs();
+        });
+      }
+    });
+  </script>
+  <!-- UI Helpers -->
+  <script src="../js/core/ui-helpers.js"></script>
+  <script src="../js/core/loadComponents.js" defer></script>
+  <script src="../js/core/authGuard.js"></script>
+  <script src="../js/core/api.js"></script>
+  <script src="../js/mobile-nav.js"></script>
+  <script src="../js/mobile-alumni-nav.js"></script>
+  <script>if (window.AlumniMobileNav) window.MobileNav = window.AlumniMobileNav;</script>
+  <script src="../js/mobile-alumni-postjob.js"></script>
+  <script src="../js/mobile-fixes.js"></script>
+</body>
+
+</html>

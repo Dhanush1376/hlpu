@@ -1,0 +1,509 @@
+/* ==============================================================
+   mobile-settings.css
+   Mobile-specific styles for Settings page
+   Matches hLPU mobile design system
+   ============================================================== */
+
+@media (max-width: 768px) {
+
+    /* 1. ROOT */
+    html,
+    body {
+        background: linear-gradient(180deg, #fdf6ec 0%, #fae9e3 40%, #ffffff 100%) !important;
+        background-attachment: fixed !important;
+    }
+
+    #mobile-root {
+        padding: 85px 15px 100px 15px;
+        min-height: 100vh;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* 2. DESKTOP ISOLATION */
+    .settings-container.desktop-only {
+        display: none !important;
+    }
+
+    #navbar {
+        display: none !important;
+    }
+
+    .mesh-bg {
+        display: none !important;
+    }
+
+    /* 3. PAGE HEADER */
+    .mob-settings-header {
+        margin-bottom: 16px;
+    }
+
+    .mob-settings-header h1 {
+        font-size: 1.4rem;
+        font-weight: 900;
+        color: #0A1A2F;
+        letter-spacing: -0.02em;
+        margin: 0 0 4px;
+    }
+
+    .mob-settings-header p {
+        font-size: 0.78rem;
+        color: #5f6b7a;
+        margin: 0;
+    }
+
+    /* 4. TAB NAV (horizontal chips) */
+    .mob-settings-tabs {
+        display: flex;
+        gap: 6px;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        margin-bottom: 14px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .mob-settings-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .mob-settings-tab {
+        flex-shrink: 0;
+        padding: 9px 16px;
+        border-radius: 40px;
+        border: 1px solid rgba(10, 26, 47, 0.08);
+        background: rgba(255, 255, 255, 0.5);
+        backdrop-filter: blur(4px);
+        font-size: 0.76rem;
+        font-weight: 700;
+        color: #0A1A2F;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.25s ease;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .mob-settings-tab.active {
+        background: #0A1A2F;
+        color: white;
+        border-color: #0A1A2F;
+        box-shadow: 0 4px 10px rgba(10, 26, 47, 0.15);
+    }
+
+    .mob-settings-tab i {
+        font-size: 0.7rem;
+    }
+
+    /* 5. SECTION CARD */
+    .mob-settings-section {
+        display: none;
+    }
+
+    .mob-settings-section.active {
+        display: block;
+        animation: mobSlideUp 0.3s ease forwards;
+    }
+
+    @keyframes mobSlideUp {
+        from {
+            opacity: 0;
+            transform: translateY(12px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .mob-settings-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(14px);
+        border-radius: 22px;
+        padding: 18px 16px;
+        margin-bottom: 12px;
+        border: 1px solid rgba(194, 73, 31, 0.06);
+        box-shadow: 0 4px 15px rgba(10, 26, 47, 0.04);
+    }
+
+    .mob-settings-section-title {
+        font-size: 0.9rem;
+        font-weight: 800;
+        color: #0A1A2F;
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .mob-settings-section-title i {
+        color: #C2491F;
+        font-size: 0.85rem;
+    }
+
+    /* 6. FORM INPUTS */
+    .mob-s-form-group {
+        margin-bottom: 14px;
+    }
+
+    .mob-s-form-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #0A1A2F;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .mob-s-form-label i {
+        color: #C2491F;
+        font-size: 0.68rem;
+    }
+
+    .mob-s-form-input,
+    .mob-s-form-select,
+    .mob-s-form-textarea {
+        width: 100%;
+        padding: 13px 16px;
+        border-radius: 16px;
+        border: 1.5px solid rgba(10, 26, 47, 0.08);
+        background: white;
+        font-size: 0.88rem;
+        font-family: 'Inter', sans-serif;
+        color: #0A1A2F;
+        transition: all 0.2s ease;
+        box-sizing: border-box;
+    }
+
+    .mob-s-form-input:focus,
+    .mob-s-form-select:focus,
+    .mob-s-form-textarea:focus {
+        outline: none;
+        border-color: #C2491F;
+        box-shadow: 0 0 0 4px rgba(194, 73, 31, 0.08);
+    }
+
+    .mob-s-form-input[readonly] {
+        background: #f5f5f5;
+        color: #8f9aaa;
+    }
+
+    .mob-s-form-textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    .mob-s-form-hint {
+        font-size: 0.68rem;
+        color: #8f9aaa;
+        margin-top: 3px;
+    }
+
+    /* 7. TOGGLE ITEM */
+    .mob-toggle-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px;
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 16px;
+        margin-bottom: 8px;
+        border: 1px solid rgba(194, 73, 31, 0.06);
+    }
+
+    .mob-toggle-info {
+        flex: 1;
+        min-width: 0;
+        margin-right: 12px;
+    }
+
+    .mob-toggle-label {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #0A1A2F;
+    }
+
+    .mob-toggle-desc {
+        font-size: 0.72rem;
+        color: #5f6b7a;
+        margin-top: 2px;
+    }
+
+    .mob-toggle-switch {
+        position: relative;
+        width: 48px;
+        height: 26px;
+        flex-shrink: 0;
+    }
+
+    .mob-toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .mob-toggle-slider {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 26px;
+        background: #d1d5db;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .mob-toggle-slider::before {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        left: 3px;
+        bottom: 3px;
+        border-radius: 50%;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        transition: 0.3s;
+    }
+
+    .mob-toggle-switch input:checked+.mob-toggle-slider {
+        background: linear-gradient(145deg, #C2491F, #E68A2E);
+    }
+
+    .mob-toggle-switch input:checked+.mob-toggle-slider::before {
+        transform: translateX(22px);
+    }
+
+    /* 8. SECURITY / NAV ITEM */
+    .mob-nav-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px;
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 16px;
+        margin-bottom: 8px;
+        border: 1px solid rgba(194, 73, 31, 0.06);
+        cursor: pointer;
+        transition: all 0.15s ease;
+    }
+
+    .mob-nav-item:active {
+        background: #f0e6de;
+    }
+
+    .mob-nav-item-info h4 {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #0A1A2F;
+        margin: 0 0 2px;
+    }
+
+    .mob-nav-item-info p {
+        font-size: 0.72rem;
+        color: #5f6b7a;
+        margin: 0;
+    }
+
+    .mob-nav-item-arrow {
+        color: #8f9aaa;
+        font-size: 0.85rem;
+    }
+
+    /* 9. CATEGORY LABEL */
+    .mob-category-label {
+        font-size: 0.72rem;
+        font-weight: 800;
+        color: #0A1A2F;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .mob-category-label i {
+        color: #C2491F;
+        font-size: 0.68rem;
+    }
+
+    /* 10. SAVE BUTTON */
+    .mob-s-save-btn {
+        width: 100%;
+        padding: 15px;
+        border-radius: 18px;
+        border: none;
+        background: #0A1A2F;
+        color: white;
+        font-size: 0.88rem;
+        font-weight: 800;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: all 0.2s ease;
+        box-shadow: 0 6px 15px rgba(10, 26, 47, 0.2);
+        margin-top: 6px;
+    }
+
+    .mob-s-save-btn:active {
+        transform: scale(0.98);
+    }
+
+    .mob-s-save-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    /* 11. CONNECTED ACCOUNT ROW */
+    .mob-connected-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px;
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 14px;
+        margin-bottom: 8px;
+        border: 1px solid rgba(10, 26, 47, 0.04);
+    }
+
+    .mob-connected-label {
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: #0A1A2F;
+    }
+
+    .mob-connected-status {
+        font-size: 0.7rem;
+        color: #5f6b7a;
+    }
+
+    .mob-connected-status .fa-check-circle {
+        color: #0F7B3A;
+    }
+
+    .mob-connected-status .fa-times-circle {
+        color: #8f9aaa;
+    }
+
+    .mob-connect-btn {
+        padding: 6px 14px;
+        border-radius: 10px;
+        border: 1px solid rgba(10, 26, 47, 0.08);
+        background: white;
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: #0A1A2F;
+        cursor: pointer;
+    }
+
+    .mob-connect-btn:active {
+        background: #0A1A2F;
+        color: white;
+    }
+
+    /* 12. DANGER ZONE */
+    .mob-danger-card {
+        background: rgba(176, 42, 55, 0.04);
+        border: 1px solid rgba(176, 42, 55, 0.12);
+        border-radius: 22px;
+        padding: 18px 16px;
+        margin-bottom: 12px;
+    }
+
+    .mob-danger-title {
+        font-size: 0.9rem;
+        font-weight: 800;
+        color: #B02A37;
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .mob-danger-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px;
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 16px;
+        margin-bottom: 8px;
+        border: 1px solid rgba(176, 42, 55, 0.1);
+    }
+
+    .mob-danger-item h4 {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #B02A37;
+        margin: 0 0 2px;
+    }
+
+    .mob-danger-item p {
+        font-size: 0.7rem;
+        color: #5f6b7a;
+        margin: 0;
+    }
+
+    .mob-danger-btn {
+        padding: 8px 14px;
+        border-radius: 12px;
+        border: 1.5px solid #B02A37;
+        background: white;
+        color: #B02A37;
+        font-size: 0.72rem;
+        font-weight: 700;
+        cursor: pointer;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .mob-danger-btn:active {
+        background: #B02A37;
+        color: white;
+    }
+
+    /* 13. FOOTER */
+    .mob-settings-footer {
+        text-align: center;
+        font-size: 0.68rem;
+        color: #8f9aaa;
+        margin-top: 14px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(10, 26, 47, 0.04);
+    }
+
+    /* 14. LOGOUT */
+    .mob-logout-btn {
+        width: 100%;
+        padding: 14px;
+        border-radius: 16px;
+        border: 1.5px solid #B02A37;
+        background: white;
+        color: #B02A37;
+        font-size: 0.88rem;
+        font-weight: 800;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 12px;
+        transition: all 0.2s ease;
+    }
+
+    .mob-logout-btn:active {
+        background: #B02A37;
+        color: white;
+    }
+}
+
+@media (min-width: 769px) {
+    #mobile-root {
+        display: none !important;
+    }
+}

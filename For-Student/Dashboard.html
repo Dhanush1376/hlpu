@@ -1,0 +1,2456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hLPU</title>
+    <link rel="icon" type="image/png" href="../assets/images/hlpu logo.png">
+
+    <!-- Bootstrap 4.6 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Google Fonts - Inter (premium theme) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/core/NavBar.css" />
+    <link rel="stylesheet" href="../css/core/Main.css" />
+    <link rel="stylesheet" href="../css/mobile-nav.css" />
+    <link rel="stylesheet" href="../css/mobile.css?v=10" />
+    <style>
+        /* ===== WELCOME HEADER ===== */
+        .welcome-header {
+            margin-bottom: 20px;
+            /* Reduced from 35px */
+            position: relative;
+        }
+
+        .welcome-header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .welcome-header h1 span {
+            background: linear-gradient(145deg, var(--ember), var(--gilt));
+            -webkit-text-fill-color: transparent;
+        }
+
+        .welcome-header p {
+            font-size: 1rem;
+            color: #52606d;
+            font-weight: 400;
+        }
+
+        /* ===== PROFILE SUMMARY CARD ===== */
+        .profile-summary {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 28px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(194, 73, 31, 0.08);
+            box-shadow: var(--shadow-elevation);
+            transition: var(--transition);
+        }
+
+        .profile-summary:hover {
+            background: rgba(255, 255, 255, 0.85);
+            /* Premium solid glass */
+            border-color: var(--gilt);
+            box-shadow: 0 30px 60px -12px rgba(194, 73, 31, 0.15);
+        }
+
+        .profile-content {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, var(--ember), var(--gilt));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 600;
+            flex-shrink: 0;
+            box-shadow: 0 10px 20px rgba(194, 73, 31, 0.25);
+        }
+
+        .profile-info {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .profile-info h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+
+        .profile-info p {
+            font-size: 0.95rem;
+            color: #52606d;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .profile-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .profile-tag {
+            background: rgba(255, 255, 255, 0.5);
+            color: var(--ink);
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(194, 73, 31, 0.15);
+            backdrop-filter: blur(4px);
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 35px;
+            margin-left: auto;
+            flex-wrap: wrap;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 15px 25px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+        }
+
+        .stat-item {
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 2px;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #5f6b7a;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 1400px) {
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .stat-card {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 20px 15px;
+            box-shadow: var(--shadow-elevation);
+            transition: var(--transition);
+            border: 1px solid rgba(194, 73, 31, 0.08);
+            position: relative;
+            overflow: hidden;
+            min-width: 0;
+            /* Prevent overflow */
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.9);
+            border-color: var(--ember);
+            box-shadow: 0 20px 40px -10px rgba(194, 73, 31, 0.15);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--ember), var(--gilt));
+            border-radius: 24px 24px 0 0;
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            background: linear-gradient(145deg, rgba(194, 73, 31, 0.1), rgba(230, 138, 46, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--ember);
+            font-size: 1.3rem;
+        }
+
+        .stat-title h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .stat-title p {
+            font-size: 0.8rem;
+            color: #5f6b7a;
+            margin: 0;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1;
+        }
+
+        /* ===== CONTENT GRID ===== */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            margin-bottom: 20px;
+            /* Reduced from 35px */
+        }
+
+        @media (max-width: 992px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== ACTIVITY FEED ===== */
+        .activity-feed {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 22px;
+            /* Reduced from 28px */
+            box-shadow: var(--shadow-elevation);
+            transition: var(--transition);
+            border: 1px solid rgba(194, 73, 31, 0.08);
+            margin-bottom: 15px;
+            /* Reduced from 25px */
+        }
+
+        .activity-feed:hover {
+            background: var(--glass-deep);
+            border-color: rgba(230, 138, 46, 0.2);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(10, 26, 47, 0.06);
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin: 0;
+            letter-spacing: -0.01em;
+        }
+
+        .section-link {
+            font-size: 0.85rem;
+            color: var(--ember);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .section-link:hover {
+            color: var(--gilt);
+            text-decoration: none;
+            transform: translateX(3px);
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(10, 26, 47, 0.04);
+            transition: var(--transition);
+        }
+
+        .activity-item:hover {
+            background: rgba(194, 73, 31, 0.05);
+            padding-left: 10px;
+            border-radius: 12px;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: linear-gradient(145deg, rgba(194, 73, 31, 0.08), rgba(230, 138, 46, 0.08));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            color: var(--ember);
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .activity-details {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .activity-description {
+            font-size: 0.85rem;
+            color: #5f6b7a;
+            margin-bottom: 4px;
+        }
+
+        .activity-time {
+            font-size: 0.75rem;
+            color: #8f9aaa;
+            font-weight: 500;
+        }
+
+        /* ===== JOB CARDS ===== */
+        .job-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            padding: 22px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(194, 73, 31, 0.08);
+            transition: var(--transition);
+        }
+
+        .job-card:hover {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: var(--gilt);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px -10px rgba(194, 73, 31, 0.12);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .job-info h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 6px;
+        }
+
+        .job-company {
+            font-size: 0.85rem;
+            color: #5f6b7a;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .job-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .job-tag {
+            background: rgba(255, 255, 255, 0.6);
+            color: var(--ink);
+            padding: 5px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            border: 1px solid rgba(10, 26, 47, 0.08);
+        }
+
+        .job-status {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 40px;
+            background: rgba(40, 167, 69, 0.12);
+            color: #0f7b3a;
+            border: 1px solid rgba(40, 167, 69, 0.2);
+        }
+
+        .job-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        /* btn-heritage removed to use global theme.css styles */
+
+        /* ===== SIDEBAR SECTIONS ===== */
+        .progress-section,
+        .events-section,
+        .quick-actions-section {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 28px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(194, 73, 31, 0.08);
+            box-shadow: var(--shadow-elevation);
+            transition: var(--transition);
+        }
+
+        .progress-section:hover,
+        .events-section:hover,
+        .quick-actions-section:hover {
+            background: var(--glass-deep);
+            border-color: rgba(230, 138, 46, 0.2);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* ===== PROGRESS BARS ===== */
+        .progress-item {
+            margin-bottom: 20px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .progress-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .progress-percentage {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--ember);
+        }
+
+        .progress-bar-bg {
+            height: 8px;
+            background: rgba(10, 26, 47, 0.06);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--ember), var(--gilt));
+            border-radius: 10px;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 10px rgba(194, 73, 31, 0.3);
+        }
+
+        /* ===== EVENTS ===== */
+        .event-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(10, 26, 47, 0.04);
+            transition: var(--transition);
+        }
+
+        .event-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            padding-left: 10px;
+            border-radius: 16px;
+        }
+
+        .event-item:last-child {
+            border-bottom: none;
+        }
+
+        .event-date {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(145deg, rgba(194, 73, 31, 0.1), rgba(230, 138, 46, 0.1));
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-right: 18px;
+            color: var(--ember);
+            flex-shrink: 0;
+            border: 1px solid rgba(194, 73, 31, 0.2);
+        }
+
+        .event-day {
+            font-size: 1.2rem;
+            font-weight: 800;
+            line-height: 1;
+            color: var(--ink);
+        }
+
+        .event-month {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--ember);
+        }
+
+        .event-details h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .event-details p {
+            font-size: 0.8rem;
+            color: #5f6b7a;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* ===== QUICK ACTIONS ===== */
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .action-btn {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(194, 73, 31, 0.12);
+            border-radius: 20px;
+            padding: 20px 12px;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .action-btn:hover {
+            background: rgba(194, 73, 31, 0.06);
+            border-color: var(--ember);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px -10px rgba(194, 73, 31, 0.2);
+            text-decoration: none;
+        }
+
+        .action-icon {
+            font-size: 1.5rem;
+            color: var(--ember);
+        }
+
+        .action-text {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        /* ===== MENTOR CARDS (Aligned with Alumni Style) ===== */
+        .mentor-card {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(194, 73, 31, 0.1);
+            border-radius: 24px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 25px -12px rgba(10, 26, 47, 0.08);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            flex: 0 0 280px;
+        }
+
+        .mentor-card:hover {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: var(--gilt);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px -15px rgba(194, 73, 31, 0.15);
+        }
+
+        .mentee-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .mentee-avatar {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, var(--ember), var(--gilt));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 700;
+            box-shadow: 0 4px 10px -2px rgba(194, 73, 31, 0.2);
+            flex-shrink: 0;
+        }
+
+        .mentee-info h4 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--ink);
+            margin: 0 0 2px 0;
+            letter-spacing: -0.01em;
+        }
+
+        .mentee-dept {
+            font-size: 0.75rem;
+            color: var(--ember);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .mentor-meta-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: var(--ink);
+            font-weight: 600;
+        }
+
+        .meta-item i {
+            color: var(--gilt);
+            width: 14px;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .btn-connect {
+            background: var(--ink);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .btn-connect:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px -5px rgba(10, 26, 47, 0.4);
+            filter: brightness(1.1);
+            color: white;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .slide-in {
+            animation: slideUp 0.6s ease forwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== SKILL GAP ANALYZER WIDGET ===== */
+        .skill-gap-card {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 18px;
+            /* Reduced from 25px */
+            border: 1px solid rgba(194, 73, 31, 0.1);
+            margin-bottom: 5px;
+            display: grid;
+            grid-template-columns: 130px 1fr;
+            /* Reduced from 180px */
+            gap: 20px;
+            /* Reduced from 30px */
+            align-items: flex-start;
+            /* Better for column flow */
+        }
+
+        .gap-readiness-circle {
+            position: relative;
+            width: 120px;
+            /* Reduced from 150px */
+            height: 120px;
+            /* Reduced from 150px */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .gap-readiness-value {
+            position: absolute;
+            text-align: center;
+        }
+
+        .gap-readiness-value .percent {
+            font-size: 1.8rem;
+            /* Reduced from 2.2rem */
+            font-weight: 800;
+            color: var(--ink);
+            line-height: 1;
+        }
+
+        .gap-readiness-value .label {
+            font-size: 0.75rem;
+            color: #5f6b7a;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .gap-details h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 8px;
+        }
+
+        .gap-target {
+            font-size: 0.9rem;
+            color: #5f6b7a;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .gap-target i {
+            color: var(--ember);
+        }
+
+        .missing-skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .missing-skill-chip {
+            background: rgba(194, 73, 31, 0.08);
+            color: var(--ember);
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid rgba(194, 73, 31, 0.15);
+        }
+
+        .recommendations-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .rec-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: var(--ink);
+            margin-bottom: 8px;
+        }
+
+        .rec-item i {
+            color: #28a745;
+            font-size: 0.8rem;
+        }
+
+        /* ===== PLACEMENT PROBABILITY WIDGET ===== */
+        .placement-score-container {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 25px;
+            border: 1px solid rgba(194, 73, 31, 0.12);
+        }
+
+        .placement-main {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .placement-score-ring {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .placement-score-content {
+            position: absolute;
+            text-align: center;
+        }
+
+        .placement-score-content .score-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--ink), var(--ember));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        .placement-score-content .score-label {
+            font-size: 0.7rem;
+            color: #5f6b7a;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 5px;
+        }
+
+        .placement-breakdown {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .breakdown-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .breakdown-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .breakdown-bar {
+            height: 6px;
+            background: rgba(10, 26, 47, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .breakdown-bar .fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .placement-level-badge {
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .level-excellent {
+            background: rgba(40, 167, 69, 0.15);
+            color: #0f7b3a;
+            border: 1px solid rgba(40, 167, 69, 0.3);
+        }
+
+        .level-good {
+            background: rgba(255, 193, 7, 0.15);
+            color: #856404;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+
+        .level-average {
+            background: rgba(230, 138, 46, 0.15);
+            color: #C2491F;
+            border: 1px solid rgba(230, 138, 46, 0.3);
+        }
+
+        .level-needs_improvement {
+            background: rgba(220, 53, 69, 0.15);
+            color: #721c24;
+            border: 1px solid rgba(220, 53, 69, 0.3);
+        }
+
+        @media (max-width: 992px) {
+            .placement-main {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 100px 20px 30px;
+            }
+
+            .welcome-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .profile-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .profile-stats {
+                margin-left: 0;
+                width: 100%;
+                justify-content: space-around;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .actions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .job-actions {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile-stats {
+                flex-direction: column;
+                gap: 15px;
+                align-items: center;
+            }
+
+            .actions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .mentor-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== DASHBOARD LAYOUT HELPERS ===== */
+        .dashboard-row-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 0px;
+        }
+
+        @media (max-width: 1200px) {
+            .dashboard-row-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== STREAM MATCH STYLING ===== */
+        .match-card {
+            border: 1px solid rgba(12, 166, 120, 0.2) !important;
+            background: linear-gradient(135deg, rgba(12, 166, 120, 0.02) 0%, rgba(255, 255, 255, 1) 100%) !important;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .match-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: #0ca678;
+        }
+
+        .match-badge {
+            position: absolute;
+            top: 10px;
+            right: -30px;
+            background: #0ca678;
+            color: white;
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 4px 30px;
+            transform: rotate(45deg);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .mentor-stream {
+            font-weight: 600;
+            color: var(--amber) !important;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .mobile-app-header-compact {
+            margin-bottom: 25px;
+        }
+
+        .mobile-top-user {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .greeting-label {
+            font-size: 0.85rem;
+            color: #8f9aaa;
+            font-weight: 500;
+        }
+
+        .user-name-mobile {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--ink);
+            margin: 0;
+        }
+
+        .mini-avatar-chip {
+            width: 44px;
+            height: 44px;
+            background: var(--ember);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            box-shadow: var(--mobile-shadow);
+        }
+
+        .mobile-placement-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: var(--mobile-radius);
+            padding: 18px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(194, 73, 31, 0.1);
+        }
+
+        .placement-compact-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .card-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #68727f;
+        }
+
+        .pill-badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: rgba(16, 185, 129, 0.1);
+            color: #10B981;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .score-display {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .score-num {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--ink);
+        }
+
+        .score-bar-mini {
+            flex: 1;
+            height: 8px;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .score-bar-mini .fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--ember), var(--gilt));
+            transition: width 1s ease;
+        }
+
+        .mobile-grid-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            padding: 0 20px 20px;
+        }
+
+        .m-stat-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 15px;
+            box-shadow: 0 4px 15px rgba(194, 73, 31, 0.03);
+            border: 1px solid rgba(194, 73, 31, 0.08);
+            position: relative;
+        }
+
+        .m-stat-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .bg-ember-light {
+            background: rgba(194, 73, 31, 0.1);
+        }
+
+        .text-ember {
+            color: var(--ember);
+        }
+
+        .m-stat-info h3 {
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 2px;
+            line-height: 1.2;
+        }
+
+        .m-stat-info p {
+            font-size: 0.7rem;
+            color: #8F9AAA;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .m-stat-val {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--ink);
+        }
+
+        .m-stat-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #E55B3C;
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Helper for hiding on desktop */
+        @media (min-width: 992px) {
+
+            .mobile-exact-header,
+            .mobile-top-nav,
+            .mobile-greeting-area,
+            .mobile-hero-card,
+            .mobile-stats-row,
+            .mobile-grid-stats {
+                display: none !important;
+            }
+        }
+
+        /* Hide large desktop sections on mobile */
+        @media (max-width: 768px) {
+            .activity-feed.slide-in:first-child {
+                display: none !important;
+            }
+
+            /* Hide analytics/activity first item */
+            .right-column .activity-feed:nth-child(2) {
+                display: none !important;
+            }
+
+            /* Hide Probability details */
+            .right-column .activity-feed:nth-child(3) {
+                display: none !important;
+            }
+
+            /* Hide Profile completion details */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- MOBILE ROOT - Injected High in DOM -->
+    <div id="mobile-root"></div>
+    <script src="../js/mobile-nav.js?v=2"></script>
+    <script src="../js/mobile-dashboard.js?v=11"></script>
+
+
+
+    <div id="navbar"></div>
+    <!-- PREMIUM MESH BACKGROUND -->
+    <div class="mesh-bg">
+        <div class="mesh mesh-1"></div>
+        <div class="mesh mesh-2"></div>
+        <div class="mesh mesh-3"></div>
+        <div class="mesh mesh-4"></div>
+    </div>
+    <!-- DASHBOARD CONTAINER -->
+    <div class="dashboard-container">
+        <!-- WELCOME HEADER (DESKTOP) -->
+        <div class="welcome-header slide-in">
+            <h1 id="welcome-name">Welcome back, </h1>
+            <p id="dashboard-header-subtitle">Your heritage network is active · Loading insights...</p>
+        </div>
+
+        <!-- PROFILE SUMMARY (DESKTOP) -->
+        <div class="profile-summary slide-in">
+            <div class="profile-content">
+                <div class="profile-avatar">...</div>
+                <div class="profile-info">
+                    <h2></h2>
+                    <p>
+                        <i class="fas fa-graduation-cap" style="color: var(--ember);"></i>
+                        Computer Science Senior · Batch of 2027
+                    </p>
+                    <div class="profile-tags">
+                        <span class="profile-tag"><i class="fas fa-user-graduate mr-1"></i>Student</span>
+                        <span class="profile-tag" id="profile-tag-mentee" style="display:none;"><i
+                                class="fas fa-handshake mr-1"></i>Active Mentee</span>
+                        <span class="profile-tag" id="profile-tag-intern" style="display:none;"><i
+                                class="fas fa-briefcase mr-1"></i>Internships</span>
+                    </div>
+                </div>
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" id="stat-profile-percentage">...</div>
+                        <div class="stat-label">Profile</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="profile-stat-connections">...</div>
+                        <div class="stat-label">Connections</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="profile-stat-applications">...</div>
+                        <div class="stat-label">Applications</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STATS GRID (DESKTOP) -->
+        <div class="stats-grid">
+            <div class="stat-card slide-in glass-hover-elevate">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div class="stat-title">
+                        <h3>Mentors Connected</h3>
+                        <p>Accepted connections</p>
+                    </div>
+                </div>
+                <div class="stat-value" id="stat-mentors">—</div>
+            </div>
+
+            <div class="stat-card slide-in">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="stat-title">
+                        <h3>Job Applications</h3>
+                        <p>Total submitted</p>
+                    </div>
+                </div>
+                <div class="stat-value" id="stat-jobs-applied">—</div>
+            </div>
+
+            <div class="stat-card slide-in">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <div class="stat-title">
+                        <h3>Mock Interviews</h3>
+                        <p>Scheduled sessions</p>
+                    </div>
+                </div>
+                <div class="stat-value" id="stat-mocks">—</div>
+            </div>
+
+            <div class="stat-card slide-in">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="stat-title">
+                        <h3>LaunchPad</h3>
+                        <p>Project applications</p>
+                    </div>
+                </div>
+                <div class="stat-value" id="stat-launchpad">—</div>
+            </div>
+
+            <div class="stat-card slide-in glass-hover-elevate">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="stat-title">
+                        <h3>Profile Tasks</h3>
+                        <p>Completed items</p>
+                    </div>
+                </div>
+                <div class="stat-value" id="stat-tasks">...</div>
+            </div>
+
+            <div class="stat-card slide-in glass-hover-elevate">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-bookmark"></i>
+                    </div>
+                    <div class="stat-title">
+                        <h3>Saved Jobs</h3>
+                        <p>Tracked opportunities</p>
+                    </div>
+                </div>
+                <div class="stat-value" id="stat-saved-jobs">0</div>
+            </div>
+        </div>
+
+        <!-- CONTENT GRID -->
+        <div class="content-grid">
+            <!-- LEFT COLUMN -->
+            <div class="left-column">
+                <!-- ACTIVITY FEED -->
+                <div class="activity-feed slide-in">
+                    <div class="section-header">
+                        <h3 class="section-title"><i class="fas fa-bolt"></i> Recent Activity</h3>
+                        <a href="#" class="section-link">View All <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <div id="recent-activity-container">
+                        <p style="color:#8f9aaa; text-align:center; padding:20px 0;">Loading activity...</p>
+                    </div>
+                </div>
+
+                <!-- RECENT JOBS -->
+                <div class="activity-feed slide-in">
+                    <div class="section-header">
+                        <h3 class="section-title"><i class="fas fa-briefcase"></i> Recent Jobs (<span
+                                id="total-jobs-count">—</span> available)</h3>
+                        <a href="Direct-Job.html" class="section-link">
+                            Browse All <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div id="recent-jobs-container">
+                        <p style="color:#8f9aaa; text-align:center; padding:20px 0;">Finding opportunities...
+                        </p>
+                    </div>
+                </div>
+
+                <!-- INNOVATION LAUNCHPAD & MENTORS SIDE-BY-SIDE -->
+                <div class="dashboard-row-grid">
+                    <!-- SUGGESTED PROJECTS -->
+                    <div class="activity-feed slide-in" style="margin-bottom: 0;">
+                        <div class="section-header">
+                            <h3 class="section-title"><i class="fas fa-rocket"></i> Innovation LaunchPad</h3>
+                            <a href="Launch-Pad.html#projects-feed" class="section-link">
+                                Explore All <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        <div id="suggested-projects-container"
+                            style="max-height: 400px; overflow-y: auto; padding-right: 5px;">
+                            <p style="color:#8f9aaa; text-align:center; padding:20px 0;">Looking for matches...
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- AVAILABLE MENTORS -->
+                    <div class="activity-feed slide-in" id="mentors-section-container" style="margin-bottom: 0;">
+                        <div class="section-header">
+                            <h3 class="section-title"><i class="fas fa-user-graduate"></i> Available Mentors
+                            </h3>
+                            <a href="Mentor-Requests.html" class="section-link">
+                                View All <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                        <div class="mentor-cards" id="available-mentors-container"
+                            style="max-height: 400px; overflow-y: auto; padding-right: 5px; display: flex; flex-direction: column; gap: 15px;">
+                            <p style="color:#8f9aaa; text-align:center; padding:20px 0; width: 100%;">Finding
+                                mentors...
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UPCOMING MOCK INTERVIEWS (Compacted at Bottom) -->
+                <div class="events-section slide-in"
+                    style="padding: 15px; border-radius: 20px; border: 1px dashed rgba(194, 73, 31, 0.2); margin-top: 20px;">
+                    <div class="section-header" style="margin-bottom: 10px; padding-bottom: 8px;">
+                        <h3 class="section-title" style="font-size: 1rem;"><i
+                                class="fas fa-calendar-alt mr-2 text-ember"></i>Upcoming Mock Interviews</h3>
+                        <a href="Mock-Application.html" class="section-link" style="font-size: 0.75rem;">Schedule
+                            New</a>
+                    </div>
+                    <div id="upcoming-mocks-container" style="display: flex; flex-direction: column; gap: 8px;">
+                        <p style="color:#8f9aaa; text-align:center; padding:10px 0; font-size: 0.8rem;">Loading
+                            sessions...</p>
+                    </div>
+                </div>
+            </div> <!-- End Left Column -->
+
+            <!-- RIGHT COLUMN -->
+            <div class="right-column">
+                <!-- BEST CAREER PATH -->
+                <div class="activity-feed slide-in">
+                    <div class="section-header">
+                        <h3 class="section-title">Best Career Path</h3>
+                        <div class="badge badge-success"
+                            style="background: rgba(16, 185, 129, 0.15); color: #059669; border: 1px solid rgba(16, 185, 129, 0.3);">
+                            AI INSIGHT</div>
+                    </div>
+                    <div id="ai-career-path-container" style="display: flex; flex-direction: column; gap: 12px;">
+                        <p style="color:#8f9aaa; text-align:center; padding:10px 0; font-size: 0.8rem;">
+                            Analyzing
+                            your
+                            profile...</p>
+                    </div>
+                </div>
+
+                <!-- PLACEMENT READINESS -->
+                <div class="activity-feed slide-in">
+                    <div class="section-header">
+                        <h3 class="section-title">Placement Probability</h3>
+                        <div class="placement-level-badge" id="placement-level-badge">Calculating...</div>
+                    </div>
+                    <div class="placement-score-container" id="placement-score-widget">
+                        <div class="placement-main" style="display: flex; flex-direction: column; gap: 20px;">
+                            <div class="placement-score-ring" style="margin: 0 auto; width: 150px; height: 150px;">
+                                <svg width="150" height="150">
+                                    <circle cx="75" cy="75" r="68" fill="none" stroke="rgba(194, 73, 31, 0.05)"
+                                        stroke-width="10"></circle>
+                                    <circle cx="75" cy="75" r="68" fill="none" stroke="url(#placement-gradient)"
+                                        stroke-width="10" class="placement-ring-fill"
+                                        style="stroke-dasharray: 427; stroke-dashoffset: 427; transform: rotate(-90deg); transform-origin: center; transition: stroke-dashoffset 2s cubic-bezier(0.4, 0, 0.2, 1);">
+                                    </circle>
+                                    <defs>
+                                        <linearGradient id="placement-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" stop-color="var(--ember)" />
+                                            <stop offset="100%" stop-color="var(--gilt)" />
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                                <div class="placement-score-content"
+                                    style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                                    <div class="score-number" id="placement-score-text" style="font-size: 2.2rem;">0
+                                    </div>
+                                    <div class="score-label" style="font-size: 0.65rem; opacity: 0.8;">Readiness
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="placement-breakdown" style="width: 100%;">
+                                <div class="breakdown-item" style="margin-bottom: 8px;">
+                                    <div class="breakdown-info"
+                                        style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 4px;">
+                                        <span>Profile</span> <span id="breakdown-profile">10%</span>
+                                    </div>
+                                    <div class="breakdown-bar"
+                                        style="height: 6px; background: rgba(10, 26, 47, 0.06); border-radius: 10px; overflow: hidden;">
+                                        <div class="fill" id="fill-profile"
+                                            style="width: 10%; height: 100%; transition: width 1s; background: #4ECDC4;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="breakdown-item" style="margin-bottom: 8px;">
+                                    <div class="breakdown-info"
+                                        style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 4px;">
+                                        <span>Skills</span> <span id="breakdown-skills">0%</span>
+                                    </div>
+                                    <div class="breakdown-bar"
+                                        style="height: 6px; background: rgba(10, 26, 47, 0.06); border-radius: 10px; overflow: hidden;">
+                                        <div class="fill" id="fill-skills"
+                                            style="width: 0%; height: 100%; transition: width 1s; background: #FFD93D;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="breakdown-item" style="margin-bottom: 8px;">
+                                    <div class="breakdown-info"
+                                        style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 4px;">
+                                        <span>Projects</span> <span id="breakdown-projects">0%</span>
+                                    </div>
+                                    <div class="breakdown-bar"
+                                        style="height: 6px; background: rgba(10, 26, 47, 0.06); border-radius: 10px; overflow: hidden;">
+                                        <div class="fill" id="fill-projects"
+                                            style="width: 0%; height: 100%; transition: width 1s; background: #FF6B6B;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="breakdown-item" style="margin-bottom: 8px;">
+                                    <div class="breakdown-info"
+                                        style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 4px;">
+                                        <span>Activity</span> <span id="breakdown-activity">40%</span>
+                                    </div>
+                                    <div class="breakdown-bar"
+                                        style="height: 6px; background: rgba(10, 26, 47, 0.06); border-radius: 10px; overflow: hidden;">
+                                        <div class="fill" id="fill-activity"
+                                            style="width: 40%; height: 100%; transition: width 1s; background: #6C5CE7;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="breakdown-item">
+                                    <div class="breakdown-info"
+                                        style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 4px;">
+                                        <span>Course</span> <span id="breakdown-course">0%</span>
+                                    </div>
+                                    <div class="breakdown-bar"
+                                        style="height: 6px; background: rgba(10, 26, 47, 0.06); border-radius: 10px; overflow: hidden;">
+                                        <div class="fill" id="fill-course"
+                                            style="width: 0%; height: 100%; transition: width 1s; background: #A8E6CF;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI SKILL GAP -->
+                <div class="activity-feed slide-in">
+                    <div class="section-header">
+                        <h3 class="section-title" style="font-size: 1.1rem;">AI Skill Gap</h3>
+                        <div class="badge badge-danger" style="background: var(--ember); color: white; border: none;">
+                            HIGH PRIORITY</div>
+                    </div>
+                    <div class="skill-gap-card" id="skill-gap-analyzer-container"
+                        style="display: flex; flex-direction: column; gap: 15px;">
+                        <div class="gap-readiness-circle">
+                            <svg width="100" height="100">
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(194, 73, 31, 0.1)"
+                                    stroke-width="8"></circle>
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="var(--ember)" stroke-width="8"
+                                    class="readiness-ring-circle"
+                                    style="stroke-dashoffset: 283; stroke-dasharray: 283; transform: rotate(-90deg); transform-origin: center;">
+                                </circle>
+                            </svg>
+                            <div class="gap-readiness-value">
+                                <div class="percent" id="readiness-score-text" style="font-size: 1.5rem;">0%
+                                </div>
+                                <div class="label" style="font-size: 0.6rem;">Gap</div>
+                            </div>
+                        </div>
+                        <div class="gap-details" style="width: 100%;">
+                            <div class="gap-target" style="font-size: 0.8rem; margin-bottom: 10px;">
+                                <i class="fas fa-bullseye"></i> <span id="target-role-text">Target: Software
+                                    Developer</span>
+                            </div>
+                            <div id="missing-skills-list"
+                                style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px;">
+                                <span class="badge badge-light" style="background: rgba(0,0,0,0.05);">...</span>
+                            </div>
+                            <div class="recommendations">
+                                <div id="recommendations-list" style="color: var(--amber); font-weight: 500;">
+                                    Keep
+                                    up
+                                    the great work!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QUICK ACTIONS -->
+                <div class="quick-actions-section slide-in">
+                    <div class="section-header">
+                        <h3 class="section-title">Quick Actions</h3>
+                    </div>
+                    <div class="actions-grid">
+                        <a href="Messages.html" class="action-btn">
+                            <div class="action-icon"><i class="fas fa-comment-dots"></i></div>
+                            <div class="action-text">Messages</div>
+                        </a>
+                        <a href="Messages.html?focusSearch=true" class="action-btn">
+                            <div class="action-icon"><i class="fas fa-search"></i></div>
+                            <div class="action-text">Search People</div>
+                        </a>
+                        <a href="Mentor-Requests.html" class="action-btn">
+                            <div class="action-icon"><i class="fas fa-handshake"></i></div>
+                            <div class="action-text">Find Mentor</div>
+                        </a>
+                        <a href="Mock-Application.html" class="action-btn">
+                            <div class="action-icon"><i class="fas fa-video"></i></div>
+                            <div class="action-text">Mock Prep</div>
+                        </a>
+                        <a href="Direct-Job.html" class="action-btn">
+                            <div class="action-icon"><i class="fas fa-briefcase"></i></div>
+                            <div class="action-text">Apply Jobs</div>
+                        </a>
+                        <a href="Settings.html" class="action-btn">
+                            <div class="action-icon"><i class="fas fa-cog"></i></div>
+                            <div class="action-text">Settings</div>
+                        </a>
+                    </div>
+                </div>
+            </div> <!-- End Right Column -->
+        </div> <!-- End Content Grid -->
+
+        <!-- SCRIPTS -->
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // ===== ANIMATION OBSERVER =====
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('slide-in');
+                        }
+                    });
+                }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+                // Observe all animated elements
+                document.querySelectorAll('.stat-card, .profile-summary, .activity-feed, .job-card, .events-section, .mentor-card').forEach(element => {
+                    observer.observe(element);
+                });
+
+                // ===== BUTTON FUNCTIONALITY =====
+                // Connect buttons
+                document.querySelectorAll('.btn-connect').forEach(button => {
+                    button.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const mentorName = this.closest('.mentor-card').querySelector('.mentor-name').textContent;
+
+                        this.innerHTML = '<i class="fas fa-check"></i> Request Sent';
+                        this.style.background = 'var(--ink)';
+                        this.style.color = 'white';
+                        this.style.borderColor = 'var(--ink)';
+                        this.disabled = true;
+
+                        setTimeout(() => {
+                            alert(`✓ Connection request sent to ${mentorName}`);
+                        }, 300);
+                    });
+                });
+
+                // Apply Now buttons
+                document.querySelectorAll('.btn-heritage').forEach(button => {
+                    if (button.textContent.includes('Apply Now')) {
+                        button.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            const jobTitle = this.closest('.job-card').querySelector('h4').textContent;
+
+                            this.innerHTML = '<i class="fas fa-check"></i> Applied';
+                            this.style.background = 'var(--ink)';
+                            this.style.color = 'white';
+                            this.style.borderColor = 'var(--ink)';
+                            this.disabled = true;
+
+                            setTimeout(() => {
+                                alert(`✓ Successfully applied for: ${jobTitle}`);
+                            }, 300);
+                        });
+                    }
+
+                    // Save Job buttons
+                    if (button.textContent.includes('Save')) {
+                        button.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            const jobTitle = this.closest('.job-card').querySelector('h4').textContent;
+
+                            this.innerHTML = '<i class="fas fa-check"></i> Saved';
+                            this.style.background = 'var(--ember)';
+                            this.style.color = 'white';
+                            this.style.borderColor = 'var(--ember)';
+
+                            setTimeout(() => {
+                                alert(`✓ Saved job: ${jobTitle}`);
+                            }, 300);
+                        });
+                    }
+                });
+
+                // View Application buttons
+                document.querySelectorAll('.btn-heritage').forEach(button => {
+                    if (button.textContent.includes('View Application')) {
+                        button.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            window.location.href = 'Application-Status.html';
+                        });
+                    }
+                });
+
+                // ===== SMOOTH SCROLLING =====
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        const targetId = this.getAttribute('href');
+                        if (targetId === '#') return;
+
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            e.preventDefault();
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+
+                // ===== INITIAL ANIMATIONS =====
+                setTimeout(() => {
+                    document.querySelectorAll('.stat-card, .profile-summary').forEach(card => {
+                        card.classList.add('slide-in');
+                    });
+                }, 100);
+            });
+        </script>
+        <script src="../js/core/loadComponents.js" defer></script>
+        <script src="../js/core/authGuard.js"></script>
+        <script src="../js/core/api.js"></script>
+        <script>
+            // ===== DYNAMIC DASHBOARD ENGINE =====
+
+            async function fetchStudentProfile() {
+                try {
+                    const data = await apiFetch('/api/profile/me');
+                    if (data) {
+                        localStorage.setItem('userStream', data.stream || data.department || '');
+                        const initials = data.name.split(' ').map(n => n[0]).join('').toUpperCase();
+
+                        // Update Welcome Name
+                        if (document.getElementById('welcome-name')) {
+                            document.getElementById('welcome-name').textContent = `Welcome back, ${data.name.split(' ')[0]}`;
+                        }
+
+                        // Update Profile Summary Card
+                        const avatarEl = document.querySelector('.profile-avatar');
+                        const nameEl = document.querySelector('.profile-summary h2');
+                        const infoLineEl = document.querySelector('.profile-summary .profile-info p');
+                        const tagsContainer = document.querySelector('.profile-summary .profile-tags');
+
+                        if (avatarEl) avatarEl.textContent = initials;
+                        if (nameEl) nameEl.textContent = data.name;
+
+                        if (infoLineEl) {
+                            const dept = data.department || 'Student';
+                            const stream = data.stream || '';
+                            const year = data.graduationYear || '';
+                            infoLineEl.innerHTML = `
+                                    <i class="fas fa-graduation-cap" style="color: var(--ember);"></i>
+                                    ${dept} ${stream ? '· ' + stream : ''} ${year ? '· Class of ' + year : ''}
+                                `;
+                        }
+
+                        if (tagsContainer) {
+                            tagsContainer.innerHTML = `<span class="profile-tag"><i class="fas fa-user-graduate mr-1"></i>Student</span>`;
+
+                            // Dynamic tags based on data
+                            if (data.stats && data.stats.mentees > 0) {
+                                tagsContainer.innerHTML += `<span class="profile-tag"><i class="fas fa-handshake mr-1"></i>Active Mentee</span>`;
+                            }
+                            if (data.experience && data.experience.length > 0) {
+                                const internCount = data.experience.filter(e => e.title.toLowerCase().includes('intern')).length;
+                                if (internCount > 0) {
+                                    tagsContainer.innerHTML += `<span class="profile-tag"><i class="fas fa-briefcase mr-1"></i>${internCount} Internship${internCount > 1 ? 's' : ''}</span>`;
+                                }
+                            }
+                            // Fill with skills if fewer than 3 tags
+                            if (tagsContainer.children.length < 3 && data.skills) {
+                                data.skills.slice(0, 3 - tagsContainer.children.length).forEach(skill => {
+                                    tagsContainer.innerHTML += `<span class="profile-tag"><i class="fas fa-star mr-1"></i>${skill}</span>`;
+                                });
+                            }
+                        }
+
+                        // ---> MOBILE SYNC: Profile Updates
+                        if (window.updateMobileDashboardData) {
+                            window.updateMobileDashboardData({
+                                userName: data.name,
+                                userInitial: initials,
+                                course: data.graduationYear ? `Class of ${data.graduationYear}` : 'B.Tech',
+                                branch: data.department || data.stream || 'Student',
+                                skills: data.skills || []
+                            });
+                        }
+
+                    }
+                } catch (err) {
+                    console.error('[dashboard] Profile error:', err);
+                }
+            }
+
+            async function fetchDashboardStats() {
+                try {
+                    const data = await apiFetch('/api/dashboard/student');
+                    if (data) {
+                        const updates = {
+                            'stat-jobs-applied': data.totalApplications,
+                            'stat-mentors': data.totalMentorsConnected,
+                            'profile-stat-applications': data.totalApplications,
+                            'profile-stat-connections': data.totalMentorsConnected,
+                            'total-jobs-count': data.totalJobsAvailable || data.recentJobs?.length || 0,
+                            'stat-mocks': data.totalMockInterviews,
+                            'stat-launchpad': data.launchApplicationsCount,
+                            'stat-saved-jobs': data.totalSavedJobs || 0
+                        };
+
+                        if (document.getElementById('dashboard-header-subtitle')) {
+                            const jobCount = data.totalJobsAvailable || 0;
+                            document.getElementById('dashboard-header-subtitle').textContent = `Your heritage network is active · ${jobCount} new opportunities today`;
+                        }
+
+                        Object.entries(updates).forEach(([id, val]) => {
+                            const el = document.getElementById(id);
+                            if (el && val !== undefined) el.textContent = val;
+                        });
+
+                        // Refresh upcoming mocks if data is provided
+                        if (data.upcomingMocks && window.renderUpcomingMocks) {
+                            window.renderUpcomingMocks(data.upcomingMocks);
+                        }
+
+                        // Refresh suggested projects
+                        if (data.suggestedProjects) {
+                            renderSuggestedProjects(data.suggestedProjects);
+                        }
+
+                        // ---> MOBILE SYNC: Stat Updates
+                        if (window.updateMobileDashboardData) {
+                            window.updateMobileDashboardData({
+                                opportunityCount: data.totalJobsAvailable || data.recentJobs?.length || 0,
+                                features: [
+                                    { title: "Mentors<br>Connected", value: (data.totalMentorsConnected || 0).toString() },
+                                    { title: "Mock<br>Interviews", value: (data.totalMockInterviews || 0).toString() },
+                                    {}, // Profile tasks will be updated by strength fetch
+                                    { title: "Saved Jobs", value: (data.totalSavedJobs || 0).toString() }
+                                ]
+                            });
+                        }
+                    }
+
+                    // Fetch extended stats
+                    fetchProfileStrength();
+                    if (window.renderUpcomingMocks) {
+                        window.renderUpcomingMocks(data.upcomingMocks || []);
+                    }
+                } catch (err) {
+                    console.error('[dashboard] Stats error:', err);
+                }
+            }
+
+            async function fetchProfileStrength() {
+                try {
+                    const data = await apiFetch('/api/profile/strength');
+                    if (data) {
+                        const percEl = document.getElementById('stat-profile-percentage');
+                        const tasksEl = document.getElementById('stat-tasks');
+
+                        if (percEl) percEl.textContent = `${data.percentage}%`;
+                        if (tasksEl) {
+                            const completed = Math.round((data.percentage / 100) * 10);
+                            tasksEl.textContent = `${completed}/10`;
+                        }
+
+                        // Show hint if < 80%
+                        if (data.percentage < 80 && data.missingFields.length > 0) {
+                            showToast({
+                                title: 'Boost Your Profile',
+                                message: `Add ${data.missingFields[0]} to reach 80% strength!`
+                            });
+                        }
+
+                        // ---> MOBILE SYNC: Profile Strength Updated
+                        if (window.updateMobileDashboardData) {
+                            const completed = Math.round((data.percentage / 100) * 10);
+                            window.updateMobileDashboardData({
+                                features: [
+                                    {}, {}, // Skip mentors/mocks
+                                    { title: "Profile Tasks", value: `${completed}/10` },
+                                    {}
+                                ]
+                            });
+                        }
+                    }
+                } catch (err) {
+                    console.error('[profile] Strength error:', err);
+                }
+            }
+
+            window.renderUpcomingMocks = function (mocks) {
+                const container = document.getElementById('upcoming-mocks-container');
+                const statEl = document.getElementById('stat-mocks');
+                if (!container) return;
+
+                if (statEl) statEl.textContent = mocks.length;
+
+                if (!mocks || mocks.length === 0) {
+                    container.innerHTML = '<p class="text-center py-4 text-muted">No upcoming mock interviews</p>';
+                    return;
+                }
+
+                container.innerHTML = mocks.map(m => {
+                    const date = new Date(m.scheduledDate);
+                    return `
+                        <div class="event-item">
+                            <div class="event-date">
+                                <div class="event-day">${date.getDate()}</div>
+                                <div class="event-month">${date.toLocaleString('default', { month: 'short' }).toUpperCase()}</div>
+                            </div>
+                            <div class="event-details">
+                                <h4>${m.roleRequested} Mock</h4>
+                                <p><i class="fas fa-user"></i> ${m.alumni ? m.alumni.name : 'Alumni'} · ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            };
+
+            function renderSuggestedProjects(projects) {
+                const container = document.getElementById('suggested-projects-container');
+                if (!container) return;
+
+                if (!projects || projects.length === 0) {
+                    container.innerHTML = '<p class="text-center py-4 text-muted">No suggested projects available</p>';
+                    return;
+                }
+
+                const limitedProjects = projects.slice(0, 2);
+                container.innerHTML = limitedProjects.map(p => `
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div class="job-info">
+                                <h4>${p.title}</h4>
+                                <div class="job-company">
+                                    <i class="fas fa-tag" style="color: var(--ember);"></i>
+                                    ${p.domain} · ${p.projectType.toUpperCase()}
+                                </div>
+                            </div>
+                        </div>
+                        <div id="project-desc-${p._id}" style="font-size: 0.85rem; color: #5f6b7a; margin-bottom: 15px;">
+                            ${p.description.substring(0, 80)}...
+                        </div>
+                        <div class="job-actions">
+                            <a href="Launch-Pad.html#projects-feed" class="btn-heritage">
+                                <i class="fas fa-external-link-alt"></i> View Project
+                            </a>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            window.fetchUpcomingMocks = async function () {
+                try {
+                    const mocks = await apiFetch('/api/mock-interviews/upcoming');
+                    window.renderUpcomingMocks(mocks);
+                } catch (err) {
+                    console.error('[mocks] Fetch error:', err);
+                }
+            };
+
+            window.renderRecentActivity = async function () {
+                const container = document.getElementById('recent-activity-container');
+
+                try {
+                    const data = await apiFetch('/api/notifications?limit=5');
+
+                    // ---> MOBILE SYNC: Recent Activity / Notifications
+                    if (window.updateMobileDashboardData && data && data.notifications) {
+                        const mobileActivities = data.notifications.map(n => ({
+                            iconHTML: `<i class="fas ${getIcon(n.type)}" style="color: #4285F4;"></i>`,
+                            title: n.title,
+                            description: n.message,
+                            timeLabel: formatTimeAgo(new Date(n.createdAt)),
+                            isToday: new Date(n.createdAt).toDateString() === new Date().toDateString()
+                        }));
+                        window.updateMobileDashboardData({ recentActivities: mobileActivities });
+                    }
+
+                    if (!container) return; // Only block desktop render, let mobile sync proceed
+
+                    if (!data || !data.notifications || data.notifications.length === 0) {
+                        container.innerHTML = '<p class="text-center py-4 text-muted">No recent activity yet</p>';
+                        return;
+                    }
+
+                    container.innerHTML = data.notifications.map(n => `
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas ${getIcon(n.type)}"></i>
+                            </div>
+                            <div class="activity-details">
+                                <div class="activity-title">${n.title}</div>
+                                <div class="activity-description">${n.message}</div>
+                                <div class="activity-time">${formatTimeAgo(new Date(n.createdAt))}</div>
+                            </div>
+                        </div>
+                    `).join('');
+                } catch (err) {
+                    if (container) container.innerHTML = '<p class="text-center py-4 text-danger">Failed to load activity</p>';
+                }
+            };
+
+            window.fetchRecentJobs = async function () {
+                const container = document.getElementById('recent-jobs-container');
+                if (!container) return;
+
+                try {
+                    const data = await apiFetch('/api/jobs?limit=2&sortBy=relevance');
+                    const jobs = data.jobs || [];
+
+                    if (jobs.length === 0) {
+                        container.innerHTML = '<p class="text-center py-5 text-muted">No opportunities available yet</p>';
+                        return;
+                    }
+
+                    container.innerHTML = jobs.map(job => {
+                        const userStream = localStorage.getItem('userStream');
+                        const isMatch = job.stream === userStream || job.department === userStream;
+
+                        return `
+                        <div class="job-card ${isMatch ? 'match-card' : ''}">
+                            <div class="job-header">
+                                <div class="job-info">
+                                    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                        <h4>${job.title}</h4>
+                                        ${isMatch ? '<span class="badge badge-success" style="font-size: 0.6rem; background: #e6fcf5; color: #0ca678; border: 1px solid #0ca67844;">SAME STREAM</span>' : ''}
+                                    </div>
+                                    <div class="job-company">
+                                        <i class="fas fa-building" style="color: var(--ember);"></i>
+                                        ${job.company} ${job.location ? '· ' + job.location : ''}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="job-tags">
+                                <span class="job-tag">${job.department || job.stream || 'Department'}</span>
+                                <span class="job-tag">${job.jobType || 'Full-time'}</span>
+                                <span class="job-tag">${formatTimeAgo(new Date(job.createdAt))}</span>
+                            </div>
+                            <div class="job-actions">
+                                <a href="Direct-Job.html?id=${job._id}" class="btn-heritage">
+                                    <i class="fas fa-paper-plane"></i> Apply Now
+                                </a>
+                            </div>
+                        </div>
+                    `}).join('');
+                } catch (err) {
+                    container.innerHTML = '<p class="text-center py-5 text-danger">Failed to load jobs</p>';
+                }
+            };
+
+            async function fetchAvailableMentors() {
+                const container = document.getElementById('available-mentors-container');
+                if (!container) return;
+
+                try {
+                    const mentors = await apiFetch('/api/mentorship/available-mentors?random=6');
+                    if (!mentors || mentors.length === 0) {
+                        container.innerHTML = '<p class="text-center py-4 text-muted w-100">No mentors available right now</p>';
+                        return;
+                    }
+
+                    container.innerHTML = mentors.map(m => {
+                        const userStream = localStorage.getItem('userStream');
+                        const isMatch = m.stream === userStream || m.department === userStream;
+
+                        const initials = m.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                        return `
+                        <div class="mentor-card ${isMatch ? 'match-card' : ''}">
+                            <div class="mentee-header">
+                                <div class="mentee-avatar">${initials}</div>
+                                <div class="mentee-info">
+                                    <h4>${m.name}</h4>
+                                    <div class="mentee-dept">
+                                        <i class="fas fa-graduation-cap"></i> ${m.stream || m.department || 'Alumni'}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mentor-meta-list">
+                                <div class="meta-item">
+                                    <i class="fas fa-briefcase"></i>
+                                    <span>${m.title || 'Alumni Mentor'}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-code"></i>
+                                    <span>${(m.skills || []).slice(0, 2).join(', ') || 'Mentoring'}</span>
+                                </div>
+                            </div>
+
+                            <a href="Mentor-Requests.html?alumniId=${m._id}" class="btn-connect">
+                                <i class="fas fa-handshake"></i> Connect Now
+                            </a>
+                        </div>
+                    `}).join('');
+                } catch (err) {
+                    container.innerHTML = '<p class="text-center py-4 text-danger w-100">Failed to load mentors</p>';
+                }
+            }
+
+            function getIcon(type) {
+                if (type.includes('job')) return 'fa-briefcase';
+                if (type.includes('mentor')) return 'fa-handshake';
+                if (type.includes('mock')) return 'fa-video';
+                return 'fa-bell';
+            }
+
+            function formatTimeAgo(date) {
+                const seconds = Math.floor((new Date() - date) / 1000);
+                let interval = seconds / 31536000;
+                if (interval > 1) return Math.floor(interval) + " years ago";
+                interval = seconds / 2592000;
+                if (interval > 1) return Math.floor(interval) + " months ago";
+                interval = seconds / 86400;
+                if (interval > 1) return Math.floor(interval) + " days ago";
+                interval = seconds / 3600;
+                if (interval > 1) return Math.floor(interval) + " hours ago";
+                interval = seconds / 60;
+                if (interval > 1) return Math.floor(interval) + " minutes ago";
+                return "Just now";
+            }
+
+            async function fetchSkillGap() {
+                try {
+                    const data = await apiFetch('/api/ai/skill-gap');
+                    if (!data) return;
+
+                    const scoreEl = document.getElementById('readiness-score-text');
+                    const targetEl = document.getElementById('target-role-text');
+                    const skillsEl = document.getElementById('missing-skills-list');
+                    const recsEl = document.getElementById('recommendations-list');
+                    const ringEl = document.querySelector('.readiness-ring-circle');
+                    const priorityEl = document.getElementById('gap-priority-badge');
+
+                    if (scoreEl) scoreEl.textContent = `${data.readinessScore}%`;
+                    if (targetEl) targetEl.textContent = `Target: ${data.targetRole}`;
+
+                    // Update progress ring
+                    if (ringEl) {
+                        const radius = 45; // Reduced from 70
+                        const circumference = 2 * Math.PI * radius;
+                        const offset = circumference - (data.readinessScore / 100) * circumference;
+                        ringEl.style.strokeDasharray = circumference;
+                        ringEl.style.strokeDashoffset = offset;
+                    }
+
+                    // Render missing skills
+                    if (skillsEl) {
+                        if (data.missingSkills.length === 0) {
+                            skillsEl.innerHTML = '<p style="font-size: 0.8rem; color: #28a745;">✓ No missing skills identified!</p>';
+                        } else {
+                            skillsEl.innerHTML = data.missingSkills.slice(0, 8).map(s => `
+                                <span class="missing-skill-chip">${s}</span>
+                            `).join('');
+                        }
+                    }
+
+                    // Render recommendations
+                    if (recsEl) {
+                        const recs = [];
+                        data.recommendedCourses.forEach(c => recs.push({ text: `Course: ${c}`, icon: 'fa-graduation-cap' }));
+                        data.recommendedProjects.forEach(p => recs.push({ text: `Project: ${p}`, icon: 'fa-rocket' }));
+
+                        if (recs.length === 0) {
+                            recsEl.innerHTML = '<p class="text-muted" style="font-size: 0.8rem;">Keep up the great work!</p>';
+                        } else {
+                            recsEl.innerHTML = recs.slice(0, 3).map(r => `
+                                <div class="rec-item">
+                                    <i class="fas ${r.icon}"></i>
+                                    <span>${r.text}</span>
+                                </div>
+                            `).join('');
+                        }
+                    }
+
+                    // Priority indicator
+                    if (priorityEl) {
+                        const color = data.priorityLevel === 'high' ? '#dc3545' : (data.priorityLevel === 'medium' ? '#ffc107' : '#28a745');
+                        priorityEl.innerHTML = `
+                            <span style="font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 40px; background: ${color}22; color: ${color}; border: 1px solid ${color}44;">
+                                ${data.priorityLevel.toUpperCase()} PRIORITY
+                            </span>
+                        `;
+                    }
+
+                } catch (err) {
+                    console.error('[skillGap] Error:', err);
+                    document.getElementById('skill-gap-analyzer-container').innerHTML = `
+                         <p class="text-center w-100 py-4 text-muted">Unable to perform analysis at this time. <br>Please update your skills in profile.</p>
+                    `;
+                }
+            }
+
+            async function fetchPlacementScore() {
+                try {
+                    const data = await apiFetch('/api/ai/placement-score');
+                    if (!data) return;
+
+                    const scoreEl = document.getElementById('placement-score-text');
+                    const levelEl = document.getElementById('placement-level-badge');
+                    const ringEl = document.querySelector('.placement-ring-fill');
+
+                    // Update Score & Ring
+                    if (scoreEl) {
+                        let current = 0;
+                        const target = data.placementScore;
+                        const duration = 1500;
+                        const startTime = performance.now();
+
+                        function animateScore(now) {
+                            const elapsed = now - startTime;
+                            const progress = Math.min(elapsed / duration, 1);
+                            current = Math.floor(progress * target);
+                            scoreEl.textContent = current;
+                            if (progress < 1) requestAnimationFrame(animateScore);
+                        }
+                        requestAnimationFrame(animateScore);
+                    }
+
+                    if (ringEl) {
+                        const radius = 68; // Reduced from 82
+                        const circumference = 2 * Math.PI * radius;
+                        const offset = circumference - (data.placementScore / 100) * circumference;
+                        ringEl.style.strokeDasharray = circumference;
+                        ringEl.style.strokeDashoffset = offset;
+                    }
+
+                    // Update Level Badge
+                    if (levelEl) {
+                        levelEl.textContent = data.level;
+                        levelEl.className = 'placement-level-badge level-' + data.level.toLowerCase().replace(' ', '_');
+                    }
+
+                    // UPDATE MOBILE COMPACT CARD
+                    const mScoreEl = document.getElementById('mobile-placement-score');
+                    const mBadgeEl = document.getElementById('mobile-placement-badge');
+                    const mFillEl = document.getElementById('mobile-score-fill');
+
+                    if (mScoreEl) mScoreEl.textContent = `${data.placementScore}%`;
+                    if (mBadgeEl) {
+                        mBadgeEl.textContent = data.level;
+                        const levelClass = data.level.toLowerCase();
+                        mBadgeEl.style.background = levelClass.includes('high') ? 'rgba(16, 185, 129, 0.1)' : 'rgba(194, 73, 31, 0.1)';
+                        mBadgeEl.style.color = levelClass.includes('high') ? '#10B981' : 'var(--ember)';
+                    }
+                    if (mFillEl) mFillEl.style.width = `${data.placementScore}%`;
+
+                    // Update Breakdown
+                    const breakdownMap = {
+                        'breakdown-profile': 'fill-profile',
+                        'breakdown-skills': 'fill-skills',
+                        'breakdown-projects': 'fill-projects',
+                        'breakdown-activity': 'fill-activity',
+                        'breakdown-course': 'fill-course'
+                    };
+
+                    const dataKeys = {
+                        'breakdown-profile': data.breakdown.profileCompletion,
+                        'breakdown-skills': data.breakdown.skillsDepth,
+                        'breakdown-projects': data.breakdown.projectQuality,
+                        'breakdown-activity': data.breakdown.activityLevel,
+                        'breakdown-course': data.breakdown.courseProgress
+                    };
+
+                    Object.entries(breakdownMap).forEach(([textId, barId]) => {
+                        const score = dataKeys[textId];
+                        const textEl = document.getElementById(textId);
+                        const barEl = document.getElementById(barId);
+                        if (textEl) textEl.textContent = `${score}%`;
+                        if (barEl) barEl.style.width = `${score}%`;
+                    });
+
+                } catch (err) {
+                    console.error('[placementScore] Error:', err);
+                }
+            }
+
+            async function fetchCareerInsights() {
+                try {
+                    const data = await apiFetch('/api/ai/career-insights');
+
+                    // ---> MOBILE SYNC: Career Insights
+                    if (window.updateMobileDashboardData && data && data.bestSuitedRoles && data.bestSuitedRoles.length > 0) {
+                        const topRole = data.bestSuitedRoles[0];
+                        window.updateMobileDashboardData({
+                            careerPath: {
+                                insightTag: "AI MATCH",
+                                text: `Your profile indicates a ${topRole.score}% match for ${topRole.role}.`,
+                                buttonAction: "View Path"
+                            }
+                        });
+                    }
+
+                    if (!data) return;
+
+                    const container = document.getElementById('ai-career-path-container');
+                    if (!container) return;
+
+                    const roles = data.bestSuitedRoles || [];
+                    if (roles.length === 0) {
+                        container.innerHTML = '<p class="text-center py-3 text-muted">Update your skills to unlock predictions.</p>';
+                        return;
+                    }
+
+                    container.innerHTML = roles.map((r, index) => {
+                        const isTop = index === 0;
+                        return `
+                            <div class="job-card" style="margin-bottom: 0; padding: 15px; display: flex; align-items: center; justify-content: space-between; border-left: ${isTop ? '4px solid var(--ember)' : '1px solid rgba(194, 73, 31, 0.08)'}">
+                                <div>
+                                    <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 4px;">${r.role}</h4>
+                                    <p style="font-size: 0.75rem; color: #5f6b7a; margin: 0;">${isTop ? '<i class="fas fa-star text-warning"></i> Highest Match' : 'Alternative'}</p>
+                                </div>
+                                <div style="font-size: 1.1rem; font-weight: 800; color: var(--ink);">
+                                    ${r.score}%
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                } catch (err) {
+                    console.error('[careerInsights] Error:', err);
+                }
+            }
+
+            async function fetchUnreadNotifications() {
+                try {
+                    const data = await apiFetch('/api/notifications/unread');
+                    if (data && data.count !== undefined && window.updateMobileDashboardData) {
+                        window.updateMobileDashboardData({ notificationCount: data.count });
+                    }
+                } catch (err) {
+                    console.error('[notifications] Unread fetch error:', err);
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                const userName = localStorage.getItem('userName');
+                if (userName) {
+                    const welcomeEl = document.getElementById('welcome-name');
+                    const mobileWelcomeEl = document.getElementById('mobile-welcome-name');
+
+                    if (welcomeEl) welcomeEl.textContent = `Welcome back, ${userName}`;
+                    if (mobileWelcomeEl) mobileWelcomeEl.textContent = userName;
+                }
+
+                fetchDashboardStats();
+                fetchStudentProfile();
+                renderRecentActivity();
+                fetchRecentJobs();
+                fetchAvailableMentors();
+                fetchSkillGap();
+                fetchPlacementScore();
+                fetchCareerInsights();
+                fetchUnreadNotifications();
+            });
+
+        </script>
+
+
+
+
+        </script>
+        <script src="../js/mobile-fixes.js"></script>
+</body>
+
+</html>

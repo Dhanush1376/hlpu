@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>hLPU</title>
+    <link rel="icon" type="image/png" href="../assets/images/hlpu logo.png">
+
+    <!-- Bootstrap 4.6 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <!-- Google Fonts - Inter -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
+        rel="stylesheet" />
+
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+
+    <link rel="stylesheet" href="../css/core/theme.css" />
+    <link rel="stylesheet" href="../css/core/NavBar.css" />
+    <link rel="stylesheet" href="../css/mobile-nav.css" />
+    <link rel="stylesheet" href="../css/mobile-fixes.css" />
+    <link rel="stylesheet" href="../css/mobile-admin.css" />
+
+
+
+
+    <style>
+        /* mesh background */
+        .mesh-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .mesh {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.2;
+        }
+
+        .mesh-1 {
+            width: 600px;
+            height: 600px;
+            background: #ffb68b;
+            top: -200px;
+            left: -100px;
+        }
+
+        .mesh-2 {
+            width: 650px;
+            height: 650px;
+            background: #fdae6a;
+            bottom: -250px;
+            right: -100px;
+        }
+
+        .mesh-3 {
+            width: 500px;
+            height: 500px;
+            background: #f9d7b0;
+            top: 30%;
+            left: 20%;
+        }
+
+        .mesh-4 {
+            width: 700px;
+            height: 700px;
+            background: #eac1a3;
+            bottom: 5%;
+            right: 10%;
+            opacity: 0.15;
+        }
+
+        /* dashboard container */
+        .dashboard-container {
+            padding: 110px 35px 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Admin Navbar styles removed - now using AdminNavBar.css */
+
+        /* ---------- jobs page specific styles ---------- */
+        .welcome-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .welcome-header h1 span {
+            background: linear-gradient(145deg, var(--ember), #bd6725);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* post job button */
+        .btn-post {
+            background: var(--ember);
+            color: white;
+            border-radius: 40px;
+            padding: 14px 36px;
+            font-weight: 600;
+            border: none;
+            transition: var(--transition);
+            box-shadow: 0 10px 18px -8px var(--ember);
+        }
+
+        .btn-post:hover {
+            background: var(--gilt);
+            transform: scale(1.02);
+            color: white;
+        }
+
+        /* stats cards for jobs */
+        .jobs-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 22px;
+            margin: 30px 0 25px;
+        }
+
+        .stat-card {
+            background: rgba(255, 249, 240, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 28px;
+            padding: 22px;
+            border: var(--border-light);
+            box-shadow: var(--shadow-elevation);
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .stat-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 18px;
+            background: rgba(194, 73, 31, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--ember);
+            font-size: 1.6rem;
+        }
+
+        .stat-content .label {
+            font-size: 0.8rem;
+            color: #5f6d7c;
+        }
+
+        .stat-content .number {
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        /* filter bar */
+        .filter-bar {
+            background: rgba(255, 250, 240, 0.6);
+            backdrop-filter: blur(8px);
+            border-radius: 60px;
+            padding: 10px 24px;
+            border: var(--border-light);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            padding: 8px 20px;
+            border-radius: 40px;
+            border: 1px solid rgba(194, 73, 31, 0.2);
+        }
+
+        .filter-group i {
+            color: var(--ember);
+        }
+
+        .filter-group select {
+            border: none;
+            background: transparent;
+            font-weight: 500;
+            outline: none;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 260px;
+            background: white;
+            border-radius: 40px;
+            padding: 8px 20px;
+            border: 1px solid rgba(194, 73, 31, 0.2);
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box i {
+            color: var(--ember);
+            margin-right: 10px;
+        }
+
+        .search-box input {
+            border: none;
+            width: 100%;
+            outline: none;
+            background: transparent;
+        }
+
+        /* jobs grid */
+        .jobs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 28px;
+            margin-bottom: 45px;
+        }
+
+        .job-card {
+            background: rgba(255, 250, 240, 0.75);
+            backdrop-filter: blur(10px);
+            border-radius: 36px;
+            padding: 24px;
+            border: var(--border-light);
+            box-shadow: var(--shadow-elevation);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .job-card:hover {
+            background: rgba(255, 244, 230, 0.9);
+            transform: translateY(-6px);
+            border-color: var(--gilt);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .job-card.featured {
+            border: 2px solid var(--gilt);
+            background: rgba(255, 238, 220, 0.8);
+        }
+
+        .job-badge {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: white;
+            border-radius: 30px;
+            padding: 6px 14px;
+            font-weight: 600;
+            font-size: 0.7rem;
+            border: 1px solid var(--ember);
+            color: var(--ember);
+        }
+
+        .job-type {
+            display: inline-block;
+            background: rgba(194, 73, 31, 0.1);
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            border: 1px solid rgba(194, 73, 31, 0.2);
+        }
+
+        .job-card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .company {
+            color: #5f6d7c;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .job-details {
+            margin: 18px 0;
+            color: #3f4a57;
+            font-size: 0.9rem;
+        }
+
+        .job-details i {
+            width: 24px;
+            color: var(--ember);
+        }
+
+        .job-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .tag {
+            background: white;
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            border: 1px solid rgba(194, 73, 31, 0.2);
+        }
+
+        .job-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .applicants {
+            background: #eae0d5;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .job-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .job-actions i {
+            font-size: 1.1rem;
+            color: #8d6e63;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .job-actions i:hover {
+            color: var(--ember);
+            transform: scale(1.1);
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .status-active {
+            background: #c8e6c9;
+            color: #1e5f20;
+        }
+
+        .status-pending {
+            background: #ffecb3;
+            color: #7a5d00;
+        }
+
+        .status-closed {
+            background: #f5c6b6;
+            color: #a13e1f;
+        }
+
+        /* companies quick view */
+        .companies-strip {
+            background: rgba(255, 250, 240, 0.5);
+            backdrop-filter: blur(4px);
+            border-radius: 60px;
+            padding: 15px 25px;
+            border: var(--border-light);
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .company-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--ember);
+            border: 1px solid rgba(194, 73, 31, 0.2);
+        }
+
+        @media (max-width: 1000px) {
+            .jobs-stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .dashboard-container {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: pageFadeIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        @keyframes pageFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .job-card {
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+            animation: jobReveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        .job-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .job-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .job-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .job-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .job-card:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .job-card:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes jobReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .mesh {
+            animation: floatMesh 20s ease-in-out infinite alternate;
+        }
+
+        .mesh-2 {
+            animation-delay: 4s;
+        }
+
+        .mesh-3 {
+            animation-delay: 8s;
+        }
+
+        .mesh-4 {
+            animation-delay: 12s;
+        }
+
+        @keyframes floatMesh {
+            0% {
+                transform: translateY(0px) scale(1);
+            }
+
+            100% {
+                transform: translateY(-35px) scale(1.05);
+            }
+        }
+
+        .btn-post:active {
+            transform: scale(0.96);
+            box-shadow: 0 4px 10px -4px var(--ember);
+        }
+
+        /* Chips styling */
+        .chips-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 10px;
+            background: #fff;
+            border: 1px solid rgba(194, 73, 31, 0.2);
+            border-radius: 12px;
+            min-height: 50px;
+        }
+
+        .chip {
+            background: rgba(194, 73, 31, 0.1);
+            color: var(--ember);
+            padding: 5px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .chip i {
+            cursor: pointer;
+            font-size: 0.75rem;
+        }
+
+        .chip-input {
+            border: none;
+            outline: none;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        /* Modal enhancements */
+        .modal-content {
+            border-radius: 28px;
+            border: none;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            background: #FFF8F0;
+        }
+
+        .modal-header {
+            border-bottom: 1px solid rgba(194, 73, 31, 0.1);
+            padding: 24px 32px;
+        }
+
+        .modal-footer {
+            border-top: 1px solid rgba(194, 73, 31, 0.1);
+            padding: 20px 32px;
+        }
+
+        .swal2-input,
+        .form-control {
+            border-radius: 12px !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="mobile-root"></div>
+
+    <div id="navbar"></div>
+    <div class="mesh-bg">
+        <div class="mesh mesh-1"></div>
+        <div class="mesh mesh-2"></div>
+        <div class="mesh mesh-3"></div>
+        <div class="mesh mesh-4"></div>
+    </div>
+    <div class="dashboard-container">
+        <!-- header with post job button -->
+        <div class="welcome-header d-flex flex-wrap align-items-center justify-content-between">
+            <div>
+                <h1><span>jobs</span> & opportunities</h1>
+                <p style="font-size:1rem;"><i class="fas fa-briefcase" style="color:var(--ember);"></i> Manage
+                    internships, full-time roles, and company partnerships</p>
+            </div>
+            <div class="d-flex" style="gap: 10px;">
+                <button class="btn-post" style="background: #6c757d;" onclick="exportJobs()"><i
+                        class="fas fa-download"></i> export list</button>
+                <button class="btn-post" onclick="postJob()"><i class="fas fa-plus-circle"></i> post new
+                    job</button>
+            </div>
+        </div>
+
+        <!-- stats cards -->
+        <div class="jobs-stats-grid" id="statsGrid">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-briefcase"></i></div>
+                <div class="stat-content"><span class="label">total active</span>
+                    <div class="number" id="statsActive">0</div><small>Now live</small>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-file-signature"></i></div>
+                <div class="stat-content"><span class="label">applications</span>
+                    <div class="number" id="statsApps">0</div><small>across all roles</small>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-building"></i></div>
+                <div class="stat-content"><span class="label">companies</span>
+                    <div class="number" id="statsCompanies">0</div><small>actively hiring</small>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                <div class="stat-content"><span class="label">pending review</span>
+                    <div class="number" id="statsPending">0</div><small>requires attention</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- filter bar -->
+        <div class="filter-bar">
+            <div class="filter-group">
+                <i class="fas fa-filter"></i>
+                <select id="typeFilter" onchange="fetchJobs()">
+                    <option value="all">all types</option>
+                    <option value="Full-time">full-time</option>
+                    <option value="Internship">internship</option>
+                    <option value="Contract">contract</option>
+                    <option value="Mentorship">mentorship</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <i class="fas fa-layer-group"></i>
+                <select id="experienceFilter" onchange="fetchJobs()">
+                    <option value="all">all levels</option>
+                    <option value="No Experience">no experience</option>
+                    <option value="0-1 Years">0-1 years</option>
+                    <option value="1-3 Years">1-3 years</option>
+                    <option value="3+ Years">3+ years</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <i class="fas fa-calendar"></i>
+                <select id="dateFilter" onchange="fetchJobs()">
+                    <option value="all">all time</option>
+                    <option value="today">today</option>
+                    <option value="week">this week</option>
+                    <option value="month">this month</option>
+                </select>
+            </div>
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search by job title, company..." oninput="fetchJobs()">
+            </div>
+        </div>
+
+        <!-- jobs grid -->
+        <div class="jobs-grid" id="jobsGrid">
+            <!-- Dynamically populated -->
+        </div>
+    </div>
+
+    <!-- Applicants Modal -->
+    <div class="modal fade" id="adminApplicantsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-users-gear"></i> <span
+                            id="adminApplicantsTitle">Applicants</span></h5>
+                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                </div>
+                <div class="modal-body" style="max-height:65vh;overflow-y:auto;">
+                    <div id="adminApplicantsContainer">
+                        <div class="text-center py-5">
+                            <i class="fas fa-spinner fa-spin fa-2x text-muted"></i>
+                            <p class="mt-2">Ranking applicants...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-post" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .applicant-card {
+            background: rgba(255, 250, 240, 0.85);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            padding: 18px 20px;
+            margin-bottom: 14px;
+            border: 1px solid rgba(194, 73, 31, 0.1);
+            transition: all .3s ease;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .applicant-card:hover {
+            border-color: var(--gilt);
+            box-shadow: 0 8px 24px -6px rgba(194, 73, 31, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .applicant-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--ember), var(--gilt));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .applicant-info {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .applicant-info h6 {
+            margin: 0 0 2px;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .applicant-info small {
+            color: #8f9aaa;
+            font-size: 0.78rem;
+        }
+
+        .match-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .match-top {
+            background: rgba(255, 87, 34, 0.15);
+            color: #e65100;
+        }
+
+        .match-good {
+            background: rgba(255, 193, 7, 0.18);
+            color: #f57f17;
+        }
+
+        .match-low {
+            background: rgba(158, 158, 158, 0.15);
+            color: #616161;
+        }
+
+        .match-bar-bg {
+            width: 80px;
+            height: 7px;
+            border-radius: 6px;
+            background: rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+            margin-top: 4px;
+        }
+
+        .match-bar-fill {
+            height: 100%;
+            border-radius: 6px;
+            transition: width .6s ease;
+        }
+
+        .applicant-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 6px;
+        }
+
+        .applicant-skills .sk {
+            background: rgba(194, 73, 31, 0.08);
+            color: var(--ember);
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.68rem;
+            font-weight: 600;
+        }
+
+        .applicant-actions {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+        }
+
+        .applicant-actions button {
+            border: none;
+            border-radius: 14px;
+            padding: 7px 14px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+
+        .btn-view-profile {
+            background: rgba(194, 73, 31, 0.1);
+            color: var(--ember);
+        }
+
+        .btn-view-profile:hover {
+            background: var(--ember);
+            color: #fff;
+        }
+
+        .btn-accept {
+            background: rgba(46, 125, 50, 0.1);
+            color: #2e7d32;
+        }
+
+        .btn-accept:hover {
+            background: #2e7d32;
+            color: #fff;
+        }
+
+        .btn-reject {
+            background: rgba(198, 40, 40, 0.1);
+            color: #c62828;
+        }
+
+        .btn-reject:hover {
+            background: #c62828;
+            color: #fff;
+        }
+
+        .btn-action-disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .btn-applicants-inline {
+            background: rgba(194, 73, 31, 0.08);
+            border: 1px solid rgba(194, 73, 31, 0.2);
+            border-radius: 30px;
+            padding: 5px 14px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--ember);
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+
+        .btn-applicants-inline:hover {
+            background: var(--ember);
+            color: #fff;
+            border-color: var(--ember);
+        }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+    <script src="../js/core/api.js"></script>
+    <script>
+        function postJob() {
+            $('#postJobModal').modal('show');
+        }
+
+        // --- Chips Logic ---
+        function initChipsUI(inputId, containerId) {
+            const input = document.getElementById(inputId);
+            const container = document.getElementById(containerId);
+            if (!input || !container) return;
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const value = input.value.trim();
+                    if (value) addChip(value, container, input);
+                }
+            });
+        }
+
+        function addChip(text, container, input) {
+            const existing = Array.from(container.querySelectorAll('.chip span')).map(s => s.textContent);
+            if (existing.includes(text)) {
+                input.value = '';
+                return;
+            }
+            const chip = document.createElement('div');
+            chip.className = 'chip';
+            chip.innerHTML = `<span>${text}</span><i class="fas fa-times"></i>`;
+            chip.querySelector('i').onclick = () => chip.remove();
+            container.insertBefore(chip, input);
+            input.value = '';
+        }
+
+        function getChipsValues(containerId) {
+            return Array.from(document.querySelectorAll(`#${containerId} .chip span`)).map(s => s.textContent);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initChipsUI('skillsInput', 'adminSkillsChips');
+
+            document.getElementById('submitAdminJob').addEventListener('click', async () => {
+                const form = document.getElementById('adminJobForm');
+                if (!form.checkValidity()) {
+                    form.reportValidity();
+                    return;
+                }
+
+                const btn = document.getElementById('submitAdminJob');
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Posting...';
+
+                const payload = {
+                    title: document.getElementById('jobTitle').value,
+                    companyName: document.getElementById('companyName').value,
+                    location: document.getElementById('jobLocation').value,
+                    workMode: document.getElementById('workMode').value,
+                    jobType: document.getElementById('jobTypeSelect').value,
+                    salaryMin: document.getElementById('salaryMin').value,
+                    salaryMax: document.getElementById('salaryMax').value,
+                    salaryPeriod: document.getElementById('salaryPeriod').value,
+                    skills: getChipsValues('adminSkillsChips'),
+                    description: document.getElementById('jobDescription').value,
+                    applicationDeadline: document.getElementById('jobDeadline').value,
+                    link: document.getElementById('jobLink').value
+                };
+
+                try {
+                    await apiFetch('/api/jobs', {
+                        method: 'POST',
+                        body: JSON.stringify(payload)
+                    });
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: 'Campus Drive opportunity posted.',
+                        confirmButtonColor: '#c2491f'
+                    });
+
+                    $('#postJobModal').modal('hide');
+                    form.reset();
+                    document.querySelectorAll('#adminSkillsChips .chip').forEach(c => c.remove());
+                    fetchJobs();
+                    fetchStats();
+                } catch (err) {
+                    Swal.fire('Error', err.message, 'error');
+                } finally {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-paper-plane mr-2"></i> Post Opportunity';
+                }
+            });
+        });
+
+        function editJob(title) {
+            Swal.fire({ title: `Edit ${title}`, text: 'Open job editor', icon: 'info', confirmButtonColor: '#c2491f' });
+        }
+
+        async function fetchStats() {
+            try {
+                const stats = await apiFetch('/api/jobs/admin/stats');
+                animateCounter(document.getElementById('statsActive'), stats.active);
+                animateCounter(document.getElementById('statsApps'), stats.applications);
+                animateCounter(document.getElementById('statsCompanies'), stats.companies);
+                animateCounter(document.getElementById('statsPending'), stats.pending);
+            } catch (err) {
+                console.error('[jobs] fetchStats error:', err.message);
+            }
+        }
+
+        async function fetchJobs() {
+            const grid = document.getElementById('jobsGrid');
+            const type = document.getElementById('typeFilter').value;
+            const search = document.getElementById('searchInput').value;
+            const expLevel = document.getElementById('experienceFilter').value;
+            const datePosted = document.getElementById('dateFilter').value;
+
+            grid.innerHTML = '<div class="col-12 text-center py-5"><i class="fas fa-spinner fa-spin fa-2x"></i></div>';
+
+            try {
+                const query = new URLSearchParams();
+                if (search) query.append('search', search);
+                if (type !== 'all') query.append('jobType', type);
+                if (expLevel !== 'all') query.append('experienceLevel', expLevel);
+                if (datePosted !== 'all') query.append('datePosted', datePosted);
+
+                const data = await apiFetch(`/api/jobs?${query}`);
+
+                if (data.jobs.length === 0) {
+                    grid.innerHTML = '<div class="col-12 text-center py-5"><p class="text-muted">No jobs found.</p></div>';
+                    return;
+                }
+
+                grid.innerHTML = data.jobs.map(job => {
+                    const postedDays = Math.floor((new Date() - new Date(job.createdAt)) / (1000 * 60 * 60 * 24));
+                    const statusClass = (job.moderation?.reviewStatus || 'active').toLowerCase();
+                    const appsCount = (job.applicants || []).length;
+                    const postedByAlumni = job.postedBy?.role === 'admin' ? 'Campus Drive' : (job.postedBy?.name || job.postedByAlumni || 'System');
+
+                    return `
+                        <div class="job-card" data-job-id="${job._id}">
+                            <span class="job-type"><i class="fas fa-clock"></i> ${job.jobType}</span>
+                            <h3>${job.title}</h3>
+                            <div class="company"><i class="fas fa-id-card"></i> Posted by: ${postedByAlumni}</div>
+                            <div class="company"><i class="fas fa-building"></i> ${job.company} · ${job.location || 'Remote'}</div>
+                            <div class="job-details">
+                                <p><i class="fas fa-briefcase"></i> ${job.experienceLevel || 'Not specified'}</p>
+                                <p><i class="fas fa-indian-rupee-sign"></i> ${job.salaryMin || 0} - ${job.salaryMax || 0} ${job.salaryPeriod || ''}</p>
+                            </div>
+                            <div class="job-tags">
+                                ${(job.skills || []).slice(0, 3).map(s => `<span class="tag">${s}</span>`).join('')}
+                                ${job.skills && job.skills.length > 3 ? `<span class="tag">+${job.skills.length - 3}</span>` : ''}
+                            </div>
+                            <div class="job-meta">
+                                <button class="btn-applicants-inline" onclick="openAdminApplicants('${job._id}')">
+                                    <i class="fas fa-users"></i> ${appsCount} applicants
+                                </button>
+                                <div class="job-actions">
+                                    <i class="fas fa-pen" onclick="editJob('${job.title}')"></i>
+                                    <i class="fas fa-trash" onclick="deleteJob('${job._id}')"></i>
+                                </div>
+                            </div>
+                            <div style="margin-top:10px;">
+                                <span class="status-badge status-${statusClass}">${statusClass}</span> · posted ${postedDays === 0 ? 'today' : postedDays + 'd ago'}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+            } catch (err) {
+                grid.innerHTML = `<p class="text-danger">Error: ${err.message}</p>`;
+            }
+        }
+
+        // ===== ADMIN APPLICANTS (RANKED) =====
+        async function openAdminApplicants(jobId) {
+            const container = document.getElementById('adminApplicantsContainer');
+            container.innerHTML = '<div class="text-center py-5"><i class="fas fa-spinner fa-spin fa-2x text-muted"></i><p class="mt-2">Ranking applicants...</p></div>';
+            $('#adminApplicantsModal').modal('show');
+
+            try {
+                const data = await apiFetch(`/api/jobs/${jobId}/applicants`);
+                const applicants = data.applicants || [];
+                document.getElementById('adminApplicantsTitle').textContent = `Applicants — ${data.jobTitle || 'Job'}`;
+
+                if (!applicants.length) {
+                    container.innerHTML = '<div class="text-center py-5"><i class="fas fa-user-slash fa-3x text-muted mb-3" style="opacity:0.3;"></i><p>No applicants yet.</p></div>';
+                    return;
+                }
+
+                container.innerHTML = applicants.map(app => {
+                    const score = app.matchScore || 0;
+                    const initials = (app.name || '?').split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                    let badgeClass, badgeLabel;
+                    if (score >= 80) { badgeClass = 'match-top'; badgeLabel = '🔥 Top Match'; }
+                    else if (score >= 60) { badgeClass = 'match-good'; badgeLabel = '⭐ Good Fit'; }
+                    else { badgeClass = 'match-low'; badgeLabel = '⚠️ Low Fit'; }
+                    const barColor = score >= 80 ? '#e65100' : score >= 60 ? '#f57f17' : '#9e9e9e';
+                    const skillsHtml = (app.skills || []).slice(0, 5).map(s => `<span class="sk">${s}</span>`).join('');
+                    const statusClass = app.status === 'accepted' ? 'match-top' : app.status === 'rejected' ? 'match-low' : 'match-good';
+
+                    return `
+                        <div class="applicant-card" id="admin-applicant-${app._id}">
+                            <div class="applicant-avatar">${initials}</div>
+                            <div class="applicant-info">
+                                <h6>${app.name || 'Unknown'}</h6>
+                                <small>${app.email || ''} · ${app.department || 'N/A'}</small>
+                                <div style="display:flex;align-items:center;gap:10px;margin-top:4px;">
+                                    <span class="match-badge ${badgeClass}">${badgeLabel} · ${score}%</span>
+                                    <span class="match-badge ${statusClass}" id="admin-status-${app._id}" style="text-transform:capitalize;">${app.status || 'pending'}</span>
+                                </div>
+                                <div class="match-bar-bg"><div class="match-bar-fill" style="width:${score}%;background:${barColor};"></div></div>
+                                <div class="applicant-skills">${skillsHtml}</div>
+                            </div>
+                            <div class="applicant-actions">
+                                <button class="btn-view-profile" onclick="window.open('../For-Student/Student-Profile.html?userId=${app._id}','_blank')"><i class="fas fa-user"></i> Profile</button>
+                                <button class="btn-accept ${app.status === 'accepted' ? 'btn-action-disabled' : ''}" id="admin-accept-${app._id}" onclick="adminUpdateStatus('${jobId}','${app._id}','accepted')"><i class="fas fa-check"></i> Accept</button>
+                                <button class="btn-reject ${app.status === 'rejected' ? 'btn-action-disabled' : ''}" id="admin-reject-${app._id}" onclick="adminUpdateStatus('${jobId}','${app._id}','rejected')"><i class="fas fa-times"></i> Reject</button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } catch (err) {
+                container.innerHTML = `<div class="alert alert-danger">Error: ${err.message}</div>`;
+            }
+        }
+
+        async function adminUpdateStatus(jobId, userId, newStatus) {
+            try {
+                await apiFetch(`/api/jobs/${jobId}/applicants/${userId}/status`, {
+                    method: 'PUT',
+                    body: JSON.stringify({ status: newStatus })
+                });
+                const badge = document.getElementById(`admin-status-${userId}`);
+                if (badge) {
+                    badge.textContent = newStatus;
+                    badge.className = `match-badge ${newStatus === 'accepted' ? 'match-top' : newStatus === 'rejected' ? 'match-low' : 'match-good'}`;
+                }
+                if (newStatus === 'accepted') {
+                    document.getElementById(`admin-accept-${userId}`)?.classList.add('btn-action-disabled');
+                    document.getElementById(`admin-reject-${userId}`)?.classList.remove('btn-action-disabled');
+                } else {
+                    document.getElementById(`admin-reject-${userId}`)?.classList.add('btn-action-disabled');
+                    document.getElementById(`admin-accept-${userId}`)?.classList.remove('btn-action-disabled');
+                }
+                Swal.fire({ icon: 'success', title: 'Updated', text: `Status: ${newStatus}`, timer: 1500, showConfirmButton: false, toast: true, position: 'top-end' });
+            } catch (err) {
+                Swal.fire('Error', err.message, 'error');
+            }
+        }
+
+        async function deleteJob(id) {
+            const confirm = await Swal.fire({
+                title: 'Delete job?',
+                text: "This action cannot be undone",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#b23c1a'
+            });
+            if (!confirm.isConfirmed) return;
+
+            try {
+                await apiFetch(`/api/jobs/${id}`, { method: 'DELETE' });
+                Swal.fire('Deleted!', 'Job post has been removed.', 'success');
+                fetchJobs();
+                fetchStats();
+            } catch (err) {
+                Swal.fire('Error', err.message, 'error');
+            }
+        }
+
+        async function exportJobs() {
+            try {
+                const data = await apiFetch('/api/jobs/admin/export');
+                const headers = ["ID", "Title", "Company", "Location", "Type", "Salary", "Posted By", "Email", "Applicants", "Status", "Date"];
+                const rows = data.map(j => [
+                    j.id, j.title, j.company, j.location, j.jobType, j.salary, j.postedBy, j.postedByEmail, j.applicantsCount, j.status, new Date(j.postedAt).toLocaleDateString()
+                ]);
+
+                let csvContent = "data:text/csv;charset=utf-8,"
+                    + headers.join(",") + "\n"
+                    + rows.map(e => e.join(",")).join("\n");
+
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", `hlpu_jobs_export_${new Date().toISOString().split('T')[0]}.csv`);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                Swal.fire({ title: 'Export Success', text: 'Job list downloaded as CSV', icon: 'success' });
+            } catch (err) {
+                Swal.fire('Export Failed', err.message, 'error');
+            }
+        }
+
+        function animateCounter(element, target, duration = 1400) {
+            if (!element) return;
+            const start = parseInt(element.innerText.replace(/,/g, '')) || 0;
+            if (start === target) {
+                element.innerText = target.toLocaleString();
+                return;
+            }
+            let startTime = null;
+
+            function update(timestamp) {
+                if (!startTime) startTime = timestamp;
+                const progress = Math.min((timestamp - startTime) / duration, 1);
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const value = Math.floor(start + (target - start) * easeOut);
+                element.innerText = value.toLocaleString();
+                if (progress < 1) requestAnimationFrame(update);
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        // ===== REAL-TIME SOCKET LISTENERS =====
+        function initJobSocket() {
+            try {
+                const token = document.cookie.split(';').find(c => c.trim().startsWith('token='))?.split('=')[1]
+                    || (typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null);
+                if (!token) return;
+
+                const socket = io('http://localhost:5000', { auth: { token } });
+
+                socket.on('job:new', () => { fetchJobs(); fetchStats(); });
+                socket.on('job:updated', () => { fetchJobs(); });
+                socket.on('job:deleted', () => { fetchJobs(); fetchStats(); });
+                socket.on('job:application:new', (data) => {
+                    fetchStats();
+                    // Update applicant count in card if visible
+                    const card = document.querySelector(`[data-job-id="${data.jobId}"] .btn-applicants-inline`);
+                    if (card) card.innerHTML = `<i class="fas fa-users"></i> ${data.applicantCount} applicants`;
+                });
+
+                socket.on('connect_error', () => { console.warn('[socket] Connection failed, falling back to polling'); });
+            } catch (e) {
+                console.warn('[socket] Init failed:', e.message);
+            }
+        }
+
+        window.addEventListener("load", () => {
+            fetchStats();
+            fetchJobs();
+            initJobSocket();
+        });
+        window.addEventListener('scroll', function () {
+            const nav = document.querySelector('.navbar');
+            if (window.scrollY > 20) {
+                nav.style.boxShadow = "0 18px 45px -12px rgba(0,0,0,0.25)";
+                nav.style.backdropFilter = "blur(20px)";
+            } else {
+                nav.style.boxShadow = "0 10px 30px -10px rgba(10, 20, 30, 0.15)";
+                nav.style.backdropFilter = "blur(16px)";
+            }
+        });
+
+    </script>
+    <!-- Post Job Modal -->
+    <div class="modal fade" id="postJobModal" tabindex="-1" role="dialog" aria-labelledby="postJobModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="postJobModalLabel"><i class="fas fa-plus-circle text-orange mr-2"></i>
+                        Post New Opportunity</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="adminJobForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="font-weight-600">Job Title *</label>
+                                <input type="text" class="form-control" id="jobTitle" required
+                                    placeholder="e.g. Software Engineer Intern">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="font-weight-600">Company Name *</label>
+                                <input type="text" class="form-control" id="companyName" required
+                                    placeholder="e.g. Google">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="font-weight-600">Location *</label>
+                                <input type="text" class="form-control" id="jobLocation" required
+                                    placeholder="e.g. Hyderabad / Remote">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="font-weight-600">Work Mode *</label>
+                                <select class="form-control" id="workMode" required>
+                                    <option value="Remote">Remote</option>
+                                    <option value="Hybrid">Hybrid</option>
+                                    <option value="Onsite">Onsite</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="font-weight-600">Job Type *</label>
+                                <select class="form-control" id="jobTypeSelect" required>
+                                    <option>Full-time</option>
+                                    <option>Internship</option>
+                                    <option>Contract</option>
+                                    <option>Mentorship</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="font-weight-600">Min Salary (K)</label>
+                                <input type="number" class="form-control" id="salaryMin" placeholder="e.g. 30">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="font-weight-600">Max Salary (K)</label>
+                                <input type="number" class="form-control" id="salaryMax" placeholder="e.g. 50">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="font-weight-600">Period</label>
+                                <select class="form-control" id="salaryPeriod">
+                                    <option value="Month">Per Month</option>
+                                    <option value="Year">Per Year</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="font-weight-600">Skills Required (Press Enter)</label>
+                            <div class="chips-container" id="adminSkillsChips">
+                                <input type="text" class="chip-input" id="skillsInput" placeholder="Add a skill...">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="font-weight-600">Description *</label>
+                            <textarea class="form-control" id="jobDescription" rows="4" required
+                                placeholder="Detail the role, responsibilities, and specific requirements..."></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="font-weight-600">Application Deadline *</label>
+                                <input type="date" class="form-control" id="jobDeadline" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="font-weight-600">Application Link (Optional)</label>
+                                <input type="url" class="form-control" id="jobLink"
+                                    placeholder="https://example.com/apply">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light rounded-pill px-4" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn-post" id="submitAdminJob"><i class="fas fa-paper-plane mr-2"></i>
+                        Post Opportunity</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/core/loadComponents.js" defer></script>
+    <script src="../js/core/authGuard.js"></script>
+
+
+    <script src="../js/mobile-nav.js"></script>
+    <script src="../js/mobile-admin-nav.js"></script>
+    <script src="../js/mobile-admin-jobs.js"></script>
+    <script src="../js/mobile-fixes.js"></script>
+</body>
+
+</html>

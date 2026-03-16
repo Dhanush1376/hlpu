@@ -1,0 +1,108 @@
+/* ============================================================
+   responsive.css — hLPU Mobile-First UX Enhancements
+   ============================================================ */
+
+@media (max-width: 991px) {
+
+    /* --- App-Style Sticky Top Bar --- */
+    .navbar {
+        height: var(--mobile-header-h) !important;
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.9) !important;
+        backdrop-filter: blur(20px);
+        z-index: 2000;
+        border-bottom: 1px solid rgba(194, 73, 31, 0.08);
+        padding: 0 !important;
+        padding-top: var(--safe-area-top) !important;
+    }
+
+    .navbar .container {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        height: 100%;
+        max-width: 100% !important;
+        position: relative;
+        padding: 0 16px !important;
+    }
+
+    /* Hamburger on Left */
+    .navbar-toggler {
+        order: 1 !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: var(--touch-target);
+        height: var(--touch-target);
+        display: flex !important;
+        align-items: center;
+        justify-content: flex-start;
+        background: transparent !important;
+        color: var(--ink) !important;
+    }
+
+    /* Logo Centered */
+    .navbar-brand {
+        order: 2 !important;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0 !important;
+        padding: 0 !important;
+        z-index: 2;
+    }
+
+    .navbar-brand img {
+        height: 32px !important;
+        width: auto;
+    }
+
+    /* Top Action (Bell) on Right */
+    .mobile-actions {
+        order: 3 !important;
+        display: flex !important;
+        align-items: center;
+        justify-content: flex-end;
+        height: var(--touch-target);
+        gap: 8px;
+    }
+
+    .notification-bell {
+        width: var(--touch-target);
+        height: var(--touch-target);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        color: var(--ink);
+        background: transparent;
+        font-size: 1.2rem;
+    }
+
+    /* Slide-out Drawer (Native Feel) */
+    .navbar-collapse {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background: white;
+        z-index: 2100;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        display: block !important;
+        padding: calc(var(--safe-area-top) + 20px) 20px 20px !important;
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.1);
+        overflow-y: auto;
+        visibility: hidden;
+    }
+
+    .navbar-collapse.show {
+        transform: translateX(100%);
+        visibility: visible;
+    }
+}

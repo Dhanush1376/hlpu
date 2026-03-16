@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>hLPU</title>
+  <link rel="icon" type="image/png" href="../assets/images/hlpu logo.png">
+
+  <!-- Bootstrap 4.6 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <!-- Google Fonts - Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" />
+  <link rel="stylesheet" href="../css/core/NavBar.css" />
+  <link rel="stylesheet" href="../css/core/Main.css" />
+  <link rel="stylesheet" href="../css/mobile-nav.css" />
+  <link rel="stylesheet" href="../css/mobile-fixes.css" />
+  <link rel="stylesheet" href="../css/mobile-mock-interview.css" />
+  <style>
+    /* ===== HERO SECTION ===== */
+    .hero {
+      padding: 25px 20px;
+      margin-top: 80px;
+      min-height: calc(100vh - 100px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ===== PREMIUM GLASS CONTAINER ===== */
+    .container-glass {
+      width: 100%;
+      max-width: 1200px;
+      background: var(--glass);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(194, 73, 31, 0.08);
+      border-radius: 32px;
+      padding: 30px 30px;
+      box-shadow: var(--shadow-elevation);
+      transition: var(--transition);
+      animation: slideUp 0.5s ease forwards;
+      margin-bottom: 30px;
+    }
+
+    .container-glass:hover {
+      background: var(--glass-deep);
+      border-color: rgba(230, 138, 46, 0.2);
+      box-shadow: 0 30px 45px -15px rgba(194, 73, 31, 0.12);
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .container-glass h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 10px;
+      position: relative;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .container-glass h2 i {
+      color: var(--ember);
+      font-size: 1.6rem;
+    }
+
+    .container-glass p {
+      font-size: 0.95rem;
+      color: #52606d;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .container-glass p i {
+      color: var(--ember);
+    }
+
+    hr {
+      border: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--ember), var(--gilt));
+      margin: 25px 0;
+      opacity: 0.2;
+      border-radius: 2px;
+    }
+
+    /* ===== FORM STYLES ===== */
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: 0.3px;
+    }
+
+    .form-label i {
+      color: var(--ember);
+      font-size: 0.9rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 18px;
+      border: 1.5px solid rgba(10, 26, 47, 0.06);
+      background: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+      font-family: 'Inter', sans-serif;
+      color: var(--ink);
+      transition: var(--transition);
+      appearance: none;
+      height: 52px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23C2491F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 18px center;
+      background-size: 16px;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--ember);
+      background: white;
+      box-shadow: 0 0 0 4px rgba(194, 73, 31, 0.08);
+    }
+
+    input.form-control,
+    select.form-control {
+      height: 52px;
+      cursor: pointer;
+    }
+
+    textarea.form-control {
+      background-image: none;
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    /* ===== HIDDEN TEXTAREA ===== */
+    .hidden-textarea {
+      display: none;
+      margin-top: 12px;
+    }
+
+    .hidden-textarea.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    /* ===== PREMIUM BUTTON ===== */
+    .btn-heritage {
+      background: var(--ink);
+      color: white;
+      border: none;
+      padding: 16px 32px;
+      border-radius: 40px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      transition: var(--transition);
+      cursor: pointer;
+      width: 100%;
+      margin-top: 15px;
+      letter-spacing: 0.5px;
+      margin-right: 0;
+      box-shadow: 0 10px 18px -6px rgba(10, 26, 47, 0.2);
+    }
+
+    .btn-heritage:hover {
+      background: #12243f;
+      transform: translateY(-3px);
+      box-shadow: 0 18px 25px -10px rgba(194, 73, 31, 0.35);
+    }
+
+    .btn-heritage i {
+      font-size: 1rem;
+    }
+
+    .btn-view-jobs {
+      background: white;
+      color: var(--ink);
+      border: 1px solid rgba(10, 26, 47, 0.1);
+      padding: 12px 28px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+    }
+
+    .btn-view-jobs:hover {
+      background: var(--ink);
+      color: white;
+      border-color: var(--ink);
+      transform: translateY(-3px);
+      box-shadow: 0 15px 25px -10px rgba(10, 26, 47, 0.3);
+    }
+
+    .jobs-count-badge {
+      background: var(--ember);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-left: 10px;
+    }
+
+    .btn-back {
+      background: white;
+      color: var(--ink);
+      border: 1px solid rgba(10, 26, 47, 0.1);
+      padding: 10px 20px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-back:hover {
+      background: var(--ink);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .no-requests-message {
+      text-align: center;
+      padding: 40px;
+      color: #52606d;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 24px;
+      width: 100%;
+    }
+
+    .btn-view-jobs {
+      background: white;
+      color: var(--ink);
+      border: 1px solid rgba(10, 26, 47, 0.1);
+      padding: 12px 28px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+    }
+
+    .btn-view-jobs:hover {
+      background: var(--ink);
+      color: white;
+      border-color: var(--ink);
+      transform: translateY(-3px);
+      box-shadow: 0 15px 25px -10px rgba(10, 26, 47, 0.3);
+    }
+
+    /* ===== CONFIRMATION MESSAGE ===== */
+    .confirmation {
+      display: none;
+      font-size: 0.95rem;
+      color: #0F7B3A;
+      padding: 18px 24px;
+      margin-top: 25px;
+      text-align: center;
+      background: rgba(40, 167, 69, 0.1);
+      border: 1px solid rgba(40, 167, 69, 0.3);
+      border-radius: 20px;
+      backdrop-filter: blur(8px);
+      animation: slideUp 0.5s ease forwards;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .confirmation i {
+      font-size: 1.2rem;
+    }
+
+    .confirmation.text-danger {
+      color: #B02A37;
+      background: rgba(220, 53, 69, 0.1);
+      border-color: rgba(220, 53, 69, 0.3);
+    }
+
+    /* ===== INFO PANEL ===== */
+    .info-panel {
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(8px);
+      border-radius: 24px;
+      padding: 24px;
+      margin-top: 30px;
+      border: 1px solid rgba(194, 73, 31, 0.08);
+    }
+
+    .info-panel-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .info-panel-title i {
+      color: var(--ember);
+    }
+
+    .info-list {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 0;
+    }
+
+    .info-list li {
+      font-size: 0.85rem;
+      color: #3f4d5e;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .info-list li i {
+      color: var(--gilt);
+      width: 18px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .hero {
+        margin-left: 0;
+        padding: 20px 15px;
+      }
+
+      .container-glass {
+        padding: 30px 25px;
+        border-radius: 24px;
+      }
+
+      .container-glass h2 {
+        font-size: 1.5rem;
+      }
+
+      .btn-heritage {
+        padding: 14px 28px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .container-glass {
+        padding: 25px 20px;
+      }
+
+      .container-glass h2 {
+        font-size: 1.3rem;
+      }
+
+      .container-glass h2 i {
+        font-size: 1.3rem;
+      }
+
+      .form-control {
+        padding: 12px 16px;
+      }
+    }
+  </style>
+  <!-- Global Mobile Nav Injection -->
+
+
+</head>
+
+<body>
+
+
+  <div id="navbar"></div>
+  <!-- PREMIUM MESH BACKGROUND -->
+  <div class="mesh-bg">
+    <div class="mesh mesh-1"></div>
+    <div class="mesh mesh-2"></div>
+    <div class="mesh mesh-3"></div>
+    <div class="mesh mesh-4"></div>
+  </div>
+  <div id="mobile-root"></div>
+  <!-- MAIN CONTENT -->
+  <section class="hero desktop-only">
+    <div class="container-glass">
+      <h2>
+        <i class="fas fa-calendar-check"></i>
+        Schedule Mock Interview
+        <button type="button" class="btn-view-jobs ml-auto" id="toggleRequestsBtn">
+          <i class="fas fa-eye"></i> My Interview Requests
+        </button>
+      </h2>
+      <p>
+        <i class="fas fa-handshake"></i>
+        Practice with industry experts · Get real feedback · Build confidence
+      </p>
+      <hr>
+
+      <form id="mockForm">
+        <!-- Job Role Selection -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-briefcase"></i>
+            Preferred Job Role
+          </label>
+          <select class="form-control" id="jobRoleSelect" required>
+            <option value="" disabled selected>Select your target role</option>
+            <option>Software Developer</option>
+            <option>Frontend Developer</option>
+            <option>Backend Engineer</option>
+            <option>Data Scientist</option>
+            <option>Business Analyst</option>
+            <option>Cybersecurity Analyst</option>
+            <option value="Others">Others (Specify below)</option>
+          </select>
+          <textarea class="form-control hidden-textarea" id="jobRoleTextarea"
+            placeholder="e.g., DevOps Engineer, Product Manager, UI/UX Designer..." rows="2"></textarea>
+        </div>
+
+        <!-- Interview Topic -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-code"></i>
+            Interview Topic
+          </label>
+          <select class="form-control" id="topicSelect" required>
+            <option value="" disabled selected>Select focus area</option>
+            <option>Data Structures & Algorithms</option>
+            <option>System Design</option>
+            <option>Behavioral / HR Round</option>
+            <option>SQL & Databases</option>
+            <option>Python / Java Fundamentals</option>
+            <option>Resume Review</option>
+            <option value="Others">Others (Specify below)</option>
+          </select>
+          <textarea class="form-control hidden-textarea" id="topicTextarea"
+            placeholder="e.g., Cloud Computing, Machine Learning, Product Strategy..." rows="2"></textarea>
+        </div>
+
+        <div class="row">
+          <!-- Interview Type -->
+          <div class="col-md-6 mb-3">
+            <label class="form-label">
+              <i class="fas fa-layer-group"></i>
+              Interview Type *
+            </label>
+            <select class="form-control" id="interviewType" required>
+              <option value="" disabled selected>Select type</option>
+              <option value="HR">HR</option>
+              <option value="Technical">Technical</option>
+              <option value="Behavioral">Behavioral</option>
+            </select>
+          </div>
+
+          <!-- Preferred Date -->
+          <div class="col-md-6 mb-3">
+            <label class="form-label">
+              <i class="fas fa-calendar-day"></i>
+              Preferred Date *
+            </label>
+            <input type="date" class="form-control" id="preferredDate" required>
+          </div>
+        </div>
+
+        <!-- Specific Questions -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-question-circle"></i>
+            Specific Questions or Topics
+          </label>
+          <textarea class="form-control" id="specificQuestions" rows="4"
+            placeholder="What specific areas would you like the interviewer to focus on?"></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-actions" style="display: flex; gap: 15px; flex-wrap: wrap;">
+          <button type="submit" class="btn-heritage">
+            <i class="fas fa-paper-plane"></i>
+            Submit Interview Request
+          </button>
+          <button type="button" class="btn btn-outline-heritage" onclick="scrollToRequests()">
+            <i class="fas fa-history"></i>
+            View My Requests
+          </button>
+        </div>
+      </form>
+
+      <!-- Info Panel -->
+      <div class="info-panel">
+        <div class="info-panel-title">
+          <i class="fas fa-lightbulb"></i>
+          What happens next?
+        </div>
+        <ul class="info-list">
+          <li><i class="fas fa-user-check"></i> An alumni expert will be assigned</li>
+          <li><i class="fas fa-clock"></i> Response within 24-48 hours</li>
+          <li><i class="fas fa-video"></i> Conducted via Video Call</li>
+          <li><i class="fas fa-star"></i> Detailed feedback provided</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- My Requests Section -->
+    <div id="myRequestsSection" style="display: none; width: 100%; max-width: 1200px; margin-top: 20px;">
+      <div class="container-glass">
+        <div class="d-flex justify-content-between align-items-center mb-4 pb-3"
+          style="border-bottom: 2px solid rgba(194, 73, 31, 0.1);">
+          <h3 style="color: var(--ink); font-weight: 700; margin: 0; display: flex; align-items: center;">
+            <i class="fas fa-history mr-3" style="color: var(--ember);"></i>
+            My Interview Requests
+            <span class="jobs-count-badge" id="requestsCount">0</span>
+          </h3>
+          <button type="button" class="btn-back" id="backToFormBtn">
+            <i class="fas fa-arrow-left"></i> Back to Schedule
+          </button>
+        </div>
+        <div id="requestsList" class="row">
+          <!-- Dynamic Cards Load Here -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCRIPTS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- UI Helpers -->
+  <script src="../js/core/ui-helpers.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    // ===== HLPU HERITAGE MOCK INTERVIEWS =====
+
+    // Helper: Get Badge Color
+    function getStatusBadgeClass(status) {
+      switch (status?.toLowerCase()) {
+        case 'pending': return 'badge-warning';
+        case 'accepted': return 'badge-success';
+        case 'rejected': return 'badge-danger';
+        case 'completed': return 'badge-info';
+        default: return 'badge-secondary';
+      }
+    }
+
+    // Helper: Format Date
+    function formatDate(dateString) {
+      if (!dateString) return 'N/A';
+      return new Date(dateString).toLocaleDateString('en-IN', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+      });
+    }
+
+    // ===== FETCH AND RENDER REQUESTS =====
+    async function loadMyRequests() {
+      try {
+        const requests = await apiFetch('/api/mock-interviews/student');
+        const container = document.getElementById('requestsList');
+        const countBadge = document.getElementById('requestsCount');
+
+        if (countBadge) countBadge.textContent = requests ? requests.length : 0;
+
+        if (requests && requests.length > 0) {
+          container.innerHTML = requests.map(req => `
+                    <div class="col-md-6 col-lg-4 mb-4 glass-hover-elevate">
+                        <div class="container-glass h-100" style="margin-bottom: 0; padding: 25px; background: rgba(255,255,255,0.7);">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 style="font-weight: 700; color: var(--ink); margin: 0;">${req.roleRequested}</h5>
+                                <span class="badge ${getStatusBadgeClass(req.status)}" style="border-radius: 20px; padding: 5px 12px;">
+                                    ${req.status.toUpperCase()}
+                                </span>
+                            </div>
+                            <div style="font-size: 0.9rem; color: #52606d;">
+                                <div class="mb-2"><i class="fas fa-tag mr-2" style="color: var(--ember);"></i>${req.interviewType} Interview</div>
+                                <div class="mb-2"><i class="fas fa-calendar-day mr-2" style="color: var(--ember);"></i>Preferred: ${formatDate(req.preferredDate)}</div>
+                                ${req.scheduledDate ? `<div class="mb-3 p-2 text-center" style="background: rgba(194, 73, 31, 0.08); border: 1.5px dashed var(--ember); border-radius: 12px; color: var(--ink); font-weight: 700;">
+                                    <i class="fas fa-clock mr-2"></i>Confirmed: ${new Date(req.scheduledDate).toLocaleString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                                </div>` : ''}
+                                <div class="mb-2"><i class="fas fa-user-tie mr-2" style="color: var(--ember);"></i>Alumni: ${req.alumni ? req.alumni.name : 'Pending Assignment'}</div>
+                                ${req.meetingLink ? `<div class="mt-3"><a href="${req.meetingLink}" target="_blank" class="btn btn-sm btn-outline-primary" style="border-radius: 20px;"><i class="fas fa-video mr-1"></i> Join Meeting</a></div>` : ''}
+                                ${req.feedback ? `<div class="mt-3 p-3" style="background: rgba(0,0,0,0.03); border-radius: 12px; font-style: italic;">"${req.feedback}"</div>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+        } else {
+          container.innerHTML = window.UIHelper ?
+            window.UIHelper.getEmptyStateHTML('No Interview Requests Found', 'Schedule your first mock interview to get started!', 'fa-calendar-times') :
+            `<div class="no-requests-message">
+              <i class="fas fa-calendar-times mb-3" style="font-size: 3rem; color: var(--ember); opacity: 0.5;"></i>
+              <h5>No Interview Requests Found</h5>
+              <p>Schedule your first mock interview to get started!</p>
+            </div>`;
+        }
+      } catch (err) {
+        console.error('[mock] Load Error:', err);
+      }
+    }
+
+    // ===== TOGGLE VIEW LOGIC =====
+    const toggleRequestsBtn = document.getElementById('toggleRequestsBtn');
+    const backToFormBtn = document.getElementById('backToFormBtn');
+    const mainFormContainer = document.querySelector('.hero.desktop-only .container-glass');
+    const myRequestsSection = document.getElementById('myRequestsSection');
+
+    if (toggleRequestsBtn) {
+      toggleRequestsBtn.addEventListener('click', () => {
+        if (mainFormContainer) mainFormContainer.style.display = 'none';
+        if (myRequestsSection) myRequestsSection.style.display = 'block';
+        loadMyRequests();
+      });
+    }
+
+    if (backToFormBtn) {
+      backToFormBtn.addEventListener('click', () => {
+        if (myRequestsSection) myRequestsSection.style.display = 'none';
+        if (mainFormContainer) mainFormContainer.style.display = 'block';
+      });
+    }
+
+    // ===== HANDLE "OTHERS" DROPDOWN OPTIONS =====
+    const jobRoleSelect = document.getElementById('jobRoleSelect');
+    const jobRoleTextarea = document.getElementById('jobRoleTextarea');
+    const topicSelect = document.getElementById('topicSelect');
+    const topicTextarea = document.getElementById('topicTextarea');
+
+    if (jobRoleSelect && jobRoleTextarea) {
+      jobRoleSelect.addEventListener('change', function () {
+        if (this.value === 'Others') {
+          jobRoleTextarea.classList.add('show');
+          jobRoleTextarea.required = true;
+          jobRoleTextarea.focus();
+        } else {
+          jobRoleTextarea.classList.remove('show');
+          jobRoleTextarea.required = false;
+          jobRoleTextarea.value = '';
+        }
+      });
+    }
+
+    if (topicSelect && topicTextarea) {
+      topicSelect.addEventListener('change', function () {
+        if (this.value === 'Others') {
+          topicTextarea.classList.add('show');
+          topicTextarea.required = true;
+          topicTextarea.focus();
+        } else {
+          topicTextarea.classList.remove('show');
+          topicTextarea.required = false;
+          topicTextarea.value = '';
+        }
+      });
+    }
+
+    // ===== FORM SUBMISSION =====
+    const mockForm = document.getElementById('mockForm');
+
+    if (mockForm) {
+      mockForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const submitBtn = this.querySelector('button[type="submit"]');
+        let resetBtn = () => { };
+        if (window.UIHelper) {
+          resetBtn = window.UIHelper.setButtonLoading(submitBtn);
+        } else {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+        }
+
+        try {
+          const payload = {
+            roleRequested: jobRole,
+            skills: [topic, specificQuestions].filter(Boolean),
+            interviewType,
+            preferredDate
+          };
+
+          const response = await apiFetch('/api/mock-interviews/request', {
+            method: 'POST',
+            body: JSON.stringify(payload)
+          });
+
+          // 2. Success Result
+          if (window.UIHelper) {
+            window.UIHelper.showToast('Interview request submitted successfully!', 'success');
+          } else {
+            Swal.fire({
+              icon: 'success',
+              title: 'Request Submitted!',
+              text: 'Your mock interview request has been sent to our alumni network.',
+              confirmButtonColor: '#C2491F'
+            });
+          }
+
+          this.reset();
+          jobRoleTextarea.classList.remove('show');
+          topicTextarea.classList.remove('show');
+          loadMyRequests(); // Refresh list
+
+        } catch (err) {
+          console.error('[mock] Submit Error:', err);
+          if (window.UIHelper) {
+            window.UIHelper.showToast(err.message || 'Submission failed', 'error');
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Submission Failed',
+              text: err.message || 'Connecting to server failed',
+              confirmButtonColor: '#C2491F'
+            });
+          }
+        } finally {
+          resetBtn();
+          if (!window.UIHelper) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalContent;
+          }
+        }
+      });
+    }
+
+    // ===== INITIALIZE =====
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.innerWidth <= 768 && typeof MobileMockInterview !== 'undefined') {
+        MobileMockInterview.run();
+      }
+      loadMyRequests();
+
+      // Animate Hero Components
+      const containerGlass = document.querySelector('.container-glass');
+      if (containerGlass) {
+        containerGlass.style.opacity = '1';
+        containerGlass.style.transform = 'translateY(0)';
+      }
+    });
+
+    function scrollToRequests() {
+      if (toggleRequestsBtn) toggleRequestsBtn.click();
+    }
+  </script>
+  <script src="../js/core/api.js"></script>
+  <script src="../js/core/loadComponents.js" defer></script>
+  <script src="../js/core/authGuard.js"></script>
+  <script src="../js/mobile-nav.js"></script>
+  <script src="../js/mobile-mock-interview.js"></script>
+
+
+  <script src="../js/mobile-fixes.js"></script>
+</body>
+
+</html>

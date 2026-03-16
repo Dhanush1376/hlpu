@@ -1,0 +1,6 @@
+/* ============================================================
+   Main.css — hLPU Global Page Styles
+   Imports theme.css for design tokens and base styles.
+   ============================================================ */
+
+@import url('theme.css');

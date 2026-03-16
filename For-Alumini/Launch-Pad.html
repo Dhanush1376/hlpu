@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hLPU</title>
+    <link rel="icon" type="image/png" href="../assets/images/hlpu logo.png" />
+
+    <!-- Bootstrap 4.5.2 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+    <!-- Assuming these exist; adjust if needed -->
+    <link rel="stylesheet" href="../css/core/NavBar.css" />
+    <link rel="stylesheet" href="../css/core/Main.css" />
+    <!-- Mobile LP -->
+    <link rel="stylesheet" href="../css/mobile-nav.css" />
+    <link rel="stylesheet" href="css/mobile-launchpad.css" />
+    <link rel="stylesheet" href="../css/mobile-fixes.css" />
+
+    <style>
+        /* hero / main */
+        .hero {
+            padding: 25px 30px;
+            margin-top: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: calc(100vh - 80px);
+            position: relative;
+            z-index: 2;
+        }
+
+        .container-glass {
+            width: 100%;
+            max-width: 1400px;
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            padding: 50px;
+            border-radius: 48px;
+            box-shadow: var(--shadow-elevation);
+            border: 1px solid rgba(194, 73, 31, 0.08);
+            transition: var(--transition);
+            animation: slideUp 0.6s ease forwards;
+            position: relative;
+            z-index: 2;
+        }
+
+        .container-glass:hover {
+            background: var(--glass-deep);
+            border-color: rgba(230, 138, 46, 0.2);
+            box-shadow: var(--shadow-hover);
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* ===== ALUMNI ABOUT SPLIT ===== */
+        .about-section-split {
+            width: 100%;
+            margin-bottom: 60px;
+        }
+
+        .split-about-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .split-about-content {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 20px;
+        }
+
+        .split-about-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            color: var(--ink);
+            margin-bottom: 15px;
+            letter-spacing: -0.02em;
+        }
+
+        .split-about-content h1 span {
+            background: linear-gradient(145deg, var(--ember), var(--gilt));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-divider {
+            height: 4px;
+            width: 100px;
+            background: linear-gradient(to right, var(--ember), var(--gilt));
+            border: none;
+            margin: 20px 0 30px;
+            border-radius: 4px;
+        }
+
+        .about-description p {
+            font-size: 1.1rem;
+            color: #3f4d5e;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .split-about-image {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .image-wrapper {
+            position: relative;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: var(--shadow-hover);
+            transition: var(--transition);
+            min-height: 400px;
+            border: 1px solid rgba(194, 73, 31, 0.15);
+        }
+
+        .image-wrapper:hover {
+            transform: scale(1.02);
+            box-shadow: 0 40px 60px -15px rgba(194, 73, 31, 0.3);
+        }
+
+        .about-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .image-wrapper:hover .about-image {
+            transform: scale(1.05);
+        }
+
+        /* alumni stats */
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(8px);
+            padding: 25px 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(194, 73, 31, 0.12);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .stat-item:hover {
+            background: white;
+            border-color: var(--gilt);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(145deg, var(--ember), var(--gilt));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #5f6b7a;
+            font-weight: 500;
+        }
+
+        /* ===== SUPPORT FRAMEWORK – EIGHT PILLARS ===== */
+        .section-heading {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-heading h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--ink);
+            letter-spacing: -0.02em;
+        }
+
+        .section-heading p {
+            font-size: 1.1rem;
+            color: #5f6b7a;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .steps-container {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+            width: 100%;
+            perspective: 1000px;
+        }
+
+        .step-card {
+            padding: 36px 28px;
+            border-radius: 28px;
+            position: relative;
+            overflow: hidden;
+            cursor: default;
+            /* no form trigger, just info */
+            text-align: left;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(194, 73, 31, 0.08);
+            transition: var(--transition);
+            box-shadow: var(--shadow-elevation);
+        }
+
+        .step-card:hover {
+            background: white;
+            border-color: var(--gilt);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .step-number {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(145deg, var(--ember), var(--gilt));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+            line-height: 1;
+        }
+
+        .step-card h5 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 12px;
+        }
+
+        .step-card p {
+            color: #5f6b7a;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* ===== REQUEST ENTREPRENEURSHIP SUPPORT (ALUMNI CARDS) ===== */
+        .submit-idea-section {
+            width: 100%;
+            padding: 30px 0;
+            margin-bottom: 20px;
+        }
+
+        .submit-idea-section h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--ink);
+            letter-spacing: -0.02em;
+        }
+
+        .option-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 28px;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        .option-card {
+            flex: 1;
+            min-width: 280px;
+            max-width: 350px;
+            padding: 40px 30px;
+            border-radius: 28px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(194, 73, 31, 0.08);
+            transition: var(--transition);
+            box-shadow: var(--shadow-elevation);
+        }
+
+        .option-card:hover {
+            background: white;
+            border-color: var(--gilt);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .option-icon {
+            font-size: 3.5rem;
+            color: var(--ember);
+            margin-bottom: 20px;
+        }
+
+        .option-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 15px;
+        }
+
+        .option-description {
+            color: #5f6b7a;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .btn-heritage {
+            background: white;
+            color: var(--ink);
+            border: 1px solid rgba(10, 26, 47, 0.1);
+            padding: 14px 32px;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: var(--transition);
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+        }
+
+        .btn-heritage:hover {
+            background: var(--ink);
+            color: white;
+            border-color: var(--ink);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px -10px rgba(10, 26, 47, 0.3);
+            text-decoration: none;
+        }
+
+        .btn-connect {
+            background: transparent;
+            color: var(--ember);
+            border: 1.8px solid var(--ember);
+            padding: 14px 32px;
+            border-radius: 40px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-connect:hover {
+            background: var(--ember);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px -10px rgba(194, 73, 31, 0.4);
+        }
+
+        @media (max-width: 768px) {
+
+            #navbar,
+            .mesh-bg,
+            .hero,
+            .footer,
+            .scroll-nav-btn {
+                display: none !important;
+            }
+        }
+
+        /* ===== FLOATING NAV ===== */
+        .scroll-nav-btn {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(145deg, var(--ember), var(--gilt));
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(194, 73, 31, 0.4);
+            z-index: 999;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            opacity: 0.95;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .scroll-nav-btn:hover {
+            transform: translateY(-6px) scale(1.1);
+            box-shadow: 0 20px 40px rgba(194, 73, 31, 0.6);
+        }
+
+        .scroll-nav-btn.upward {
+            transform: rotate(180deg);
+        }
+
+        .scroll-nav-btn.upward:hover {
+            transform: rotate(180deg) translateY(-6px) scale(1.1);
+        }
+
+        /* ===== MODAL – ALUMNI SUPPORT APPLICATION ===== */
+        .role-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 26, 47, 0.65);
+            backdrop-filter: blur(12px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+
+        .role-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: rgba(255, 250, 240, 0.95);
+            backdrop-filter: blur(40px);
+            border-radius: 32px;
+            border: 1px solid rgba(194, 73, 31, 0.2);
+            width: 92%;
+            max-width: 900px;
+            max-height: 85vh;
+            padding: 40px;
+            overflow-y: auto;
+            box-shadow: 0 40px 80px rgba(10, 26, 47, 0.4);
+            transform: translateY(40px) scale(0.96);
+            opacity: 0;
+            transition: all 0.45s cubic-bezier(0.16, 0.84, 0.44, 1);
+        }
+
+        .role-modal.active .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--ink);
+            letter-spacing: -0.02em;
+        }
+
+        .modal-subtitle {
+            color: #5f6b7a;
+            font-size: 0.95rem;
+            margin-top: 5px;
+        }
+
+        .close-modal {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            border: none;
+            cursor: pointer;
+            background: rgba(10, 26, 47, 0.06);
+            font-size: 1.4rem;
+            transition: var(--transition);
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            background: var(--ember);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        /* form */
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--ink);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .form-label i {
+            color: var(--ember);
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 18px;
+            border: 1.5px solid rgba(10, 26, 47, 0.08);
+            background: white;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--ember);
+            box-shadow: 0 0 0 4px rgba(194, 73, 31, 0.08);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* file upload */
+        .file-upload-container {
+            border: 2px dashed rgba(194, 73, 31, 0.3);
+            padding: 40px 30px;
+            border-radius: 24px;
+            text-align: center;
+            margin-top: 15px;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .file-upload-container.dragover {
+            border-color: var(--ember);
+            background: rgba(194, 73, 31, 0.04);
+        }
+
+        .file-upload-icon {
+            font-size: 3rem;
+            color: var(--ember);
+            margin-bottom: 15px;
+        }
+
+        .upload-btn {
+            margin-top: 20px;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 40px;
+            background: linear-gradient(145deg, var(--ember), var(--gilt));
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(194, 73, 31, 0.4);
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-list {
+            margin-top: 20px;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 18px;
+            background: white;
+            border-radius: 16px;
+            margin-top: 10px;
+            border: 1px solid rgba(10, 26, 47, 0.06);
+        }
+
+        .file-item:hover {
+            background: rgba(194, 73, 31, 0.02);
+            border-color: var(--gilt);
+        }
+
+        .file-name {
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .file-size {
+            font-size: 0.75rem;
+            color: #777;
+            margin-top: 4px;
+        }
+
+        .file-remove {
+            color: var(--ember);
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 12px;
+        }
+
+        .file-remove:hover {
+            background: rgba(194, 73, 31, 0.1);
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .btn-form {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-primary-form {
+            background: var(--ink);
+            color: white;
+        }
+
+        .btn-primary-form:hover {
+            background: #12243f;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px -8px rgba(10, 26, 47, 0.3);
+        }
+
+        .btn-secondary-form {
+            background: #e9ecef;
+            color: var(--ink);
+        }
+
+        .btn-secondary-form:hover {
+            background: #dde2e6;
+            transform: translateY(-2px);
+        }
+
+        /* scroll margins */
+        #about-alumni,
+        #framework,
+        #support-request,
+        #projects-feed {
+            scroll-margin-top: 90px;
+        }
+
+        /* Project Feed Styles */
+        .project-card {
+            padding: 30px !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .badge-domain {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(194, 73, 31, 0.1);
+            color: var(--ember);
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .project-type-tag {
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            color: #5f6b7a;
+            margin-bottom: 8px;
+        }
+
+        .project-desc {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #5f6b7a;
+            margin: 15px 0;
+            height: 4.8em;
+            overflow: hidden;
+        }
+
+        .skill-tag {
+            background: rgba(10, 26, 47, 0.05);
+            color: var(--ink);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            margin-right: 6px;
+            margin-bottom: 6px;
+            display: inline-block;
+        }
+
+        .meta-item {
+            font-size: 0.85rem;
+            color: #5f6b7a;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .meta-item i {
+            color: var(--ember);
+        }
+
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: 1px solid rgba(194, 73, 31, 0.2);
+            background: white;
+            color: var(--ink);
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+
+        .page-btn.active {
+            background: var(--ember);
+            color: white;
+            border-color: var(--ember);
+        }
+
+        .filter-glass {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 25px;
+            border: 1px solid rgba(194, 73, 31, 0.1);
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 992px) {
+            .container-glass {
+                padding: 40px 30px;
+            }
+
+            .split-about-container {
+                flex-direction: column;
+            }
+
+            .steps-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .option-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .modal-content {
+                padding: 30px 20px;
+            }
+
+            .form-row {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <!-- MOBILE ROOT - Injected High in DOM -->
+    <div id="mobile-root"></div>
+
+    <div id="navbar"></div>
+    <div class="mesh-bg">
+        <div class="mesh mesh-1"></div>
+        <div class="mesh mesh-2"></div>
+        <div class="mesh mesh-3"></div>
+    </div>
+    <!-- MAIN ALUMNI LAUNCH PAD CONTENT -->
+    <section class="hero">
+        <div class="container-glass cursor-glow">
+
+            <!-- SECTION 1: ALUMNI ABOUT + STATS (exact copy) -->
+            <div id="about-alumni" class="about-section-split">
+                <div class="split-about-container">
+                    <div class="split-about-content">
+                        <h1>Launch Pad <span>· Alumni</span></h1>
+                        <div class="about-description">
+                            <p>We empower HLPU alumni to transform vision into venture. Our comprehensive ecosystem
+                                provides campus infrastructure, research collaboration, student talent, and investor
+                                networks — all tailored for founders who know the LPU heritage.</p>
+                            <p>Whether you're ideating, scaling, or seeking strategic partnerships, the Launch Pad
+                                is
+                                your launchpad for success.</p>
+                        </div>
+                        <!-- alumni stats : 150+ ventures etc -->
+                        <div class="about-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">150+</div>
+                                <div class="stat-label">Alumni Ventures</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">₹5Cr+</div>
+                                <div class="stat-label">Funding Facilitated</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">75%</div>
+                                <div class="stat-label">Success Rate</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">300+</div>
+                                <div class="stat-label">Student Collaborations</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="split-about-image">
+                        <div class="image-wrapper">
+                            <!-- alumni collaboration image -->
+                            <img src="../assets/images/launchpad.jpg" alt="Alumni entrepreneurs collaborating at LPU"
+                                class="about-image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+            <!-- SECTION 2: EIGHT PILLARS – SUPPORT FRAMEWORK -->
+            <div id="framework" class="benefits-section">
+                <div class="section-heading">
+                    <h1>Our Comprehensive <span>Support Framework</span></h1>
+                    <p>Eight pillars designed to empower your entrepreneurial journey</p>
+                </div>
+                <div class="steps-container">
+
+                    <!-- 01 Campus Infrastructure Access -->
+                    <div class="step-card">
+                        <div class="step-number">01</div>
+                        <h5>Campus Infrastructure Access</h5>
+                        <p>Access dedicated office spaces, innovation labs, high-performance systems, and 24/7
+                            university facilities to build and operate your venture efficiently.</p>
+                    </div>
+
+                    <!-- 02 Research Lab Utilization -->
+                    <div class="step-card">
+                        <div class="step-number">02</div>
+                        <h5>Research Lab Utilization</h5>
+                        <p>Leverage advanced research laboratories, testing equipment, and collaborate with faculty
+                            experts and research scholars for product development.</p>
+                    </div>
+
+                    <!-- 03 Skilled Student Workforce -->
+                    <div class="step-card">
+                        <div class="step-number">03</div>
+                        <h5>Skilled Student Workforce</h5>
+                        <p>Hire talented and trained students through internships, live projects, and specialized
+                            bootcamps tailored to your startup’s requirements.</p>
+                    </div>
+
+                    <!-- 04 Incubation & Investor Connect -->
+                    <div class="step-card">
+                        <div class="step-number">04</div>
+                        <h5>Incubation & Investor Connect</h5>
+                        <p>Get incubation support, structured mentoring, and direct connections to angel investors,
+                            venture capitalists, and funding opportunities.</p>
+                    </div>
+
+                    <!-- 05 Access Alumni Circle -->
+                    <div class="step-card">
+                        <div class="step-number">05</div>
+                        <h5>Access Alumni Circle</h5>
+                        <p>Engage with successful alumni entrepreneurs and industry leaders for mentorship,
+                            partnerships, strategic guidance, and business growth.</p>
+                    </div>
+
+                    <!-- 06 Marketing Assistance Network -->
+                    <div class="step-card">
+                        <div class="step-number">06</div>
+                        <h5>Marketing Assistance Network</h5>
+                        <p>Receive branding, digital marketing, social media strategy, and market expansion support
+                            through expert guidance and management teams.</p>
+                    </div>
+
+                    <!-- 07 Legal & Compliance Support -->
+                    <div class="step-card">
+                        <div class="step-number">07</div>
+                        <h5>Legal & Compliance Support</h5>
+                        <p>Comprehensive support for company registration, legal documentation, intellectual
+                            property
+                            protection, and regulatory compliance.</p>
+                    </div>
+
+                    <!-- 08 Business Growth & Scaling Support -->
+                    <div class="step-card">
+                        <div class="step-number">08</div>
+                        <h5>Business Growth & Scaling Support</h5>
+                        <p>Strategic planning assistance, operational optimization, and long-term scaling strategies
+                            to
+                            transform your startup into a sustainable enterprise.</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- SECTION 3: INNOVATION FEED -->
+            <div id="projects-feed" class="submit-idea-section mt-5">
+                <div class="section-heading">
+                    <h1>Explore <span>Innovation</span></h1>
+                    <p>Discover projects, startups, and research ideas from the hLPU community. Find your next
+                        collaboration.</p>
+                </div>
+
+                <!-- Filters -->
+                <div class="filter-glass mb-5">
+                    <div class="row align-items-center">
+                        <div class="col-md-5 mb-3 mb-md-0">
+                            <div class="form-group mb-0">
+                                <div class="position-relative">
+                                    <i class="fas fa-search position-absolute"
+                                        style="left: 15px; top: 15px; color: #5f6b7a;"></i>
+                                    <input type="text" id="projectSearch" class="form-input pl-5"
+                                        placeholder="Search projects...">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3 mb-md-0">
+                            <select id="domainFilter" class="form-select">
+                                <option value="">All Domains</option>
+                                <option value="AI">AI/ML</option>
+                                <option value="Web">Web Dev</option>
+                                <option value="FinTech">FinTech</option>
+                                <option value="EdTech">EdTech</option>
+                                <option value="Health">Health</option>
+                                <option value="Research">Research</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 text-md-right">
+                            <button class="btn-heritage" onclick="openPostModal()">
+                                <i class="fas fa-plus"></i> Post New Project
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" id="projectsContainer">
+                    <div class="col-12 text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="paginationContainer" class="d-flex justify-content-center mt-5"></div>
+            </div>
+
+            <hr>
+
+            <!-- SECTION 4: REQUEST ENTREPRENEURSHIP SUPPORT -->
+            <div id="support-request" class="submit-idea-section">
+                <div class="section-heading">
+                    <h1>Request <span>Entrepreneurship Support</span></h1>
+                    <p>Tell us about your journey — we'll build a custom support plan</p>
+                </div>
+                <div class="option-cards">
+                    <!-- New Venture -->
+                    <div class="option-card">
+                        <div class="option-icon"><i class="fas fa-rocket"></i></div>
+                        <div class="option-title">Start a New Venture</div>
+                        <div class="option-description">
+                            From idea to MVP. Get support for validation, prototyping, funding readiness, and your
+                            first
+                            customer acquisition.
+                        </div>
+                        <button class="btn-heritage" onclick="openAlumniSupportModal('new')">
+                            <i class="fas fa-paper-plane"></i> Apply for Support
+                        </button>
+                    </div>
+                    <!-- Scale Existing -->
+                    <div class="option-card">
+                        <div class="option-icon"><i class="fas fa-chart-line"></i></div>
+                        <div class="option-title">Scale Existing Business</div>
+                        <div class="option-description">
+                            Ready to grow? Access expansion capital, talent pipelines, operational infrastructure,
+                            and
+                            strategic partnerships.
+                        </div>
+                        <button class="btn-heritage" onclick="openAlumniSupportModal('scale')">
+                            <i class="fas fa-bolt"></i> Request Assistance
+                        </button>
+                    </div>
+                    <!-- Campus Collaboration -->
+                    <div class="option-card">
+                        <div class="option-icon"><i class="fas fa-handshake"></i></div>
+                        <div class="option-title">Campus Collaboration</div>
+                        <div class="option-description">
+                            Leverage LPU's talent and research. Partner on academic projects, innovation challenges,
+                            or
+                            build your hiring pipeline.
+                        </div>
+                        <button class="btn-heritage" onclick="openAlumniSupportModal('collab')">
+                            <i class="fas fa-users"></i> Explore Collaboration
+                        </button>
+                    </div>
+                </div>
+                <!-- additional text: campus collaboration desk -->
+                <div class="text-center mt-5">
+                    <p
+                        style="color: #5f6b7a; font-size: 0.95rem; display: flex; align-items: center; justify-content: center; gap: 8px; background: rgba(255,255,240,0.5); padding: 12px 24px; border-radius: 60px;">
+                        <i class="fas fa-comments" style="color: var(--ember);"></i>
+                        Looking for student projects, research partnerships, or supply chain opportunities? Our
+                        campus
+                        collaboration desk will connect you within 48 hours.
+                    </p>
+                </div>
+            </div>
+        </div> <!-- end container-glass -->
+    </section>
+
+    <!-- FLOATING SCROLL BUTTON (alumni version) -->
+    <button class="scroll-nav-btn" id="scrollNavBtn" title="Navigate to Framework">
+        <i class="fas fa-arrow-down"></i>
+    </button>
+
+    <!-- ===== ALUMNI SUPPORT MODAL (DYNAMIC FORM) ===== -->
+    <div class="role-modal" id="alumniSupportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 class="modal-title" id="modalTitle">Start a New Venture</h2>
+                    <p class="modal-subtitle" id="modalSub">Tell us about your venture – our team will craft a
+                        custom
+                        plan</p>
+                </div>
+                <button class="close-modal" id="closeModalBtn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <form id="alumniSupportForm">
+                <!-- Alumni Personal & Professional -->
+                <div class="modal-section">
+                    <h3 style="font-size:1.2rem; font-weight:700; margin-bottom:20px;">
+                        <i class="fas fa-user-tie" style="color:var(--ember); margin-right:10px;"></i>Alumni
+                        Information
+                    </h3>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label class="form-label"><i class="fas fa-user"></i> Full Name *</label>
+                            <input type="text" class="form-input" id="alumniName" placeholder="Arjun Mehta" required>
+                        </div>
+                        <div class="form-col">
+                            <label class="form-label"><i class="fas fa-graduation-cap"></i> Batch/Program *</label>
+                            <input type="text" class="form-input" id="batch" placeholder="B.Tech CSE 2015" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label class="form-label"><i class="fas fa-envelope"></i> Email *</label>
+                            <input type="email" class="form-input" id="alumniEmail" placeholder="arjun@example.com"
+                                required>
+                        </div>
+                        <div class="form-col">
+                            <label class="form-label"><i class="fas fa-phone"></i> Phone</label>
+                            <input type="tel" class="form-input" id="alumniPhone" placeholder="+91 98765 43210">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-building"></i> Current Company / Venture (if
+                            any)</label>
+                        <input type="text" class="form-input" id="currentVenture" placeholder="e.g., Namma Drones">
+                    </div>
+                </div>
+
+                <!-- Support Type (hidden field set by button) -->
+                <input type="hidden" id="supportType" name="supportType" value="new">
+
+                <!-- Venture Details -->
+                <div style="margin-top:30px;">
+                    <h3 style="font-size:1.2rem; font-weight:700; margin-bottom:20px;">
+                        <i class="fas fa-lightbulb" style="color:var(--ember); margin-right:10px;"></i>Venture /
+                        Collaboration Details
+                    </h3>
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-tag"></i> Project / Venture Title *</label>
+                        <input type="text" class="form-input" id="ventureTitle"
+                            placeholder="e.g., Affordable IoT for farms" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-info-circle"></i> Brief description / support
+                            needed
+                            *</label>
+                        <textarea class="form-textarea" id="supportDescription"
+                            placeholder="Describe your venture stage, what kind of infrastructure, funding, talent, or R&D support you're seeking..."
+                            required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label class="form-label"><i class="fas fa-cog"></i> Current stage</label>
+                            <select class="form-select" id="ventureStage">
+                                <option value="ideation">Ideation / Concept</option>
+                                <option value="prototype">Prototype / MVP</option>
+                                <option value="early">Early Revenue</option>
+                                <option value="growth">Growth / Scaling</option>
+                                <option value="established">Established / New vertical</option>
+                            </select>
+                        </div>
+                        <div class="form-col">
+                            <label class="form-label"><i class="fas fa-users"></i> Team size</label>
+                            <select class="form-select" id="teamSize">
+                                <option value="1">Solo founder</option>
+                                <option value="2-5">2-5 members</option>
+                                <option value="6-15">6-15 members</option>
+                                <option value="15+">15+ members</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- File Upload -->
+                <div style="margin-top:30px;">
+                    <h3 style="font-size:1.2rem; font-weight:700; margin-bottom:20px;">
+                        <i class="fas fa-cloud-upload-alt" style="color:var(--ember);"></i> Pitch Deck / Supporting
+                        Docs
+                    </h3>
+                    <p style="color:#5f6b7a; font-size:0.9rem;">Upload pitch deck, business plan, or any relevant
+                        documents (PDF, PPT, DOC – max 10MB)</p>
+                    <div class="file-upload-container" id="alumniDropArea">
+                        <div class="file-upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                        <div class="file-upload-text">Drag & drop files or click to browse</div>
+                        <div class="file-upload-hint">Supported: PDF, PPT, DOC, JPG, PNG (Max 10MB each)</div>
+                        <button type="button" class="upload-btn" id="alumniBrowseBtn"><i class="fas fa-folder-open"></i>
+                            Browse</button>
+                        <input type="file" class="file-input" id="alumniFileInput" multiple
+                            accept=".pdf,.doc,.docx,.ppt,.pptx,.jpg,.jpeg,.png">
+                    </div>
+                    <div class="file-list" id="alumniFileList"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-form btn-secondary-form" id="cancelModalBtn"><i
+                            class="fas fa-times"></i> Cancel</button>
+                    <button type="submit" class="btn-form btn-primary-form"><i class="fas fa-paper-plane"></i>
+                        Submit
+                        Request</button>
+                </div>
+            </form>
+        </div>
+        <!-- ===== PROJECT POSTING MODAL (Standardized) ===== -->
+        <div class="role-modal" id="postProjectModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h2 class="modal-title">Post New Project</h2>
+                        <p class="modal-subtitle">Share your venture or collaboration idea with the community</p>
+                    </div>
+                    <button class="close-modal"
+                        onclick="document.getElementById('postProjectModal').classList.remove('active'); document.body.style.overflow='auto';">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <form id="alumniProjectForm">
+                    <div class="modal-section">
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-tag"></i> Project Title *</label>
+                            <input type="text" class="form-input" id="projTitle"
+                                placeholder="e.g., AI-Powered Logistics" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-info-circle"></i> Description *</label>
+                            <textarea class="form-textarea" id="projDesc"
+                                placeholder="Describe the project, its goals, and how others can help..."
+                                required></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label class="form-label"><i class="fas fa-layer-group"></i> Domain *</label>
+                                <select class="form-select" id="projDomain" required>
+                                    <option value="AI">AI/ML</option>
+                                    <option value="Web">Web Dev</option>
+                                    <option value="FinTech">FinTech</option>
+                                    <option value="EdTech">EdTech</option>
+                                    <option value="Health">Health</option>
+                                    <option value="Research">Research</option>
+                                </select>
+                            </div>
+                            <div class="form-col">
+                                <label class="form-label"><i class="fas fa-rocket"></i> Type *</label>
+                                <select class="form-select" id="projType" required>
+                                    <option value="idea">Idea / Concept</option>
+                                    <option value="prototype">Prototype</option>
+                                    <option value="project">Active Project</option>
+                                    <option value="research">Research</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row mt-3">
+                            <div class="form-col">
+                                <label class="form-label"><i class="fas fa-users"></i> Team Needed *</label>
+                                <input type="number" class="form-input" id="projTeam" value="3" min="1" required>
+                            </div>
+                            <div class="form-col">
+                                <label class="form-label"><i class="fas fa-tools"></i> Primary Skill</label>
+                                <input type="text" class="form-input" id="projSkill"
+                                    placeholder="e.g. React, UX Design">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-form btn-secondary-form"
+                            onclick="document.getElementById('postProjectModal').classList.remove('active'); document.body.style.overflow='auto';">Cancel</button>
+                        <button type="submit" class="btn-form btn-primary-form">Post Project</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script>
+            // ===== ALUMNI LAUNCH PAD – JAVASCRIPT =====
+            // coming soon toasts
+            window.showSoonToast = (type) => {
+                Swal.fire({
+                    title: 'Coming Soon!',
+                    text: `${type} upload will be available in the next update.`,
+                    icon: 'info',
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    background: '#FFF8F0'
+                });
+            };
+
+            // Navigation between sections (about, framework, support)
+            const sections = ['about-alumni', 'framework', 'support-request'];
+            let currentSectionIdx = 0;
+            const scrollBtn = document.getElementById('scrollNavBtn');
+
+            function updateNavButton() {
+                const icon = scrollBtn.querySelector('i');
+                if (currentSectionIdx === 2) {
+                    scrollBtn.classList.add('upward');
+                    icon.className = 'fas fa-arrow-up';
+                    scrollBtn.title = 'Back to About';
+                } else {
+                    scrollBtn.classList.remove('upward');
+                    icon.className = 'fas fa-arrow-down';
+                    scrollBtn.title = currentSectionIdx === 0 ? 'Next: Support Framework' : 'Next: Request Support';
+                }
+            }
+
+            function navigateToNext() {
+                if (currentSectionIdx === 0) {
+                    document.getElementById('framework').scrollIntoView({ behavior: 'smooth' });
+                    currentSectionIdx = 1;
+                } else if (currentSectionIdx === 1) {
+                    document.getElementById('support-request').scrollIntoView({ behavior: 'smooth' });
+                    currentSectionIdx = 2;
+                } else {
+                    document.getElementById('about-alumni').scrollIntoView({ behavior: 'smooth' });
+                    currentSectionIdx = 0;
+                }
+                updateNavButton();
+            }
+
+            if (scrollBtn) {
+                scrollBtn.addEventListener('click', navigateToNext);
+                window.addEventListener('scroll', function () {
+                    const aboutEl = document.getElementById('about-alumni');
+                    const frameEl = document.getElementById('framework');
+                    const supportEl = document.getElementById('support-request');
+                    if (!aboutEl || !frameEl || !supportEl) return;
+                    const aboutRect = aboutEl.getBoundingClientRect();
+                    const frameRect = frameEl.getBoundingClientRect();
+                    const supportRect = supportEl.getBoundingClientRect();
+                    const distances = [Math.abs(aboutRect.top), Math.abs(frameRect.top), Math.abs(supportRect.top)];
+                    const minDist = Math.min(...distances);
+                    if (minDist === distances[0]) currentSectionIdx = 0;
+                    else if (minDist === distances[1]) currentSectionIdx = 1;
+                    else currentSectionIdx = 2;
+                    updateNavButton();
+                });
+                updateNavButton();
+            }
+
+            // ===== MODAL HANDLING (ALUMNI SUPPORT) =====
+            const alumniModal = document.getElementById('alumniSupportModal');
+            const closeBtn = document.getElementById('closeModalBtn');
+            const cancelBtn = document.getElementById('cancelModalBtn');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalSub = document.getElementById('modalSub');
+            const supportTypeInput = document.getElementById('supportType');
+            const alumniForm = document.getElementById('alumniSupportForm');
+
+            // open modal with context
+            window.openAlumniSupportModal = function (type) {
+                if (type === 'new') {
+                    modalTitle.innerText = 'Start a New Venture';
+                    modalSub.innerText = 'Tell us about your idea – we’ll help you validate, prototype, and fund.';
+                    supportTypeInput.value = 'new';
+                } else if (type === 'scale') {
+                    modalTitle.innerText = 'Scale Existing Business';
+                    modalSub.innerText = 'Expansion capital, talent, infrastructure – we’re ready to support your growth.';
+                    supportTypeInput.value = 'scale';
+                } else if (type === 'collab') {
+                    modalTitle.innerText = 'Campus Collaboration';
+                    modalSub.innerText = 'Research, student projects, innovation challenges – connect within 48h.';
+                    supportTypeInput.value = 'collab';
+                }
+                alumniModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            };
+
+            function closeAlumniModal() {
+                alumniModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                // reset form & files
+                alumniForm.reset();
+                alumniUploadedFiles = [];
+                renderAlumniFileList();
+            }
+
+            if (closeBtn) closeBtn.addEventListener('click', closeAlumniModal);
+            if (cancelBtn) cancelBtn.addEventListener('click', closeAlumniModal);
+            alumniModal.addEventListener('click', (e) => { if (e.target === alumniModal) closeAlumniModal(); });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && alumniModal.classList.contains('active')) closeAlumniModal(); });
+
+            // ===== FILE UPLOAD FOR ALUMNI MODAL =====
+            let alumniUploadedFiles = [];
+            const alumniDropArea = document.getElementById('alumniDropArea');
+            const alumniBrowseBtn = document.getElementById('alumniBrowseBtn');
+            const alumniFileInput = document.getElementById('alumniFileInput');
+            const alumniFileList = document.getElementById('alumniFileList');
+
+            function renderAlumniFileList() {
+                if (!alumniFileList) return;
+                alumniFileList.innerHTML = '';
+                alumniUploadedFiles.forEach((file, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'file-item';
+                    item.innerHTML = `
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <i class="fas fa-file" style="color:var(--ember);"></i>
+                        <div><div class="file-name">${file.name}</div><div class="file-size">${formatBytes(file.size)}</div></div>
+                    </div>
+                    <div class="file-remove" data-index="${index}"><i class="fas fa-trash"></i> Remove</div>
+                `;
+                    alumniFileList.appendChild(item);
+                });
+                // remove listeners
+                document.querySelectorAll('.file-remove').forEach(el => {
+                    el.addEventListener('click', function (e) {
+                        const idx = parseInt(this.dataset.index);
+                        alumniUploadedFiles.splice(idx, 1);
+                        renderAlumniFileList();
+                    });
+                });
+            }
+
+            function formatBytes(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024, sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+            }
+
+            function handleAlumniFiles(files) {
+                for (let file of files) {
+                    if (file.size > 10 * 1024 * 1024) {
+                        Swal.fire({ title: 'File too large', text: `${file.name} exceeds 10MB`, icon: 'error', confirmButtonColor: '#C2491F' });
+                        continue;
+                    }
+                    alumniUploadedFiles.push(file);
+                }
+                renderAlumniFileList();
+            }
+
+            if (alumniBrowseBtn && alumniFileInput) {
+                alumniBrowseBtn.addEventListener('click', () => alumniFileInput.click());
+                alumniFileInput.addEventListener('change', (e) => { handleAlumniFiles(e.target.files); alumniFileInput.value = ''; });
+            }
+            if (alumniDropArea) {
+                alumniDropArea.addEventListener('dragover', (e) => { e.preventDefault(); alumniDropArea.classList.add('dragover'); });
+                alumniDropArea.addEventListener('dragleave', () => alumniDropArea.classList.remove('dragover'));
+                alumniDropArea.addEventListener('drop', (e) => {
+                    e.preventDefault(); alumniDropArea.classList.remove('dragover');
+                    if (e.dataTransfer.files.length) handleAlumniFiles(e.dataTransfer.files);
+                });
+            }
+
+            // ===== FORM SUBMISSION (ALUMNI) =====
+            if (alumniForm) {
+                alumniForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const name = document.getElementById('alumniName').value.trim();
+                    const batch = document.getElementById('batch').value.trim();
+                    const email = document.getElementById('alumniEmail').value.trim();
+                    const title = document.getElementById('ventureTitle').value.trim();
+                    const desc = document.getElementById('supportDescription').value.trim();
+
+                    if (!name || !batch || !email || !title || !desc) {
+                        Swal.fire({ title: 'Missing fields', text: 'Please fill all required fields', icon: 'warning', confirmButtonColor: '#C2491F' });
+                        return;
+                    }
+
+                    // store in localStorage (alumniSupportRequests)
+                    const supportRequests = JSON.parse(localStorage.getItem('alumniLaunchPadRequests') || '[]');
+                    const requestData = {
+                        id: Date.now(),
+                        supportType: supportTypeInput.value,
+                        name, batch, email,
+                        phone: document.getElementById('alumniPhone').value,
+                        currentVenture: document.getElementById('currentVenture').value,
+                        ventureTitle: title,
+                        description: desc,
+                        stage: document.getElementById('ventureStage').value,
+                        teamSize: document.getElementById('teamSize').value,
+                        files: alumniUploadedFiles.map(f => f.name),
+                        timestamp: new Date().toISOString()
+                    };
+                    supportRequests.push(requestData);
+                    localStorage.setItem('alumniLaunchPadRequests', JSON.stringify(supportRequests));
+
+                    Swal.fire({
+                        title: 'Request Sent!',
+                        html: `Our alumni entrepreneurship desk will reach out within 2 business days.<br><strong>Campus collaboration connects within 48h.</strong>`,
+                        icon: 'success',
+                        confirmButtonColor: '#C2491F',
+                        background: '#FFF8F0',
+                        confirmButtonText: 'Excellent'
+                    });
+
+                    // reset
+                    alumniForm.reset();
+                    alumniUploadedFiles = [];
+                    renderAlumniFileList();
+                    closeAlumniModal();
+                });
+            }
+
+            // ===== PROJECT POSTING (ALUMNI) =====
+            window.openPostModal = function () {
+                const modal = document.getElementById('postProjectModal');
+                if (modal) {
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            };
+
+            const alumProjForm = document.getElementById('alumniProjectForm');
+            if (alumProjForm) {
+                alumProjForm.addEventListener('submit', async function (e) {
+                    e.preventDefault();
+                    const formData = {
+                        title: document.getElementById('projTitle').value,
+                        description: document.getElementById('projDesc').value,
+                        domain: document.getElementById('projDomain').value,
+                        projectType: document.getElementById('projType').value,
+                        teamSizeNeeded: parseInt(document.getElementById('projTeam').value),
+                        skillsRequired: [document.getElementById('projSkill').value || 'General']
+                    };
+
+                    await LaunchPad.createProject(formData);
+                    alumProjForm.reset();
+                });
+            }
+
+            // Cursor glow (optional)
+            document.addEventListener('DOMContentLoaded', function () {
+                const cards = document.querySelectorAll('.cursor-glow');
+                document.addEventListener('mousemove', (e) => {
+                    cards.forEach(card => {
+                        const rect = card.getBoundingClientRect();
+                        card.style.setProperty('--x', `${e.clientX - rect.left}px`);
+                        card.style.setProperty('--y', `${e.clientY - rect.top}px`);
+                    });
+                });
+            });
+        </script>
+        <script src="../js/core/loadComponents.js" defer></script>
+        <script src="../js/core/authGuard.js"></script>
+        <script src="../js/core/api.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="../js/core/launchpad.js"></script>
+        <script src="../js/mobile-nav.js"></script>
+        <script src="../js/mobile-alumni-nav.js"></script>
+        <script>if (window.AlumniMobileNav) window.MobileNav = window.AlumniMobileNav;</script>
+        <script src="js/mobile-launchpad.js"></script>
+        <script>if (window.innerWidth <= 768 && window.MobileLaunchpad) MobileLaunchpad.run();</script>
+        <script src="../js/mobile-fixes.js"></script>
+</body>
+
+</html>

@@ -49,11 +49,11 @@ hlpu/
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Dhanush1376/event_management_system.git
+   git clone https://github.com/Dhanush1376/hlpu.git
    ```
 2. Navigate to the project folder:
    ```bash
-   cd event_management_system
+   cd hlpu
    ```
 3. Open the entry point file in your browser:
    `Main/Index.html`

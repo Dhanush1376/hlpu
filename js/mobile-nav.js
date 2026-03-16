@@ -31,7 +31,7 @@ window.MobileNav = {
         return `
         <div class="mob-header">
             <div class="mob-header-logo">
-                <img src="../Images/hlpu logo.png" alt="hLPU" />
+                <img src="../Images/hlpu-logo.png" alt="hLPU" />
             </div>
             <div class="mob-header-actions">
                 <a href="Student-Profile.html" class="mob-avatar" style="text-decoration: none;">${initials}</a>
@@ -91,7 +91,7 @@ window.MobileNav = {
             <div id="mob-sidenav-overlay" class="mob-sidenav-overlay"></div>
             <div id="mob-sidenav" class="mob-sidenav">
                 <div class="mob-sidenav-header">
-                    <img src="../Images/hlpu logo.png" alt="hLPU" class="mob-sidenav-logo" />
+                    <img src="../Images/hlpu-logo.png" alt="hLPU" class="mob-sidenav-logo" />
                     <button id="mob-sidenav-close" class="mob-sidenav-close"><i class="fas fa-times"></i></button>
                 </div>
                 

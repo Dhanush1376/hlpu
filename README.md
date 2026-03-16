@@ -56,7 +56,7 @@ hlpu/
    cd hlpu
    ```
 3. Open the entry point file in your browser:
-   `Main/Index.html`
+   `Main/index.html`
 
 ## Future Improvements
 

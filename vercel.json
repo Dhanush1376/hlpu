@@ -1,0 +1,12 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/Landing-Page.html", "destination": "/landing-page.html", "permanent": true },
+    { "source": "/Login.html", "destination": "/login.html", "permanent": true },
+    { "source": "/Index.html", "destination": "/index.html", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" }
+  ]
+}

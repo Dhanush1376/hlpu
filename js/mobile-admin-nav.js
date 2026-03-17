@@ -23,7 +23,7 @@
             return `
             <div class="mob-header">
                 <div class="mob-header-logo">
-                    <img src="../Images/hlpu-logo.png" alt="hLPU" />
+                    <img src="../assets/images/hlpu-logo.png" alt="hLPU" />
                 </div>
                 <div class="mob-header-actions">
                     <a href="Profile.html" class="mob-avatar" style="text-decoration: none; background: linear-gradient(135deg, #0A1A2F, #1c3a63);">${initials}</a>
@@ -82,7 +82,7 @@
                 <div id="mob-sidenav-overlay" class="mob-sidenav-overlay"></div>
                 <div id="mob-sidenav" class="mob-sidenav">
                     <div class="mob-sidenav-header">
-                        <img src="../Images/hlpu-logo.png" alt="hLPU" class="mob-sidenav-logo" />
+                        <img src="../assets/images/hlpu-logo.png" alt="hLPU" class="mob-sidenav-logo" />
                         <button id="mob-sidenav-close" class="mob-sidenav-close"><i class="fas fa-times"></i></button>
                     </div>
 
@@ -105,7 +105,7 @@
                         <a href="System-prefs.html" class="mob-sidenav-item"><i class="fas fa-cog"></i> System Prefs</a>
                         <a href="Audit-trails.html" class="mob-sidenav-item"><i class="fas fa-clipboard-list"></i> Audit Trails</a>
                         <div style="flex: 1; min-height: 40px;"></div>
-                        <a href="#" class="mob-sidenav-item logout-btn" style="color: #dc3545;" onclick="if(typeof window.handleLogout==='function'){window.handleLogout();}else{localStorage.clear();window.location.href='../Main/login.html';}"><i class="fas fa-sign-out-alt" style="color: #dc3545;"></i> Logout</a>
+                        <a href="#" class="mob-sidenav-item logout-btn" style="color: #dc3545;" onclick="if(typeof window.handleLogout==='function'){window.handleLogout();}else{localStorage.clear();window.location.href='../login.html';}"><i class="fas fa-sign-out-alt" style="color: #dc3545;"></i> Logout</a>
                     </div>
                 </div>
             `;

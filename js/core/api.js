@@ -46,7 +46,7 @@ async function apiFetch(url, options = {}) {
         localStorage.removeItem('token');
         localStorage.removeItem('role');
         localStorage.removeItem('userName');
-        window.location.replace('../Main/Login.html');
+        window.location.replace('../login.html');
         return;
     }
 

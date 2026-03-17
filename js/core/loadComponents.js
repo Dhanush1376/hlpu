@@ -135,7 +135,7 @@ window.addEventListener('storage', (e) => {
 function handleLogout() {
   localStorage.clear();
   console.log('[logout] Storage cleared — redirecting to login');
-  window.location.replace('../Main/login.html');
+  window.location.replace('../login.html');
 }
 
 /**
@@ -161,11 +161,11 @@ if (typeof window !== 'undefined') window.handleLogout = handleLogout;
     let navbarPath = null;
 
     if (pathname.includes('For-Student')) {
-      navbarPath = '/shared/navbar-student.html';
+      navbarPath = '../shared/navbar-student.html';
     } else if (pathname.includes('For-Alumini')) {
-      navbarPath = '/shared/navbar-alumni.html';
+      navbarPath = '../shared/navbar-alumni.html';
     } else if (pathname.includes('For-Admin')) {
-      navbarPath = '/shared/navbar-admin.html';
+      navbarPath = '../shared/navbar-admin.html';
     }
 
     if (!navbarPath) {

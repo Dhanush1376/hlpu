@@ -12,7 +12,7 @@ function initMobileLogin() {
 
     // 2. Dynamic Content Bindings (Premium Feel)
     const loginBranding = {
-        appLogo: "../Images/hlpu-logo.png",
+        appLogo: "assets/images/hlpu-logo.png",
         welcomeText: "Welcome back!",
         subtitle: "Sign in to continue your legacy journey."
     };

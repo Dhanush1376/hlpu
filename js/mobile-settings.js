@@ -489,7 +489,7 @@ window.MobileSettings = (function () {
                         window.handleLogout();
                     } else if (result.isConfirmed) {
                         localStorage.clear();
-                        window.location.href = '../Main/login.html';
+                        window.location.href = '../login.html';
                     }
                 });
             });

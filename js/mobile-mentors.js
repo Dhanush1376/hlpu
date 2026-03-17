@@ -105,7 +105,7 @@ window.MobileMentors = (function () {
     }
 
     function renderMentorCard(m, idx) {
-        const pPic = m.profilePic || m.profilePicture || '../Images/default-avatar.png';
+        const pPic = m.profilePic || m.profilePicture || '../assets/images/default-avatar.png';
         const initials = m.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
 
         const currentLoad = m.currentMentees || 0;
@@ -117,7 +117,7 @@ window.MobileMentors = (function () {
             <div class="mob-mentor-card">
                 <div class="mob-mentor-card-header">
                     ${pPic && !pPic.includes('default-avatar') ?
-                `<img src="${pPic}" class="mob-mentor-avatar" alt="${m.name}" onerror="this.src='../Images/default-avatar.png'"/>` :
+                `<img src="${pPic}" class="mob-mentor-avatar" alt="${m.name}" onerror="this.src='../assets/images/default-avatar.png'"/>` :
                 `<div class="mob-mentor-avatar">${initials}</div>`
             }
                     <div class="mob-mentor-info">

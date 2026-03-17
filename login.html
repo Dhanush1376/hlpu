@@ -1747,7 +1747,7 @@
             } catch (networkErr) {
                 // fetch() itself threw — true network failure (server down, CORS blocked, no internet)
                 console.error('[login] Network error — server may be offline:', networkErr);
-                showAlert('Cannot reach the server. Make sure the backend is running on port 5000.');
+                showAlert('Cannot reach the server. Please check your connection or server status.');
                 loginBtn.disabled = false;
                 loginBtnText.textContent = 'Sign in to hLPU';
                 loginSpinner.style.display = 'none';

@@ -5,9 +5,7 @@
 
 (function () {
     let socket;
-    const API_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || !window.location.hostname)
-        ? API_BASE
-        : window.location.origin;
+    const API_URL = (typeof API_BASE !== 'undefined') ? API_BASE : 'http://localhost:5000';
 
     // Initialize Notification System
     async function initNotifications() {

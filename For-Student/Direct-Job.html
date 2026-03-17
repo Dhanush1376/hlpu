@@ -1804,9 +1804,7 @@
 
             // Socket.IO Integration
             if (typeof io !== 'undefined') {
-                const socketUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || !window.location.hostname)
-                    ? API_BASE
-                    : window.location.origin;
+                const socketUrl = (typeof API_BASE !== 'undefined') ? API_BASE : 'http://localhost:5000';
                 const socket = io(socketUrl);
                 socket.on('job:new', (data) => {
                     console.log('[socket] New job posted:', data);

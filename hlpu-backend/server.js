@@ -88,6 +88,11 @@ app.use('/api/reports', require('./routes/reportRoutes'));
 app.use('/api/support', require('./routes/supportRoutes'));
 app.use('/api/activity', require('./routes/activityRoutes'));
 
+// Root route for status check
+app.get('/', (req, res) => {
+    res.send('hLPU Backend is running 🚀');
+});
+
 // Health check
 app.get('/api/health', (req, res) => {
     res.json({ status: 'OK' });

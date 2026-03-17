@@ -2,7 +2,7 @@
 // Automatically attaches JWT, handles 401 redirects, and parses JSON safely.
 
 // detect if we are running in production or local
-const PRODUCTION_BACKEND_URL = 'https://hlpu-backend.onrender.com'; // Replace with your actual deployed backend URL
+const PRODUCTION_BACKEND_URL = 'https://hlpu.onrender.com';
 const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
     ? 'http://localhost:5000'
     : PRODUCTION_BACKEND_URL;

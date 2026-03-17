@@ -60,7 +60,7 @@ window.MobileProfile = (function () {
         const d = profileData;
         const initial = getInitials(d.name);
         const picUrl = d.profilePicture
-            ? (d.profilePicture.startsWith('/') ? 'http://localhost:5000' + d.profilePicture : d.profilePicture)
+            ? (d.profilePicture.startsWith('/') ? API_BASE + d.profilePicture : d.profilePicture)
             : null;
         const badges = d.professionalBadges && d.professionalBadges.length
             ? d.professionalBadges

@@ -533,7 +533,7 @@
         async function fetchPendingVerifications() {
             const tbody = document.getElementById('pending-verifications-tbody');
             try {
-                const res = await fetch('http://localhost:5000/api/admin/pending-verifications', {
+                const res = await fetch(`${API_BASE}/api/admin/pending-verifications`, {
                     headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
                 });
                 const data = await res.json();
@@ -688,7 +688,7 @@
             }
 
             try {
-                const res = await fetch(`http://localhost:5000/api/admin/verify/${requestId}`, {
+                const res = await fetch(`${API_BASE}/api/admin/verify/${requestId}`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',

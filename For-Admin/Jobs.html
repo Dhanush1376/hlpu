@@ -1177,7 +1177,7 @@
                     || (typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null);
                 if (!token) return;
 
-                const socket = io('http://localhost:5000', { auth: { token } });
+                const socket = io(API_BASE, { auth: { token } });
 
                 socket.on('job:new', () => { fetchJobs(); fetchStats(); });
                 socket.on('job:updated', () => { fetchJobs(); });

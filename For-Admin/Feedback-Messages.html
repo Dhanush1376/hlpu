@@ -687,7 +687,7 @@
         let activeMessageId = null;
 
         // Socket.IO for real-time updates
-        const socket = io('http://localhost:5000');
+        const socket = io(API_BASE);
 
         socket.on('contact:new-message', (data) => {
             showToast(`New message from ${data.name}`, 'info');
@@ -706,7 +706,7 @@
 
         async function fetchStats() {
             try {
-                const res = await apiFetch('http://localhost:5000/api/contact/admin/stats');
+                const res = await apiFetch('/api/contact/admin/stats');
                 if (res.success) {
                     $('#statTotal').text(res.stats.total);
                     $('#statNew').text(res.stats.new);
@@ -730,7 +730,7 @@
             $('#emptyState').addClass('d-none');
 
             try {
-                const res = await apiFetch(`http://localhost:5000/api/contact/admin/list?page=${page}&status=${status}&role=${role}&priority=${priority}&search=${search}`);
+                const res = await apiFetch(`/api/contact/admin/list?page=${page}&status=${status}&role=${role}&priority=${priority}&search=${search}`);
 
                 $('#loadingState').addClass('d-none');
                 $('#messagesContainer').removeClass('opacity-50');
@@ -794,7 +794,7 @@
             $('#modalContent').addClass('d-none');
 
             try {
-                const res = await apiFetch(`http://localhost:5000/api/contact/admin/${id}`);
+                const res = await apiFetch(`/api/contact/admin/${id}`);
                 if (res.success) {
                     const msg = res.message;
                     $('#detailName').text(msg.name);
@@ -832,7 +832,7 @@
         async function updateMessageStatus() {
             const status = $('#detailStatusUpdate').val();
             try {
-                const res = await apiFetch(`http://localhost:5000/api/contact/admin/${activeMessageId}/status`, {
+                const res = await apiFetch(`/api/contact/admin/${activeMessageId}/status`, {
                     method: 'PATCH',
                     body: JSON.stringify({ status })
                 });
@@ -848,7 +848,7 @@
         }
 
         async function updateStatusLocally(id, status) {
-            await fetch(`http://localhost:5000/api/contact/admin/${id}/status`, {
+            await fetch(`${API_BASE}/api/contact/admin/${id}/status`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -865,7 +865,7 @@
             if (!reply) return showToast('Please enter a reply message', 'warning');
 
             try {
-                const res = await apiFetch(`http://localhost:5000/api/contact/admin/${activeMessageId}/reply`, {
+                const res = await apiFetch(`/api/contact/admin/${activeMessageId}/reply`, {
                     method: 'POST',
                     body: JSON.stringify({ reply })
                 });

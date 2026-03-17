@@ -1464,7 +1464,7 @@
                 picInput.addEventListener('input', function () {
                     const url = this.value.trim();
                     if (url) {
-                        const previewUrl = url.startsWith('/') ? 'http://localhost:5000' + url : url;
+                        const previewUrl = url.startsWith('/') ? API_BASE + url : url;
                         picPreview.innerHTML = `<img src="${previewUrl}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.parentElement.innerHTML='<i class=\'fas fa-image-slash fa-3x\' style=\'color: #ccc;\'></i>'">`;
                         if (fileInput) {
                             fileInput.value = ''; // Clear file if URL is provided
@@ -1557,7 +1557,7 @@
             const picContainer = document.querySelector('.profile-picture');
             if (picContainer) {
                 if (profileData.profilePicture) {
-                    const picUrl = profileData.profilePicture.startsWith('/') ? 'http://localhost:5000' + profileData.profilePicture : profileData.profilePicture;
+                    const picUrl = profileData.profilePicture.startsWith('/') ? API_BASE + profileData.profilePicture : profileData.profilePicture;
                     picContainer.innerHTML = `<img src="${picUrl}" alt="${profileData.name}">`;
                 } else {
                     picContainer.innerHTML = `<span>${(profileData.name || 'D').charAt(0).toUpperCase()}</span>`;
@@ -1890,7 +1890,7 @@
                     const formData = new FormData();
                     formData.append('profilePic', fileInput.files[0]);
 
-                    response = await fetch('http://localhost:5000/api/profile/upload-pic', {
+                    response = await fetch(`${API_BASE}/api/profile/upload-pic`, {
                         method: 'POST',
                         body: formData,
                         headers: {

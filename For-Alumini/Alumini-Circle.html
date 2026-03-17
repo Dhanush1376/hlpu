@@ -1020,7 +1020,7 @@
 
                 // Use the same API_BASE logic as api.js for consistency
                 const socketUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || !window.location.hostname)
-                    ? 'http://localhost:5000'
+                    ? API_BASE
                     : window.location.origin;
 
                 this.socket = window.socket || io(socketUrl, { auth: { token } });

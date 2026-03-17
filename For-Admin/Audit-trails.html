@@ -573,7 +573,7 @@
             const search = document.querySelector('.search-box input').value;
 
             try {
-                const res = await fetch(`http://localhost:5000/api/admin/audit/logs?page=${currentPage}&action=${action}&search=${search}`, {
+                const res = await fetch(`${API_BASE}/api/admin/audit/logs?page=${currentPage}&action=${action}&search=${search}`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
@@ -647,7 +647,7 @@
 
         async function fetchAuditStats() {
             try {
-                const res = await fetch('http://localhost:5000/api/admin/audit/stats', {
+                const res = await fetch(`${API_BASE}/api/admin/audit/stats`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
@@ -800,7 +800,7 @@
                 showConfirmButton: false,
                 didOpen: async () => {
                     try {
-                        const res = await fetch('http://localhost:5000/api/admin/audit/logs?limit=1000', {
+                        const res = await fetch(`${API_BASE}/api/admin/audit/logs?limit=1000`, {
                             headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
                         });
 

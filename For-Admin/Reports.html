@@ -700,7 +700,7 @@
         async function fetchStats() {
             try {
                 const token = localStorage.getItem('token');
-                const res = await fetch('http://localhost:5000/api/reports/stats', {
+                const res = await fetch(`${API_BASE}/api/reports/stats`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 const data = await res.json();

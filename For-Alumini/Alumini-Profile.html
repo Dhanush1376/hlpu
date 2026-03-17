@@ -2176,7 +2176,7 @@
                     const formData = new FormData();
                     formData.append('profilePicture', fileInput.files[0]);
 
-                    const uploadRes = await fetch('http://localhost:5000/api/profile/upload-pic', {
+                    const uploadRes = await fetch(`${API_BASE}/api/profile/upload-pic`, {
                         method: 'POST',
                         headers: {
                             'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -2197,7 +2197,7 @@
                 }
 
                 // Update Profile with new picture URL/Path
-                const updateRes = await fetch('http://localhost:5000/api/profile/me', {
+                const updateRes = await fetch(`${API_BASE}/api/profile/me`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',
@@ -2428,7 +2428,7 @@
                     }));
                 }
 
-                const response = await fetch('http://localhost:5000/api/profile/me', {
+                const response = await fetch(`${API_BASE}/api/profile/me`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',

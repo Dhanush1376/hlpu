@@ -1805,7 +1805,7 @@
             // Socket.IO Integration
             if (typeof io !== 'undefined') {
                 const socketUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || !window.location.hostname)
-                    ? 'http://localhost:5000'
+                    ? API_BASE
                     : window.location.origin;
                 const socket = io(socketUrl);
                 socket.on('job:new', (data) => {

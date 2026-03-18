@@ -26,10 +26,7 @@ const userSchema = new mongoose.Schema(
             enum: ['student', 'alumni', 'admin', 'recruiter'],
             default: 'student'
         },
-        department: {
-            type: String,
-            trim: true
-        },
+
         phoneNumber: {
             type: String,
             trim: true

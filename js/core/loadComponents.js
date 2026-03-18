@@ -34,7 +34,7 @@ async function loadComponent(id, path) {
  * Loads Socket.io and our notification client dynamically.
  */
 function loadNotificationSystem() {
-  if (window.location.pathname.includes('Login.html')) return;
+  if (window.location.pathname.toLowerCase().includes('login.html')) return;
 
   // Load socket.io-client via CDN
   const socketScript = document.createElement('script');
@@ -42,7 +42,7 @@ function loadNotificationSystem() {
   socketScript.onload = () => {
     // Once socket.io is loaded, load our custom client
     const clientScript = document.createElement('script');
-    clientScript.src = '../js/core/socketClient.js';
+    clientScript.src = window.location.origin + '/js/core/socketClient.js';
     document.head.appendChild(clientScript);
   };
   document.head.appendChild(socketScript);

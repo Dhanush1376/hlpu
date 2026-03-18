@@ -47,7 +47,8 @@ async function apiFetch(url, options = {}) {
         localStorage.removeItem('token');
         localStorage.removeItem('role');
         localStorage.removeItem('userName');
-        window.location.replace('../login.html');
+        const isDeep = window.location.pathname.toLowerCase().includes('/for-');
+        window.location.replace(isDeep ? '../login.html' : './login.html');
         return;
     }
 

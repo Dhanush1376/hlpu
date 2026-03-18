@@ -20,7 +20,8 @@
     var role = localStorage.getItem('role');
 
     // Build login redirect path relative to the current page
-    var loginPath = '../login.html';
+    var isDeep = pathname.indexOf('/for-') !== -1;
+    var loginPath = isDeep ? '../login.html' : './login.html';
 
     // No token → redirect to login
     if (!token) {

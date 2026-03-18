@@ -20,3 +20,5 @@ desktop.ini
 # Backend specific
 hlpu-backend/node_modules/
 hlpu-backend/.env
+.env
+

@@ -20,7 +20,7 @@ const protect = async (req, res, next) => {
 
         // Fetch real-time user status from DB
         const User = require('../models/User');
-        const user = await User.findById(decoded.id).select('+password'); // select anything useful
+        const user = await User.findById(decoded.id);
 
         if (!user) {
             return res.status(401).json({ message: 'User no longer exists' });

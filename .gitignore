@@ -17,8 +17,22 @@ desktop.ini
 /tmp/
 *.log
 
+# Environment variables (NEVER commit secrets)
+.env
+.env.local
+.env.production
+.env.staging
+hlpu-backend/.env
+hlpu-backend/.env.*
+!hlpu-backend/.env.example
+
 # Backend specific
 hlpu-backend/node_modules/
-hlpu-backend/.env
-.env
+hlpu-backend/uploads/*
+!hlpu-backend/uploads/.gitkeep
+hlpu-backend/error.txt
+
+# Build artifacts
+dist/
+build/
 

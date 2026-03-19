@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 const http = require('http');
 const { initSocket } = require('./utils/socket');
+const mongoose = require('mongoose');
 
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
@@ -21,32 +22,36 @@ const server = http.createServer(app);
 // Initialize Socket.io
 initSocket(server);
 
+// Trust proxy (required for rate limiting behind Render/Vercel reverse proxies)
+app.set('trust proxy', 1);
+
 // Security Middleware
 app.use(helmet());
 app.use(cookieParser());
+
+const allowedOrigins = [
+    process.env.FRONTEND_URL,
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+    'http://localhost:5500',
+    'http://127.0.0.1:5500',
+    'http://localhost:5501',
+    'http://127.0.0.1:5501'
+].filter(Boolean);
+
 app.use(cors({
     origin: function (origin, callback) {
-        // Allow requests with no origin (like mobile apps or curl)
+        // Allow requests with no origin (mobile apps, curl, health checks)
         if (!origin) return callback(null, true);
 
-        const frontendUrl = process.env.FRONTEND_URL;
-        const allowedOrigins = [
-            frontendUrl,
-            'http://localhost:3000',
-            'http://127.0.0.1:3000',
-            'http://localhost:5500', // Common Live Server port
-            'http://127.0.0.1:5500'
-        ].filter(Boolean);
-
-        if (allowedOrigins.indexOf(origin) !== -1 || origin === 'null') {
+        if (allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else if (process.env.NODE_ENV !== 'production') {
+            // Allow all origins in development
             callback(null, true);
         } else {
-            // In production, we should be strict. In dev, we can log and allow.
-            if (process.env.NODE_ENV === 'production') {
-                callback(new Error('Not allowed by CORS'));
-            } else {
-                callback(null, true);
-            }
+            console.warn(`[cors] Blocked origin: ${origin}`);
+            callback(new Error('Not allowed by CORS'));
         }
     },
     credentials: true
@@ -54,15 +59,18 @@ app.use(cors({
 
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 1000, // Increased limit for dashboard usage
+    max: 1000,
     message: {
         success: false,
         message: 'Too many requests from this IP, please try again after 15 minutes'
-    }
+    },
+    standardHeaders: true,
+    legacyHeaders: false
 });
 app.use('/api/', limiter);
 
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use('/uploads', express.static('uploads'));
 
 // Routes
@@ -90,16 +98,94 @@ app.use('/api/activity', require('./routes/activityRoutes'));
 
 // Root route for status check
 app.get('/', (req, res) => {
-    res.send('hLPU Backend is running 🚀');
+    res.json({
+        name: 'hLPU Backend API',
+        version: '1.0.0',
+        status: 'running',
+        timestamp: new Date().toISOString()
+    });
 });
 
-// Health check
+// Health check (reports DB status)
 app.get('/api/health', (req, res) => {
-    res.json({ status: 'OK' });
+    const dbState = mongoose.connection.readyState;
+    const dbStatus = ['disconnected', 'connected', 'connecting', 'disconnecting'][dbState] || 'unknown';
+
+    res.status(dbState === 1 ? 200 : 503).json({
+        status: dbState === 1 ? 'OK' : 'DEGRADED',
+        database: dbStatus,
+        uptime: process.uptime(),
+        timestamp: new Date().toISOString()
+    });
+});
+
+// 404 handler
+app.use((req, res) => {
+    res.status(404).json({ message: `Route ${req.originalUrl} not found` });
+});
+
+// Centralized error handler
+app.use((err, req, res, next) => {
+    console.error(`[error] ${err.stack || err.message}`);
+
+    // Mongoose validation error
+    if (err.name === 'ValidationError') {
+        const messages = Object.values(err.errors).map(e => e.message);
+        return res.status(400).json({ message: 'Validation error', errors: messages });
+    }
+
+    // Mongoose duplicate key error
+    if (err.code === 11000) {
+        const field = Object.keys(err.keyValue)[0];
+        return res.status(409).json({ message: `Duplicate value for: ${field}` });
+    }
+
+    // JWT errors
+    if (err.name === 'JsonWebTokenError') {
+        return res.status(401).json({ message: 'Invalid token' });
+    }
+    if (err.name === 'TokenExpiredError') {
+        return res.status(401).json({ message: 'Token expired' });
+    }
+
+    // CORS error
+    if (err.message === 'Not allowed by CORS') {
+        return res.status(403).json({ message: 'CORS: Origin not allowed' });
+    }
+
+    res.status(err.status || 500).json({
+        message: process.env.NODE_ENV === 'production'
+            ? 'Internal server error'
+            : err.message
+    });
 });
 
 // Start server
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
-    console.log(`[server] hLPU Backend running on port ${PORT}`);
+    console.log(`[server] hLPU Backend running on port ${PORT} (${process.env.NODE_ENV || 'development'})`);
 });
+
+// Graceful shutdown
+const shutdown = async (signal) => {
+    console.log(`\n[server] ${signal} received. Shutting down gracefully...`);
+
+    server.close(async () => {
+        try {
+            await mongoose.connection.close();
+            console.log('[db] MongoDB connection closed.');
+        } catch (err) {
+            console.error('[db] Error closing MongoDB connection:', err.message);
+        }
+        process.exit(0);
+    });
+
+    // Force exit after 10s if graceful shutdown fails
+    setTimeout(() => {
+        console.error('[server] Forced shutdown after timeout.');
+        process.exit(1);
+    }, 10000);
+};
+
+process.on('SIGTERM', () => shutdown('SIGTERM'));
+process.on('SIGINT', () => shutdown('SIGINT'));

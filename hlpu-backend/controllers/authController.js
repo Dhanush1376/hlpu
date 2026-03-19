@@ -179,8 +179,8 @@ const login = async (req, res) => {
         // Track Event: user_logged_in
         trackEvent('user_logged_in', req, { userId: user._id, role: user.role });
     } catch (err) {
-        console.error('[auth] login error:', err.message);
-        res.status(500).json({ message: 'Server error' });
+        console.error('[auth] login error:', err.message, err.stack);
+        res.status(500).json({ message: 'Server error: ' + err.message });
     }
 };
 

@@ -36,8 +36,10 @@ const register = async (req, res) => {
             return res.status(400).json({ message: 'Name, email, password, stream, and program are required' });
         }
 
+        const normalizedEmail = String(email).toLowerCase().trim();
+
         // 2. Ensure email is unique
-        const exists = await User.findOne({ email }).lean();
+        const exists = await User.findOne({ email: normalizedEmail }).lean();
         if (exists) {
             return res.status(400).json({ message: 'Email already registered' });
         }
@@ -55,7 +57,7 @@ const register = async (req, res) => {
         // 5. Create user
         const user = await User.create({
             name,
-            email,
+            email: normalizedEmail,
             password: hashedPassword,
             role: role || 'student',
             department, // mapped to program
@@ -119,25 +121,44 @@ const login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
+        // 1. Validate request body
         if (!email || !password) {
+            console.warn('[auth] Login failed: Missing email or password in request body');
             return res.status(400).json({ message: 'Email and password are required' });
         }
 
-        // 1. Find user and include password field
-        const user = await User.findOne({ email }).select('+password').lean();
+        // Always normalize email (lowercase and trim) for consistent DB lookup
+        const normalizedEmail = String(email).toLowerCase().trim();
+        console.log(`[auth] Attempting login for: ${normalizedEmail}`);
+
+        // 2. Find user. MUST include select('+password') because schema sets it to select: false
+        const user = await User.findOne({ email: normalizedEmail }).select('+password').lean();
+        
+        // 3. Handle user not found (Prevents 500 when accessing user.password)
         if (!user) {
+            console.warn(`[auth] Login failed: User not found for email ${normalizedEmail}`);
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        // 2. Verify password
+        // 4. Handle missing password field in database (Old records or OAuth users)
+        // Prevents bcrypt.compare from throwing 'data and hash arguments required'
+        if (!user.password) {
+            console.error(`[auth] Login Error: Password missing in DB for user ${user._id}`);
+            return res.status(401).json({ message: 'Invalid credentials or old account. Please reset your password.' });
+        }
+
+        // 5. Verify password safely
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
+            console.warn(`[auth] Login failed: Password mismatch for ${normalizedEmail} (user ID ${user._id})`);
             return res.status(401).json({ message: 'Invalid credentials' });
         }
+
+        console.log(`[auth] Login successful for user ${user._id}`);
 
         // Admin OTP feature removed per user request
 
-        // 4. Return success for non-admin users
+        // 6. Return success for non-admin users
         const token = generateToken(user._id, user.role);
         setTokenCookie(res, token);
 
